@@ -40,22 +40,27 @@ function SignUp() {
     }
 
     try {
-      const res = await fetch('https://d5rqmdfmtf.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  const res = await fetch('https://d5rqmdfmtf.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+  });
 
-      const data = await res.json();
+  const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong');
-      }
+  if (!res.ok) {
+    throw new Error(data.error || 'Something went wrong');
+  }
 
-      alert('User registered successfully!');
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
-    }
+  alert('User registered successfully!');
+} catch (err: unknown) {
+  if (err instanceof Error) {
+    alert(`Error: ${err.message}`);
+  } else {
+    alert('An unexpected error occurred');
+  }
+}
+
   };
 
   return (
