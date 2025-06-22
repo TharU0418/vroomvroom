@@ -1,6 +1,6 @@
 'use client';
 
-import { error } from 'console';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -189,7 +189,7 @@ function SignUp() {
           <div className="md:w-1/2">
             <div className="glass-container bg-white bg-opacity-15 rounded-xl p-2 h-full">
               <div className="relative h-full rounded-lg overflow-hidden">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                   alt="Luxury Car"
                   className="w-full h-full object-cover"
