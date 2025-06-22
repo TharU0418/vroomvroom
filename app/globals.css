@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* @import "tailwindcss"; */
+
+@theme inline {
+  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+}
+
+:root {
+  --background: #6f0000;
+  --foreground: #171717;
+}
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  /* color: var(--foreground);*/
+  background: var(--background); 
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: "Lato", sans-serif;
+}
+
+/* body {
+  @apply bg-gradient-to-r from-[#ffbebe] to-[#FD1D1D] p-4 font-sans;
+} */
+
