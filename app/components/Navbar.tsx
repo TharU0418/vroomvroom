@@ -48,11 +48,13 @@ const { user, logout } = useAuth();
                 VroomVroom
                 
               </span> */}
-               <img 
-                src="logo.png" 
-                alt="Luxury Car"
-                className="w-auto h-16 object-contain"
-             />
+              <Image 
+  src="/logo.png" 
+  alt="Luxury Car"
+  width={150} // replace with your actual image width
+  height={64} // replace with your actual image height
+  className="object-contain"
+/>
             </Link>
           </div>
 
