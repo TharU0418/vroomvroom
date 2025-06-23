@@ -89,12 +89,12 @@ export default function CarDetails() {
   //     }
   //   }, [user]);
     
-   const handleSubmit = (url) => {
-      if (url) {
-        window.open(url, '_blank'); // Open the link in a new tab/window
-      }
-     // handleSubmit2();
-    };
+  const handleSubmit = (url: string) => {
+  if (url) {
+    window.open(url, '_blank'); // Open the link in a new tab/window
+  }
+ // handleSubmit2();
+};
 
 
 
