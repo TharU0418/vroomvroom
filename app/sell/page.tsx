@@ -65,7 +65,7 @@ export default function Sell() {
     });
 
     try {
-      const response = await fetch('/api/sell', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
         method: 'POST',
         body: formDataToSend,
       });
