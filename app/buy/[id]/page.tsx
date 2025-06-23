@@ -23,7 +23,7 @@ interface CarCard {
   city: string;
   features?: string[]; // Added to match your JSX
   type?: string; // Added to match your JSX
-  report:String;
+  report:string;
 }
 
 
@@ -42,22 +42,22 @@ export default function CarDetails() {
   const [isLoading, setIsLoading] = useState(true);
 
   //const [user, setUser] = useState<User | null>(null);
-  const [showNotification, setShowNotification] = useState(false);
-const [notificationMessage, setNotificationMessage] = useState('');
+//   const [showNotification, setShowNotification] = useState(false);
+// const [notificationMessage, setNotificationMessage] = useState('');
 
 
-  const Notification = () => (
-    <div className="fixed bottom-4 right-4 z-50">
-      <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out animate-fadeInUp">
-        <div className="flex items-center">
-          <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          <span className="font-semibold">{notificationMessage}</span>
-        </div>
-      </div>
-    </div>
-  );
+//   const Notification = () => (
+//     <div className="fixed bottom-4 right-4 z-50">
+//       <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out animate-fadeInUp">
+//         <div className="flex items-center">
+//           <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+//           </svg>
+//           <span className="font-semibold">{notificationMessage}</span>
+//         </div>
+//       </div>
+//     </div>
+//   );
 
      const { user } = useAuth();
   
