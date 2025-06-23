@@ -5,6 +5,17 @@ import { useEffect, useState } from 'react';
 import { locations } from '@/public/data/location';
 import Image from 'next/image';
 
+// export interface CarCard {
+//   _id: string;
+//   brand: string;
+//   model: string;
+//   price: number;
+//   year: number;
+//   images: string[];
+//   district: string;
+//   city: string;
+// }
+
 export interface CarCard {
   _id: string;
   brand: string;
@@ -12,9 +23,21 @@ export interface CarCard {
   price: number;
   year: number;
   images: string[];
+  location?: string;
+  condition: string;
+  description: string;
+  engine_capacity: number;
+  fueltype: string;
+  transmission: string;
+  mobileNum: string;
   district: string;
   city: string;
+  features?: string[];
+  type?: string;
+  report: string;
+  status?: string; // ✅ Add this line
 }
+
 interface Car {
   brand: string;
   type: string;
@@ -243,9 +266,13 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                 <>
                   {/* {(hasSearched && searchResults.length > 0 ? searchResults : cars || filteredCars.length > 0)
                   .filter(searchResults => searchResults?.status === 'accept' || '') */}
-                 {  filteredCars
+                 {/* {  filteredCars
                  .filter(filteredCars => filteredCars?.status === 'accept' || '')
-                  .map((car) => (
+                  .map((car) => ( */}
+
+                    {filteredCars
+  .filter(car => car.status === 'accept')
+  .map((car) => (
                     <div 
                       key={car._id} 
                       className="glass-container bg-white bg-opacity-15 rounded-xl p-6 transition-all duration-500 ease-in-out transform hover:scale-[1.02] hover:bg-opacity-20"
