@@ -13,7 +13,7 @@ export default function Sell() {
     district:'', city:'', condition: '', brand: '', year: '',
     model: '', mileage: '', fueltype: '', engine_capacity: '',
     transmission: '', body_type: '', price: '', description: '',
-    mobileNum:'', negotiable:false, userName:''
+    mobileNum:'12121', negotiable:false, userName:'dsdsd'
   });
 
   const [files, setFiles] = useState<File[]>([]);
@@ -46,6 +46,8 @@ export default function Sell() {
       'body_type', 'price', 'description', 'mobileNum', 'userName'
     ];
 
+    console.log('formData', formData)
+
     if (
       requiredStringFields.some((field) => !formData[field].toString().trim()) ||
       files.length === 0
@@ -66,7 +68,7 @@ export default function Sell() {
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
-        method: 'POST',
+        method: 'POST',       
         body: formDataToSend,
       });
 

@@ -73,7 +73,11 @@ export default function CarListing() {
         setIsLoading(true);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
         const data = await res.json();
-        setCars(data?.data);
+          console.log('data', data)
+
+        setCars(data);
+          console.log('cars', cars)
+
       } catch (err) {
         console.error('Failed to fetch cars:', err);
       } finally {
@@ -114,6 +118,8 @@ export default function CarListing() {
   const districts = Object.keys(locations); 
 const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
+
+  console.log('cars', cars)
 
   // Combine search query with filters
   const filteredCars = cars.filter(
