@@ -26,6 +26,8 @@ interface CarCard {
   report:string;
 }
 
+// Somewhere in your store or types file
+
 
 export default function CarDetails() {
 
@@ -80,12 +82,12 @@ const handleSubmit2 = async () => {
     }
   }
 
-  useEffect(() => {
-    if (user?.mobileNumber) {
-      //setFormData((prev) => ({ ...prev, mobileNum: user.mobileNumber, userName:user.firstName+user.lastName }));
-      setFormData((prev) => ({ ...prev, mobileNum: user.mobileNumber, email:user.email }));
-      }
-    }, [user]);
+  // useEffect(() => {
+  //   if (user?.mobileNumber) {
+  //     //setFormData((prev) => ({ ...prev, mobileNum: user.mobileNumber, userName:user.firstName+user.lastName }));
+  //     setFormData((prev) => ({ ...prev, mobileNum: user.mobileNumber, email:user.email }));
+  //     }
+  //   }, [user]);
     
    const handleSubmit = (url) => {
       if (url) {
