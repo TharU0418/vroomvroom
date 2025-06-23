@@ -7,33 +7,21 @@ import { ToggleSwitch } from '../components/ToggleSwitch ';
 import { useRouter } from 'next/navigation';
 
 export default function Sell() {
+  const router = useRouter(); // ✅ Move here
+
   const [formData, setFormData] = useState({
-    district:'',
-    city:'',
-    condition: '',
-    brand: '',
-    year: '',
-    model: '',
-    mileage: '', // Fixed typo from milege
-    fueltype: '',
-    engine_capacity: '',
-    transmission: '',
-    body_type: '',
-    price: '',
-    description: '',
-    mobileNum:'',
-    negotiable:false,
-    userName:''
+    district:'', city:'', condition: '', brand: '', year: '',
+    model: '', mileage: '', fueltype: '', engine_capacity: '',
+    transmission: '', body_type: '', price: '', description: '',
+    mobileNum:'', negotiable:false, userName:''
   });
 
   const [files, setFiles] = useState<File[]>([]);
-
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
-      
       <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out animate-fadeInUp">
         <div className="flex items-center">
           <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,39 +32,34 @@ export default function Sell() {
       </div>
     </div>
   );
+
   const handleFileUpload = (files: File[]) => {
     setFiles(files);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const requiredStringFields: (keyof typeof formData)[] = [
-  'district', 'city', 'condition', 'brand', 'year', 'model',
-  'mileage', 'fueltype', 'engine_capacity', 'transmission',
-  'body_type', 'price', 'description', 'mobileNum', 'userName'
-];
+      'district', 'city', 'condition', 'brand', 'year', 'model',
+      'mileage', 'fueltype', 'engine_capacity', 'transmission',
+      'body_type', 'price', 'description', 'mobileNum', 'userName'
+    ];
 
-  const router = useRouter();
-
-if (
-  requiredStringFields.some((field) => !formData[field].toString().trim()) ||
-  files.length === 0
-) {
-  alert('Please fill all required fields and upload at least one image');
-  return;
-}
-
+    if (
+      requiredStringFields.some((field) => !formData[field].toString().trim()) ||
+      files.length === 0
+    ) {
+      alert('Please fill all required fields and upload at least one image');
+      return;
+    }
 
     const formDataToSend = new FormData();
-    
-    // Append all form fields
-    Object.entries(formData).forEach(([key, value]) => {
-  if (key === 'milege') key = 'mileage'; // Fix typo
-  formDataToSend.append(key, String(value)); // Ensure value is string
-});
 
-    // Append all files
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(key, String(value));
+    });
+
     files.forEach((file) => {
       formDataToSend.append('images', file);
     });
@@ -86,28 +69,18 @@ if (
         method: 'POST',
         body: formDataToSend,
       });
-      console.log('formData',formData)
-      
-      if (!response.ok) throw new Error('Submission failed');
-      
-      const result = await response.json();
-      console.log('Success 1:', result);
-            console.log('11111111111')
 
-      alert('Car listed successfully!');
+      if (!response.ok) throw new Error('Submission failed');
+
+      const result = await response.json();
       setNotificationMessage('Car listed successfully!');
-      console.log('11111111111')
       setShowNotification(true);
-      
       setTimeout(() => setShowNotification(false), 3000);
-      router.push('/profile'); // Now works
+      router.push('/profile');
     } catch (error) {
       console.error('Error:', error);
-      alert('Error submitting form');
       setNotificationMessage('Error submitting form');
       setShowNotification(true);
-      
-      // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 3000);
     }
   };
