@@ -4,6 +4,7 @@ import { FileUpload } from '../components/ui/file-upload';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { ToggleSwitch } from '../components/ToggleSwitch ';
+import { useRouter } from 'next/navigation';
 
 export default function Sell() {
   const [formData, setFormData] = useState({
@@ -56,6 +57,7 @@ export default function Sell() {
   'body_type', 'price', 'description', 'mobileNum', 'userName'
 ];
 
+  const router = useRouter();
 
 if (
   requiredStringFields.some((field) => !formData[field].toString().trim()) ||
@@ -98,7 +100,7 @@ if (
       setShowNotification(true);
       
       setTimeout(() => setShowNotification(false), 3000);
-      router.push('/profile');
+      router.push('/profile'); // Now works
     } catch (error) {
       console.error('Error:', error);
       alert('Error submitting form');
