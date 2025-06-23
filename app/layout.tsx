@@ -1,4 +1,5 @@
 // app/layout.tsx (Server Component)
+import Navbar from './components/Navbar';
 import './globals.css';
 
 import { Geist } from 'next/font/google';
@@ -17,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={geistSans.variable}>
-        
+        <Navbar/>
 
           {children}
           
