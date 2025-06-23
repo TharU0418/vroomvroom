@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { error } from 'console';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -40,27 +40,22 @@ function SignUp() {
     }
 
     try {
-  const res = await fetch('https://d5rqmdfmtf.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData),
-  });
+      const res = await fetch('https://d5rqmdfmtf.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-  const data = await res.json();
+      const data = await res.json();
 
-  if (!res.ok) {
-    throw new Error(data.error || 'Something went wrong');
-  }
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
 
-  alert('User registered successfully!');
-} catch (err: unknown) {
-  if (err instanceof Error) {
-    alert(`Error: ${err.message}`);
-  } else {
-    alert('An unexpected error occurred');
-  }
-}
-
+      alert('User registered successfully!');
+    } catch (error: any) {
+      alert(`Error: ${error.message}`);
+    }
   };
 
   return (
@@ -194,7 +189,7 @@ function SignUp() {
           <div className="md:w-1/2">
             <div className="glass-container bg-white bg-opacity-15 rounded-xl p-2 h-full">
               <div className="relative h-full rounded-lg overflow-hidden">
-                <Image 
+                <img 
                   src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                   alt="Luxury Car"
                   className="w-full h-full object-cover"

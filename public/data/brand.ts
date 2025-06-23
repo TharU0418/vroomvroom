@@ -1,0 +1,25 @@
+// data/brand.ts
+export const brand = [
+    "Audi",
+    "BMW",
+    "Bugatti",
+    "BYD",
+    "Ferrari",
+    "Ford",
+    "Honda",
+    "Hyundai",
+    "Jaguar",
+    "Kia",
+    "Lamborghini",
+    "Land-Rover",
+    "Mazda",
+    "McLaren",
+    "Mercedes-Benz",
+    "Nissan",
+    "Porsche",
+    "Rivian",
+    "Tesla",
+    "Toyota",
+    "Volkswagen",
+    "Volvo"
+  ]
