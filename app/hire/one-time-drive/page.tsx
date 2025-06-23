@@ -88,9 +88,9 @@ body: JSON.stringify({ ...formData, type: 'one-time' }),
 
         <p>
          With our One-Time Booking service, you can conveniently hire a skilled driver on an hourly basis for any day-to-day need. 
-         Whether you're heading to a meeting, running errands, attending an event, or simply prefer not to drive for a few hours, 
+         Whether you&rsquo;re heading to a meeting, running errands, attending an event, or simply prefer not to drive for a few hours, 
          this flexible option ensures you have a reliable driver exactly when you need one—without any long-term commitment. 
-         Just choose the date, set your preferred hours, and we’ll handle the rest.
+         Just choose the date, set your preferred hours, and we&rsquo;ll handle the rest.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
