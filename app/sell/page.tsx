@@ -72,7 +72,7 @@ export default function Sell() {
 
       if (!response.ok) throw new Error('Submission failed');
 
-      const result = await response.json();
+      //const result = await response.json();
       setNotificationMessage('Car listed successfully!');
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
