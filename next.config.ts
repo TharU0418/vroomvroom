@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['avatar.iran.liara.run'],
+    domains: ['images.unsplash.com'],
   },
   experimental: {
     serverActions: true,
@@ -10,3 +10,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+//avatar.iran.liara.run', 
