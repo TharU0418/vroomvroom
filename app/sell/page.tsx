@@ -70,10 +70,10 @@ if (
     
     // Append all form fields
     Object.entries(formData).forEach(([key, value]) => {
-        if (key === 'milege') key = 'mileage'; // Fix typo
-  formDataToSend.append(key, value);
+  if (key === 'milege') key = 'mileage'; // Fix typo
+  formDataToSend.append(key, String(value)); // Ensure value is string
 });
-    
+
     // Append all files
     files.forEach((file) => {
       formDataToSend.append('images', file);
