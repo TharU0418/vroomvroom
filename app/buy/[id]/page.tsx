@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/store/useAuth';
+import Image from 'next/image';
 
 interface CarCard {
   _id: string;
@@ -25,13 +26,6 @@ interface CarCard {
   report:String;
 }
 
-interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobileNumber: string;
-  location: string;
-}
 
 export default function CarDetails() {
 
@@ -48,7 +42,6 @@ export default function CarDetails() {
   const [isLoading, setIsLoading] = useState(true);
 
   //const [user, setUser] = useState<User | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
 
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
@@ -281,7 +274,7 @@ const handleSubmit2 = async () => {
           <div className="relative h-full rounded-xl overflow-hidden">
             {car.images.map((image: string, index: number) => (
               <div key={index} className="relative mb-4">
-                <img
+                <Image
                   src={image}
                   alt={`${car.brand} ${car.model} image ${index + 1}`}
                   className="w-full h-64 object-cover rounded-lg"
