@@ -31,12 +31,12 @@ interface CarCard {
 
 export default function CarDetails() {
 
-  const [formData, setFormData] = useState({
-      carId: '',
-      description: '',
-      mobileNum:'',
-      email:''
-    });
+  // const [formData, setFormData] = useState({
+  //     carId: '',
+  //     description: '',
+  //     mobileNum:'',
+  //     email:''
+  //   });
 
   const params = useParams();
   const id = params?.id as string;
@@ -63,24 +63,24 @@ export default function CarDetails() {
 
      const { user } = useAuth();
   
-const handleSubmit2 = async () => {
-    //e.preventDefault();
-    formData.carId = id
-    try {
-      const res = await fetch('/api/buy-requests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });      
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to submit request');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error submitting form');
-    }
-  }
+// const handleSubmit2 = async () => {
+//     //e.preventDefault();
+//     formData.carId = id
+//     try {
+//       const res = await fetch('/api/buy-requests', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(formData),
+//       });      
+//       if (!res.ok) {
+//         const data = await res.json();
+//         throw new Error(data.error || 'Failed to submit request');
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//       alert('Error submitting form');
+//     }
+//   }
 
   // useEffect(() => {
   //   if (user?.mobileNumber) {
@@ -93,7 +93,7 @@ const handleSubmit2 = async () => {
       if (url) {
         window.open(url, '_blank'); // Open the link in a new tab/window
       }
-      handleSubmit2();
+     // handleSubmit2();
     };
 
 
