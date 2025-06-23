@@ -42,9 +42,8 @@ export default function CarDetails() {
   const [isLoading, setIsLoading] = useState(true);
 
   //const [user, setUser] = useState<User | null>(null);
-
-  const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
+const [showNotification, setShowNotification] = useState(false);
+const [notificationMessage, setNotificationMessage] = useState('');
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
@@ -94,22 +93,7 @@ const handleSubmit2 = async () => {
       handleSubmit2();
     };
 
-  // useEffect(() => {
-  //  async function fetchUser() {
-  //     try {
-  //       const res = await fetch('/api/current-user', {
-  //         credentials: 'include',
-  //       });
-  //       console.log("User fetch response status:", res.status);
-  //       if (!res.ok) throw new Error('User fetch failed');
-  //       const userData = await res.json();
-  //       setUser(userData);
-  //     } catch (error) {
-  //       console.error('Error fetching user:', error);
-  //     }
-  //   }
-  //   fetchUser();
-  // }, []);
+
 
   useEffect(() => {
     if (!id) return;
@@ -131,51 +115,6 @@ const handleSubmit2 = async () => {
 
   console.log('user', user)
 
-  // useEffect(() => {
-  // if (user?.mobileNumber) {
-  //   //setFormData((prev) => ({ ...prev, mobileNum: user.mobileNumber, userName:user.firstName+user.lastName }));
-  //   setFormData((prev) => ({ ...prev, mobileNum: user.mobileNumber, email:user.email }));
-  //   }
-  // }, [user]);
-  
-//  const handleSubmit = (url) => {
-//     if (url) {
-//       window.open(url, '_blank'); // Open the link in a new tab/window
-//     }
-//     handleSubmit2();
-//   };
-
-  // const handleSubmit2 = async () => {
-  //   //e.preventDefault();
-  //   formData.carId = id
-  //   try {
-  //     const res = await fetch('/api/buy-requests', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(formData),
-  //     });      
-  //     if (!res.ok) {
-  //       const data = await res.json();
-  //       throw new Error(data.error || 'Failed to submit request');
-  //     }
-  //     alert('Car listed successfully!');
-  //     // Show success notification
-  //     setNotificationMessage('Request submitted successfully!');
-  //     setShowNotification(true);
-      
-  //     setTimeout(() => setShowNotification(false), 3000);
-
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     alert('Error submitting form');
-  //     // Show error notification
-  //     setNotificationMessage('Error submitting form');
-  //     setShowNotification(true);
-      
-  //     // Hide notification after 3 seconds
-  //     setTimeout(() => setShowNotification(false), 3000);
-  //   }
-  // }
 
   if (isLoading) {
     return (

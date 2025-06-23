@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { locations } from '@/public/data/location';
+import Image from 'next/image';
 
 export interface CarCard {
   _id: string;
@@ -251,7 +252,7 @@ export default function CarListing() {
                     >
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="md:w-1/3 relative">
-                          <img
+                          <Image
                             src={car.images[0]}
                             alt={`${car.brand} ${car.model}`}
                             className="w-full h-48 object-cover rounded-lg"
