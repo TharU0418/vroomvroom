@@ -1,12 +1,12 @@
 'use client';
 
+import Image from 'next/image';
 import { useAuth } from '../../../store/useAuth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 function SignIn() {
-const JWT_SECRET = process.env.JWT_SECRET || "yoursecretkey";
 
 
   const [formData, setFormData] = useState({    
@@ -14,34 +14,37 @@ const JWT_SECRET = process.env.JWT_SECRET || "yoursecretkey";
     password: '',
   });
     
+  const [showNotification, setShowNotification] = useState(false);
+const [notificationMessage, setNotificationMessage] = useState('');
+
   
  const router = useRouter();
   const { setUser } = useAuth();
-  const [error, setError] = useState('');
+  //const [error, setError] = useState('');
 
  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    try {
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      });
+  try {
+  const res = await fetch('/api/auth/signin', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+    credentials: 'include',
+  });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Login failed');
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Login failed');
 
-      setUser(data.user); // ✅ Store user in Zustand
-      router.push('/');
-    } catch (err: any) {
-      setError(err.message);
-    }
+  setUser(data.user);
+  router.push('/');
+} catch (err) {
+  const message = err instanceof Error ? err.message : 'Unknown error';
+  setNotificationMessage(message);
+  setShowNotification(true);
+  setTimeout(() => setShowNotification(false), 5000);
+}
   };
-const [showNotification, setShowNotification] = useState(false);
-    const [notificationMessage, setNotificationMessage] = useState('');
-  
+
 
     const Notification = () => (
       <div className="fixed bottom-4 right-4 z-50">
@@ -96,7 +99,7 @@ const [showNotification, setShowNotification] = useState(false);
               </div> */}
               
               <p className="text-white  text-sm font-medium">
-                Don't Have an Account ?  <Link href="/auth/signup">
+                Don&apos;t Have an Account ?  <Link href="/auth/signup">
                
                   Sign Up
               </Link>
@@ -114,11 +117,14 @@ const [showNotification, setShowNotification] = useState(false);
           <div className="md:w-1/2">
             <div className="glass-container bg-white bg-opacity-15 rounded-xl p-2 h-full">
               <div className="relative h-full rounded-lg overflow-hidden">
-                <img 
+              
+                            <Image
                   src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                  alt="Luxury Car"
-                  className="w-full h-full object-cover"
-                />
+                    alt="Luxury Car"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
               </div>
             </div>
           </div>
