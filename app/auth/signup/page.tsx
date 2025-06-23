@@ -20,12 +20,7 @@ function SignUp() {
   const [error, setError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const SIGNUP_API = process.env.SIGNUP_API;
-
-  if (!SIGNUP_API) {
-  console.warn('SIGNUP_API is not defined. Please check your environment variables.');
-}
-
+  
 
   // Password validation regex
   const passwordCriteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -46,7 +41,8 @@ function SignUp() {
     }
 
     try {
-      const res = await fetch('https://d5rqmdfmtf.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
+      //const res = await fetch('https://hfkdhfdkj.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
