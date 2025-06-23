@@ -89,7 +89,7 @@ export default function CarListing() {
   const startYear = 1990;
   const years = Array.from(new Array(currentYear - startYear + 1), (val, index) => currentYear - index);
   const districts = Object.keys(locations); 
-  const cities = formData.district ? locations[formData.district] : [];
+const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
   // Combine search query with filters
