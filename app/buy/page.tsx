@@ -12,8 +12,8 @@ export interface CarCard {
   price: number;
   year: number;
   images: string[];
-  district: String;
-  city: String;
+  district: string;
+  city: string;
 }
 interface Car {
   brand: string;

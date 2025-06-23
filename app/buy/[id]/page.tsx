@@ -42,8 +42,9 @@ export default function CarDetails() {
   const [isLoading, setIsLoading] = useState(true);
 
   //const [user, setUser] = useState<User | null>(null);
-const [showNotification, setShowNotification] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 const [notificationMessage, setNotificationMessage] = useState('');
+
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
