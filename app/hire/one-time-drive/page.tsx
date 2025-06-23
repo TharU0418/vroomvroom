@@ -13,7 +13,7 @@ interface FormData {
 }
 
 function OneTimeDrive() {
-  const [typeSet, setTypeSet] = useState('one-time'); // Set default value to 'full-day'
+  //const [typeSet, setTypeSet] = useState('one-time'); // Set default value to 'full-day'
 
   const [formData, setFormData] = useState<FormData>({
     userId: '',
@@ -61,7 +61,7 @@ function OneTimeDrive() {
       const res = await fetch('/api/hire-requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, type: typeSet }),
+body: JSON.stringify({ ...formData, type: 'one-time' }),
       });
 
       if (!res.ok) {

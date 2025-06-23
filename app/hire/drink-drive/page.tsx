@@ -73,7 +73,7 @@ setTypeSet('full-day')
       const res = await fetch('/api/hire-requests', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({...formData, type: typeSet}),
+body: JSON.stringify({ ...formData, type: 'full-day' }),
 });
 
 
@@ -88,9 +88,13 @@ setTypeSet('full-day')
       
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
-    }
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unknown error occurred');
+  }
+}
   };
 
   return (
@@ -102,7 +106,7 @@ setTypeSet('full-day')
          With Drive Me Home, you never have to risk driving under the influence. If you've been drinking and can't drive safely, 
          simply book a professional driver who will come to your location and drive your vehicle to your desired destination. 
          This service ensures both your safety and the safety of others on the road, while also allowing you to get your 
-         car home without hassle. It’s a responsible choice for nights out, parties, or any occasion where drinking is involved.
+         car home without hassle. It&rsquo;s a responsible choice for nights out, parties, or any occasion where drinking is involved.
         </p>
 
 

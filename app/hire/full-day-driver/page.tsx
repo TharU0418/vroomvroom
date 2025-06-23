@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 
 
 interface FormData {
@@ -15,7 +15,7 @@ interface FormData {
 
 function FullDriver() {
 
-const [typeSet, setTypeSet] = useState('full-day'); // Set default value to 'full-day'
+//const [typeSet, setTypeSet] = useState('full-day'); // Set default value to 'full-day'
 
  const [formData, setFormData] = useState<FormData>({
   userId: '',
@@ -62,7 +62,7 @@ const [typeSet, setTypeSet] = useState('full-day'); // Set default value to 'ful
 
     console.log('formData.userId', formData.userId);
     console.log('formData.type', formData.type); // Check the type value
-setTypeSet('full-day')
+//setTypeSet('full-day')
 
     console.log('formData', formData); // Check the type value
     console.log('formData.type', formData.type); // Check the type value
@@ -73,7 +73,7 @@ setTypeSet('full-day')
       const res = await fetch('/api/hire-requests', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({...formData, type: typeSet}),
+body: JSON.stringify({ ...formData, type: 'full-day' }),
 });
 
 
@@ -87,9 +87,13 @@ setTypeSet('full-day')
       
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
-    }
+   } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unknown error occurred');
+  }
+}
   };
 
   return (
@@ -100,7 +104,7 @@ setTypeSet('full-day')
         <p>
           With our Multi-Day Hire service, you can secure a professional driver for an extended period—whether it's a few days or a few weeks. 
           This option is ideal for business trips, family vacations, visiting guests, or any situation where you need consistent driving 
-          support without the hassle of daily bookings. Enjoy peace of mind with a reliable driver who’s available for your schedule, 
+          support without the hassle of daily bookings. Enjoy peace of mind with a reliable driver who&rsquo;s available for your schedule, 
           day after day.
         </p>
 
