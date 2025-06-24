@@ -18,7 +18,7 @@ function OnedayDriver() {
 const [typeSet, setTypeSet] = useState('long-term'); // Set default value to 'full-day'
 
  const [formData, setFormData] = useState<FormData>({
-  userId: '',
+  userId: 'tharu',
   pickupDate: '',
   returnDate: '',
   pickupTime: '',
@@ -69,7 +69,7 @@ setTypeSet('long-term')
 
     try {
 
-      const res = await fetch('/api/hire-requests', {
+      const res = await fetch('https://kr8d0cvo4a.execute-api.eu-north-1.amazonaws.com/hire/hire-requests', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({...formData, type: typeSet}),
