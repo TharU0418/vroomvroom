@@ -13,6 +13,7 @@ interface Car {
   fueltype: string;
   year: string;
   price: number;
+  images: string[];
 }
 
 export default function Rent() {
