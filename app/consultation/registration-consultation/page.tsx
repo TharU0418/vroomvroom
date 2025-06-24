@@ -15,13 +15,13 @@ interface FormData {
 
 function RegistrationConsultation() {
 
- const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
+// const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
     const [formData, setFormData] = useState<FormData>({
       userId: '',
       mobileNumber:'',
       message: '',
-      type: 'Full',  // Set default type value to 'full-day'
+      type: 'Register',  // Set default type value to 'full-day'
     });
   
     
@@ -63,7 +63,7 @@ function RegistrationConsultation() {
         const res = await fetch('/api/consultation-requests', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: typeSet }),
+          body: JSON.stringify({ ...formData, type: 'Register' }),
         });
   
         if (!res.ok) {

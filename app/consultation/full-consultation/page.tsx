@@ -15,7 +15,7 @@ interface FormData {
 
 function FullConsultation() {
 
-    const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
+    //const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
     const [formData, setFormData] = useState<FormData>({
       userId: '121',
@@ -41,7 +41,8 @@ function FullConsultation() {
         const res = await fetch('/api/consultation-requests', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: typeSet }),
+          body: JSON.stringify({ ...formData, type: 'Full' }),
+          
         });
   
         if (!res.ok) {
@@ -103,7 +104,7 @@ We bring years of industry experience to help you make the right decisions with 
 </li></ul>
 
 <p className='mt-2'>
-With Full Guide, you're never alone in the process. Our mission is to offer complete support and peace of mind—so you can focus on enjoying your new ride while we handle the rest.
+With Full Guide, you&rsquo;re never alone in the process. Our mission is to offer complete support and peace of mind—so you can focus on enjoying your new ride while we handle the rest.
         </p>
       
 

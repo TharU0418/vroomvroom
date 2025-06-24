@@ -15,13 +15,11 @@ interface FormData {
 
 function InsuranceConsultation() {
 
-    const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
-
     const [formData, setFormData] = useState<FormData>({
       userId: '323',
       mobileNumber:'323',
       message: '',
-      type: 'Full',  // Set default type value to 'full-day'
+      type: 'Insurence',  // Set default type value to 'full-day'
     });
   
    
@@ -48,7 +46,9 @@ function InsuranceConsultation() {
         const res = await fetch('/api/consultation-requests', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: typeSet }),
+          //body: JSON.stringify({ ...formData, type: typeSet }),
+          body: JSON.stringify({ ...formData, type: 'Insurence' }),
+
         });
   
         if (!res.ok) {
@@ -70,7 +70,7 @@ function InsuranceConsultation() {
           <h4>Insurance Consultation – Expert Guidance for the Right Vehicle Coverage</h4>
         <p>
 Choosing the right vehicle insurance can be overwhelming—but with our Insurance Consultation service, 
-you're never alone. Our dedicated team of insurance specialists offers clear, personalized advice to help you
+you&rsquo;re never alone. Our dedicated team of insurance specialists offers clear, personalized advice to help you
  find the most suitable coverage at the best value.
 </p>
 <p className='mt-2'>
@@ -91,7 +91,7 @@ We understand that every driver and vehicle is unique. That&rsquo;s why our cons
 </ul>
 
 <p className='mt-2'>
-With years of experience in the vehicle and insurance industries, our consultants make sure your car is not just insured—but properly protected. Whether you're insuring a new purchase or reviewing your current plan, Insurance Consultation gives you peace of mind on the road.        </p>
+With years of experience in the vehicle and insurance industries, our consultants make sure your car is not just insured—but properly protected. Whether you&rsquo;re insuring a new purchase or reviewing your current plan, Insurance Consultation gives you peace of mind on the road.        </p>
       
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">

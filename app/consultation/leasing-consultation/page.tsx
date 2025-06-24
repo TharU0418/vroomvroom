@@ -16,13 +16,13 @@ interface FormData {
 function LeasingConsultation() {
 
   
-                   const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
+                //   const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
     const [formData, setFormData] = useState<FormData>({
       userId: '',
       mobileNumber:'',
       message: '',
-      type: 'Full',  // Set default type value to 'full-day'
+      type: 'Leasing',  // Set default type value to 'full-day'
     });
   
     
@@ -45,7 +45,7 @@ function LeasingConsultation() {
         const res = await fetch('/api/consultation-requests', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: typeSet }),
+          body: JSON.stringify({ ...formData, type: 'Leasing' }),
         });
   
         if (!res.ok) {
