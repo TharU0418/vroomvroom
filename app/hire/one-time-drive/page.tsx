@@ -128,7 +128,7 @@ body: JSON.stringify({ ...formData, type: 'one-time' }),
             <label className="text-white">Pickup Location</label>
             <textarea
               name="pickupLocation"
-              rows="2"
+              rows={2}
               value={formData.pickupLocation}
               onChange={handleChange}
               placeholder="e.g. colombo"
@@ -144,7 +144,7 @@ body: JSON.stringify({ ...formData, type: 'one-time' }),
             <label className="text-white">Message</label>
             <textarea
               name="message"
-              rows="4"
+              rows={4}
               value={formData.message}
               onChange={handleChange}
               placeholder="I want ..."

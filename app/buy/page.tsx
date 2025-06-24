@@ -68,25 +68,26 @@ export default function CarListing() {
   });
 
   useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        setIsLoading(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
-        const data = await res.json();
-          console.log('data', data)
+  const fetchCars = async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
+      const data = await res.json();
+      console.log('data', data);
 
-        setCars(data);
-          console.log('cars', cars)
+      setCars(data);
+    } catch (err) {
+      console.error('Failed to fetch cars:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  fetchCars();
+}, []); // ✅ keep it empty
 
-      } catch (err) {
-        console.error('Failed to fetch cars:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCars();
-  }, []);
 
+
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setHasSearched(true); 
