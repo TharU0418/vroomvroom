@@ -16,7 +16,7 @@ interface FormData {
 function DrinkDrive() {
 
  // const [user, setUser] = useState<User | null>(null);
-const [typeSet, setTypeSet] = useState('drinkdrive'); // Set default value to 'full-day'
+//const [typeSet, setTypeSet] = useState('drinkdrive'); // Set default value to 'full-day'
 
  const [formData, setFormData] = useState<FormData>({
   userId: '',
@@ -62,7 +62,7 @@ const [typeSet, setTypeSet] = useState('drinkdrive'); // Set default value to 'f
 
     console.log('formData.userId', formData.userId);
     console.log('formData.type', formData.type); // Check the type value
-setTypeSet('full-day')
+//setTypeSet('full-day')
 
     console.log('formData', formData); // Check the type value
     console.log('formData.type', formData.type); // Check the type value
@@ -103,7 +103,7 @@ body: JSON.stringify({ ...formData, type: 'full-day' }),
         <h1 className="text-4xl font-bold mb-4 text-center">Drink and Drive</h1>
 
         <p>
-         With Drive Me Home, you never have to risk driving under the influence. If you've been drinking and can't drive safely, 
+         With Drive Me Home, you never have to risk driving under the influence. If you&rsquo;ve been drinking and can&rsquo;t drive safely, 
          simply book a professional driver who will come to your location and drive your vehicle to your desired destination. 
          This service ensures both your safety and the safety of others on the road, while also allowing you to get your 
          car home without hassle. It&rsquo;s a responsible choice for nights out, parties, or any occasion where drinking is involved.

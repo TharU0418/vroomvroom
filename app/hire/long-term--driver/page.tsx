@@ -86,9 +86,12 @@ setTypeSet('long-term')
       
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
-    }
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unknown error occurred');
+  }
   };
 
   return (

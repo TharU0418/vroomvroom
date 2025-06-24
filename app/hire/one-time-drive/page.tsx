@@ -74,9 +74,12 @@ body: JSON.stringify({ ...formData, type: 'one-time' }),
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
     //  alert('Request registered successfully!');
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
-    }
+   } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unknown error occurred');
+  }
   };
 
   
