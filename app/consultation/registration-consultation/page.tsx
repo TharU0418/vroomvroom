@@ -57,7 +57,7 @@ function RegistrationConsultation() {
       }
   
       try {
-        const res = await fetch('/api/consultation-requests', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...formData, type: 'Register' }),
