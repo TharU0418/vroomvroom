@@ -29,7 +29,7 @@ export default function Rent() {
     terms: false
   });
 
-  const router = useRouter();
+  //const router = useRouter();
 
   const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [loading, setLoading] = useState(false);
