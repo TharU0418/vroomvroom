@@ -25,7 +25,11 @@ function FullConsultation() {
     });
   
  
- 
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+       const { name, value } = e.target;
+       setFormData((prev) => ({ ...prev, [name]: value }));
+     };
+   
   
 
   
@@ -55,9 +59,13 @@ function FullConsultation() {
       
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 3000);
-      } catch (error: any) {
-        alert(`Error: ${error.message}`);
-      }
+      } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unexpected error occurred.');
+  }
+}
     };
 
     const [showNotification, setShowNotification] = useState(false);

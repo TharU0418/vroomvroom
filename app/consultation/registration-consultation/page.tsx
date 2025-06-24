@@ -19,7 +19,7 @@ function RegistrationConsultation() {
   
     const [formData, setFormData] = useState<FormData>({
       userId: '',
-      mobileNumber:'',
+      mobileNumber:'3232',
       message: '',
       type: 'Register',  // Set default type value to 'full-day'
     });
@@ -76,9 +76,13 @@ function RegistrationConsultation() {
       
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 3000);
-      } catch (error: any) {
-        alert(`Error: ${error.message}`);
-      }
+      } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unexpected error occurred.');
+  }
+}
     };
 
 
