@@ -112,7 +112,7 @@ console.log('searchResults', searchResults)
                     key={index}
                     //onClick={() => router.push(`/rent/${car._id}`)}
                     onClick={() =>
-                      router.push(`/rent/${car._id}?pickupDate=${formData.pickupDate}&returnDate=${formData.returnDate}`)
+                      router.push(`/rent/${car.id}?pickupDate=${formData.pickupDate}&returnDate=${formData.returnDate}`)
                     }
                     className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
                   >
