@@ -117,7 +117,7 @@ console.log('searchResults', searchResults)
                     className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
                   >
                     <div className="relative h-64 rounded-lg overflow-hidden">
-                      <img 
+                      <Image 
                         src={car.images[0]}
                         alt={`${car.brand} ${car.model}`}
                         className="w-full h-full object-cover"
@@ -133,7 +133,7 @@ console.log('searchResults', searchResults)
             </div>
           ) : (
 <p className="text-white text-center mt-8 text-lg">
-      Unfortunately, we don't have that car.
+      Unfortunately, we don&rsquo;t have that car.
     </p>          )
           ) : (
             defaultCars.length > 0 && (
