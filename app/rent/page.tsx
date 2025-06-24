@@ -71,7 +71,7 @@ export default function Rent() {
 };
 
 
-console.log('searchResults', searchResults)
+console.log('searchResult', searchResults)
 
   useEffect(() => {
     const fetchDefaultCars = async () => {
@@ -111,9 +111,9 @@ console.log('searchResults', searchResults)
                   <div
                     key={index}
                     //onClick={() => router.push(`/rent/${car._id}`)}
-                    onClick={() =>
-                      router.push(`/rent/${car.id}?pickupDate=${formData.pickupDate}&returnDate=${formData.returnDate}`)
-                    }
+                    // onClick={() =>
+                    //   router.push(`/rent/${car.id}?pickupDate=${formData.pickupDate}&returnDate=${formData.returnDate}`)
+                    // }
                     className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
                   >
                     <div className="relative h-64 rounded-lg overflow-hidden">
