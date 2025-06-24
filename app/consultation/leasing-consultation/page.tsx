@@ -11,6 +11,7 @@ interface FormData {
   pickupLocation: string;
   message: string;
   type: string;  // Set 'full-day' type in the interface
+  mobileNumber: string; 
 }
 
 function LeasingConsultation() {
@@ -18,13 +19,17 @@ function LeasingConsultation() {
   
                 //   const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
-    const [formData, setFormData] = useState<FormData>({
-      userId: '',
-      mobileNumber:'',
-      message: '',
-      type: 'Leasing',  // Set default type value to 'full-day'
-    });
   
+        const [formData, setFormData] = useState<FormData>({
+      userId: '121',
+      mobileNumber: '212',
+      pickupTime: '',
+      pickupDate: '',
+      returnDate: '',
+      pickupLocation: '',
+      message: '',
+      type: 'Leasing'
+    });
     
  
 
