@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { brand } from "../../public/data/brand";
+import Image from 'next/image';
 
 interface Car {
   brand: string;
@@ -32,7 +33,6 @@ export default function Rent() {
 
   const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
   const [defaultCars, setDefaultCars] = useState<Car[]>([]);
 
@@ -45,16 +45,6 @@ export default function Rent() {
     setHasSearched(true); 
   setLoading(true); // Start loading
 
-    const payload = {
-      ...formData,
-      carType: formData.carType,
-      carBrand: formData.carBrand,
-      fueltype: formData.fueltype,
-      year: formData.year,
-      price: formData.price,
-      pickupDate: formData.pickupDate,
-      returnDate: formData.returnDate
-    };
 
     console.log('formData', formData)
 
@@ -106,7 +96,7 @@ console.log('searchResults', searchResults)
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Side - Image Card */}
           {loading && <p className="text-white text-center mt-4">Searching...</p>}
-          {error && <p className="text-red-300 text-center mt-4">{error}</p>}
+         
           {hasSearched ? (
             loading ? (
     <div className="flex justify-center items-center mt-6">
@@ -157,7 +147,7 @@ console.log('searchResults', searchResults)
                       className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full  hover:scale-105 transition-transform"
                     >
                       <div className="relative h-64 rounded-lg overflow-hidden">
-                        <img 
+                        <Image 
                           src={car.images[0]}
                           alt={`${car.brand} ${car.model}`}
                           className="w-full h-full object-cover"
