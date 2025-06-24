@@ -19,11 +19,16 @@ function FullConsultation() {
     //const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
     const [formData, setFormData] = useState<FormData>({
-      userId: '121',
-      mobileNumber:'212',
-      message: '',
-      type: 'Full',  // Set default type value to 'full-day'
-    });
+  userId: '121',
+  mobileNumber: '212',
+  pickupTime: '',
+  pickupDate: '',
+  returnDate: '',
+  pickupLocation: '',
+  message: '',
+  type: 'Full'
+});
+
   
  
  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

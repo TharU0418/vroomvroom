@@ -4,13 +4,14 @@ import React, { useState } from 'react'
 
 
 interface FormData {
-  userId: string;
+   userId: string;
   pickupTime: string;
   pickupDate: string;
   returnDate: string;
   pickupLocation: string;
   message: string;
   type: string;  // Set 'full-day' type in the interface
+  mobileNumber: string; // Set 'full-day' type in the interface
 }
 
 function RegistrationConsultation() {
@@ -18,9 +19,13 @@ function RegistrationConsultation() {
 // const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
     const [formData, setFormData] = useState<FormData>({
-      userId: '',
-      mobileNumber:'3232',
-      message: '',
+     userId: '121',
+  mobileNumber: '212',
+  pickupTime: '',
+  pickupDate: '',
+  returnDate: '',
+  pickupLocation: '',
+  message: '',
       type: 'Register',  // Set default type value to 'full-day'
     });
   

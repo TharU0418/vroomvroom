@@ -11,14 +11,19 @@ interface FormData {
   pickupLocation: string;
   message: string;
   type: string;  // Set 'full-day' type in the interface
+  mobileNumber: string; 
 }
 
 function InsuranceConsultation() {
 
     const [formData, setFormData] = useState<FormData>({
-      userId: '323',
-      mobileNumber:'323',
-      message: '',
+      userId: '121',
+  mobileNumber: '212',
+  pickupTime: '',
+  pickupDate: '',
+  returnDate: '',
+  pickupLocation: '',
+  message: '',
       type: 'Insurence',  // Set default type value to 'full-day'
     });
   
