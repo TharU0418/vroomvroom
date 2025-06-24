@@ -80,6 +80,7 @@ body: JSON.stringify({ ...formData, type: 'one-time' }),
   } else {
     alert('An unknown error occurred');
   }
+}
   };
 
   

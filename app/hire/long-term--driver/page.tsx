@@ -92,6 +92,7 @@ setTypeSet('long-term')
   } else {
     alert('An unknown error occurred');
   }
+}
   };
 
   return (
