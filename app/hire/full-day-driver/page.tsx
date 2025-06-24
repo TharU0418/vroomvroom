@@ -165,7 +165,7 @@ body: JSON.stringify({ ...formData, type: 'full-day' }),
             <label className="text-white">Message</label>
             <textarea
               name="message"
-              rows="4"
+              rows={4}
               value={formData.message}
               onChange={handleChange}
               placeholder="I want ..."
