@@ -152,7 +152,7 @@ body: JSON.stringify({ ...formData, type: 'full-day' }),
             <label className="text-white">Pickup Location</label>
             <textarea
               name="pickupLocation"
-              rows="2"
+              rows={2}
               value={formData.pickupLocation}
               onChange={handleChange}
               placeholder="e.g. colombo"
