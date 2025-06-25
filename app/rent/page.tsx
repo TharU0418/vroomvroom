@@ -6,6 +6,7 @@ import { brand } from "../../public/data/brand";
 import Image from 'next/image';
 
 interface Car {
+  _id: string; // Added ID field
   brand: string;
   type: string;
   model: string;
@@ -14,6 +15,7 @@ interface Car {
   year: string;
   price: number;
   images: string[];
+  seats: number; // Added missing property
 }
 
 export default function Rent() {
@@ -36,40 +38,57 @@ export default function Rent() {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [defaultCars, setDefaultCars] = useState<Car[]>([]);
+  const [selectedCar, setSelectedCar] = useState<Car | null>(null); // Track selected car
 
   const currentYear = new Date().getFullYear();
   const startYear = 1990;
   const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);  
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setHasSearched(true); 
-  setLoading(true); // Start loading
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  setHasSearched(true);
 
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
+    const allCars = await response.json();
 
-    console.log('formData', formData)
+    // Filtering logic
+    const filtered = allCars.filter((car: Car) => {
+      const matchesType = formData.carType ? car.type === formData.carType : true;
+      const matchesBrand = formData.carBrand ? car.brand === formData.carBrand : true;
+      const matchesYear = formData.year ? car.year === formData.year : true;
+      const matchesFuel = formData.fueltype ? car.fueltype === formData.fueltype : true;
+      const matchesPrice = formData.price ? car.price <= parseFloat(formData.price) : true;
 
-    try {
-      const response = await fetch('/api/check-cars', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      return matchesType && matchesBrand && matchesYear && matchesFuel && matchesPrice;
+    });
 
-      const result = await response.json();
-      if (result.success) {
-        setSearchResults(result.cars);
-      } else {
-        console.error('Search failed:', result.error);
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-    setLoading(false); // Stop loading
+    setSearchResults(filtered);
+  } catch (err) {
+    console.error("Search failed:", err);
+    setSearchResults([]);
+  } finally {
+    setLoading(false);
   }
 };
+
+// Calculate rental days
+  const calculateRentalDays = () => {
+    if (!formData.pickupDate || !formData.returnDate) return 0;
+    
+    const start = new Date(formData.pickupDate);
+    const end = new Date(formData.returnDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
+  // Close modal when clicking outside
+  const handleCloseModal = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setSelectedCar(null);
+    }
+  };
 
 
 console.log('searchResult', searchResults)
@@ -77,7 +96,7 @@ console.log('searchResult', searchResults)
   useEffect(() => {
     const fetchDefaultCars = async () => {
       try {
-        const response = await fetch('/api/rent-cars'); // You need to create this API route
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`); // You need to create this API route
         const data = await response.json();
         console.log('data', data)
         setDefaultCars(data);
@@ -90,80 +109,177 @@ console.log('searchResult', searchResults)
   }, []);
 
   return (   //#ffbebe]
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4"> 
-      {/* from-blue-500 to-purple-600 */}
-      <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8  mt-20">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4">
+      <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-20">
         <h1 className="text-4xl font-bold text-white mb-8 text-center">Rent a Car</h1>
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Left Side - Image Card */}
-          {loading && <p className="text-white text-center mt-4">Searching...</p>}
-         
-          {hasSearched ? (
-            loading ? (
-    <div className="flex justify-center items-center mt-6">
-      <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-white border-opacity-50"></div>
-    </div>
-  ) :
-          searchResults.length > 0 ? (
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold text-white mb-4">Your Search Result</h2>
-              <div className="grid grid-cols-1 gap-4">
-                {searchResults.map((car, index) => (
-                  <div
-                    key={index}
-                    //onClick={() => router.push(`/rent/${car._id}`)}
-                    // onClick={() =>
-                    //   router.push(`/rent/${car.id}?pickupDate=${formData.pickupDate}&returnDate=${formData.returnDate}`)
-                    // }
-                    className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
+        
+        {/* Selected Car Modal */}
+        {selectedCar && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
+            onClick={handleCloseModal}
+          >
+            <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    {selectedCar.brand} {selectedCar.model} ({selectedCar.year})
+                  </h2>
+                  <button 
+                    onClick={() => setSelectedCar(null)}
+                    className="text-gray-500 hover:text-red-500 text-2xl"
                   >
-                    <div className="relative h-64 rounded-lg overflow-hidden">
-                      <Image 
-                        src={car.images[0]}
-                        alt={`${car.brand} ${car.model}`}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                        <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>
-                        <p className="text-gray-200">{car.year}</p>
+                    &times;
+                  </button>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
+                    <Image 
+                      src={selectedCar.images[0]}
+                      alt={`${selectedCar.brand} ${selectedCar.model}`}
+                      layout="fill"
+                      objectFit="cover"
+                      className="w-full h-full"
+                    />
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Type</h3>
+                        <p className="font-medium">{selectedCar.type}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Transmission</h3>
+                        <p className="font-medium capitalize">{selectedCar.transmission}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Fuel Type</h3>
+                        <p className="font-medium capitalize">{selectedCar.fueltype}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Seats</h3>
+                        <p className="font-medium">{selectedCar.seats}</p>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-<p className="text-white text-center mt-8 text-lg">
-      Unfortunately, we don&rsquo;t have that car.
-    </p>          )
-          ) : (
-            defaultCars.length > 0 && (
-              <div className="mt-12">
-                {/* <h2 className="text-2xl font-bold text-white mb-4">Most Cars</h2> */}
-                <div className="grid grid-cols-1 gap-4">
-                  {defaultCars.map((car, index) => (
-                    <div
-                      key={index}
-                    // onClick={() => router.push(`/rent/${car._id}`)}
-                      className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full  hover:scale-105 transition-transform"
-                    >
-                      <div className="relative h-64 rounded-lg overflow-hidden">
-                        <Image 
-                          src={car.images[0]}
-                          alt={`${car.brand} ${car.model}`}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                          {/* <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>
-                          <p className="text-gray-200">{car.year}</p> */}
+                    
+                    <div className="pt-4 border-t border-gray-200">
+                      <h3 className="text-gray-500 text-sm">Price per Day</h3>
+                      <p className="text-2xl font-bold text-red-600">${selectedCar.price}</p>
+                    </div>
+                    
+                    {formData.pickupDate && formData.returnDate && (
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h3 className="font-medium mb-2">Rental Period</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-gray-500 text-sm">Pickup Date</p>
+                            <p>{formData.pickupDate}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-sm">Return Date</p>
+                            <p>{formData.returnDate}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-sm">Total Days</p>
+                            <p>{calculateRentalDays()} days</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-sm">Total Price</p>
+                            <p className="font-bold">${calculateRentalDays() * selectedCar.price}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    )}
+                    
+                    <button className="w-full py-3 bg-gradient-to-r from-red-800 to-red-900 text-white rounded-lg hover:opacity-90 transition-all mt-4">
+                      Rent Now
+                    </button>
+                  </div>
                 </div>
               </div>
-            )
+            </div>
+          </div>
         )}
+
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Left Side - Results */}
+          <div className="md:w-1/2">
+            {loading ? (
+              <div className="flex justify-center items-center mt-6">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-white border-opacity-50"></div>
+              </div>
+            ) : hasSearched ? (
+              searchResults.length > 0 ? (
+                <div className="mt-4">
+                  <h2 className="text-2xl font-bold text-white mb-4">Your Search Result</h2>
+                  <div className="grid grid-cols-1 gap-4">
+                    {searchResults.map((car) => (
+                      <div
+                        key={car._id}
+                        onClick={() => setSelectedCar(car)}
+                        className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
+                      >
+                        <div className="flex gap-4">
+                          <div className="relative w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
+                            <Image 
+                              src={car.images[0]}
+                              alt={`${car.brand} ${car.model}`}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                          <div>
+                            <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>
+                            <p className="text-gray-200">{car.year} • {car.type}</p>
+                            <p className="text-gray-200 capitalize">{car.transmission} • {car.fueltype}</p>
+                            <p className="text-xl font-bold text-red-300 mt-2">${car.price}/day</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-white text-center mt-8 text-lg">
+                  Unfortunately, we don't have that car.
+                </p>
+              )
+            ) : ( 
+              defaultCars.length > 0 && (
+                <div className="mt-4">
+                  <h2 className="text-2xl font-bold text-white mb-4">Available Cars</h2>
+                  <div className="grid grid-cols-1 gap-4">
+                    {defaultCars.map((car, index) => (
+                      <div
+                        key={car._id || index}
+                        onClick={() => setSelectedCar(car)}
+                        className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
+                      >
+                        <div className="flex gap-4">
+                          <div className="relative w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
+                            <Image 
+                              src={car.images[0]}
+                              alt={`${car.brand} ${car.model}`}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                          <div>
+                            <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>
+                            <p className="text-gray-200">{car.year} • {car.type}</p>
+                            <p className="text-gray-200 capitalize">{car.transmission} • {car.fueltype}</p>
+                            <p className="text-xl font-bold text-red-300 mt-2">${car.price}/day</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            )}
+          </div>
         {/* Right Side - Form */}
         <div className="md:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -286,6 +402,8 @@ console.log('searchResult', searchResults)
           </div>
         </div>
       </div>
+      
     </div>
+    
   );
 }

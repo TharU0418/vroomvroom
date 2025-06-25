@@ -1,14 +1,13 @@
-
-//avatar.iran.liara.run', 
-
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['images.unsplash.com','plus.unsplash.com'],
+    domains: [
+      'images.unsplash.com',
+      'plus.unsplash.com',
+      'vroomvroom-rents3.s3.amazonaws.com' // <-- Add this line
+    ],
   },
-  // ⚠️ Do not include: output: 'export'
 };
 
 export default nextConfig;
