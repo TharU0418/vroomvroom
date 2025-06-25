@@ -243,7 +243,7 @@ console.log('searchResult', searchResults)
                 </div>
               ) : (
                 <p className="text-white text-center mt-8 text-lg">
-                  Unfortunately, we don't have that car.
+                  Unfortunately, we don&rsquo;t have that car.
                 </p>
               )
             ) : ( 
