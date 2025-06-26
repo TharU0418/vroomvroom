@@ -1,9 +1,14 @@
+import HeroSlider from "./components/HeroSlider";
+import HowWork from "./components/HowWork";
+import WhyUs from "./components/WhyUs";
 
 export default function Home() {
   return (
     <div className="min-h-screen "> 
-     <h2 className="text-white">Vroom Vroom</h2>
 
+<HeroSlider/>
+<WhyUs/>
+<HowWork/>
 
     </div>
   );

@@ -42,7 +42,7 @@ function SignUp() {
 
     try {
       //const res = await fetch('https://hfkdhfdkj.execute-api.eu-north-1.amazonaws.com/dev/api/user', {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
+      const res = await fetch(`https://exl0dq4hx6.execute-api.eu-north-1.amazonaws.com/register/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

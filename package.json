@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.6.4",
     "@react-google-maps/api": "^2.20.6",
     "@tabler/icons-react": "^3.33.0",
     "@types/formidable": "^3.4.5",
     "@types/react-dropzone": "^4.2.2",
+    "aws-amplify": "^6.15.1",
     "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "cookie": "^1.0.2",
