@@ -25,7 +25,7 @@ interface FormData {
   pickupDate: string;
   returnDate: string;
   pickupLocation: string;
-  driver:String,
+  driver:string,
   history:boolean;
   deleteReq:boolean;
 }
@@ -45,17 +45,17 @@ export default function Rent() {
     terms: false
   });
 
-    const [formData2, setFormData2] = useState<FormData>({
-  userId: '',
-  carId:'',
-  pickupDate: '',
-  returnDate: '',
-  pickupTime:'',
-  pickupLocation: '',
-  driver: '',
-  history:false,
-  deleteReq:false
-});
+//     const [formData2, setFormData2] = useState<FormData>({
+//   userId: '',
+//   carId:'',
+//   pickupDate: '',
+//   returnDate: '',
+//   pickupTime:'',
+//   pickupLocation: '',
+//   driver: '',
+//   history:false,
+//   deleteReq:false
+// });
 
   //const router = useRouter();
 
@@ -165,9 +165,13 @@ const handleSubmit = async (e: React.FormEvent) => {
 
       console.log('formData', formData)
       alert('Request registered successfully!');
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
-    }
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert(`Error: ${error.message}`);
+  } else {
+    alert('An unknown error occurred');
+  }
+}
     
     alert('Rental confirmed!');
     setSelectedCar(null);
@@ -279,7 +283,7 @@ console.log('searchResult', searchResults)
                           onChange={handleRentalDetailChange}
                           className="w-full p-2 border border-gray-300 rounded-md"
                         >
-                          <option value="no">No, I'll drive myself</option>
+                          <option value="no">No, I&rsquo;ll drive myself</option>
                           <option value="yes">Yes, I need a driver</option>
                         </select>
                       </div>
@@ -398,7 +402,7 @@ console.log('searchResult', searchResults)
                 </div>
               ) : (
                 <p className="text-white text-center mt-8 text-lg">
-                  Unfortunately, we don't have that car.
+                  Unfortunately, we don&rsquo;t have that car.
                 </p>
               )
             ) : ( 
