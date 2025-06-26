@@ -8,7 +8,7 @@ export default function ProfileDetails({ user }: { user: User }) {
       <div className="space-y-4">
         <div>
           <label className="text-sm font-medium text-gray-600">User ID</label>
-          {/* <p className="mt-1 p-2 bg-gray-50 rounded">{user._id}</p> */}
+          <p className="mt-1 p-2 bg-gray-50 rounded">{user}</p>
         </div>
         <div>
           <label className="text-sm font-medium text-gray-600">First Name</label>
