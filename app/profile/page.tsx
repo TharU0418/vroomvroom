@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import ProfileLayout from './ProfileLayout';
-import { useAuth } from '@/hooks/useAuth';
 import { decodeToken } from '@/utils/decodeToken';
 
 export default function ProfilePage() {

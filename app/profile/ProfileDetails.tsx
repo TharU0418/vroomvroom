@@ -1,14 +1,7 @@
 // app/profile/ProfileDetails.tsx
-interface user {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobileNumber: string;
-  location: string;
-  // Add more fields as needed
-}
-export default function ProfileDetails({ user }: { user: any }) {
+import type { User } from '../../types/user'; // adjust path if needed
+
+export default function ProfileDetails({ user }: { user: User }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h1 className="text-2xl font-bold mb-6">Profile Information</h1>
