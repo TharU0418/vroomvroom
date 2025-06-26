@@ -42,6 +42,7 @@ const items: AccordionItem[] = [
 
 
 import { useRouter } from 'next/navigation'; // or 'next/router' for older Next.js
+import Image from 'next/image';
 
 const HowWork = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -63,7 +64,8 @@ const HowWork = () => {
       </p>
       <section className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl mx-auto py-12 px-4 gap-8">
         <div className="w-full md:w-1/2">
-          <img src="/whyus.jpg" alt="Why Us" className="rounded-lg shadow-md w-full h-auto object-cover" />
+          <Image src="/whyus.jpg" alt="Why Us" className="rounded-lg shadow-md w-full h-auto object-cover" width={250} // replace with your actual image width
+            height={150}/>
         </div>
         <div className="w-full md:w-1/2">
           <div className="space-y-4 bg-slate-200 p-1 border-r-4">

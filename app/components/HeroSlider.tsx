@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 //import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
@@ -90,10 +91,12 @@ const HeroSlider = () => {
           }`}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-          <img
+          <Image
             src={`/hero-${index + 1}.jpg`} // Replace with your image paths
             alt={slide.title}
             className="absolute inset-0 w-full h-full object-cover"
+             width={250} // replace with your actual image width
+            height={150}
           />
           <div className="relative z-10 max-w-6xl px-4 text-white ml-40 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border p-6">
             <div className="space-y-6">

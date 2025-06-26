@@ -44,7 +44,7 @@ const [notificationMessage, setNotificationMessage] = useState('');
   setUser(data.user);
   console.log('credentials', data)
   console.log('credentials', data.tokens)
-  //router.push('/');
+  router.push('/');
 } catch (err) {
   const message = err instanceof Error ? err.message : 'Unknown error';
   setNotificationMessage(message);
