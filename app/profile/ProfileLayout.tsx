@@ -8,8 +8,15 @@ import ProfileDetails from './ProfileDetails';
 // import MySellRequest from './MySellRequest';
 
 
-export default function ProfileLayout({ user }: { user: string }) {
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+  // add any other fields you need
+};
 
+export default function ProfileLayout({ user }: { user: User }) {
+  
   const [activeTab, setActiveTab] = useState('profile');
   const tabs = [
     { id: 'profile', label: 'My Profile', icon: '👤' },
