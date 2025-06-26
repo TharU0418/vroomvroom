@@ -60,15 +60,15 @@ export default function ProfileLayout({ user }: { user: any }) {
             <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mt-2"></div>
           </div>
 
-          {/* <div className="bg-gray-50 rounded-xl p-4 md:p-6 min-h-[500px]">
+          <div className="bg-gray-50 rounded-xl p-4 md:p-6 min-h-[500px]">
             {activeTab === 'profile' && <ProfileDetails user={user} />}
-            {activeTab === 'requests' && <MyRequests userId={user._id} />}
+           {/*  {activeTab === 'requests' && <MyRequests userId={user._id} />}
             {activeTab === 'hirerequests' && <MyRequests3 userId={user._id} />}
             {activeTab === 'history' && <MyHistory userId={user._id} />}
             {activeTab === 'mysellrequest' && <MySellRequest userId={user._id} />}
-
+*/}
             
-          </div> */}
+          </div> 
         </div>
       </div>
     </div>
