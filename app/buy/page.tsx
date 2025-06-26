@@ -285,13 +285,14 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                     >
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="md:w-1/3 relative">
-                          <Image
-  src={car.images[0]}
+              <Image
+  src={car.images[Math.floor(Math.random() * car.images.length)]}
   alt={`${car.brand} ${car.model}`}
   className="w-full h-48 object-cover rounded-lg"
-  width={500} // Set appropriate width
-  height={300} // Set appropriate height
+  width={500}
+  height={300}
 />
+
 
                           <div className="absolute -bottom-4 left-0 w-full flex justify-center">
                             <div className="bg-red-700 rounded-full w-12 h-12 flex items-center justify-center animate-bounce">

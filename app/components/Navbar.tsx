@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '@/store/useAuth';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,8 +27,7 @@ const Navbar = () => {
     { title: 'Consultation', path: '/consultation' },
   ];
 
-const { user, logout } = useAuth();
-  
+  const {user, logout} = useAuth();
 
   return (
     <nav 

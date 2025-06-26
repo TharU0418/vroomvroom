@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
     domains: [
       'images.unsplash.com',
       'plus.unsplash.com',
-      'vroomvroom-rents3.s3.amazonaws.com' // <-- Add this line
+      'vroomvroom-rents3.s3.amazonaws.com', // <-- Add this line
+      'avatar.iran.liara.run'
     ],
   },
 };
