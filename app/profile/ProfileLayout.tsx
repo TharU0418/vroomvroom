@@ -7,9 +7,8 @@ import ProfileDetails from './ProfileDetails';
 // import MyRequests3 from './MyRequests3';
 // import MySellRequest from './MySellRequest';
 
-import type { User } from '../../types/user'; // adjust path if needed
 
-export default function ProfileLayout({ user }: { user: User }) {
+export default function ProfileLayout({ user }: { user: string }) {
 
   const [activeTab, setActiveTab] = useState('profile');
   const tabs = [
