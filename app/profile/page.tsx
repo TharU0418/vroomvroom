@@ -4,27 +4,31 @@ import { useEffect, useState } from 'react';
 import ProfileLayout from './ProfileLayout';
 import { decodeToken } from '@/utils/decodeToken';
 
-export default function ProfilePage() {
+interface DecodedUser {
+  email: string;
+  given_name: string;
+}
 
-  const[user, setUser] = useState([])
+export default function ProfilePage() {
+  const [user, setUser] = useState<DecodedUser | null>(null);
 
   useEffect(() => {
-  const token = localStorage.getItem('idToken');
-  console.log('token 12', token)
+    const token = localStorage.getItem('idToken');
+    if (token) {
+      const decoded = decodeToken(token);
+      console.log('Decoded token:', decoded);
+      if (decoded && decoded.email && decoded.given_name) {
+        setUser({
+          email: decoded.email,
+          given_name: decoded.given_name,
+        });
+      }
+    }
+  }, []);
 
-  if (token) {
-    const decoded = decodeToken(token);
-      console.log('decoded 12', decoded)
-
-    setUser(decoded?.email); 
-  } else {
-    setUser(null);
+  if (!user) {
+    return <div className="text-center mt-20 text-white">Loading or not authenticated...</div>;
   }
-}, []);
 
-console.log('user 12', user)
-
-  return (
-    <ProfileLayout user={user} />
-  );
+  return <ProfileLayout user={user} />;
 }
