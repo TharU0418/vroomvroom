@@ -1,10 +1,11 @@
-// utils/decodeToken.ts
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
-export const decodeToken = (token: string) => {
-  try {
-    return jwtDecode(token);
-  } catch {
-    return null;
-  }
-};
+export interface DecodedToken {
+  email: string;
+  given_name: string;
+  // Add other fields if you need them
+}
+
+export function decodeToken(token: string): DecodedToken {
+  return jwtDecode<DecodedToken>(token);
+}
