@@ -8,14 +8,9 @@ import { useState } from 'react';
 // import MySellRequest from './MySellRequest';
 
 
-type User = {
-  _id: string;
-  name: string;
-  email: string;
-  // add any other fields you need
-};
 
-export default function ProfileLayout({ user }: { user: User }) {
+
+export default function ProfileLayout({ user }: { user: String }) {
 
   const [activeTab, setActiveTab] = useState('profile');
   const tabs = [
