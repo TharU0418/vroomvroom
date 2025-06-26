@@ -26,6 +26,6 @@ export default function ProfilePage() {
 console.log('user 12', user.given_name)
 
   return (
-    <ProfileLayout user={user?.given_name} />
+    <ProfileLayout user={user} />
   );
 }

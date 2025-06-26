@@ -8,9 +8,14 @@ import { useState } from 'react';
 // import MySellRequest from './MySellRequest';
 
 
+interface User {
+  given_name: string;
+  email?: string;
+  sub?: string;
+  // etc...
+}
 
-
-export default function ProfileLayout({ user }: { user: String }) {
+export default function ProfileLayout({ user }: { user: User }) {
 
   const [activeTab, setActiveTab] = useState('profile');
   const tabs = [
@@ -23,7 +28,7 @@ export default function ProfileLayout({ user }: { user: String }) {
   ];
 
 
-  console.log('given_name', user)
+  console.log('given_name', user.given_name)
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-red-500 via-red-700 to-red-900  p-4 md:p-8">
@@ -32,7 +37,7 @@ export default function ProfileLayout({ user }: { user: String }) {
         <div className="w-full md:w-64 bg-gray-50 p-4 border-r border-gray-200">
           <div className="mb-6 p-2">
             <h2 className="text-xl font-bold text-gray-800">User Dashboard</h2>
-            <p className="text-sm text-gray-500">Welcome, {user}</p>
+            <p className="text-sm text-gray-500">Welcome, {user.given_name}</p>
           </div>
           
           <nav className="space-y-1">
