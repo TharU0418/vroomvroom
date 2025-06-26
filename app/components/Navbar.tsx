@@ -29,6 +29,8 @@ const Navbar = () => {
 
   const {user, logout} = useAuth();
 
+  console.log('user nav', user)
+
   return (
     <nav 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
