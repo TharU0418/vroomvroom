@@ -1,4 +1,13 @@
 // app/profile/ProfileDetails.tsx
+interface user {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobileNumber: string;
+  location: string;
+  // Add more fields as needed
+}
 export default function ProfileDetails({ user }: { user: any }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
