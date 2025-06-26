@@ -18,6 +18,19 @@ interface Car {
   seats: number; // Added missing property
 }
 
+interface FormData {
+  userId: string;
+  carId: string;
+  pickupTime: string;
+  pickupDate: string;
+  returnDate: string;
+  pickupLocation: string;
+  driver:String,
+  history:boolean;
+  deleteReq:boolean;
+}
+
+
 export default function Rent() {
   const [formData, setFormData] = useState({
     carType: '',
@@ -32,6 +45,18 @@ export default function Rent() {
     terms: false
   });
 
+    const [formData2, setFormData2] = useState<FormData>({
+  userId: '',
+  carId:'',
+  pickupDate: '',
+  returnDate: '',
+  pickupTime:'',
+  pickupLocation: '',
+  driver: '',
+  history:false,
+  deleteReq:false
+});
+
   //const router = useRouter();
 
   const [searchResults, setSearchResults] = useState<Car[]>([]);
@@ -39,7 +64,11 @@ export default function Rent() {
   const [hasSearched, setHasSearched] = useState(false);
   const [defaultCars, setDefaultCars] = useState<Car[]>([]);
   const [selectedCar, setSelectedCar] = useState<Car | null>(null); // Track selected car
-
+const [rentalDetails, setRentalDetails] = useState({
+    needDriver: 'no',
+    pickupTime: '08:00',
+    pickupLocation: 'airport',
+  });
   const currentYear = new Date().getFullYear();
   const startYear = 1990;
   const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);  
@@ -90,6 +119,59 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
   };
 
+  const handleRentalDetailChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setRentalDetails(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleRentNow = async() => {
+    if (!selectedCar) return;
+    
+    // Here you would typically process the rental
+    console.log('Renting car with details:', {
+      car: selectedCar,
+      rentalDates: {
+        pickupDate: formData.pickupDate,
+        returnDate: formData.returnDate
+      },
+      rentalDetails,
+      driver:rentalDetails.needDriver,
+      carId: selectedCar.id,
+    });
+
+    
+
+    console.log('formData', formData)
+    console.log('formData2', formData2)
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        //body: JSON.stringify(formData2),
+        body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, }),
+
+      });
+          console.log('formData2', res,)
+
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to submit request');
+      }
+
+      console.log('formData', formData)
+      alert('Request registered successfully!');
+    } catch (error: any) {
+      alert(`Error: ${error.message}`);
+    }
+    
+    alert('Rental confirmed!');
+    setSelectedCar(null);
+  };
 
 console.log('searchResult', searchResults)
 
@@ -109,7 +191,7 @@ console.log('searchResult', searchResults)
   }, []);
 
   return (   //#ffbebe]
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4">
+   <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4">
       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-20">
         <h1 className="text-4xl font-bold text-white mb-8 text-center">Rent a Car</h1>
         
@@ -119,7 +201,7 @@ console.log('searchResult', searchResults)
             className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
             onClick={handleCloseModal}
           >
-            <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="bg-white rounded-xl min-w-[900px] max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-2xl font-bold text-gray-800">
@@ -164,37 +246,110 @@ console.log('searchResult', searchResults)
                       </div>
                     </div>
                     
-                    <div className="pt-4 border-t border-gray-200">
-                      <h3 className="text-gray-500 text-sm">Price per Day</h3>
-                      <p className="text-2xl font-bold text-red-600">${selectedCar.price}</p>
-                    </div>
-                    
-                    {formData.pickupDate && formData.returnDate && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <h3 className="font-medium mb-2">Rental Period</h3>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <p className="text-gray-500 text-sm">Pickup Date</p>
-                            <p>{formData.pickupDate}</p>
-                          </div>
-                          <div>
-                            <p className="text-gray-500 text-sm">Return Date</p>
-                            <p>{formData.returnDate}</p>
-                          </div>
-                          <div>
-                            <p className="text-gray-500 text-sm">Total Days</p>
-                            <p>{calculateRentalDays()} days</p>
-                          </div>
-                          <div>
-                            <p className="text-gray-500 text-sm">Total Price</p>
-                            <p className="font-bold">${calculateRentalDays() * selectedCar.price}</p>
-                          </div>
+                    {/* Rental Dates Display (non-editable) */}
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="font-medium mb-2">Rental Period</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-gray-500 text-sm">Pickup Date</p>
+                          <p className="font-medium">{formData.pickupDate || 'Not selected'}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-500 text-sm">Return Date</p>
+                          <p className="font-medium">{formData.returnDate || 'Not selected'}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-500 text-sm">Total Days</p>
+                          <p className="font-medium">{calculateRentalDays()} days</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-500 text-sm">Price per Day</p>
+                          <p className="font-bold">${selectedCar.price}</p>
                         </div>
                       </div>
-                    )}
+                    </div>
                     
-                    <button className="w-full py-3 bg-gradient-to-r from-red-800 to-red-900 text-white rounded-lg hover:opacity-90 transition-all mt-4">
-                      Rent Now
+                    {/* New Rental Details Fields */}
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-gray-700 mb-1">Need a Driver?</label>
+                        <select
+                          name="needDriver"
+                          value={rentalDetails.needDriver}
+                          onChange={handleRentalDetailChange}
+                          className="w-full p-2 border border-gray-300 rounded-md"
+                        >
+                          <option value="no">No, I'll drive myself</option>
+                          <option value="yes">Yes, I need a driver</option>
+                        </select>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-gray-700 mb-1">Pickup Time</label>
+                          <select
+                            name="pickupTime"
+                            value={rentalDetails.pickupTime}
+                            onChange={handleRentalDetailChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                          >
+                            {Array.from({ length: 13 }, (_, i) => {
+                              const hour = i + 8;
+                              return hour <= 20 ? (
+                                <option key={hour} value={`${hour}:00`}>
+                                  {hour}:00
+                                </option>
+                              ) : null;
+                            })}
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-gray-700 mb-1">Pickup Location</label>
+                          <select
+                            name="pickupLocation"
+                            value={rentalDetails.pickupLocation}
+                            onChange={handleRentalDetailChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                          >
+                            <option value="airport">Airport</option>
+                            <option value="downtown">Downtown Office</option>
+                            <option value="hotel">Hotel</option>
+                            <option value="other">Other Location</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Pricing Summary */}
+                    <div className="bg-red-50 p-4 rounded-lg border border-red-100">
+                      <h3 className="font-bold text-gray-800 mb-2">Pricing Summary</h3>
+                      <div className="flex justify-between mb-1">
+                        <span>Base Price ({calculateRentalDays()} days)</span>
+                        <span>${(calculateRentalDays() * selectedCar.price).toFixed(2)}</span>
+                      </div>
+                      {rentalDetails.needDriver === 'yes' && (
+                        <div className="flex justify-between mb-1">
+                          <span>Driver Service</span>
+                          <span>+${(calculateRentalDays() * 30).toFixed(2)}</span>
+                        </div>
+                      )}
+                      <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between font-bold">
+                        <span>Total Amount</span>
+                        <span>
+                          ${(
+                            calculateRentalDays() * selectedCar.price +
+                            (rentalDetails.needDriver === 'yes' ? calculateRentalDays() * 30 : 0)
+                          ).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <button 
+                      onClick={handleRentNow}
+                      className="w-full py-3 bg-gradient-to-r from-red-800 to-red-900 text-white rounded-lg hover:opacity-90 transition-all mt-4"
+                    >
+                      Confirm Rental
                     </button>
                   </div>
                 </div>
@@ -243,7 +398,7 @@ console.log('searchResult', searchResults)
                 </div>
               ) : (
                 <p className="text-white text-center mt-8 text-lg">
-                  Unfortunately, we don&rsquo;t have that car.
+                  Unfortunately, we don't have that car.
                 </p>
               )
             ) : ( 
@@ -253,7 +408,7 @@ console.log('searchResult', searchResults)
                   <div className="grid grid-cols-1 gap-4">
                     {defaultCars.map((car, index) => (
                       <div
-                        key={car._id || index}
+                        key={car._id || index} 
                         onClick={() => setSelectedCar(car)}
                         className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
                       >

@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { locations } from '@/public/data/location';
@@ -85,7 +84,7 @@ export default function CarListing() {
   fetchCars();
 }, []); // ✅ keep it empty
 
-
+console.log('cars', cars)
 
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -271,14 +270,14 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                 ))
               ) : (
                 <>
-                  {/* {(hasSearched && searchResults.length > 0 ? searchResults : cars || filteredCars.length > 0)
-                  .filter(searchResults => searchResults?.status === 'accept' || '') */}
-                 {/* {  filteredCars
+                  {(hasSearched && searchResults.length > 0 ? searchResults : cars || filteredCars.length > 0)
+                  .filter(searchResults => searchResults?.status === 'accept' || '') 
+                 /* {  filteredCars
                  .filter(filteredCars => filteredCars?.status === 'accept' || '')
                   .map((car) => ( */}
 
-                    {filteredCars
-  .filter(car => car.status === 'accept')
+               //     {cars
+ // .filter(car => car.status === 'accept')
   .map((car) => (
                     <div 
                       key={car._id} 
@@ -287,7 +286,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="md:w-1/3 relative">
                           <Image
-                            src={car.images[0]}
+                            src={car.images}
                             alt={`${car.brand} ${car.model}`}
                             className="w-full h-48 object-cover rounded-lg"
                           />
@@ -306,7 +305,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                             {car.brand} {car.model} ({car.year})
                           </h3>
                           <div className="text-white mb-4">{car.district}, {car.city}</div>
-                          <div className="text-white mb-4">${car.price.toLocaleString()}</div>
+                          <div className="text-white mb-4">${car.price}</div>
                           <Link href={`/buy/${car._id}`}>
                             <button className="bg-gradient-to-r from-red-400 to-red-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all">
                               Buy Now

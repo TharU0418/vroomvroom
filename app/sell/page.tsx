@@ -38,54 +38,62 @@ export default function Sell() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const requiredStringFields: (keyof typeof formData)[] = [
-      'district', 'city', 'condition', 'brand', 'year', 'model',
-      'mileage', 'fueltype', 'engine_capacity', 'transmission',
-      'body_type', 'price', 'description', 'mobileNum', 'userName'
-    ];
+  const requiredFields: (keyof typeof formData)[] = [
+    'district', 'city', 'condition', 'brand', 'year', 'model',
+    'mileage', 'fueltype', 'engine_capacity', 'transmission',
+    'body_type', 'price', 'description', 'mobileNum', 'userName'
+  ];
 
-    console.log('formData', formData)
+  if (
+    requiredFields.some((field) => !formData[field].toString().trim()) ||
+    files.length === 0
+  ) {
+    alert('Please fill all required fields and upload at least one image');
+    return;
+  }
 
-    if (
-      requiredStringFields.some((field) => !formData[field].toString().trim()) ||
-      files.length === 0
-    ) {
-      alert('Please fill all required fields and upload at least one image');
-      return;
-    }
+  try {
+    const base64Images = await Promise.all(
+      files.map(file => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      })
+    );
 
-    const formDataToSend = new FormData();
+    const payload = {
+      ...formData,
+      images: base64Images,
+      status: 'available',
+      report: null,
+    };
 
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, String(value));
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
     });
 
-    files.forEach((file) => {
-      formDataToSend.append('images', file);
-    });
+    if (!response.ok) throw new Error('Submission failed');
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
-        method: 'POST',       
-        body: formDataToSend,
-      });
-
-      if (!response.ok) throw new Error('Submission failed');
-
-      //const result = await response.json();
-      setNotificationMessage('Car listed successfully!');
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
-      router.push('/profile');
-    } catch (error) {
-      console.error('Error:', error);
-      setNotificationMessage('Error submitting form');
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
-    }
-  };
+    setNotificationMessage('Car listed successfully!');
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+    router.push('/profile');
+  } catch (error) {
+    console.error('Error:', error);
+    setNotificationMessage('Error submitting form');
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  }
+};
 
 
 
