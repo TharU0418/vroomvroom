@@ -138,21 +138,20 @@ const handleSubmit = async (e: React.FormEvent) => {
         returnDate: formData.returnDate
       },
       rentalDetails,
-      driver:rentalDetails.needDriver,
-      carId: selectedCar.id,
+     
     });
 
     
 
     console.log('formData', formData)
-    console.log('formData2', formData2)
+    //console.log('formData2', formData2)
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: JSON.stringify(formData2),
-        body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, }),
+    //    body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, }),
 
       });
           console.log('formData2', res,)
