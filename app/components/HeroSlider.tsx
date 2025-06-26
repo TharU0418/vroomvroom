@@ -12,6 +12,7 @@ interface Slide {
   title: string;
   description: string;
   buttonText: string;
+  path:string;
 }
 
 const HeroSlider = () => {
