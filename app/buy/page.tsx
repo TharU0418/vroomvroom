@@ -122,15 +122,15 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
   console.log('cars', cars)
 
   // Combine search query with filters
-  const filteredCars = cars.filter(
-    (car) =>
-      (searchQuery === '' || car.brand.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (formData.carBrand === '' || car.brand.toLowerCase().includes(formData.carBrand.toLowerCase())) &&
-      (formData.year === '' || car.year.toString() === formData.year) &&
-      (formData.price === '' || car.price <= parseInt(formData.price)) &&
-      (formData.district === '' || car.district === formData.district) &&
-      (formData.city === '' || car.city === formData.city)
-  );
+  // const filteredCars = cars.filter(
+  //   (car) =>
+  //     (searchQuery === '' || car.brand.toLowerCase().includes(searchQuery.toLowerCase())) &&
+  //     (formData.carBrand === '' || car.brand.toLowerCase().includes(formData.carBrand.toLowerCase())) &&
+  //     (formData.year === '' || car.year.toString() === formData.year) &&
+  //     (formData.price === '' || car.price <= parseInt(formData.price)) &&
+  //     (formData.district === '' || car.district === formData.district) &&
+  //     (formData.city === '' || car.city === formData.city)
+  // );
 
   return (
     <>
