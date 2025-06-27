@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import React, { useState } from 'react'
 
 
@@ -21,7 +22,7 @@ function RegistrationConsultation() {
       type: 'Register',  // Set default type value to 'full-day'
     });
   
-    
+    const {user} = useAuth();
     
     
    
@@ -94,7 +95,7 @@ Registering a vehicle can be time-consuming and confusing, especially with chang
 <p className='mt-2'>
 
 Our service is designed to ensure your vehicle is registered legally, efficiently, and with minimal effort on your part:
-
+</p>
 
 <ul className='list-disc mt-2'>
 <li>  Document Preparation – We guide you through the required forms and paperwork based on your vehicle type and region.
@@ -113,7 +114,7 @@ Our service is designed to ensure your vehicle is registered legally, efficientl
 
 
 
-</p>
+
 <p className='mt-2'>
 With Vehicle Registration Consultation, you’ll save time, avoid errors, and get on the road faster—with confidence that everything is done right.        </p>
       
@@ -136,15 +137,20 @@ With Vehicle Registration Consultation, you’ll save time, avoid errors, and ge
           </div>
 
           {/* Only show the button if the user is logged in */}
+            {user ? (
             <div className="flex justify-center items-center">
               <button
                 type="submit"
                 className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow mt-10 justify-center"
               >
-                Request a consult
+                Request a consultation
               </button>
             </div>
-        
+          ) : (
+            <div className="flex justify-center items-center mt-4">
+              <p className="text-white">Please log in.</p>
+            </div>
+          )}
         </form>
       </div>
                                       {showNotification && <Notification />}

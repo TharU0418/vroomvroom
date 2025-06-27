@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import React, {  useState } from 'react'
 
 
@@ -23,7 +24,7 @@ function LeasingConsultation() {
       type: 'Leasing'
     });
     
- 
+ const {user} = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
@@ -113,15 +114,20 @@ Whether you&rsquo;re leasing for personal convenience or business flexibility, o
           </div>
 
           {/* Only show the button if the user is logged in */}
+            {user ? (
             <div className="flex justify-center items-center">
               <button
                 type="submit"
                 className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow mt-10 justify-center"
               >
-                Request a consult
+                Request a consultation
               </button>
             </div>
-        
+          ) : (
+            <div className="flex justify-center items-center mt-4">
+              <p className="text-white">Please log in.</p>
+            </div>
+          )}
         </form>
       </div>
     </div>

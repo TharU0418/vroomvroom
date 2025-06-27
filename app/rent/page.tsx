@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { brand } from "../../public/data/brand";
 import Image from 'next/image';
+import { useAuth } from '@/hooks/useAuth';
 
 interface Car {
   _id: string; // Added ID field
@@ -18,17 +19,18 @@ interface Car {
   seats: number; // Added missing property
 }
 
-// interface FormData {
-//   userId: string;
-//   carId: string;
-//   pickupTime: string;
-//   pickupDate: string;
-//   returnDate: string;
-//   pickupLocation: string;
-//   driver:string,
-//   history:boolean;
-//   deleteReq:boolean;
-// }
+interface FormData {
+  userId: string;
+  carId: string;
+  pickupTime: string;
+  pickupDate: string;
+  returnDate: string;
+  pickupLocation: string;
+  driver:string,
+  history:boolean;
+  deleteReq:boolean;
+  status:string;
+}
 
 
 export default function Rent() {
@@ -45,18 +47,20 @@ export default function Rent() {
     terms: false
   });
 
-//     const [formData2, setFormData2] = useState<FormData>({
-//   userId: '',
-//   carId:'',
-//   pickupDate: '',
-//   returnDate: '',
-//   pickupTime:'',
-//   pickupLocation: '',
-//   driver: '',
-//   history:false,
-//   deleteReq:false
-// });
+    const [formData2, setFormData2] = useState<FormData>({
+  userId: '3232',
+  carId:'',
+  pickupDate: '',
+  returnDate: '',
+  pickupTime:'',
+  pickupLocation: '',
+  driver: '',
+  history:false,
+  deleteReq:false,
+  status:'pending'
+});
 
+ 
   //const router = useRouter();
 
   const [searchResults, setSearchResults] = useState<Car[]>([]);
@@ -72,11 +76,14 @@ const [rentalDetails, setRentalDetails] = useState({
   const currentYear = new Date().getFullYear();
   const startYear = 1990;
   const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);  
+  const {user} = useAuth();
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setLoading(true);
   setHasSearched(true);
+
+
 
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
@@ -141,20 +148,20 @@ const handleSubmit = async (e: React.FormEvent) => {
      
     });
 
-    
 
     console.log('formData', formData)
-    //console.log('formData2', formData2)
+    console.log('formData2', formData2)
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
+      const res = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: JSON.stringify(formData2),
-    //    body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, }),
+        body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, pickupDate:formData.pickupDate,returnDate:formData.returnDate }),
 
       });
-          console.log('formData2', res,)
+
+          console.log('res', formData.returnDate ,)
 
 
       if (!res.ok) {
@@ -309,23 +316,22 @@ console.log('searchResult', searchResults)
                         
                         <div>
                           <label className="block text-gray-700 mb-1">Pickup Location</label>
-                          <select
-                            name="pickupLocation"
-                            value={rentalDetails.pickupLocation}
-                            onChange={handleRentalDetailChange}
-                            className="w-full p-2 border border-gray-300 rounded-md"
-                          >
-                            <option value="airport">Airport</option>
-                            <option value="downtown">Downtown Office</option>
-                            <option value="hotel">Hotel</option>
-                            <option value="other">Other Location</option>
-                          </select>
+                           <textarea
+        name="pickupLocation"
+          rows={2} 
+          value={rentalDetails.pickupLocation}
+          onChange={handleRentalDetailChange}
+          placeholder="e.g. colombo"
+          //className="p-2 rounded border"
+          className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black placeholder-black"
+          required
+        />
                         </div>
                       </div>
                     </div>
                     
                     {/* Pricing Summary */}
-                    <div className="bg-red-50 p-4 rounded-lg border border-red-100">
+                    {/* <div className="bg-red-50 p-4 rounded-lg border border-red-100">
                       <h3 className="font-bold text-gray-800 mb-2">Pricing Summary</h3>
                       <div className="flex justify-between mb-1">
                         <span>Base Price ({calculateRentalDays()} days)</span>
@@ -346,14 +352,20 @@ console.log('searchResult', searchResults)
                           ).toFixed(2)}
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                     
-                    <button 
-                      onClick={handleRentNow}
-                      className="w-full py-3 bg-gradient-to-r from-red-800 to-red-900 text-white rounded-lg hover:opacity-90 transition-all mt-4"
-                    >
-                      Confirm Rental
-                    </button>
+                     {user ? (<div className="flex justify-center items-center">
+        <button
+          type="submit"
+          className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow mt-10 justify-center"
+        >
+          Request the vehicle
+        </button>
+      </div>):(
+        <p className="text-red-500 mt-10 text-center bg-white  p-4 rounded-lg">
+    Sign in to rent a car.
+  </p>
+      )}
                   </div>
                 </div>
               </div>
@@ -373,9 +385,9 @@ console.log('searchResult', searchResults)
                 <div className="mt-4">
                   <h2 className="text-2xl font-bold text-white mb-4">Your Search Result</h2>
                   <div className="grid grid-cols-1 gap-4">
-                    {searchResults.map((car) => (
-                      <div
-                        key={car._id}
+                    {searchResults.map((car, index) => (
+  <div
+    key={car._id || index}
                         onClick={() => setSelectedCar(car)}
                         className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
                       >
@@ -412,25 +424,20 @@ console.log('searchResult', searchResults)
                     {defaultCars.map((car, index) => (
                       <div
                         key={car._id || index} 
-                        onClick={() => setSelectedCar(car)}
-                        className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
+                        //onClick={() => setSelectedCar(car)}
+                        className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full hover:scale-105 transition-transform"
                       >
-                        <div className="flex gap-4">
-                          <div className="relative w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
-                            <Image 
-                              src={car.images[0]}
-                              alt={`${car.brand} ${car.model}`}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                          <div>
-                            <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>
-                            <p className="text-gray-200">{car.year} • {car.type}</p>
-                            <p className="text-gray-200 capitalize">{car.transmission} • {car.fueltype}</p>
-                            <p className="text-xl font-bold text-red-300 mt-2">${car.price}/day</p>
-                          </div>
+                        <div className="relative h-64 rounded-lg overflow-hidden">
+                        <img 
+                          src={car.images[0]}
+                          alt={`${car.brand} ${car.model}`}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                          {/* <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>
+                          <p className="text-gray-200">{car.year}</p> */}
                         </div>
+                      </div>
                       </div>
                     ))}
                   </div>

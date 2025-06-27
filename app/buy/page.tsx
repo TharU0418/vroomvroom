@@ -122,15 +122,15 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
   console.log('cars', cars)
 
   // Combine search query with filters
-  // const filteredCars = cars.filter(
-  //   (car) =>
-  //     (searchQuery === '' || car.brand.toLowerCase().includes(searchQuery.toLowerCase())) &&
-  //     (formData.carBrand === '' || car.brand.toLowerCase().includes(formData.carBrand.toLowerCase())) &&
-  //     (formData.year === '' || car.year.toString() === formData.year) &&
-  //     (formData.price === '' || car.price <= parseInt(formData.price)) &&
-  //     (formData.district === '' || car.district === formData.district) &&
-  //     (formData.city === '' || car.city === formData.city)
-  // );
+  const filteredCars = cars.filter(
+    (car) =>
+      (searchQuery === '' || car.brand.toLowerCase().includes(searchQuery.toLowerCase())) &&
+      (formData.carBrand === '' || car.brand.toLowerCase().includes(formData.carBrand.toLowerCase())) &&
+      (formData.year === '' || car.year.toString() === formData.year) &&
+      (formData.price === '' || car.price <= parseInt(formData.price)) &&
+      (formData.district === '' || car.district === formData.district) &&
+      (formData.city === '' || car.city === formData.city)
+  );
 
   return (
     <>
@@ -240,8 +240,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
               {isLoading ? (
                 // Loading animation with car driving effect
                 Array.from({ length: 3 }).map((_, index) => (
-                  <div 
-                    key={index} 
+                  <div key={`loading-${index}`}  
                     className="glass-container bg-white bg-opacity-15 rounded-xl p-6 animate-pulse"
                   >
                     <div className="flex flex-col md:flex-row gap-6">
@@ -270,17 +269,16 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                 ))
               ) : (
                 <>
-                  {/* {(hasSearched && searchResults.length > 0 ? searchResults : cars || filteredCars.length > 0)
-                  .filter(searchResults => searchResults?.status === 'accept' || '') 
-                 {  filteredCars
-                 .filter(filteredCars => filteredCars?.status === 'accept' || '')
-                  .map((car) => ( */}
+                
+                 { filteredCars
+               //  .filter(filteredCars => filteredCars?.status === 'accept' || '')
+                  .map((car) => ( 
 
-                   {cars
+              //     {cars
  // .filter(car => car.status === 'accept')
-  .map((car) => (
+ // .map((car) => (
                     <div 
-                      key={car._id} 
+                      key={car.id} 
                       className="glass-container bg-white bg-opacity-15 rounded-xl p-6 transition-all duration-500 ease-in-out transform hover:scale-[1.02] hover:bg-opacity-20"
                     >
                       <div className="flex flex-col md:flex-row gap-6">
@@ -310,7 +308,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                           </h3>
                           <div className="text-white mb-4">{car.district}, {car.city}</div>
                           <div className="text-white mb-4">${car.price}</div>
-                          <Link href={`/buy/${car._id}`}>
+                          <Link href={`/buy/${car.id}`}>
                             <button className="bg-gradient-to-r from-red-400 to-red-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all">
                               Buy Now
                             </button>

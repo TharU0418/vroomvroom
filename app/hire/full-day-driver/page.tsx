@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import React, {useState } from 'react'
 
 
@@ -27,7 +28,7 @@ function FullDriver() {
   type: 'full-day',  // Set default type value to 'full-day'
 });
 
-
+const {user} = useAuth();
  const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
     
@@ -177,6 +178,7 @@ body: JSON.stringify({ ...formData, type: 'full-day' }),
           </div>
 
           {/* Only show the button if the user is logged in */}
+            {user ? (
             <div className="flex justify-center items-center">
               <button
                 type="submit"
@@ -185,6 +187,11 @@ body: JSON.stringify({ ...formData, type: 'full-day' }),
                 Request the driver
               </button>
             </div>
+          ) : (
+            <div className="flex justify-center items-center mt-4">
+              <p className="text-white">Please log in.</p>
+            </div>
+          )}
        
         </form>
 

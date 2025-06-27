@@ -5,6 +5,7 @@ import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { ToggleSwitch } from '../components/ToggleSwitch ';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Sell() {
   const router = useRouter(); // ✅ Move here
@@ -109,7 +110,9 @@ const districts = Object.keys(locations);
 const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
 
 
-  
+  const {user} = useAuth();
+
+  console.log('user', user)
 
   // Fix all form field onChange handlers  bg-gradient-to-r from-[#FD1D1D] to-[#FCB045]
   return (
@@ -353,11 +356,15 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
           </div>
 
 
- 
+    {!user && (
+  <p className="text-white mt-10 text-center bg-red-500 bg-opacity-30 p-4 rounded-lg">
+    Sign in to sell your car.
+  </p>
+)}
      <button
             type="submit"
             className="w-full py-3 px-6 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg hover:opacity-90 transition-all"
-          //  disabled={!user}
+            disabled={!user}
 
           >
             Submit Listing

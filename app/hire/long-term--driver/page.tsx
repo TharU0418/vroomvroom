@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import React, {useState } from 'react'
 
 
@@ -45,6 +46,8 @@ const [showNotification, setShowNotification] = useState(false);
       );
    
   console.log('formData', formData);
+
+  const {user} = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -177,6 +180,7 @@ setTypeSet('long-term')
           </div>
 
           {/* Only show the button if the user is logged in */}
+            {user ? (
             <div className="flex justify-center items-center">
               <button
                 type="submit"
@@ -185,7 +189,11 @@ setTypeSet('long-term')
                 Request the driver
               </button>
             </div>
-          
+          ) : (
+            <div className="flex justify-center items-center mt-4">
+              <p className="text-white">Please log in.</p>
+            </div>
+          )}
         </form>
 
       </div>

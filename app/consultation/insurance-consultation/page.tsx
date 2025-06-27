@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import React, { useState } from 'react'
 
 
@@ -19,7 +20,7 @@ function InsuranceConsultation() {
       type: 'Insurence',  // Set default type value to 'full-day'
     });
   
-   
+   const {user} = useAuth();
     
     
     
@@ -113,14 +114,20 @@ With years of experience in the vehicle and insurance industries, our consultant
           </div>
 
           {/* Only show the button if the user is logged in */}
+             {user ? (
             <div className="flex justify-center items-center">
               <button
                 type="submit"
                 className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow mt-10 justify-center"
               >
-                Request a consult
+                Request a consultation
               </button>
             </div>
+          ) : (
+            <div className="flex justify-center items-center mt-4">
+              <p className="text-white">Please log in.</p>
+            </div>
+          )}
          
         </form>
       </div>
