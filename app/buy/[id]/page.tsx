@@ -1,11 +1,31 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CarCard } from './page'; // Importing from your existing page
 import { use } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 import Image from 'next/image';
+
+interface CarCard {
+  _id: string;
+  brand: string;
+  model: string;
+  price: number;
+  year: number;
+  images: string[];
+  location?: string;
+  condition: string,
+  description: string,
+  engine_capacity: number,
+  fueltype: string,
+  transmission: string,
+  mobileNum: string,
+  district: string;
+  city: string;
+  features?: string[]; // Added to match your JSX
+  type?: string; // Added to match your JSX
+  report:String;
+}
 
 export default function CarDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params); // ✅ Unwrap the params
