@@ -67,6 +67,14 @@ function HireRequests() {
         }
       };
 
+    
+
+    fetchRentRequests();
+    }, []);
+
+    useEffect(() => {
+
+
       const fetchCars = async () => {
         try {
             const response = await fetch('/api/check-drivers');
@@ -92,8 +100,6 @@ function HireRequests() {
     };
 
     
-
-    fetchRentRequests();
     fetchCars();
     }, []);
 

@@ -24,7 +24,7 @@ interface CarCard {
   city: string;
   features?: string[]; // Added to match your JSX
   type?: string; // Added to match your JSX
-  report:String;
+  report:string;
 }
 
 export default function CarDetails({ params }: { params: Promise<{ id: string }> }) {
