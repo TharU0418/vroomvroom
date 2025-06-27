@@ -36,13 +36,13 @@ function HireRequests() {
 
     const [hireRequests, setHireRequests] = useState<RequestsCard[]>([]);
     const [drivers, setDrivers] = useState<DriverCard[]>([]);
-    const [priceRange, setPriceRange] = useState(1000);
-    const [selectedType, setSelectedType] = useState('all');
+    //const [priceRange, setPriceRange] = useState(1000);
+    //const [selectedType, setSelectedType] = useState('all');
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<User | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    //const [user, setUser] = useState<User | null>(null);
+    //const [error, setError] = useState<string | null>(null);
     // const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
-    const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
+    //const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
   const [rentRequests, setRentRequests] = useState<RequestsCard[]>([]);
 
     useEffect(() => {
@@ -95,23 +95,8 @@ function HireRequests() {
         }
     };
 
-    const fetchUser = async () => {
-      try {
-        const res = await fetch('/api/auth/me');
-        if (!res.ok) throw new Error('Unauthorized');
+    
 
-        const data = await res.json();
-        setUser(data);
-        setFormData((prev) => ({
-          ...prev,
-          userId: data.email, // set userId in formData
-        }));
-      } catch (err) {
-        setError('You must be logged in to view this page.');
-      }
-    };
-
-    fetchUser();
     fetchRentRequests();
     fetchCars();
     }, []);
@@ -151,6 +136,8 @@ function HireRequests() {
         setRentRequests(prev => prev.map(req => 
           req._id === requestId ? { ...req, status: 'reject' } : req
         ));
+
+        console.log('rentRequests',rentRequests)
 
         setNotificationMessage('Status updated');
       setShowNotification(true);

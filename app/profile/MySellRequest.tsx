@@ -1,241 +1,4 @@
-// import React, { useEffect, useState } from 'react'
-// import ImageSlider from '../components/asserts/ImageSlider';
-
-// export interface SellCard {
-//   _id: string;
-//   district: string;
-//   city: string;
-//   condition: number;
-//   brand: String,
-//   year: String,
-//   model: String,
-//   mileage: string;
-//   fueltype: number;
-//   engine_capacity: String,
-//   transmission: String,
-//   body_type: String,
-//   price: string;
-//   description: number;
-//   mobileNum: String,
-//   userName: String,
-// }
-
-// export interface CarCard {
-//   _id: string;
-//   brand: string;
-//   model: string;
-//   price: number;
-//   year: number;
-//   images: string[];
-//   location?: string;
-//   description?: string;
-// }
-
-// interface User {
-//   email: string;
-//   userId: string;
-// }
-
-// function MySellRequest() {
-
-//     const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
-//     const [cars, setCars] = useState<CarCard[]>([]);
-//     const [loading, setLoading] = useState(true);
-//     const [user, setUser] = useState<User | null>(null);
-//     const [error, setError] = useState<string | null>(null);
-//     const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
-
-//     useEffect(() => {
-//       const fetchSellRequests = async () => {
-//         try {
-//           const response = await fetch('/api/buy');
-//           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-//           const data = await response.json();
-          
-//           setSellRequests(data?.data);
-//           setLoading(false);
-//         } catch (error) {
-//           console.error('Failed to fetch rent-requests:', error);
-//           setLoading(false);
-//         }
-//       };
-
-//       const fetchCars = async () => {
-//         try {
-//           const response = await fetch('/api/check-cars');
-//           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-//           const data = await response.json();
-//           setCars(data);
-//           setLoading(false);
-//         } catch (error) {
-//           console.error('Failed to fetch cars:', error);
-//           setLoading(false);
-//         }
-//       };
-
-//       const fetchUser = async () => {
-//         try {
-//           const res = await fetch('/api/auth/me');
-//           if (!res.ok) throw new Error('Unauthorized');
-//           const data = await res.json();
-//           setUser(data);
-//           setFormData((prev) => ({
-//             ...prev,
-//             userId: data.email,
-//           }));
-//         } catch (err) {
-//           setError('You must be logged in to view this page.');
-//         }
-//       };
-
-//       fetchUser();
-//       fetchSellRequests();
-//       fetchCars();
-//     }, []);
-
-//     console.log('sellRequests', sellRequests)
-
-//     const handleRemoveFromList = async (requestId: string) => {
-//       try {
-//         const response = await fetch(`/api/rent-requests/${requestId}`, {
-//           method: 'PATCH',
-//           headers: { 'Content-Type': 'application/json' },
-//           body: JSON.stringify({ history: true }), // Update history field to true
-//         });
-
-//         if (response.ok) {
-//           // Update rentRequests state
-//           setSellRequests(prev => 
-//             prev.map(sellRequest => 
-//               sellRequest._id === requestId 
-//               ? { ...sellRequest, history: true } 
-//               : sellRequest
-//             )
-//           );
-//         } else {
-//           throw new Error('Failed to update rent request');
-//         }
-//       } catch (error) {
-//         console.error('Error removing from list:', error);
-//       }
-//     };
-
-//     const handleCancelRequest = async (requestId: string) => {
-//       try {
-//         const response = await fetch(`/api/buy/${requestId}`, {
-//           method: 'PATCH',
-//           headers: { 'Content-Type': 'application/json' },
-//           body: JSON.stringify({ status: 'cancel' }), // Update status to 'reject'
-//         });
-
-//         if (response.ok) {
-//           // Update rentRequests state
-//           setSellRequests(prev => 
-//             prev.map(sellRequest => 
-//               sellRequest._id === requestId 
-//               ? { ...sellRequest, status: 'cancel' } 
-//               : sellRequest
-//             )
-//           );
-//         } else {
-//           throw new Error('Failed to cancel rent request');
-//         }
-//       } catch (error) {
-//         console.error('Error canceling rent request:', error);
-//       }
-//     };
-
-//     if (loading) return <div className="text-white text-center mt-10">Loading rent-requests...</div>;
-
-//     return (
-//       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
-//         <h1 className="text-2xl font-bold text-black mb-1 text-center">Rent Car Requests</h1>
-
-//         <div className="max-w-6xl mx-auto px-4 py-8">
-//           <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-//             {sellRequests
-//            // .filter(sellRequest => sellRequest?.status === 'accept' || sellRequest?.status === 'on-going' || sellRequest?.status === 'pending' )
-//             .map(sellRequest => {
-//            //   const matchedCar = cars.find(car => car._id === sellRequest.carId);
-//              // const isMyRequest = user?.email === sellRequest.userId;
-
-//               //if (!isMyRequest) return null;
-
-//               return (
-//                 <div
-//                   key={sellRequest._id}
-//                   className={`rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
-//                     sellRequest.status === 'reject'
-//                       ? 'bg-red-500/30'
-//                       : sellRequest.status === 'pending'
-//                       ? 'bg-yellow-500/30'
-//                       : sellRequest.status === 'accept'
-//                       ? 'bg-green-500/30'
-//                       : 'bg-white/10'
-//                   }`}
-//                 >
-//                   <div className="flex flex-col lg:flex-row gap-8">
-//                     <div className="md:w-1/2">
-//                       {sellRequest?.images?.[0] && (
-//                         <img
-//                           src={sellRequest.images[0]}
-//                           alt={`${sellRequest.brand} ${sellRequest.model}`}
-//                           className="w-full h-62 object-cover rounded-lg mb-2"
-//                         />
-//                       )}
-//                       {/* <ImageSlider images={images}/> */}
-//                     </div>
-
-//                     <div className="md:w-1/2">
-//                       <h2 className="text-xl text-black font-semibold mb-1">
-//                         {sellRequest.brand} {sellRequest.model} ({sellRequest?.year})
-//                       </h2>
-//                       {/* <p className="text-black text-m mb-2">Year: {matchedCar?.year}</p> */}
-//                       <p className="text-black text-m mb-2">Location: {sellRequest?.district}, {sellRequest?.city} days</p>
-//                       <p className="text-black text-m mb-2">Condition: {sellRequest?.condition} days</p>
-//                       {/* <p className="text-black text-m mb-2">brand: {sellRequest?.brand}</p> */}
-//                       {/* <p className="text-black text-m mb-2">Year: {sellRequest?.year}</p> */}
-//                       {/* <p className="text-black text-m mb-2">Model: {sellRequest?.model}</p> */}
-//                       <p className="text-black text-m mb-2">Mileage: {sellRequest?.mileage}</p>
-//                       <p className="text-black text-m mb-2">Fuel Type: {sellRequest?.fueltype} days</p>
-//                       <p className="text-black text-m mb-2">Engine Capacity: {sellRequest?.engine_capacity}</p>
-//                       <p className="text-black text-m mb-2">Transmission: {sellRequest?.transmission}</p>
-//                       <p className="text-black text-m mb-2">Body Type: {sellRequest?.body_type}</p>
-//                       <p className="text-black text-m mb-2">Price: {sellRequest?.price}</p>
-//                       <p className="text-black text-m mb-2">Description: {sellRequest?.description}</p>
-                
-                
-//                     </div>
-//                   </div>
-
-//                   <div className="flex gap-4 mt-4">
-//                     <button
-//                       className="bg-red-500 text-white px-4 py-2 rounded"
-//                       onClick={() => handleCancelRequest(sellRequest._id)}
-//                     >
-//                       Cancel the request
-//                     </button>
-//                     <button
-//                       className="bg-blue-500 text-white px-4 py-2 rounded"
-//                       onClick={() => handleRemoveFromList(sellRequest._id)}
-//                     >
-//                       Remove from the list
-//                     </button>
-//                   </div>
-//                 </div>
-//               );
-//             })}
-//           </div>
-//         </div>
-//       </div>
-//     );
-// }
-
-// export default MySellRequest
-
-
-
-
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
 
@@ -244,18 +7,18 @@ export interface SellCard {
   district: string;
   city: string;
   condition: number;
-  brand: String,
-  year: String,
-  model: String,
+  brand: string,
+  year: string,
+  model: string,
   mileage: string;
   fueltype: number;
-  engine_capacity: String,
-  transmission: String,
-  body_type: String,
+  engine_capacity: string,
+  transmission: string,
+  body_type: string,
   price: string;
   description: number;
-  mobileNum: String,
-  userName: String,
+  mobileNum: string,
+  userName: string,
 }
 
 export interface CarCard {
@@ -278,9 +41,8 @@ function MySellRequest() {
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
   const [cars, setCars] = useState<CarCard[]>([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
+  //const [error, setError] = useState<string | null>(null);
+  //const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
 
 
   useEffect(() => {
@@ -311,22 +73,7 @@ const fetchCars = async () => {
         }
       };
 
-  const fetchUser = async () => {
-        try {
-          const res = await fetch('/api/auth/me');
-          if (!res.ok) throw new Error('Unauthorized');
-          const data = await res.json();
-          setUser(data);
-          setFormData((prev) => ({
-            ...prev,
-            userId: data.email,
-          }));
-        } catch (err) {
-          setError('You must be logged in to view this page.');
-        }
-      };
-
-      fetchUser();
+  
       fetchSellRequests();
       fetchCars();
   }, []);
@@ -485,10 +232,12 @@ const fetchCars = async () => {
                 </div>
                 <div className="flex gap-8">
                   <div className="w-1/3">
-                    <img 
+                    <Image 
                       src={request.images[0] || '/default-image.jpg'} 
                       alt={request.brand} 
                       className="w-full h-48 object-cover rounded-xl"
+                      width={100}
+                      height={100}
                     />
                   </div>
                   <div className="w-2/3 space-y-4">
