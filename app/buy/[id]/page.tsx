@@ -459,8 +459,8 @@
 
 // app/buy/[id]/page.tsx
 
-import CarDetailsClient from "./CarDetailsClient";
 import { notFound } from "next/navigation";
+import CarDetailsClient from "./CarDetailsClient";
 
 interface CarCard {
   id: string;
@@ -501,6 +501,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: PageProps) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
   const cars: CarCard[] = await res.json();
+
   const car = cars.find((c) => c.id === params.id);
 
   if (!car) {
