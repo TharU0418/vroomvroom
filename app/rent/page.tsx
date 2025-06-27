@@ -139,14 +139,15 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
   };
 
-  const handleRentalDetailChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setRentalDetails(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
+  const handleRentalDetailChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
+  setRentalDetails((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
   const handleRentNow = async() => {
     if (!selectedCar) return;
     
@@ -331,6 +332,7 @@ console.log('searchResult', searchResults)
                           <label className="block text-gray-700 mb-1">Pickup Location</label>
                            <textarea
         name="pickupLocation"
+        
           rows={2} 
           value={rentalDetails.pickupLocation}
           onChange={handleRentalDetailChange}
