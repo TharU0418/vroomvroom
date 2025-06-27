@@ -19,6 +19,8 @@ export interface SellCard {
   description: number;
   mobileNum: string,
   userName: string,
+  status:string;
+  images: string[];
 }
 
 export interface CarCard {
@@ -179,22 +181,22 @@ const fetchCars = async () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-2xl w-full p-8 text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Error Loading Requests</h1>
-          <p className="text-white mb-6">{error}</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="bg-gradient-to-r from-red-400 to-red-600 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center p-4">
+  //       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-2xl w-full p-8 text-center">
+  //         <h1 className="text-2xl font-bold text-white mb-4">Error Loading Requests</h1>
+  //         <p className="text-white mb-6">{error}</p>
+  //         <button 
+  //           onClick={() => window.location.reload()}
+  //           className="bg-gradient-to-r from-red-400 to-red-600 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all"
+  //         >
+  //           Try Again
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
