@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface CarCard {
-  _id: string;
+  id: string;
   brand: string;
   model: string;
   price: number;
