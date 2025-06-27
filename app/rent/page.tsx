@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
 
 interface Car {
-  _id: string; // Added ID field
+  id: string; // Added ID field
   brand: string;
   type: string;
   model: string;
@@ -401,7 +401,7 @@ console.log('searchResult', searchResults)
                   <div className="grid grid-cols-1 gap-4">
                     {searchResults.map((car, index) => (
   <div
-    key={car._id || index}
+    key={car.id || index}
                         onClick={() => setSelectedCar(car)}
                         className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full cursor-pointer hover:scale-105 transition-transform"
                       >
@@ -437,7 +437,7 @@ console.log('searchResult', searchResults)
                   <div className="grid grid-cols-1 gap-4">
                     {defaultCars.map((car, index) => (
                       <div
-                        key={car._id || index} 
+                        key={car.id || index} 
                         //onClick={() => setSelectedCar(car)}
                         className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full hover:scale-105 transition-transform"
                       >
