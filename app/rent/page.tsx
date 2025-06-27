@@ -166,7 +166,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     console.log('formData2', formData2)
 
     try {
-      const res = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: JSON.stringify(formData2),

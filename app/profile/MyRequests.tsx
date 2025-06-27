@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
 
 export interface RequestsCard {
-  _id: string;
+  id: string;
   carId: string;
   userId: string;
   days: number;
@@ -15,7 +15,7 @@ export interface RequestsCard {
 }
 
 export interface CarCard {
-  _id: string;
+  id: string;
   brand: string;
   model: string;
   price: number;
@@ -88,7 +88,7 @@ function MyRequests({ user }: { user: User }) {
 
       if (response.ok) {
         setRentRequests(prev => prev.map(req => 
-          req._id === requestId ? { ...req, history: true } : req
+          req.id === requestId ? { ...req, history: true } : req
         ));
       } else {
         throw new Error('Failed to update rent request');
@@ -111,7 +111,7 @@ function MyRequests({ user }: { user: User }) {
 
       if (response.ok) {
         setRentRequests(prev => prev.map(req => 
-          req._id === requestId ? { ...req, status: 'cancel' } : req
+          req.id === requestId ? { ...req, status: 'cancel' } : req
         ));
       } else {
         throw new Error('Failed to cancel rent request');
@@ -124,7 +124,7 @@ function MyRequests({ user }: { user: User }) {
 
   const handleCompleteRequest = async (requestId: string) => {
     try {
-      const response = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: requestId,status: 'completed' }),
@@ -132,7 +132,7 @@ function MyRequests({ user }: { user: User }) {
 
       if (response.ok) {
         setRentRequests(prev => prev.map(req => 
-          req._id === requestId ? { ...req, status: 'completed' } : req
+          req.id === requestId ? { ...req, status: 'completed' } : req
         ));
       } else {
         throw new Error('Failed to completed rent request');
@@ -234,7 +234,7 @@ function MyRequests({ user }: { user: User }) {
             return car ? (
               // <div key={request._id} className="relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 bg-white/10">
                 <div
-                  key={request._id}
+                  key={request.id}
                   className={`relative rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
                     request.status === 'reject'
                       ? 'bg-red-500/30'

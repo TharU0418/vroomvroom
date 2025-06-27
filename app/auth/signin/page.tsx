@@ -25,7 +25,7 @@ const [notificationMessage, setNotificationMessage] = useState('');
  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   try {
-  const res = await fetch(`https://3pu48jrdxd.execute-api.eu-north-1.amazonaws.com/login/signin`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_SIGNIN}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),

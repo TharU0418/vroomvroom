@@ -45,7 +45,7 @@ function HireRequests() {
     useEffect(() => {
       const fetchRentRequests = async () => {
         try {
-          const response = await fetch('https://kr8d0cvo4a.execute-api.eu-north-1.amazonaws.com/hire/hire-requests');
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE_REQUESTS}`);
           const contentType = response.headers.get('content-type');
     
           if (!response.ok) {
