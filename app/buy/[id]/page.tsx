@@ -456,3 +456,4 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
     </div>
   );
 }
+
