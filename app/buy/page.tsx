@@ -34,7 +34,8 @@ export interface CarCard {
   features?: string[];
   type?: string;
   report: string;
-  status?: string; // ✅ Add this line
+  status?: string; // ✅ Add this line,
+  reason:string;
 }
 
 interface Car {
