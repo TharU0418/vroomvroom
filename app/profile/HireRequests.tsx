@@ -26,10 +26,13 @@ export interface DriverCard {
   location?: string;
   description?: string; // ← Add this if it's used
 }
+interface User {
+  email: string;
+  given_name: string;
+}
 
 
-
-function HireRequests() {
+function HireRequests({ user }: { user: User }) {
 
     const [hireRequests, setHireRequests] = useState<RequestsCard[]>([]);
     const [drivers, setDrivers] = useState<DriverCard[]>([]);
@@ -42,6 +45,7 @@ function HireRequests() {
     //const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
   const [rentRequests, setRentRequests] = useState<RequestsCard[]>([]);
 
+  console.log('user',user)
     useEffect(() => {
       const fetchRentRequests = async () => {
         try {
