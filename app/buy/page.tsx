@@ -16,7 +16,7 @@ import Image from 'next/image';
 // }
 
 export interface CarCard {
-  _id: string;
+  id: string;
   brand: string;
   model: string;
   price: number;
@@ -38,6 +38,7 @@ export interface CarCard {
 }
 
 interface Car {
+  id: string;
   brand: string;
   type: string;
   model: string;
