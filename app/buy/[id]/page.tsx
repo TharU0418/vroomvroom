@@ -54,13 +54,14 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
     fetchCar();
   }, [id]); // ✅ Use unwrapped id
 
-  const handleSubmit = (url) => {
-    console.log('erl', url)
-    if (url) {
-      window.open(url, '_blank'); // Open the link in a new tab/window
-    }
-   // handleSubmit2();
-  };
+ const handleSubmit = (url: string) => {
+  console.log('url', url);
+  if (url) {
+    window.open(url, '_blank'); // Open the link in a new tab/window
+  }
+  // handleSubmit2();
+};
+
 
   // const handleSubmit2 = async () => {
   //   //e.preventDefault();
