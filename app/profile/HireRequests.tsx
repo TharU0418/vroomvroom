@@ -5,13 +5,13 @@ export interface RequestsCard {
   driverId: string;
   userId: string;
   days: number;
-    pickupTime: String;
-message: String;
+    pickupTime: string;
+message: string;
   pickupDate: String;
-  returnDate: String;
-  pickupLocation: String;
-  type: String;
-  status: String
+  returnDate: string;
+  pickupLocation: string;
+  type: string;
+  status: string
 }
 
     

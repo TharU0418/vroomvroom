@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
 
@@ -248,10 +249,12 @@ function MyRequests({ user }: { user: User }) {
                 </div>
                 <div className="flex gap-8">
                   <div className="w-1/3">
-                    <img 
+                    <Image 
                       src={car.images[0] || '/default-image.jpg'} 
                       alt={car.brand} 
                       className="w-full h-48 object-cover rounded-xl"
+                      width={200}
+                      height={100}
                     />
                   </div>
                   <div className="w-2/3 space-y-4">

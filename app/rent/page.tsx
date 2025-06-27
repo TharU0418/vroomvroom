@@ -47,7 +47,20 @@ export default function Rent() {
     terms: false
   });
 
-    const [formData2, setFormData2] = useState<FormData>({
+//     const [formData2, setFormData2] = useState<FormData>({
+//   userId: '3232',
+//   carId:'',
+//   pickupDate: '',
+//   returnDate: '',
+//   pickupTime:'',
+//   pickupLocation: '',
+//   driver: '',
+//   history:false,
+//   deleteReq:false,
+//   status:'pending'
+// });
+
+const formData2 = {
   userId: '3232',
   carId:'',
   pickupDate: '',
@@ -58,7 +71,7 @@ export default function Rent() {
   history:false,
   deleteReq:false,
   status:'pending'
-});
+}
 
  
   //const router = useRouter();
@@ -358,6 +371,7 @@ console.log('searchResult', searchResults)
         <button
           type="submit"
           className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow mt-10 justify-center"
+          onClick={handleRentNow}
         >
           Request the vehicle
         </button>
@@ -428,10 +442,12 @@ console.log('searchResult', searchResults)
                         className="glass-container bg-white bg-opacity-15 rounded-xl p-6 h-full hover:scale-105 transition-transform"
                       >
                         <div className="relative h-64 rounded-lg overflow-hidden">
-                        <img 
+                        <Image 
                           src={car.images[0]}
                           alt={`${car.brand} ${car.model}`}
                           className="w-full h-full object-cover"
+                          width={100}
+                          height={100}
                         />
                         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                           {/* <h3 className="text-white text-xl font-bold">{car.brand} {car.model}</h3>

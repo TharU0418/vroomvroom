@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { CarCard } from './page'; // Importing from your existing page
 import { use } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function CarDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params); // ✅ Unwrap the params
@@ -40,24 +42,24 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
    // handleSubmit2();
   };
 
-  const handleSubmit2 = async () => {
-    //e.preventDefault();
-    formData.carId = id
-    try {
-      const res = await fetch('/api/buy-requests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });      
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to submit request');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error submitting form');
-    }
-  }
+  // const handleSubmit2 = async () => {
+  //   //e.preventDefault();
+  //   formData.carId = id
+  //   try {
+  //     const res = await fetch('/api/buy-requests', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(formData),
+  //     });      
+  //     if (!res.ok) {
+  //       const data = await res.json();
+  //       throw new Error(data.error || 'Failed to submit request');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     alert('Error submitting form');
+  //   }
+  // }
 
 
   if (isLoading) {
@@ -81,10 +83,10 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
             </svg>
           </div>
           <h2 className="mt-4 text-2xl font-bold text-gray-800">Car Not Found</h2>
-          <p className="mt-2 text-gray-600">The car you're looking for doesn't exist or has been removed.</p>
-          <a href="/buy" className="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition">
+          <p className="mt-2 text-gray-600">The car you&rsquo;re looking for doesn&rsquo;t exist or has been removed.</p>
+          <Link href="/buy" className="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition">
             Browse Other Cars
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -98,7 +100,7 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <a href="/buy" className="flex items-center">
+              <Link href="/buy" className="flex items-center">
                 <div className="bg-red-600 w-8 h-8 rounded-md flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
@@ -106,15 +108,15 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
                   </svg>
                 </div>
                 <span className="ml-2 text-xl font-bold text-gray-900">AutoElite</span>
-              </a>
+              </Link>
             </div>
             <div className="flex items-center">
-              <a 
+              <Link 
                 href="/buy" 
                 className="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium"
               >
                 ← Back to Cars
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -133,10 +135,12 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
             <div className="space-y-4">
               <div className="relative h-96 rounded-xl overflow-hidden bg-gray-100">
                 {car.images.length > 0 ? (
-                  <img 
+                  <Image 
                     src={car.images[selectedImage]} 
                     alt={`${car.brand} ${car.model}`}
                     className="w-full h-full object-contain transition duration-300"
+                    width={100}
+                    height={200}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
@@ -160,10 +164,12 @@ export default function CarDetails({ params }: { params: Promise<{ id: string }>
                       selectedImage === index ? 'border-red-500' : 'border-transparent'
                     }`}
                   >
-                    <img 
+                    <Image 
                       src={img} 
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-full object-cover"
+                       width={60}
+                    height={100}
                     />
                   </button>
                 ))}
