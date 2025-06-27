@@ -101,6 +101,15 @@ function HireRequests() {
 //   console.log('Updated hireRequests:', hireRequests);
 // }, [hireRequests]);
 
+useEffect(() => {
+  console.log('Updated hireRequests:', hireRequests);
+}, [hireRequests]);
+
+useEffect(() => {
+  console.log('Updated drivers:', drivers);
+}, [drivers]);
+
+
   console.log('Updated hireRequests:', hireRequests);
 
   const [showNotification, setShowNotification] = useState(false);
@@ -186,7 +195,7 @@ function HireRequests() {
                    // const matchedCar = drivers.find(driver => driver._id === hireRequest.driverId);
                    // const isMyRequest = user?.email === hireRequest.userId;
                    // const currentForm = formData[hireRequest._id] || { star: 0, reason: '' };
-                    const status = hireRequest.status?.toLowerCase();
+                  //  const status = hireRequest.status?.toLowerCase();
                     // Show only current user's requests
                   //  if (!isMyRequest) return null;
                       return (

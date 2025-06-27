@@ -72,6 +72,12 @@ function MyRequests({ user }: { user: User }) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+  console.log('Updated hireRequests:', rentRequests);
+}, [rentRequests]);
+
+
+
   const handleRemoveFromList = async (requestId: string) => {
     try {
       const response = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
