@@ -11,7 +11,8 @@ message: string;
   returnDate: string;
   pickupLocation: string;
   type: string;
-  status: string
+  status: string;
+  reason:string;
 }
 
     
