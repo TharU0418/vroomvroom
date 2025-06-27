@@ -483,6 +483,12 @@ interface CarCard {
   report: string;
 }
 
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
 export async function generateStaticParams() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
   const cars: CarCard[] = await res.json();
@@ -492,7 +498,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: PageProps) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
   const cars: CarCard[] = await res.json();
   const car = cars.find((c) => c.id === params.id);
