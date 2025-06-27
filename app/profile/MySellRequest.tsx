@@ -32,10 +32,6 @@ export interface CarCard {
   description?: string;
 }
 
-interface User {
-  email: string;
-  userId: string;
-}
 
 function MySellRequest() {
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);

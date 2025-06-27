@@ -7,7 +7,7 @@ export interface RequestsCard {
   days: number;
     pickupTime: string;
 message: string;
-  pickupDate: String;
+  pickupDate: string;
   returnDate: string;
   pickupLocation: string;
   type: string;
@@ -26,10 +26,6 @@ export interface DriverCard {
   description?: string; // ← Add this if it's used
 }
 
-interface User {
-  email: string;
-  userId: string;
-}
 
 
 function HireRequests() {
@@ -101,9 +97,9 @@ function HireRequests() {
     fetchCars();
     }, []);
 
-    useEffect(() => {
-  console.log('Updated hireRequests:', hireRequests);
-}, [hireRequests]);
+//     useEffect(() => {
+//   console.log('Updated hireRequests:', hireRequests);
+// }, [hireRequests]);
 
   console.log('Updated hireRequests:', hireRequests);
 

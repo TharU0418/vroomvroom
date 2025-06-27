@@ -19,18 +19,18 @@ interface Car {
   seats: number; // Added missing property
 }
 
-interface FormData {
-  userId: string;
-  carId: string;
-  pickupTime: string;
-  pickupDate: string;
-  returnDate: string;
-  pickupLocation: string;
-  driver:string,
-  history:boolean;
-  deleteReq:boolean;
-  status:string;
-}
+// interface FormData {
+//   userId: string;
+//   carId: string;
+//   pickupTime: string;
+//   pickupDate: string;
+//   returnDate: string;
+//   pickupLocation: string;
+//   driver:string,
+//   history:boolean;
+//   deleteReq:boolean;
+//   status:string;
+// }
 
 
 export default function Rent() {
