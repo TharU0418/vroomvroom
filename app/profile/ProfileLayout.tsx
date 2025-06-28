@@ -54,7 +54,7 @@ export default function ProfileLayout({ user }: { user: User }) {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-4 md:p-8 glass-container bg-red-50 bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border">
+        <div className="flex-1 p-4 md:p-8 glass-container bg-red-50 bg-opacity-10 backdrop-blur-lg shadow-lg border">
           <div className="mb-6">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center">
               <span className="mr-3">{tabs.find(t => t.id === activeTab)?.icon}</span>

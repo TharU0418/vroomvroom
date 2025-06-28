@@ -80,8 +80,8 @@ function WhatUs() {
 
   return (
     <section className="relative  w-full overflow-hidden mt-4">
-      <h4 className='text-4xl font-bold text-white mb-2 text-center'>VroomVroom vs. Traditional Car Buying</h4>
-      <p className='text-white mb-4 text-center'>
+      <h4 className='text-xl md:text-4xl  font-bold text-white mb-2 text-center'>VroomVroom vs. Traditional Car Buying</h4>
+      <p className='text-s md:text-xl text-white mb-4 text-center'>
         Vroom Vroom simplifies the process of buying and selling cars online, providing a streamlined, user-friendly platform. Here&rsquo;s how:
       </p>
       <section className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl mx-auto py-12 px-4 gap-8 ">

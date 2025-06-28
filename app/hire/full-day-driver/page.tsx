@@ -1,7 +1,8 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import React, {useState } from 'react'
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import React, {useEffect, useState } from 'react'
 
 
 interface FormData {
@@ -12,6 +13,7 @@ interface FormData {
   pickupLocation: string;
   message: string;
   type: string;  // Set 'full-day' type in the interface
+  status:'pending';
 }
 
 function FullDriver() {
@@ -19,13 +21,14 @@ function FullDriver() {
 //const [typeSet, setTypeSet] = useState('full-day'); // Set default value to 'full-day'
 
  const [formData, setFormData] = useState<FormData>({
-  userId: 'tharu',
+  userId: '',
   pickupDate: '',
   returnDate: '',
   pickupTime: '',
   pickupLocation: '',
   message: '',
-  type: 'full-day',  // Set default type value to 'full-day'
+  type: 'full-day',  // Set default type value to 'full-day',
+  status:'pending'
 });
 
 const {user} = useAuth();
@@ -45,6 +48,21 @@ const {user} = useAuth();
         </div>
       );
   
+  const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+useEffect(() => {
+        const token = localStorage.getItem('idToken');
+        if (token) {
+          const decoded = decodeToken(token);
+          console.log('Decoded token:', decoded);
+    
+          if (decoded && decoded.email && decoded.given_name) {
+            setUserDetails({
+              email: decoded.email,
+              given_name: decoded.given_name,
+            });
+          }
+        }
+      }, []);
 
   console.log('formData', formData);
 
@@ -75,7 +93,7 @@ const {user} = useAuth();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ ...formData, type: 'full-day' }),
+body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: userDetails?.email }),
 });
     console.log('formData send 2', formData.type); // Check the type value
 

@@ -198,77 +198,72 @@ useEffect(() => {
   
     if (loading) return <div className="text-white text-center mt-10">Loading rent-requests...</div>;
         return (
-            <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
+            <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-2 p-2">
               <h1 className="text-xl font-bold text-black mb-1 text-center">Hire Driver Requests</h1>              
               <div className="max-w-6xl mx-auto px-4 py-8">
-                <div className="grid grid-cols-1 md:grid-cols-1 gap-6">                        
-                  {hireRequests.map(hireRequest => {
-                   // const matchedCar = drivers.find(driver => driver._id === hireRequest.driverId);
-                   // const isMyRequest = user?.email === hireRequest.userId;
-                   // const currentForm = formData[hireRequest._id] || { star: 0, reason: '' };
-                  //  const status = hireRequest.status?.toLowerCase();
-                    // Show only current user's requests
-                  //  if (!isMyRequest) return null;
-                      return (
-                        <div
-                          key={hireRequest._id}
-                          className={`rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
-                            hireRequest.status === 'reject'
-                              ? 'bg-red-500/30'
-                              : hireRequest.status === 'pending'
-                              ? 'bg-yellow-500/30'
-                              : hireRequest.status === 'available'
-                              ? 'bg-green-500/30'
-                              : 'bg-white/10'
-                          }`}
-                        >
-                          <div>
-                            {/* <div className="md:w-1/2"> */}
-                              <h2 className="text-xl text-black font-semibold mb-1">
-                                {hireRequest?.type}
-                              </h2>
-                              <p className="text-black text-m mb-2">Status {hireRequest?.status}</p>
-                              <p className="text-black text-m mb-2">Pickup Date: {hireRequest?.pickupDate} </p>
-                              <p className="text-black text-m mb-2">return Date for {hireRequest?.returnDate} </p>
-                              <p className="text-black text-m mb-2">Pickup Time: {hireRequest?.pickupTime} </p>
-                              <p className="text-black text-m mb-2">Description {hireRequest?.message}</p>
+                <div className="grid grid-cols-1 gap-6">
+  {hireRequests.map((hireRequest) => (
+    <div
+      key={hireRequest._id}
+      className={`rounded-xl p-4 shadow-lg backdrop-blur border cursor-pointer border-white/20 transition-all
+        ${
+          hireRequest.status === 'reject'
+            ? 'bg-red-500/30'
+            : hireRequest.status === 'pending'
+            ? 'bg-yellow-500/30'
+            : hireRequest.status === 'available'
+            ? 'bg-green-500/30'
+            : 'bg-white/10'
+        }`}
+    >
+      {/* Header */}
+      <h2 className="text-lg md:text-xl text-black font-semibold mb-2">
+        {hireRequest?.type}
+      </h2>
+      <p className="text-sm md:text-base text-black mb-1">
+        <span className="font-semibold">Status:</span>{' '}
+        <span className="capitalize">{hireRequest?.status}</span>
+      </p>
 
-                             {hireRequest?.reason !== '1' && (
-  <div>
-    <p className="text-black text-m mb-2">Driver Name {hireRequest?.driverId}</p>
-    <p className="text-black text-m mb-2">Driver Name {hireRequest?.reason}</p>
-  </div>
-)}
+      {/* Dates and Details */}
+      <div className="text-sm md:text-base text-black space-y-1">
+        <p>Pickup Date: {hireRequest?.pickupDate}</p>
+        <p>Return Date: {hireRequest?.returnDate}</p>
+        <p>Pickup Time: {hireRequest?.pickupTime}</p>
+        <p>Description: {hireRequest?.message}</p>
+      </div>
 
-                            {/* </div> */}
-                          </div>
-                          <div className="mt-4 space-y-2">                               
-                            <div className="flex gap-4 mt-2">
-                              
+      {/* Conditional Info */}
+      {hireRequest?.reason && (
+        <div className="mt-2 text-sm text-black">
+          <p>Driver ID: {hireRequest?.driverId}</p>
+          <p>Reason: {hireRequest?.reason}</p>
+        </div>
+      )}
 
-                              {hireRequest?.status == 'pending' && (
-                      <button
-                      onClick={() => handleCancelRequest(hireRequest._id)}
-                        className="text-white bg-gradient-to-r from-red-500 to-red-700 py-2 px-4 rounded-full"
-                      >
-                        Cancel the request
-                      </button>
-                    )}
-                    {hireRequest?.status == 'available' && (
-                      <button
-                        onClick={() => handleCompleteRequest(hireRequest._id)}
-                        className="text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full"
-                      >
-                        Accept the driver
-                      </button>
-                    )}
-                    
-                            </div>
-                          </div>
-                        </div>
-                            );
-                    })}
-                  </div>
+      {/* Action Buttons */}
+      <div className="mt-4 flex flex-col md:flex-row gap-3">
+        {hireRequest?.status === 'pending' && (
+          <button
+            onClick={() => handleCancelRequest(hireRequest._id)}
+            className="w-full md:w-auto text-sm md:text-base text-white bg-gradient-to-r from-red-500 to-red-700 py-2 px-4 rounded-full"
+          >
+            Cancel the request
+          </button>
+        )}
+        {hireRequest?.status === 'available' && (
+          <button
+            onClick={() => handleCompleteRequest(hireRequest._id)}
+            className="w-full md:w-auto text-sm md:text-base text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full"
+          >
+            Accept the driver
+          </button>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
               </div>
                           {showNotification && <Notification />}
 

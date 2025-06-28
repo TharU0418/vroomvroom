@@ -1,7 +1,8 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import React, {useState } from 'react'
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import React, {useEffect, useState } from 'react'
 
 
 interface FormData {
@@ -12,21 +13,24 @@ interface FormData {
   pickupLocation: string;
   message: string;
   type: string;  // Set 'full-day' type in the interface
+  status:string;
 }
 
 function DrinkDrive() {
 
  // const [user, setUser] = useState<User | null>(null);
 //const [typeSet, setTypeSet] = useState('drinkdrive'); // Set default value to 'full-day'
+  const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
  const [formData, setFormData] = useState<FormData>({
-  userId: 'tharu',
+  userId: '',
   pickupDate: '',
   returnDate: '',
   pickupTime: '',
   pickupLocation: '',
   message: '',
   type: 'drinkdrive',  // Set default type value to 'full-day'
+  status:'pending'
 });
 
   const [showNotification, setShowNotification] = useState(false);
@@ -49,6 +53,24 @@ function DrinkDrive() {
          
   console.log('formData', formData);
 
+      console.log('userDetails', userDetails?.given_name)
+
+
+   useEffect(() => {
+        const token = localStorage.getItem('idToken');
+        if (token) {
+          const decoded = decodeToken(token);
+          console.log('Decoded token:', decoded);
+    
+          if (decoded && decoded.email && decoded.given_name) {
+            setUserDetails({
+              email: decoded.email,
+              given_name: decoded.given_name,
+            });
+          }
+        }
+      }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -57,10 +79,10 @@ function DrinkDrive() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.userId) {
-      alert('User ID is missing. Please log in and try again.');
-      return;
-    }
+    // if (!formData.userId) {
+    //   alert('User ID is missing. Please log in and try again.');
+    //   return;
+    // }
 
     console.log('formData.userId', formData.userId);
     console.log('formData.type', formData.type); // Check the type value
@@ -75,7 +97,7 @@ function DrinkDrive() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ ...formData, type: 'drinkdrive' }),
+body: JSON.stringify({ ...formData, status:'pending', type: 'drinkdrive', userId: userDetails?.email }),
 });
 
 

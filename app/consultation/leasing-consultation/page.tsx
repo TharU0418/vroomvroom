@@ -1,7 +1,8 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import React, {  useState } from 'react'
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import React, {  useEffect, useState } from 'react'
 
 
 interface FormData {
@@ -26,6 +27,23 @@ function LeasingConsultation() {
     
  const {user} = useAuth();
 
+ const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+ 
+        useEffect(() => {
+             const token = localStorage.getItem('idToken');
+             if (token) {
+               const decoded = decodeToken(token);
+               console.log('Decoded token:', decoded);
+         
+               if (decoded && decoded.email && decoded.given_name) {
+                 setUserDetails({
+                   email: decoded.email,
+                   given_name: decoded.given_name,
+                 });
+               }
+             }
+           }, []);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -34,16 +52,16 @@ function LeasingConsultation() {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
   
-      if (!formData.userId) {
-        alert('User ID is missing. Please log in and try again.');
-        return;
-      }
+      // if (!formData.userId) {
+      //   alert('User ID is missing. Please log in and try again.');
+      //   return;
+      // }
   
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: 'Leasing' }),
+          body: JSON.stringify({ ...formData, type: 'Leasing',userId: userDetails?.email }),
         });
   
         if (!res.ok) {

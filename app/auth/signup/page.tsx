@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 function SignUp() {
@@ -19,7 +20,7 @@ function SignUp() {
 
   const [error, setError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
+const router = useRouter();
   
 
   // Password validation regex
@@ -54,6 +55,8 @@ function SignUp() {
       }
 
       alert('User registered successfully!');
+      router.push(`/auth/confirm-email?email=${encodeURIComponent(formData.email)}`);
+
     } catch (error: unknown) {
   if (error instanceof Error) {
     alert(`Error: ${error.message}`);

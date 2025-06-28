@@ -99,13 +99,21 @@ const HeroSlider = () => {
              width={250} // replace with your actual image width
             height={150}
           />
-          <div className="relative z-10 max-w-6xl px-4 text-white ml-40 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border p-6">
+<div className="relative z-10 w-[90%] ml-4 p-4 text-white bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border 
+                md:ml-40 md:p-6 md:w-auto max-w-6xl">
             <div className="space-y-6">
-              <h2 className="text-5xl font-bold leading-tight">{slide.title}</h2>
-              <p className="text-xl max-w-2xl">{slide.description}</p>
+              {/* <h2 className="text-5xl font-bold leading-tight">{slide.title}</h2> */}
+              <h2 className="text-2xl md:text-5xl font-bold leading-tight">{slide.title}</h2>
+
+              {/* <p className="text-xl max-w-2xl">{slide.description}</p> */}
+              <p className="text-sm md:text-xl max-w-2xl">{slide.description}</p>
+
               <Link href={slide.path}>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors mt-4">
+                {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors mt-4">
                   {slide.buttonText}
+                </button> */}
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm md:text-lg font-medium transition-colors mt-4">
+{slide.buttonText}
                 </button>
               </Link>
             </div>

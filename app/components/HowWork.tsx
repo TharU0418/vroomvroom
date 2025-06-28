@@ -58,7 +58,8 @@ const HowWork = () => {
 
   return (
     <section className="relative w-full overflow-hidden mt-14 bg-red-50">
-      <h4 className="text-4xl font-bold text-black mb-4 text-center mt-2">How VroomVroom Work</h4>
+
+      <h4 className="text-xl md:text-5xl font-bold text-black mb-4 text-center mt-2">How VroomVroom Work</h4>
       <p className="text-black mb-2 text-center">
         Vroom Vroom simplifies the process of buying and selling cars online, providing a streamlined, user-friendly platform. Here&rsquo;s how:
       </p>

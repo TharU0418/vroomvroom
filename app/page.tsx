@@ -1,4 +1,5 @@
 import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
 import HeroSlider from "./components/HeroSlider";
 import HowWork from "./components/HowWork";
 import Navbar from "./components/Navbar";
@@ -15,6 +16,8 @@ export default function Home() {
 <HowWork/>
 <WhatUs/>
 <FAQ/>
+
+<Footer/>
 
     </div>
   );

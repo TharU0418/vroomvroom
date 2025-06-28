@@ -162,13 +162,13 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.div 
+            {/* <motion.div 
               whileTap={{ scale: 0.9 }}
               className="md:hidden absolute top-1/2 right-4 transform -translate-y-1/2 z-20"
             >
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-white p-2 rounded-lg hover:bg-red-600 focus:outline-none"
+                className="text-black p-2 rounded-lg hover:bg-red-600 focus:outline-none"
               >
                 {isOpen ? (
                   <FiX className="h-6 w-6" />
@@ -176,103 +176,97 @@ const Navbar = () => {
                   <FiMenu className="h-6 w-6" />
                 )}
               </button>
-            </motion.div>
+            </motion.div> */}
+            <div className="md:hidden relative z-30 h-20 flex items-center justify-end pr-4">
+  <motion.button
+    whileTap={{ scale: 0.9 }}
+    onClick={() => setIsOpen(!isOpen)}
+    className="text-white p-2 rounded-lg hover:bg-red-600 focus:outline-none"
+  >
+    {isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
+  </motion.button>
+</div>
+
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-gradient-to-b from-red-700 to-red-900 overflow-hidden"
+  {isOpen && (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 'auto' }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.3 }}
+      className="md:hidden bg-gradient-to-b from-red-700 to-red-900 overflow-hidden"
+    >
+      <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        {menuItems.map((item) => (
+          <Link
+            key={item.title}
+            href={item.path}
+            className={`block px-3 py-3 rounded-lg text-base font-medium transition-all ${
+              activeMenu === item.title
+                ? 'bg-red-600 text-white'
+                : 'text-red-100 hover:bg-red-600 hover:text-white'
+            }`}
+            onClick={() => {
+              setActiveMenu(item.title);
+              setIsOpen(false);
+            }}
           >
-            {user ? (
-<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.path}
-                  className={`block px-3 py-3 rounded-lg text-base font-medium transition-all ${
-                    activeMenu === item.title
-                      ? 'bg-red-600 text-white'
-                      : 'text-red-100 hover:bg-red-600 hover:text-white'
-                  }`}
-                  onClick={() => {
-                    setActiveMenu(item.title);
-                    setIsOpen(false);
-                  }}
-                >
-                  {item.title}
-                </Link>
-              ))}
-              <div className="mt-4 space-y-3 p-2">
-                <Link href="/auth/signin">
-                  <button
-                    className="w-full text-white border-2 border-white px-4 py-3 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Sign In
-                  </button>
-                </Link>
-                <Link href="/auth/signup">
-                  <button
-                    className="w-full bg-white text-red-600 px-4 py-3 rounded-lg text-base font-medium hover:bg-red-50 transition-colors shadow-lg"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Sign Up
-                  </button>
-                </Link>
-              </div>
-            </div>
-            ):(
-<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.path}
-                  className={`block px-3 py-3 rounded-lg text-base font-medium transition-all ${
-                    activeMenu === item.title
-                      ? 'bg-red-600 text-white'
-                      : 'text-red-100 hover:bg-red-600 hover:text-white'
-                  }`}
-                  onClick={() => {
-                    setActiveMenu(item.title);
-                    setIsOpen(false);
-                  }}
-                >
-                  {item.title}
-                </Link>
-              ))}
-              <div className="mt-4 space-y-3 p-2">
-                <Link href="/auth/signin">
-                  <button
-                    className="w-full text-white border-2 border-white px-4 py-3 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Sign In
-                  </button>
-                </Link>
-                <Link href="/auth/signup">
-                  <button
-                    className="w-full bg-white text-red-600 px-4 py-3 rounded-lg text-base font-medium hover:bg-red-50 transition-colors shadow-lg"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Sign Up 
-                  </button>
-                </Link>
-              </div>
-            </div>
-            )}
+            {item.title}
+          </Link>
+        ))}
+      </div>
 
-            
-          </motion.div>
+      <div className="mt-4 space-y-3 p-2">
+        {user ? (
+          <>
+            <Link href="/profile">
+              <button
+                className="w-full text-left px-4 py-3 text-white font-medium hover:bg-red-600 rounded-lg"
+                onClick={() => setIsOpen(false)}
+              >
+                My Profile
+              </button>
+            </Link>
+            <button
+              className="w-full text-left px-4 py-3 text-white font-medium hover:bg-red-600 rounded-lg"
+              onClick={() => {
+                logout();
+                setIsOpen(false);
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/auth/signin">
+              <button
+                className="w-full text-white border-2 border-white px-4 py-3 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign In
+              </button>
+            </Link>
+            <Link href="/auth/signup">
+              <button
+                className="w-full bg-white text-red-600 px-4 py-3 rounded-lg text-base font-medium hover:bg-red-50 transition-colors shadow-lg"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign Up 
+              </button>
+            </Link>
+          </>
         )}
-      </AnimatePresence>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </nav>
   );
 };

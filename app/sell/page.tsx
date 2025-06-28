@@ -1,11 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FileUpload } from '../components/ui/file-upload';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { ToggleSwitch } from '../components/ToggleSwitch ';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 
 export default function Sell() {
   const router = useRouter(); // ✅ Move here
@@ -14,7 +15,7 @@ export default function Sell() {
     district:'', city:'', condition: '', brand: '', year: '',
     model: '', mileage: '', fueltype: '', engine_capacity: '',
     transmission: '', body_type: '', price: '', description: '',
-    mobileNum:'12121', negotiable:false, userName:'dsdsd'
+    mobileNum:'12121', negotiable:false, userId:''
   });
 
   const [files, setFiles] = useState<File[]>([]);
@@ -41,11 +42,17 @@ export default function Sell() {
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
+    console.log('formData',formData)
+
   const requiredFields: (keyof typeof formData)[] = [
     'district', 'city', 'condition', 'brand', 'year', 'model',
     'mileage', 'fueltype', 'engine_capacity', 'transmission',
-    'body_type', 'price', 'description', 'mobileNum', 'userName'
+    'body_type', 'price', 'description', 'mobileNum',
   ];
+
+  console.log('formData',formData)
+
+  console.log('formData',userDetails?.email)
 
   if (
     requiredFields.some((field) => !formData[field].toString().trim()) ||
@@ -72,6 +79,7 @@ export default function Sell() {
       images: base64Images,
       status: 'available',
       report: null,
+      userId : userDetails?.given_name
     };
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
@@ -114,9 +122,29 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
 
   console.log('user', user)
 
+  const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+
+  useEffect(() => {
+      const token = localStorage.getItem('idToken');
+      if (token) {
+        const decoded = decodeToken(token);
+        console.log('Decoded token:', decoded);
+  
+        if (decoded && decoded.email && decoded.given_name) {
+          setUserDetails({
+            email: decoded.email,
+            given_name: decoded.given_name,
+          });
+        }
+      }
+    }, []);
+
+
+    console.log('userDetails', userDetails?.given_name)
+
   // Fix all form field onChange handlers  bg-gradient-to-r from-[#FD1D1D] to-[#FCB045]
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900  p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900  p-4 mt-0">
       
       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-20">
         <h1 className="text-4xl font-bold text-white mb-8 text-center">Sell your Car</h1>

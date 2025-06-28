@@ -1,7 +1,8 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import React, { useState } from 'react'
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import React, { useEffect, useState } from 'react'
 
 
 interface FormData {
@@ -22,6 +23,22 @@ function InsuranceConsultation() {
   
    const {user} = useAuth();
     
+   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+   
+          useEffect(() => {
+               const token = localStorage.getItem('idToken');
+               if (token) {
+                 const decoded = decodeToken(token);
+                 console.log('Decoded token:', decoded);
+           
+                 if (decoded && decoded.email && decoded.given_name) {
+                   setUserDetails({
+                     email: decoded.email,
+                     given_name: decoded.given_name,
+                   });
+                 }
+               }
+             }, []);
     
     
      
@@ -45,7 +62,7 @@ function InsuranceConsultation() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           //body: JSON.stringify({ ...formData, type: typeSet }),
-          body: JSON.stringify({ ...formData, type: 'Insurence' }),
+          body: JSON.stringify({ ...formData, type: 'Insurence',userId: userDetails?.email }),
 
         });
   

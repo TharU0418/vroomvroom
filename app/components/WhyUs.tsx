@@ -17,9 +17,12 @@ const WhyUs = () => {
           </video>
 
           {/* Content Box Aligned to the Left */}
-          <div className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-white bg-opacity-90 p-8 rounded-md shadow-lg max-w-md z-10">
+          {/* <div className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-white bg-opacity-90 p-8 rounded-md shadow-lg max-w-md z-10"> */}
+          <div className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-90 p-4 rounded-md shadow-lg w-[90%] 
+                md:left-6 md:p-8 md:max-w-md z-10">
+
             <h1 className="text-3xl font-bold mb-4">Why Us?</h1>
-            <p className="text-gray-700">
+            <p className="text-sm md:text-base text-gray-700">
               We provide unmatched quality and value, driven by innovation and a customer-first approach.
               Our team is dedicated to delivering solutions that exceed expectations every time.
                We provide unmatched quality and value, driven by innovation and a customer-first approach.

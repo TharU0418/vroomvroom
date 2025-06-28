@@ -25,7 +25,7 @@ const [notificationMessage, setNotificationMessage] = useState('');
  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   try {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_SIGNIN}`, {
+  const res = await fetch(`https://3pu48jrdxd.execute-api.eu-north-1.amazonaws.com/login/signin`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
@@ -65,6 +65,10 @@ const [notificationMessage, setNotificationMessage] = useState('');
         </div>
       </div>
     );
+
+  
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4"> 
       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">

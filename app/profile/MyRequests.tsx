@@ -38,7 +38,7 @@ function MyRequests({ user }: { user: User }) {
   const [error, setError] = useState<string | null>(null);
 
 
-  console.log('user', user)
+  console.log('user', user.email)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,8 +50,10 @@ function MyRequests({ user }: { user: User }) {
         const requestsRes = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`,);
         if (!requestsRes.ok) throw new Error(`HTTP error! status: ${requestsRes.status}`);
         const requestsData = await requestsRes.json();
-          console.log('requestsData', requestsData)
-        setRentRequests(requestsData);
+        const filteredRequests = requestsData.filter(requestsData1 => requestsData1.userId ===  user.email);
+
+          console.log('filteredRequests', filteredRequests)
+        setRentRequests(filteredRequests);
           console.log('rentRequests', rentRequests)
 
         
@@ -75,6 +77,7 @@ function MyRequests({ user }: { user: User }) {
   useEffect(() => {
   console.log('Updated hireRequests:', rentRequests);
 }, [rentRequests]);
+
 
 
 
@@ -216,82 +219,99 @@ function MyRequests({ user }: { user: User }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
+      <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-2 p-2">
         <h1 className="text-2xl font-bold text-black mb-8 text-center">Your Car Rental Requests</h1>
 
-        <div className="grid grid-cols-1 gap-8">
-          {rentRequests
-           .filter(
-              (rentRequest) =>
-                rentRequest?.history == false &&
-              (rentRequest?.status === 'accept' ||
-                rentRequest?.status === 'on-going' ||
-                rentRequest?.status === 'pending' ||
-              rentRequest?.status === 'reject')
-            )
-          .map((request) => {
-            const car = cars.find(car => car.id === request.carId);
-            return car ? (
-              // <div key={request._id} className="relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 bg-white/10">
-                <div
-                  key={request.id}
-                  className={`relative rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
-                    request.status === 'reject'
-                      ? 'bg-red-500/30'
-                      : request.status === 'pending'
-                      ? 'bg-yellow-500/30'
-                      : request.status === 'accept'
-                      ? 'bg-green-500/30'
-                      : 'bg-white/10'
-                  }`}
-                >
-                <div className="absolute top-2 right-2">
-                  <button 
-                    className="text-red-500 hover:text-red-700"
-                    onClick={() => handleRemoveFromList(request.id)}
+        <div className="grid grid-cols-1 gap-6">
+  {rentRequests
+    .filter(
+      (rentRequest) =>
+        rentRequest?.history == false &&
+        ['accept', 'on-going', 'pending', 'reject'].includes(rentRequest?.status)
+    )
+    .map((request) => {
+      const car = cars.find((car) => car.id === request.carId);
+      return car ? (
+        <div
+          key={request.id}
+          className={`relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 transition-all 
+            ${
+              request.status === 'reject'
+                ? 'bg-red-500/30'
+                : request.status === 'pending'
+                ? 'bg-yellow-500/30'
+                : request.status === 'accept'
+                ? 'bg-green-500/30'
+                : 'bg-white/10'
+            }`}
+        >
+          {/* Close Button */}
+          <div className="absolute top-2 right-2">
+            <button
+              className="text-red-500 hover:text-red-700"
+              onClick={() => handleRemoveFromList(request.id)}
+            >
+              <IoIosCloseCircle size={24} />
+            </button>
+          </div>
+
+          {/* Card Content */}
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+            {/* Car Image */}
+            <div className="w-full md:w-1/3">
+              <Image
+                src={car.images[0] || '/default-image.jpg'}
+                alt={car.brand}
+                className="w-full h-48 object-cover rounded-lg"
+                width={200}
+                height={100}
+              />
+            </div>
+
+            {/* Details */}
+            <div className="w-full md:w-2/3 space-y-2 md:space-y-4">
+              <h2 className="text-lg md:text-xl font-bold">
+                {car.brand} {car.model}
+              </h2>
+              <p className="text-sm md:text-base font-medium">
+                <span className="text-slate-600">Pickup Location:</span> {request.pickupLocation}
+              </p>
+              <p className="text-sm md:text-base font-medium">
+                <span className="text-slate-600">Pickup Date:</span> {request.pickupDate}
+              </p>
+              <p className="text-sm md:text-base font-medium">
+                <span className="text-slate-600">Return Date:</span> {request.returnDate}
+              </p>
+              <p className="text-sm md:text-base font-medium capitalize">
+                <span className="text-slate-600">Status:</span> {request.status}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-col md:flex-row gap-3">
+                {request.status === 'pending' && (
+                  <button
+                    onClick={() => handleCancelRequest(request.id)}
+                    className="text-sm md:text-base text-white bg-gradient-to-r from-red-500 to-red-700 py-2 px-4 rounded-full w-full md:w-auto"
                   >
-                    <IoIosCloseCircle size={24} />
+                    Cancel the Request
                   </button>
-                </div>
-                <div className="flex gap-8">
-                  <div className="w-1/3">
-                    <Image 
-                      src={car.images[0] || '/default-image.jpg'} 
-                      alt={car.brand} 
-                      className="w-full h-48 object-cover rounded-xl"
-                      width={200}
-                      height={100}
-                    />
-                  </div>
-                  <div className="w-2/3 space-y-4">
-                    <h2 className="text-xl font-bold">{car.brand} {car.model}</h2>
-                    <p className="font-medium">Pickup Location: {request.pickupLocation}</p>
-                    <p className="font-medium">Pickup Date: {request.pickupDate}</p>
-                    <p className="font-medium">Return Date: {request.returnDate}</p>
-                    <p className="font-medium">Status: {request.status}</p>
-                    {request.status == 'pending' && (
-                      <button
-                        onClick={() => handleCancelRequest(request.id)}
-                        className="text-white bg-gradient-to-r from-red-500 to-red-700 py-2 px-4 rounded-full"
-                      >
-                        Cancel the request
-                      </button>
-                    )}
-                    {request.status == 'accept' && (
-                      <button
-                        onClick={() => handleCompleteRequest(request.id)}
-                        className="text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full"
-                      >
-                        Mark as Complete
-                      </button>
-                    )}
-                    
-                  </div>
-                </div>
+                )}
+                {request.status === 'accept' && (
+                  <button
+                    onClick={() => handleCompleteRequest(request.id)}
+                    className="text-sm md:text-base text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full w-full md:w-auto"
+                  >
+                    Mark as Complete
+                  </button>
+                )}
               </div>
-            ) : null;
-          })}
+            </div>
+          </div>
         </div>
+      ) : null;
+    })}
+</div>
+
       </div>
     </div>
   );

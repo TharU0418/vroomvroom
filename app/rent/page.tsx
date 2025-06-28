@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { brand } from "../../public/data/brand";
 import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 
 interface Car {
   id: string; // Added ID field
@@ -34,6 +35,8 @@ interface Car {
 
 
 export default function Rent() {
+    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+
   const [formData, setFormData] = useState({
     carType: '',
     carBrand: '',
@@ -61,7 +64,7 @@ export default function Rent() {
 // });
 
 const formData2 = {
-  userId: '3232',
+  userId: userDetails?.email,
   carId:'',
   pickupDate: '',
   returnDate: '',
@@ -90,6 +93,24 @@ const [rentalDetails, setRentalDetails] = useState({
   const startYear = 1990;
   const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);  
   const {user} = useAuth();
+
+  
+    useEffect(() => {
+        const token = localStorage.getItem('idToken');
+        if (token) {
+          const decoded = decodeToken(token);
+    
+          if (decoded && decoded.email && decoded.given_name) {
+            setUserDetails({
+              email: decoded.email,
+              given_name: decoded.given_name,
+            });
+          }
+        }
+      }, []);
+
+          console.log('userDetails', userDetails?.email)
+
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
