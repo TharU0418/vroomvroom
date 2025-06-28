@@ -40,7 +40,7 @@ const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
                 setUserDetails({
                   email: decoded.email,
                   given_name: decoded.given_name,
-                  mobileNumber:decoded.nickname
+                  nickname:decoded.nickname
                 });
               }
             }
@@ -66,7 +66,7 @@ const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: 'Full',userId: userDetails?.email , mobileNumber: userDetails?.mobileNumber}),
+          body: JSON.stringify({ ...formData, type: 'Full',userId: userDetails?.email , mobileNumber: userDetails?.nickname}),
           
         });
   
