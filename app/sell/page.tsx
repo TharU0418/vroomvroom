@@ -7,24 +7,13 @@ import { ToggleSwitch } from '../components/ToggleSwitch ';
 //import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
-import { MdOutlineEditNote } from "react-icons/md";
 
 export default function Sell() {
   //const router = useRouter(); // ✅ Move here
 
    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
-  console.log()
 
-useEffect(() => {
-  if ((userDetails?.given_name || userDetails?.nickname) && !formData.mobileNum) {
-    setFormData((prev) => ({
-      ...prev,
-      mobileNum: userDetails?.nickname || '',
-      userName: userDetails?.given_name || '',
-    }));
-  }
-}, [user?.mobileNumber, userDetails?.given_name, userDetails?.nickname]);
 
 
   const [formData, setFormData] = useState({
@@ -37,27 +26,8 @@ useEffect(() => {
   const [files, setFiles] = useState<File[]>([]);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-  //   const [editedMobile, setEditedMobile] = useState( userDetails?.mobileNumber || '');
-  const [isEditing, setIsEditing] = useState(false);
 
- // Initialize formData.mobileNum when user data arrives or changes
-  // useEffect(() => {
-  //   if (user?.mobileNumber) {
-  //     setFormData((prev) => ({ ...prev, mobileNum: userDetails?.mobileNumber, userName:user.given_name }));
-  //   }
-  // }, []);
   
-  useEffect(() => {
-  if (user?.mobileNumber) {
-    setFormData((prev) => ({
-  ...prev,
-  mobileNum: userDetails?.nickname || '',
-  userName: userDetails?.given_name || '',
-}));
-
-  }
-//}, [userDetails?.given_name, userDetails?.nickname]);
-}, []);
 
 
 const token = localStorage.getItem('idToken');
@@ -74,24 +44,7 @@ if (token) {
 }
 
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-  const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setFormData((prev) => ({
-    ...prev,
-    mobileNum: e.target.value,
-    userName: e.target.value,
-  }));
-};
-
-  const handleSave = () => {
-    // Save logic here (e.g., API call) with formData.mobileNum
-    console.log('Saving mobile number:', formData.mobileNum);
-
-    // For now, just exit edit mode after save
-    setIsEditing(false);
-  };
+ 
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
@@ -445,52 +398,6 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
           <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
             <FileUpload onChange={handleFileUpload} />
           </div>
-
-{user && (
-  <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-10">
-    <div className="grid grid-cols-2 items-center mb-4">
-      <h1 className="text-3xl font-bold text-white">Contact Info</h1>
-      {!isEditing && (
-        <button className="text-white" onClick={handleEditClick}>
-          <MdOutlineEditNote size={24} />
-        </button>
-      )}
-      </div>
-
-      {/* {user ? ( */}
-        <div className="text-white space-y-2">
-          <p>
-            <strong>Owner Name:</strong> {userDetails?.given_name}
-          </p>
-
-          <p>
-            <strong>Mobile:</strong>{' '}
-            {isEditing ? (
-              <input
-                type="text"
-                value={formData.mobileNum}
-                onChange={handleMobileChange}
-                className="bg-white bg-opacity-20 rounded px-2 py-1 text-black"
-              />
-            ) : (
-              userDetails?.nickname
-            )}
-          </p>
-
-          {isEditing && (
-            <button
-              onClick={handleSave}
-              className="mt-2 px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
-            >
-              Save
-            </button>
-          )}
-        </div>
-      {/* ) : (
-        <p className="text-white">Loading user info...</p>
-      )} */}
-    </div>
-    )}
 
 
 
