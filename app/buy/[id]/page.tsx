@@ -1,9 +1,5 @@
-
-
-// buy/[id]/page.tsx
-
-import CarDetailsClient from "./CarDetailsClient";
 import { notFound } from "next/navigation";
+import CarDetailsClient from "./CarDetailsClient";
 
 interface CarCard {
   id: string;
@@ -32,8 +28,12 @@ interface PageProps {
   };
 }
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
+    cache: "no-store",
+  });
   const cars: CarCard[] = await res.json();
 
   return cars.map((car) => ({
@@ -41,10 +41,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({ params }: PageProps) {
- 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
+export default async function Page({ params }: { params: { id: string } }) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
+    cache: "no-store",
+  });
   const cars: CarCard[] = await res.json();
+
   const car = cars.find((c) => c.id === params.id);
 
   if (!car) {
@@ -53,4 +55,3 @@ export default async function Page({ params }: PageProps) {
 
   return <CarDetailsClient car={car} />;
 }
-
