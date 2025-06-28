@@ -61,7 +61,8 @@ export default function Sell() {
 }));
 
   }
-}, [userDetails?.given_name, userDetails?.nickname]);
+//}, [userDetails?.given_name, userDetails?.nickname]);
+}, []);
 
 
   const handleEditClick = () => {
