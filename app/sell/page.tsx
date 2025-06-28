@@ -4,13 +4,13 @@ import { FileUpload } from '../components/ui/file-upload';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { ToggleSwitch } from '../components/ToggleSwitch ';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import { MdOutlineEditNote } from "react-icons/md";
 
 export default function Sell() {
-  const router = useRouter(); // ✅ Move here
+  //const router = useRouter(); // ✅ Move here
 
    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
@@ -42,16 +42,27 @@ export default function Sell() {
   const [files, setFiles] = useState<File[]>([]);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-     const [editedMobile, setEditedMobile] = useState( userDetails?.mobileNumber || '');
+  //   const [editedMobile, setEditedMobile] = useState( userDetails?.mobileNumber || '');
   const [isEditing, setIsEditing] = useState(false);
 
  // Initialize formData.mobileNum when user data arrives or changes
-  useEffect(() => {
-    if (user?.mobileNumber) {
-      setFormData((prev) => ({ ...prev, mobileNum: userDetails?.mobileNumber, userName:user.given_name }));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user?.mobileNumber) {
+  //     setFormData((prev) => ({ ...prev, mobileNum: userDetails?.mobileNumber, userName:user.given_name }));
+  //   }
+  // }, []);
   
+  useEffect(() => {
+  if (user?.mobileNumber) {
+    setFormData((prev) => ({
+      ...prev,
+      mobileNum: userDetails?.mobileNumber,
+      userName: user.given_name
+    }));
+  }
+}, [user?.mobileNumber, user.given_name, userDetails?.mobileNumber]);
+
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
