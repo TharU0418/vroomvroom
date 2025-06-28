@@ -50,7 +50,10 @@ function MyRequests({ user }: { user: User }) {
         const requestsRes = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`,);
         if (!requestsRes.ok) throw new Error(`HTTP error! status: ${requestsRes.status}`);
         const requestsData = await requestsRes.json();
-        const filteredRequests = requestsData.filter(requestsData1 => requestsData1.userId ===  user.email);
+       // const filteredRequests = requestsData.filter(requestsData1 => requestsData1.userId ===  user.email);
+const filteredRequests = requestsData.filter((requestsData1: { userId: string }) => 
+    requestsData1.userId === user.email
+);
 
           console.log('filteredRequests', filteredRequests)
         setRentRequests(filteredRequests);
