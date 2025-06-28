@@ -11,7 +11,8 @@ function ConfirmSignUp() {
 
 
 const searchParams = useSearchParams();
-const email = searchParams.get('email') ?? '';
+//const email = searchParams.get('email') ?? '';
+const email = typeof window !== 'undefined' ? (searchParams?.get('email') ?? '') : '';
 
 
   const [code, setCode] = useState('');
