@@ -1,6 +1,5 @@
-//import { notFound } from "next/navigation";
-
 import { Suspense } from "react";
+//import { notFound } from "next/navigation";
 import CarDetails from "./CarDetails";
 import { fetchCarById } from "./fetchCar";
 
@@ -19,7 +18,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const carPromise = fetchCarById(params.id);
 
   return (
