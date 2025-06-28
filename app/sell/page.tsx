@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FileUpload } from '../components/ui/file-upload';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
