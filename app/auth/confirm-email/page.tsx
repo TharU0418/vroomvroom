@@ -54,7 +54,6 @@ const router = useRouter();
     const data = await res.json();
   if (!res.ok) throw new Error(data.error || 'Verify failed');
 
-              console.log('formData', formData)
 
     if (data === "Invalid code") {
         setError("Invalid verification code. Please try again.");
@@ -64,7 +63,7 @@ const router = useRouter();
           router.push('/auth/signin');
 
       }
-    } catch (_) {
+    } catch{
       setError('An unexpected error occurred. Please try again.');
       setSuccess(false);
     } finally {
@@ -78,7 +77,7 @@ const router = useRouter();
       setError('');
       // This would call your resendSignUpCode function
       alert('A new verification code has been sent to your email.');
-    } catch (_) {
+    } catch {
       setError('Failed to resend code. Please try again.');
     }
   };
