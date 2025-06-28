@@ -67,13 +67,14 @@ export default function Sell() {
   const handleEditClick = () => {
     setIsEditing(true);
   };
-  const handleMobileChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      mobileNum: e.target.value,
-      userName:e.target.value
-    }));
-  };
+  const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setFormData((prev) => ({
+    ...prev,
+    mobileNum: e.target.value,
+    userName: e.target.value,
+  }));
+};
+
   const handleSave = () => {
     // Save logic here (e.g., API call) with formData.mobileNum
     console.log('Saving mobile number:', formData.mobileNum);
