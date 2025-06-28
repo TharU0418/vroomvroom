@@ -35,7 +35,7 @@ function InsuranceConsultation() {
                 setUserDetails({
                   email: decoded.email,
                   given_name: decoded.given_name,
-                  mobileNumber:decoded.nickname
+                  nickname:decoded.nickname
                 });
               }
                }
@@ -63,7 +63,7 @@ function InsuranceConsultation() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           //body: JSON.stringify({ ...formData, type: typeSet }),
-          body: JSON.stringify({ ...formData, type: 'Insurence',userId: userDetails?.email , mobileNumber: userDetails?.mobileNumber}),
+          body: JSON.stringify({ ...formData, type: 'Insurence',userId: userDetails?.email , mobileNumber: userDetails?.nickname}),
 
         });
   
