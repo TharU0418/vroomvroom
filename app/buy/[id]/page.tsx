@@ -1,7 +1,8 @@
-import { notFound } from "next/navigation";
+//import { notFound } from "next/navigation";
+
+import { Suspense } from "react";
 import CarDetails from "./CarDetails";
 import { fetchCarById } from "./fetchCar";
-import { Suspense } from "react";
 
 interface PageProps {
   params: {
