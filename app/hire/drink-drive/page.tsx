@@ -66,6 +66,7 @@ function DrinkDrive() {
             setUserDetails({
               email: decoded.email,
               given_name: decoded.given_name,
+              nickname:decoded.nickname
             });
           }
         }
