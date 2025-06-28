@@ -22,11 +22,11 @@ interface CarCard {
   report: string;
 }
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
+// interface PageProps {
+//   params: {
+//     id: string;
+//   };
+// }
 
 export const dynamicParams = true;
 
