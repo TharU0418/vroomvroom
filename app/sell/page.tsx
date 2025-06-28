@@ -16,15 +16,15 @@ export default function Sell() {
 
   console.log()
 
-  useEffect(() => {
-  if (user?.mobileNumber) {
+useEffect(() => {
+  if ((userDetails?.given_name || userDetails?.nickname) && !formData.mobileNum) {
     setFormData((prev) => ({
       ...prev,
       mobileNum: userDetails?.nickname || '',
       userName: userDetails?.given_name || '',
     }));
   }
-}, [user?.mobileNumber, userDetails?.nickname, userDetails?.given_name]);
+}, [user?.mobileNumber, userDetails?.given_name, userDetails?.nickname]);
 
 
   const [formData, setFormData] = useState({
@@ -58,6 +58,20 @@ export default function Sell() {
   }
 //}, [userDetails?.given_name, userDetails?.nickname]);
 }, []);
+
+
+const token = localStorage.getItem('idToken');
+if (token) {
+  const decoded = decodeToken(token);
+  console.log('Decoded token:', decoded);
+  if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
+    setUserDetails({
+      email: decoded.email,
+      given_name: decoded.given_name,
+      nickname: decoded.nickname
+    });
+  }
+}
 
 
   const handleEditClick = () => {
