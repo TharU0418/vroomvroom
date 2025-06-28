@@ -55,10 +55,11 @@ export default function Sell() {
   useEffect(() => {
   if (user?.mobileNumber) {
     setFormData((prev) => ({
-      ...prev,
-      mobileNum: userDetails?.nickname,
-      userName: userDetails?.given_name
-    }));
+  ...prev,
+  mobileNum: userDetails?.nickname || '',
+  userName: userDetails?.given_name || '',
+}));
+
   }
 }, [userDetails?.given_name, userDetails?.nickname]);
 
