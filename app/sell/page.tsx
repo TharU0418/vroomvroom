@@ -26,7 +26,7 @@ export default function Sell() {
           setUserDetails({
             email: decoded.email,
             given_name: decoded.given_name,
-            mobileNumber: decoded.nickname,
+            nickname:decoded.nickname
           });
         }
       }
@@ -56,11 +56,11 @@ export default function Sell() {
   if (user?.mobileNumber) {
     setFormData((prev) => ({
       ...prev,
-      mobileNum: userDetails?.mobileNumber,
-      userName: user.given_name
+      mobileNum: userDetails?.nickname,
+      userName: userDetails?.given_name
     }));
   }
-}, [user?.mobileNumber, user.given_name, userDetails?.mobileNumber]);
+}, [userDetails?.given_name, userDetails?.nickname]);
 
 
   const handleEditClick = () => {
@@ -139,7 +139,7 @@ export default function Sell() {
       status: 'available',
       report: null,
       userId : userDetails?.given_name,
-      mobileNum : userDetails?.mobileNumber
+      mobileNum : userDetails?.nickname
 
     };
 
@@ -188,7 +188,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
  
 
 
-    console.log('userDetails', userDetails?.mobileNumber)
+   // console.log('userDetails', userDetails?.mobileNumber)
 
    
 
@@ -461,7 +461,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                 className="bg-white bg-opacity-20 rounded px-2 py-1 text-black"
               />
             ) : (
-              userDetails?.mobileNumber
+              userDetails?.nickname
             )}
           </p>
 
