@@ -15,8 +15,8 @@ interface FormData {
 function InsuranceConsultation() {
 
     const [formData, setFormData] = useState<FormData>({
-      userId: '121',
-  mobileNumber: '212',
+      userId: '',
+  mobileNumber: '',
   message: '',
       type: 'Insurence',  // Set default type value to 'full-day'
     });
@@ -31,12 +31,13 @@ function InsuranceConsultation() {
                  const decoded = decodeToken(token);
                  console.log('Decoded token:', decoded);
            
-                 if (decoded && decoded.email && decoded.given_name) {
-                   setUserDetails({
-                     email: decoded.email,
-                     given_name: decoded.given_name,
-                   });
-                 }
+                  if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
+                setUserDetails({
+                  email: decoded.email,
+                  given_name: decoded.given_name,
+                  mobileNumber:decoded.nickname
+                });
+              }
                }
              }, []);
     
@@ -62,7 +63,7 @@ function InsuranceConsultation() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           //body: JSON.stringify({ ...formData, type: typeSet }),
-          body: JSON.stringify({ ...formData, type: 'Insurence',userId: userDetails?.email }),
+          body: JSON.stringify({ ...formData, type: 'Insurence',userId: userDetails?.email , mobileNumber: userDetails?.mobileNumber}),
 
         });
   

@@ -9,7 +9,6 @@ import WhyUs from "./components/WhyUs";
 export default function Home() {
   return (
     <div className="min-h-screen "> 
-        <Navbar/>
 
 <HeroSlider/>
 <WhyUs/>
@@ -17,7 +16,7 @@ export default function Home() {
 <WhatUs/>
 <FAQ/>
 
-<Footer/>
+{/* <Footer/> */}
 
     </div>
   );

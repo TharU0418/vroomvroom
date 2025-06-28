@@ -7,20 +7,68 @@ import { ToggleSwitch } from '../components/ToggleSwitch ';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { MdOutlineEditNote } from "react-icons/md";
 
 export default function Sell() {
   const router = useRouter(); // ✅ Move here
+
+   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+
+  console.log()
+
+  useEffect(() => {
+      const token = localStorage.getItem('idToken');
+      if (token) {
+        const decoded = decodeToken(token);
+        console.log('Decoded token:', decoded);
+  
+        if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
+          setUserDetails({
+            email: decoded.email,
+            given_name: decoded.given_name,
+            mobileNumber: decoded.nickname,
+          });
+        }
+      }
+    }, []);
 
   const [formData, setFormData] = useState({
     district:'', city:'', condition: '', brand: '', year: '',
     model: '', mileage: '', fueltype: '', engine_capacity: '',
     transmission: '', body_type: '', price: '', description: '',
-    mobileNum:'12121', negotiable:false, userId:''
+    mobileNum:'', negotiable:false, userId:''
   });
 
   const [files, setFiles] = useState<File[]>([]);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
+     const [editedMobile, setEditedMobile] = useState( userDetails?.mobileNumber || '');
+  const [isEditing, setIsEditing] = useState(false);
+
+ // Initialize formData.mobileNum when user data arrives or changes
+  useEffect(() => {
+    if (user?.mobileNumber) {
+      setFormData((prev) => ({ ...prev, mobileNum: userDetails?.mobileNumber, userName:user.given_name }));
+    }
+  }, []);
+  
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+  const handleMobileChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      mobileNum: e.target.value,
+      userName:e.target.value
+    }));
+  };
+  const handleSave = () => {
+    // Save logic here (e.g., API call) with formData.mobileNum
+    console.log('Saving mobile number:', formData.mobileNum);
+
+    // For now, just exit edit mode after save
+    setIsEditing(false);
+  };
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
@@ -47,7 +95,7 @@ export default function Sell() {
   const requiredFields: (keyof typeof formData)[] = [
     'district', 'city', 'condition', 'brand', 'year', 'model',
     'mileage', 'fueltype', 'engine_capacity', 'transmission',
-    'body_type', 'price', 'description', 'mobileNum',
+    'body_type', 'price', 'description', 
   ];
 
   console.log('formData',formData)
@@ -79,23 +127,27 @@ export default function Sell() {
       images: base64Images,
       status: 'available',
       report: null,
-      userId : userDetails?.given_name
+      userId : userDetails?.given_name,
+      mobileNum : userDetails?.mobileNumber
+
     };
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    console.log('pay', payload)
 
-    if (!response.ok) throw new Error('Submission failed');
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(payload),
+    // });
+
+    //if (!response.ok) throw new Error('Submission failed');
 
     setNotificationMessage('Car listed successfully!');
     setShowNotification(true);
     setTimeout(() => setShowNotification(false), 3000);
-    router.push('/profile');
+   // router.push('/profile');
   } catch (error) {
     console.error('Error:', error);
     setNotificationMessage('Error submitting form');
@@ -122,25 +174,13 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
 
   console.log('user', user)
 
-  const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
-
-  useEffect(() => {
-      const token = localStorage.getItem('idToken');
-      if (token) {
-        const decoded = decodeToken(token);
-        console.log('Decoded token:', decoded);
-  
-        if (decoded && decoded.email && decoded.given_name) {
-          setUserDetails({
-            email: decoded.email,
-            given_name: decoded.given_name,
-          });
-        }
-      }
-    }, []);
+ 
 
 
-    console.log('userDetails', userDetails?.given_name)
+    console.log('userDetails', userDetails?.mobileNumber)
+
+   
+
 
   // Fix all form field onChange handlers  bg-gradient-to-r from-[#FD1D1D] to-[#FCB045]
   return (
@@ -382,6 +422,53 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
           <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
             <FileUpload onChange={handleFileUpload} />
           </div>
+
+{user && (
+  <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-10">
+    <div className="grid grid-cols-2 items-center mb-4">
+      <h1 className="text-3xl font-bold text-white">Contact Info</h1>
+      {!isEditing && (
+        <button className="text-white" onClick={handleEditClick}>
+          <MdOutlineEditNote size={24} />
+        </button>
+      )}
+      </div>
+
+      {/* {user ? ( */}
+        <div className="text-white space-y-2">
+          <p>
+            <strong>Owner Name:</strong> {userDetails?.given_name}
+          </p>
+
+          <p>
+            <strong>Mobile:</strong>{' '}
+            {isEditing ? (
+              <input
+                type="text"
+                value={formData.mobileNum}
+                onChange={handleMobileChange}
+                className="bg-white bg-opacity-20 rounded px-2 py-1 text-black"
+              />
+            ) : (
+              userDetails?.mobileNumber
+            )}
+          </p>
+
+          {isEditing && (
+            <button
+              onClick={handleSave}
+              className="mt-2 px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded"
+            >
+              Save
+            </button>
+          )}
+        </div>
+      {/* ) : (
+        <p className="text-white">Loading user info...</p>
+      )} */}
+    </div>
+    )}
+
 
 
     {!user && (

@@ -5,6 +5,7 @@ import { useAuth } from '../../../store/useAuth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import { useRouteGuard } from '@/hooks/useRouteGuard';
 
 function SignIn() {
 
@@ -17,7 +18,8 @@ function SignIn() {
   const [showNotification, setShowNotification] = useState(false);
 const [notificationMessage, setNotificationMessage] = useState('');
 
-  
+    useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
+
  const router = useRouter();
   const { setUser } = useAuth();
   //const [error, setError] = useState('');
@@ -32,7 +34,12 @@ const [notificationMessage, setNotificationMessage] = useState('');
     credentials: 'include',
   });
 
+
   const data = await res.json();
+
+          console.log('data',data)
+
+          
   if (!res.ok) throw new Error(data.error || 'Login failed');
 
   const { accessToken, idToken } = data.tokens;
@@ -40,10 +47,13 @@ const [notificationMessage, setNotificationMessage] = useState('');
   // Optional: store tokens temporarily in memory or localStorage
   localStorage.setItem('accessToken', accessToken);
   localStorage.setItem('idToken', idToken);
+//document.cookie = `accessToken=${accessToken}; path=/;`;
 
   setUser(data.user);
-  console.log('credentials', data)
+  console.log('data', data)
   console.log('credentials', data.tokens)
+  console.log('credentials', data.tokens)
+
   router.push('/');
 } catch (err) {
   const message = err instanceof Error ? err.message : 'Unknown error';

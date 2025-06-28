@@ -17,8 +17,8 @@ function RegistrationConsultation() {
 // const [typeSet, setTypeSet] = useState('Full'); // Set default value to 'full-day'
   
     const [formData, setFormData] = useState<FormData>({
-     userId: '121',
-  mobileNumber: '212',
+     userId: '',
+  mobileNumber: '',
   message: '',
       type: 'Register',  // Set default type value to 'full-day'
     });
@@ -33,12 +33,13 @@ function RegistrationConsultation() {
                   const decoded = decodeToken(token);
                   console.log('Decoded token:', decoded);
             
-                  if (decoded && decoded.email && decoded.given_name) {
-                    setUserDetails({
-                      email: decoded.email,
-                      given_name: decoded.given_name,
-                    });
-                  }
+                   if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
+                setUserDetails({
+                  email: decoded.email,
+                  given_name: decoded.given_name,
+                  mobileNumber:decoded.nickname
+                });
+              }
                 }
               }, []);
    
@@ -77,7 +78,7 @@ function RegistrationConsultation() {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: 'Register' ,userId: userDetails?.email}),
+          body: JSON.stringify({ ...formData, type: 'Register' ,userId: userDetails?.email , mobileNumber: userDetails?.mobileNumber}),
         });
   
         if (!res.ok) {

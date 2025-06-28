@@ -3,6 +3,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import React, { useEffect, useState } from 'react'
+import { MdOutlineEditNote } from "react-icons/md";
 
 
 interface FormData {
@@ -18,7 +19,7 @@ function FullConsultation() {
   
     const [formData, setFormData] = useState<FormData>({
   userId: '',
-  mobileNumber: '212',
+  mobileNumber: '',
   message: '',
   type: 'Full'
 });
@@ -27,16 +28,19 @@ const {user} = useAuth();
   
 const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
+
+
        useEffect(() => {
             const token = localStorage.getItem('idToken');
             if (token) {
               const decoded = decodeToken(token);
               console.log('Decoded token:', decoded);
         
-              if (decoded && decoded.email && decoded.given_name) {
+              if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
                 setUserDetails({
                   email: decoded.email,
                   given_name: decoded.given_name,
+                  mobileNumber:decoded.nickname
                 });
               }
             }
@@ -62,7 +66,7 @@ const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: 'Full',userId: userDetails?.email }),
+          body: JSON.stringify({ ...formData, type: 'Full',userId: userDetails?.email , mobileNumber: userDetails?.mobileNumber}),
           
         });
   
@@ -102,6 +106,9 @@ const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
       );
 
 
+
+  
+
   return (
      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4 text-white">
       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-20 justify-center ">
@@ -135,6 +142,8 @@ With Full Guide, you&rsquo;re never alone in the process. Our mission is to offe
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           
+
+
 
           <div className="flex flex-col">
             <label className="text-white">Message</label>

@@ -25,13 +25,13 @@ const router = useRouter();
 //     email: email,
 //     code: code,
 //   });
-if (!email) {
-  return (
-    <div className="text-center text-red-500 mt-20">
-      Invalid access. Please check your email link or try signing up again.
-    </div>
-  );
-}
+// if (!email) {
+//   return (
+//     <div className="text-center text-red-500 mt-20">
+//       Invalid access. Please check your email link or try signing up again.
+//     </div>
+//   );
+// }
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -198,7 +198,8 @@ if (!email) {
                   src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                   alt="Car Verification"
                   className="w-full h-full object-cover"
-                   sizes="(max-width: 768px) 100vw, 50vw"
+                   width={100}
+                   height={100}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
                   <div className="text-white">

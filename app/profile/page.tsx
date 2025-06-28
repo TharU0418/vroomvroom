@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import ProfileLayout from './ProfileLayout';
 import { decodeToken, DecodedToken } from '@/utils/decodeToken';
+import { useRouteGuard } from '@/hooks/useRouteGuard';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<DecodedToken | null>(null);
+
+    useRouteGuard({ requiresAuth: true, redirectTo: '/' });
 
   useEffect(() => {
     const token = localStorage.getItem('idToken');

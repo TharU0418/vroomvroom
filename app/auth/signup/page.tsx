@@ -1,4 +1,5 @@
 'use client';
+import { useRouteGuard } from '@/hooks/useRouteGuard';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -21,6 +22,8 @@ function SignUp() {
   const [error, setError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 const router = useRouter();
+
+      useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
   
 
   // Password validation regex
@@ -49,6 +52,8 @@ const router = useRouter();
       });
 
       const data = await res.json();
+
+      console.log('data',data)
 
       if (!res.ok) {
         throw new Error(data.error || 'Something went wrong');
