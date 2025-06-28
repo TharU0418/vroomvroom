@@ -22,18 +22,10 @@ interface CarCard {
   report: string;
 }
 
-// interface PageProps {
-//   params: {
-//     id: string;
-//   };
-// }
-
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
   const cars: CarCard[] = await res.json();
 
   return cars.map((car) => ({
@@ -41,10 +33,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
-    cache: "no-store",
-  });
+export default async function Page({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
   const cars: CarCard[] = await res.json();
 
   const car = cars.find((c) => c.id === params.id);
