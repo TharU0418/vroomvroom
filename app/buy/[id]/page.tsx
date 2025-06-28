@@ -13,9 +13,9 @@ export async function generateStaticParams() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
   const cars = await res.json();
 
-  return cars.map((car: { id: string }) => ({
-    id: car.id,
-  }));
+ return cars.map((car) => ({
+  id: car.id,
+}));
 }
 
 export default async function Page({ params }: PageProps) {
