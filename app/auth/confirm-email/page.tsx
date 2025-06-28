@@ -10,8 +10,9 @@ import Image from 'next/image';
 function ConfirmSignUp() {
 
 
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email');
+const searchParams = useSearchParams();
+const email = searchParams.get('email') ?? '';
+
 
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -23,6 +24,14 @@ const router = useRouter();
 //     email: email,
 //     code: code,
 //   });
+if (!email) {
+  return (
+    <div className="text-center text-red-500 mt-20">
+      Invalid access. Please check your email link or try signing up again.
+    </div>
+  );
+}
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
