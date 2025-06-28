@@ -62,7 +62,7 @@ const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, type: 'Full' }),
+          body: JSON.stringify({ ...formData, type: 'Full',userId: userDetails?.email }),
           
         });
   

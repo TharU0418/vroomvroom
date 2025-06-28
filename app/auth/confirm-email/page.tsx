@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 //import { handleconfirmSignUp } from '@/lib/cognitoActions';
 
 function ConfirmSignUp() {
@@ -18,10 +19,10 @@ function ConfirmSignUp() {
   const [isLoading, setIsLoading] = useState(false);
 const router = useRouter();
 
-const [formData, setFormData] = useState({    
-    email: email,
-    code: code,
-  });
+// const [formData, setFormData] = useState({    
+//     email: email,
+//     code: code,
+//   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,14 +36,13 @@ const [formData, setFormData] = useState({
     try {
     
 
-      //const formData = new FormData();
-
-      console.log('form', formData)
+      //console.log('form', formData)
 
       const res = await fetch(`https://tvu7ajftla.execute-api.eu-north-1.amazonaws.com/verify/verifytoken`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({...formData,code: code}),
+        //body: JSON.stringify({...formData,code: code}),
+        body: JSON.stringify({ email, code }),
       });
 
     //           const result = await ('sas',{
@@ -64,7 +64,7 @@ const [formData, setFormData] = useState({
           router.push('/auth/signin');
 
       }
-    } catch (err) {
+    } catch (_) {
       setError('An unexpected error occurred. Please try again.');
       setSuccess(false);
     } finally {
@@ -78,7 +78,7 @@ const [formData, setFormData] = useState({
       setError('');
       // This would call your resendSignUpCode function
       alert('A new verification code has been sent to your email.');
-    } catch (err) {
+    } catch (_) {
       setError('Failed to resend code. Please try again.');
     }
   };
@@ -112,7 +112,7 @@ const [formData, setFormData] = useState({
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="text-center mb-6">
                   <p className="text-white">
-                    We've sent a verification code to
+                    We&rsquo;ve sent a verification code to
                   </p>
                   <p className="font-bold text-white text-lg mt-2">{email}</p>
                   <p className="text-white mt-2">
@@ -147,7 +147,7 @@ const [formData, setFormData] = useState({
                     onClick={handleResendCode}
                     className="text-white hover:underline text-sm"
                   >
-                    Didn't receive code? Resend
+                    Didn&rsquo;t receive code? Resend
                   </button>
                 </div>
 
@@ -185,10 +185,11 @@ const [formData, setFormData] = useState({
           <div className="md:w-1/2">
             <div className="glass-container bg-white bg-opacity-15 rounded-xl p-2 h-full">
               <div className="relative h-full rounded-lg overflow-hidden">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                   alt="Car Verification"
                   className="w-full h-full object-cover"
+                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
                   <div className="text-white">
