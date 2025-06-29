@@ -18,6 +18,7 @@ interface Car {
   price: number;
   images: string[];
   seats: number; // Added missing property
+  bookedDates:string[]
 }
 
 // interface FormData {
