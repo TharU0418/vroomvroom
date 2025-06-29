@@ -21,7 +21,7 @@ export interface CarCard {
   reason: string;
 }
 
-// Server-side function to fetch a single car
+
 async function getCar(id: string): Promise<CarCard | null> {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
@@ -35,7 +35,6 @@ async function getCar(id: string): Promise<CarCard | null> {
   }
 }
 
-// Generate static paths at build time
 export async function generateStaticParams() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
@@ -49,9 +48,13 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: { id: string };
+}
+
+export default async function Page({ params }: PageProps) {
   const car = await getCar(params.id);
-  const CarDetailsClient = (await import('./CarDetailsClient')).default;
+  const { default: CarDetailsClient } = await import('./CarDetailsClient');
   
   return <CarDetailsClient car={car} />;
 }
