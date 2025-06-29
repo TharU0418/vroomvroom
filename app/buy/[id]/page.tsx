@@ -28,8 +28,26 @@ export interface CarCard {
   reason: string;
 }
 
+// Add this function to generate static paths
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch: ${res.status}`);
+    }
+    
+    const cars: CarCard[] = await res.json();
+    return cars.map(car => ({
+      id: car.id,
+    }));
+  } catch (error) {
+    console.error('Failed to generate static params:', error);
+    return [];
+  }
+}
+
 export default function CarDetails() {
-  const params = useParams(); // Use the useParams hook
+  const params = useParams();
   const id = params?.id as string | undefined;
   const [car, setCar] = useState<CarCard | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -47,13 +65,7 @@ export default function CarDetails() {
         }
         
         const data: CarCard[] = await res.json();
-        console.log('data', data);
-        
-        // Find the specific car by ID
         const foundCar = data.find(c => c.id === id);
-        console.log('Searching for ID:', id);
-        console.log('Found car:', foundCar);
-        
         setCar(foundCar || null);
       } catch (err) {
         console.error('Failed to fetch car:', err);
@@ -66,7 +78,7 @@ export default function CarDetails() {
     if (id) {
       fetchCar();
     }
-  }, [id]); // Use id in dependency array
+  }, [id]);
   
   if (isLoading) {
     return (
