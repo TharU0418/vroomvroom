@@ -118,11 +118,12 @@ const handleSubmit = async (e: React.FormEvent) => {
   setLoading(true);
   setHasSearched(true);
 
-
-
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
     const allCars = await response.json();
+
+    const selectedPickup = new Date(formData.pickupDate);
+    const selectedReturn = new Date(formData.returnDate);
 
     // Filtering logic
     const filtered = allCars.filter((car: Car) => {
@@ -132,7 +133,15 @@ const handleSubmit = async (e: React.FormEvent) => {
       const matchesFuel = formData.fueltype ? car.fueltype === formData.fueltype : true;
       const matchesPrice = formData.price ? car.price <= parseFloat(formData.price) : true;
 
-      return matchesType && matchesBrand && matchesYear && matchesFuel && matchesPrice;
+      const isAvailable = !car.bookedDates?.some((booking: { pickedDate: string, returnDate: string }) => {
+        const bookedStart = new Date(booking.pickedDate);
+        const bookedEnd = new Date(booking.returnDate);
+
+        // Check if selected dates overlap with any booked dates
+        return selectedPickup <= bookedEnd && selectedReturn >= bookedStart;
+      });
+
+      return matchesType && matchesBrand && matchesYear && matchesFuel && matchesPrice && isAvailable;
     });
 
     setSearchResults(filtered);

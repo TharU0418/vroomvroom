@@ -41,7 +41,6 @@ function InsuranceConsultation() {
                }
              }, []);
     
-    
      
       
 
@@ -53,10 +52,7 @@ function InsuranceConsultation() {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
   
-      if (!formData.userId) {
-        alert('User ID is missing. Please log in and try again.');
-        return;
-      }
+    
   
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {

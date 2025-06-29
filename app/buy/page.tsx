@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { locations } from '@/public/data/location';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 // export interface CarCard {
 //   _id: string;
@@ -67,6 +68,8 @@ export default function CarListing() {
     price: '',
     terms: false
   });
+
+  const router = useRouter();
 
   useEffect(() => {
   const fetchCars = async () => {
@@ -310,11 +313,20 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                           </h3>
                           <div className="text-white mb-4">{car.district}, {car.city}</div>
                           <div className="text-white mb-4">${car.price}</div>
-                          <Link href={`/buy/${car.id}`}>
-                            <button className="bg-gradient-to-r from-red-400 to-red-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all">
+                          {/* <Link href={`/buy/${car.id}`}> */}
+                            {/* <button onClick={() => router.push(`buy/${car.id}`)} className="bg-gradient-to-r from-red-400 to-red-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all">
                               Buy Now
-                            </button>
-                          </Link>
+                            </button> */}
+                          {/* </Link> */}
+<button 
+  onClick={() => {
+    sessionStorage.setItem('selectedCar', JSON.stringify(car));
+    router.push('/buy/details');
+  }}
+  className="bg-gradient-to-r from-red-400 to-red-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all"
+>
+  Buy Now
+</button>
                         </div>
                       </div>
                     </div>

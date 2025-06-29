@@ -30,18 +30,18 @@ export default function Sell() {
   
 
 
-const token = localStorage.getItem('idToken');
-if (token) {
-  const decoded = decodeToken(token);
-  console.log('Decoded token:', decoded);
-  if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
-    setUserDetails({
-      email: decoded.email,
-      given_name: decoded.given_name,
-      nickname: decoded.nickname
-    });
-  }
-}
+// const token = localStorage.getItem('idToken');
+// if (token) {
+//   const decoded = decodeToken(token);
+//   console.log('Decoded token:', decoded);
+//   if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
+//     setUserDetails({
+//       email: decoded.email,
+//       given_name: decoded.given_name,
+//       nickname: decoded.nickname
+//     });
+//   }
+// }
 
 
  

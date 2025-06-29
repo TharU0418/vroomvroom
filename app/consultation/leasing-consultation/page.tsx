@@ -95,7 +95,7 @@ function LeasingConsultation() {
 
 With expert support and deep industry knowledge, we help you:
 
-
+</p>
 <ul className='list-disc mt-2'>
 <li>  Understand Leasing Options – Learn the difference between types of leases (personal, business, short-term, long-term) and what suits your situation best.
 </li>
@@ -109,7 +109,7 @@ With expert support and deep industry knowledge, we help you:
 <li>Prepare for End-of-Lease – Get guidance on what happens when your lease ends, from buyout options to renewal or return.
 </li>
 </ul>
-</p>
+
 <p className='mt-2'>
 Whether you&rsquo;re leasing for personal convenience or business flexibility, our Leasing Consultation ensures you get the right vehicle with the right terms—quickly and stress-free.        </p>
       

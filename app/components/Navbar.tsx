@@ -106,18 +106,20 @@ const Navbar = () => {
                     <div className="relative">
                       <div
                         className="w-8 h-8 rounded-full overflow-hidden cursor-pointer border border-white"
-                        onClick={() => setActiveMenu(activeMenu === 'avatar' ? null : 'avatar')}
-                      >
+                        //onClick={() => setActiveMenu(activeMenu === 'avatar' ? null : 'avatar')}
+                      ><Link
+                      href="/profile">
                         <Image
                                                   src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
                                                   alt="User Avatar"
                                                   width={32}
                                                   height={32}
                                                 />
+                                                </Link>
                       </div>
                               
                               
-                        {activeMenu === 'avatar' && (
+                        {/* {activeMenu === 'avatar' && (
                                                 <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
                                                   <Link
                                                     href="/profile"
@@ -136,7 +138,7 @@ const Navbar = () => {
                                                     Logout
                                                   </button>
                                                 </div>
-                          )}
+                          )} */}
                     </div>
                                   </div>
               ):(<div className="flex space-x-3">
