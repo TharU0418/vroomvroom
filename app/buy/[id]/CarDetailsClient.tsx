@@ -46,10 +46,10 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
             </svg>
           </div>
           <h2 className="mt-4 text-2xl font-bold text-gray-800">Car Not Found</h2>
-          <p className="mt-2 text-gray-600">The car you're looking for doesn't exist or has been removed.</p>
-          <a href="/buy" className="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition">
+          <p className="mt-2 text-gray-600">The car you are looking for does not exist or has been removed.</p>
+          <Link href="/buy" className="mt-6 inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition">
             Browse Other Cars
-          </a>
+          </Link>
         </div>
       </div>
     );
