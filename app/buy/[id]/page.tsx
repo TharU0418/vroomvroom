@@ -30,7 +30,7 @@ export interface CarCard {
 
 export default function CarDetails() {
   const params = useParams(); // Use the useParams hook
-  const id = params.id as string; // Get the id from route parameters
+  const id = params?.id as string | undefined;
   const [car, setCar] = useState<CarCard | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
