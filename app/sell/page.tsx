@@ -6,12 +6,12 @@ import { brand } from '@/public/data/brand';
 import { ToggleSwitch } from '../components/ToggleSwitch ';
 //import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+//import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 
 export default function Sell() {
   //const router = useRouter(); // ✅ Move here
 
-   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+   //const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
 
 
@@ -76,7 +76,7 @@ export default function Sell() {
 
   console.log('formData',formData)
 
-  console.log('formData',userDetails?.email)
+  //console.log('formData',userDetails?.email)
 
   if (
     requiredFields.some((field) => !formData[field].toString().trim()) ||
@@ -103,8 +103,8 @@ export default function Sell() {
       images: base64Images,
       status: 'available',
       report: null,
-      userId : userDetails?.given_name,
-      mobileNum : userDetails?.nickname
+     // userId : userDetails?.given_name,
+     // mobileNum : userDetails?.nickname
 
     };
 
