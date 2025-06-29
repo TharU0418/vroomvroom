@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useParams } from 'next/navigation'; // Add this import
+//import { CarCard } from './page'; // Importing from your existing page
 
 export interface CarCard {
   id: string;
@@ -22,13 +22,17 @@ export interface CarCard {
   features?: string[];
   type?: string;
   report: string;
-  status?: string;
-  reason: string;
+  status?: string; // ✅ Add this line,
+  reason:string;
 }
 
-export default function CarDetails() {
-  const params = useParams(); // Use the useParams hook
-  const id = params.id as string; // Get the id from route parameters
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function CarDetails({ params }: PageProps ) {
   const [car, setCar] = useState<CarCard | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,34 +42,22 @@ export default function CarDetails() {
     const fetchCar = async () => {
       try {
         setIsLoading(true);
+        console.log('params', params)
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
-        
-        if (!res.ok) {
-          throw new Error(`Failed to fetch: ${res.status}`);
-        }
-        
-        const data: CarCard[] = await res.json();
-        console.log('data', data);
-        
-        // Find the specific car by ID
-        const foundCar = data.find(c => c.id === id);
-        console.log('Searching for ID:', id);
-        console.log('Found car:', foundCar);
-        
-        setCar(foundCar || null);
+        const data = await res.json();
+        const car = data.find((c) => c.id === params.id);
+        console.log('car', car)
+        setCar(data);
       } catch (err) {
         console.error('Failed to fetch car:', err);
-        setCar(null);
       } finally {
         setIsLoading(false);
       }
     };
     
-    if (id) {
-      fetchCar();
-    }
-  }, [id]); // Use id in dependency array
-  
+    fetchCar();
+  }, []);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100">
