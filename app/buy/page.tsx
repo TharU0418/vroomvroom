@@ -321,7 +321,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
 <button 
   onClick={() => {
     sessionStorage.setItem('selectedCar', JSON.stringify(car));
-    router.push('/buy/details');
+    router.push('/details');
   }}
   className="bg-gradient-to-r from-red-400 to-red-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all"
 >
