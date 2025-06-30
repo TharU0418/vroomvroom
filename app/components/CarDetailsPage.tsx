@@ -15,9 +15,9 @@ export default function CarDetailsPage() {
   const {user} = useAuth();
 
   const payload = {
-    userId: 'sas',
-    carId:car.id
-  }
+  userId: 'sas',
+  carId: car?.id,  // will be undefined if car is null
+};
 
   const handleReportRequest = () => {
     if (car.report) {
