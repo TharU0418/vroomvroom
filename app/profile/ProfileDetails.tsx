@@ -6,6 +6,7 @@ interface User {
   lastName: string;
   email: string;
   location: string;
+  mobileNumber:string;
 }
 interface User {
   email: string;
