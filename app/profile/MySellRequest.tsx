@@ -42,7 +42,7 @@ interface User {
 
 function MySellRequest({ user }: { user: User }) {
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
-  const [cars, setCars] = useState<CarCard[]>([]);
+//  const [cars, setCars] = useState<CarCard[]>([]);
   const [loading, setLoading] = useState(true);
   //const [error, setError] = useState<string | null>(null);
   //const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
@@ -74,11 +74,7 @@ function MySellRequest({ user }: { user: User }) {
   }, []);
 
   console.log('sellRequests 1111111111', sellRequests)
-  console.log('cars', cars)
-
-  
-  console.log('cars', cars)
-
+ 
   const handleCancelRequest = async (requestId: string) => {
       try {
         const response = await fetch(`https://yzrt64o9ga.execute-api.eu-north-1.amazonaws.com/buy/buy-cars`, {

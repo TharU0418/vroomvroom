@@ -69,10 +69,10 @@ export interface SellCard {
   images: string[];
 }
 
-interface User {
-  email: string;
-  userId: string;
-}
+// interface User {
+//   email: string;
+//   userId: string;
+// }
 
 function MyHistory() {
   const [rentRequests, setRentRequests] = useState<RequestsCard[]>([]);
