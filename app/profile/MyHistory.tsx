@@ -52,7 +52,7 @@ export interface SellCard {
   district: string;
   city: string;
   condition: number;
-  brand: String,
+  brand: string,
   year: string,
   model: string,
   mileage: string;
