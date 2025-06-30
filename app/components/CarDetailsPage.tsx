@@ -19,12 +19,14 @@ export default function CarDetailsPage() {
   carId: car?.id,  // will be undefined if car is null
 };
 
-  const handleReportRequest = () => {
-    if (car.report) {
-      window.open(car.report, "_blank");
-    }
-    handleSubmit2()
-  };
+ const handleReportRequest = () => {
+  if (car && car.report) {
+    window.open(car.report, "_blank");
+  }
+
+  handleSubmit2();
+};
+
 
 console.log('car', car)
 
