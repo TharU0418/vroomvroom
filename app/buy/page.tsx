@@ -275,8 +275,8 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
               ) : (
                 <>
                 
-                 { filteredCars
-                 .filter(filteredCars => filteredCars?.status === 'accept')
+                 { cars
+              //   .filter(filteredCars => filteredCars?.status === 'accept')
                   .map((car) => ( 
 
               //     {cars

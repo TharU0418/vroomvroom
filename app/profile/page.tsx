@@ -30,5 +30,7 @@ export default function ProfilePage() {
     return <div className="text-center mt-20">Loading or not authenticated...</div>;
   }
 
+  console.log(user)
+
   return <ProfileLayout user={user} />;
 }

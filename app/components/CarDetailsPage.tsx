@@ -4,12 +4,48 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {  } from '../page';
 import { CarCard } from '../buy/page';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function CarDetailsPage() {
   const [car, setCar] = useState<CarCard | null>(null);
   const [activeImage, setActiveImage] = useState(0);
-  const [show360, setShow360] = useState(false);
+ // const [show360, setShow360] = useState(false);
   const router = useRouter();
+
+  const {user} = useAuth();
+
+  const payload = {
+    userId: 'sas',
+    carId:car.id
+  }
+
+  const handleReportRequest = () => {
+    if (car.report) {
+      window.open(car.report, "_blank");
+    }
+    handleSubmit2()
+  };
+
+console.log('car', car)
+
+
+     const handleSubmit2 = async () => {
+    //e.preventDefault();
+    try {
+      const res = await fetch('https://vih0lw3c29.execute-api.eu-north-1.amazonaws.com/sell/sell-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to submit request');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error submitting form');
+    }
+  }
 
   useEffect(() => {
     const carData = sessionStorage.getItem('selectedCar');
@@ -17,7 +53,7 @@ export default function CarDetailsPage() {
   }, []);
 
   if (!car) return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-r from-red-400 to-red-500 text-white  flex items-center justify-center">
       <div className="text-center">
         <div className="w-16 h-16 border-t-4 border-red-600 border-solid rounded-full animate-spin mx-auto mb-4"></div>
         <p className="text-white text-xl font-light">Loading your dream car...</p>
@@ -26,11 +62,11 @@ export default function CarDetailsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
+    <div className="min-h-screen bg-gradient-to-r from-red-500 via-red-700 to-red-900 text-white ">
       {/* Floating Back Button */}
       <button 
         onClick={() => router.back()}
-        className="fixed top-6 left-6 z-50 bg-black/50 backdrop-blur-md text-white rounded-full p-3 hover:bg-red-600 transition-all duration-300 group"
+        className="fixed top-6 left-6 z-50 bg-white backdrop-blur-md text-white rounded-full p-3 hover:bg-red-600 transition-all duration-300 group"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -38,11 +74,11 @@ export default function CarDetailsPage() {
       </button>
       
       {/* Floating Share Button */}
-      <button className="fixed top-6 right-6 z-50 bg-black/50 backdrop-blur-md text-white rounded-full p-3 hover:bg-red-600 transition-all">
+      {/* <button className="fixed top-6 right-6 z-50 bg-black/50 backdrop-blur-md text-white rounded-full p-3 hover:bg-red-600 transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
         </svg>
-      </button>
+      </button> */}
       
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 pt-24 pb-16">
@@ -62,7 +98,7 @@ export default function CarDetailsPage() {
               />
               
               {/* 360° View Button */}
-              <button 
+              {/* <button 
                 onClick={() => setShow360(!show360)}
                 className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-full flex items-center gap-2 group hover:bg-red-700 transition-all"
               >
@@ -71,14 +107,14 @@ export default function CarDetailsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>360° View</span>
-              </button>
+              </button> */}
               
               {/* Favorite Button */}
-              <button className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white p-2 rounded-full hover:bg-red-700 transition-all">
+              {/* <button className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white p-2 rounded-full hover:bg-red-700 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
-              </button>
+              </button> */}
             </div>
             
             {/* Thumbnails */}
@@ -110,7 +146,7 @@ export default function CarDetailsPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-gradient-to-br from-gray-800/70 to-gray-900/70 backdrop-blur-xl rounded-3xl border border-gray-700/50 p-8 shadow-2xl relative overflow-hidden"
+            className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl border border-gray-700/50 p-8 shadow-2xl relative overflow-hidden"
           >
             {/* Decorative Elements */}
             <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-red-600/10 blur-3xl"></div>
@@ -143,10 +179,10 @@ export default function CarDetailsPage() {
                 <div className="text-gray-400 text-sm">Mileage</div>
                 <div className="text-white font-medium">42,000 km</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
+              {/* <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
                 <div className="text-gray-400 text-sm">Color</div>
                 <div className="text-white font-medium">Midnight Black</div>
-              </div>
+              </div> */}
             </div>
             
             {/* Description */}
@@ -158,7 +194,7 @@ export default function CarDetailsPage() {
             </div>
             
             {/* Features */}
-            <div className="mb-10">
+            {/* <div className="mb-10">
               <h2 className="text-xl font-bold text-white mb-4">Key Features</h2>
               <div className="flex flex-wrap gap-3">
                 {(car.features || ["Leather Seats", "Sunroof", "Navigation", "Backup Camera", "Bluetooth", "Heated Seats", "Apple CarPlay", "Keyless Entry"]).map((feature, i) => (
@@ -167,29 +203,29 @@ export default function CarDetailsPage() {
                   </span>
                 ))}
               </div>
-            </div>
+            </div> */}
             
             {/* Contact Seller */}
-            <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700/50">
-              <h3 className="text-white text-xl font-bold mb-4">Contact Seller</h3>
+            <div className="bg-white bg-opacity-40 backdrop-blur-lg rounded-xl p-6 border border-gray-700/50">
+              {/* <h3 className="text-white text-xl font-bold mb-4">Contact Seller</h3> */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex-1 bg-gray-700/50 backdrop-blur-sm rounded-lg p-4 flex items-center gap-4">
-                  <div className="bg-gray-600 p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Call Now</p>
-                    <p className="text-white font-medium">{car.mobileNum}</p>
-                  </div>
-                </div>
-                <button className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-4 rounded-lg font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                  <span>Message Seller</span>
+                
+
+                 {user ? (
+                
+                <div className="flex-1 rounded-lg p-4 flex items-center gap-4"> 
+                 <button
+                  onClick={handleReportRequest}
+                  className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700"
+                >
+                  Request Vehicle Report
                 </button>
+                </div>
+              ) : (
+                <p className="text-red-100">Please log in to request the vehicle report.</p>
+              )}
+
+                
               </div>
             </div>
           </motion.div>

@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
@@ -34,8 +35,12 @@ export interface CarCard {
   description?: string;
 }
 
+interface User {
+  email: string;
+  given_name: string;
+}
 
-function MySellRequest() {
+function MySellRequest({ user }: { user: User }) {
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
   const [cars, setCars] = useState<CarCard[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,11 +51,14 @@ function MySellRequest() {
   useEffect(() => {
     const fetchSellRequests = async () => {
         try {
-          const response = await fetch('/api/buy');
+          const response = await fetch(`https://yzrt64o9ga.execute-api.eu-north-1.amazonaws.com/buy/buy-cars`);
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
           const data = await response.json();
-          
-          setSellRequests(data?.data);
+          console.log('daaaaata', data)
+          const filteredRequests = data.filter((requestsData1: { userId: string }) => 
+    requestsData1.userId === user.email
+);
+          setSellRequests(filteredRequests);
           setLoading(false);
         } catch (error) {
           console.error('Failed to fetch rent-requests:', error);
@@ -73,10 +81,10 @@ const fetchCars = async () => {
 
   
       fetchSellRequests();
-      fetchCars();
+     // fetchCars();
   }, []);
 
-  console.log('sellRequests', sellRequests)
+  console.log('sellRequests 1111111111', sellRequests)
   console.log('cars', cars)
 
     const handleRemoveFromList = async (requestId: string) => {
@@ -103,14 +111,17 @@ const fetchCars = async () => {
         console.error('Error removing from list:', error);
       }
     };
+  console.log('cars', cars)
 
   const handleCancelRequest = async (requestId: string) => {
       try {
-        const response = await fetch(`/api/buy/${requestId}`, {
+        const response = await fetch(`https://yzrt64o9ga.execute-api.eu-north-1.amazonaws.com/buy/buy-cars`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: 'cancel' }), // Update status to 'reject'
+          body: JSON.stringify({ id:requestId,status: 'cancel' }), // Update status to 'reject'
         });
+
+        console.log('requestId',requestId)
 
         if (response.ok) {
           // Update rentRequests state
@@ -220,14 +231,14 @@ const fetchCars = async () => {
                       : 'bg-white/10'
                   }`}
                 >
-                <div className="absolute top-2 right-2">
+                {/* <div className="absolute top-2 right-2">
                   <button 
                     className="text-red-500 hover:text-red-700"
-                    onClick={() => handleCancelRequest(request._id)}
+                    onClick={() => handleRemoveFromList(request._id)}
                   >
                     <IoIosCloseCircle size={24} />
                   </button>
-                </div>
+                </div> */}
                 <div className="flex gap-8">
                   <div className="w-1/3">
                     <Image 
@@ -256,19 +267,20 @@ const fetchCars = async () => {
 
                     {request.status == 'pending' && (
                       <button
-                        onClick={() => handleRemoveFromList(request._id)}
+                        onClick={() => handleCancelRequest(request.id)}
                         className="text-white bg-gradient-to-r from-red-500 to-red-700 py-2 px-4 rounded-full"
                       >
                         Cancel the request
                       </button>
                     )}
                     {request.status == 'accept' && (
-                      <button
-                        onClick={() => handleRemoveFromList(request._id)}
-                        className="text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full"
-                      >
-                        Promote
-                      </button>
+                      // <button
+                      //   onClick={() => handleRemoveFromList(request._id)}
+                      //   className="text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full"
+                      // >
+                      //   Promote
+                      // </button>
+                      <></>
                     )}
                     
                   </div>

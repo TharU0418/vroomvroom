@@ -86,7 +86,8 @@ function HireRequests({ user }: { user: User }) {
             const contentType = response.headers.get('content-type');
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
+
             }
 
             if (contentType && contentType.includes('application/json')) {

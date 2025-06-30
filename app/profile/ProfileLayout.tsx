@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import MyRequests from './MyRequests';
 import HireRequests from './HireRequests';
+import ProfileDetails from './ProfileDetails';
+import MySellRequest from './MySellRequest';
+import MyHistory from './MyHistory';
 // import ProfileDetails from './ProfileDetails';
 // import MyRequests from './MyRequests';
 // import MyHistory from './MyHistory';
@@ -65,9 +68,11 @@ export default function ProfileLayout({ user }: { user: User }) {
 
           {/* Uncomment when ready */}
          <div className="bg-gray-50 rounded-xl p-4 md:p-6 min-h-[500px]">
+          {activeTab === 'profile' && <ProfileDetails user={user} />} 
             {activeTab === 'requests' && <MyRequests user={user} />}
              {activeTab === 'hirerequests' && <HireRequests user={user} />}
-          {activeTab === 'history' && <HireRequests user={user} />}
+             {activeTab === 'mysellrequest' && <MySellRequest user={user} />}
+          {activeTab === 'history' && <MyHistory user={user} />}
           {/*     {activeTab === 'mysellrequest' && <MySellRequest userName={user.given_name} />}
              */}
           </div>

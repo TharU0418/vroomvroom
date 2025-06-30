@@ -35,14 +35,14 @@ const Navbar = () => {
     <nav 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white shadow-lg py-0' 
-          : 'bg-white py-0'
+          ? 'bg-black shadow-lg py-0' 
+          : 'bg-black py-0'
       }`}
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center">
           {/* White rectangular logo section */}
-          <div className="w-[240px] md:w-[280px] h-20 bg-white flex items-center justify-center relative z-10 border-r border-gray-200">
+          <div className="w-[240px] md:w-[280px] h-20 bg-black flex items-center justify-center relative z-10 border-r border-gray-200">
             <Link href="/" className="flex items-center space-x-2">
               {/* <FiCar className="h-8 w-8 text-red-600" /> */}
               {/* <span className="text-2xl font-bold text-gray-900 cursor-pointer tracking-tight">
@@ -65,7 +65,7 @@ const Navbar = () => {
            <div 
   className="absolute top-0 right-0 h-full w-full bg-gradient-to-r from-red-600 to-red-800"
   style={{ 
-    clipPath: 'polygon(2% 0%, 96% 0%, 100% 100%, 0% 100%)',
+    clipPath: 'polygon(0% 0%, 96% 0%, 100% 100%, 100% 100%)',
     zIndex: 0
   }}
 />

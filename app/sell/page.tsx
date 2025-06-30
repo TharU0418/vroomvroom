@@ -1,17 +1,16 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FileUpload } from '../components/ui/file-upload';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { ToggleSwitch } from '../components/ToggleSwitch ';
 //import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-//import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 
 export default function Sell() {
   //const router = useRouter(); // ✅ Move here
 
-   //const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
 
 
@@ -27,24 +26,6 @@ export default function Sell() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  
-
-
-// const token = localStorage.getItem('idToken');
-// if (token) {
-//   const decoded = decodeToken(token);
-//   console.log('Decoded token:', decoded);
-//   if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
-//     setUserDetails({
-//       email: decoded.email,
-//       given_name: decoded.given_name,
-//       nickname: decoded.nickname
-//     });
-//   }
-// }
-
-
- 
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
@@ -59,9 +40,30 @@ export default function Sell() {
     </div>
   );
 
+
+   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+     
+            useEffect(() => {
+                 const token = localStorage.getItem('idToken');
+                 if (token) {
+                   const decoded = decodeToken(token);
+                   console.log('Decoded token:', decoded);
+             
+                    if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
+                  setUserDetails({
+                    email: decoded.email,
+                    given_name: decoded.given_name,
+                    nickname:decoded.nickname
+                  });
+                }
+                 }
+               }, []);
+
   const handleFileUpload = (files: File[]) => {
     setFiles(files);
   };
+
+    console.log('formData',userDetails?.email)
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -76,7 +78,7 @@ export default function Sell() {
 
   console.log('formData',formData)
 
-  //console.log('formData',userDetails?.email)
+  console.log('formData',userDetails?.email)
 
   if (
     requiredFields.some((field) => !formData[field].toString().trim()) ||
@@ -103,22 +105,21 @@ export default function Sell() {
       images: base64Images,
       status: 'available',
       report: null,
-     // userId : userDetails?.given_name,
-     // mobileNum : userDetails?.nickname
+     userId : userDetails?.email,
+      mobileNum : userDetails?.nickname
 
     };
 
     console.log('pay', payload)
 
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(payload),
-    // });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
 
-    //if (!response.ok) throw new Error('Submission failed');
 
     setNotificationMessage('Car listed successfully!');
     setShowNotification(true);
