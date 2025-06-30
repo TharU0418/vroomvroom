@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
 export interface RequestsCard {
@@ -9,6 +10,8 @@ export interface RequestsCard {
   returnDate: string;
   pickupLocation: string;
   type: string; // Add type field to differentiate between Rent, Sell, and Hire
+  status:string;
+  history:string;
 }
 
 export interface HireRequestsCard {
@@ -21,6 +24,7 @@ export interface HireRequestsCard {
   description: string;
   reason: string;
   type: string; // Add type field to differentiate between Rent, Sell, and Hire
+  status:string;
 }
 
 export interface CarCard {
@@ -49,17 +53,20 @@ export interface SellCard {
   city: string;
   condition: number;
   brand: String,
-  year: String,
-  model: String,
+  year: string,
+  model: string,
   mileage: string;
   fueltype: number;
-  engine_capacity: String,
-  transmission: String,
-  body_type: String,
+  engine_capacity: string,
+  transmission: string,
+  body_type: string,
   price: string;
   description: number;
-  mobileNum: String,
-  userName: String,
+  mobileNum: string,
+  userName: string,
+  type:string;
+  status:string;
+  images: string[];
 }
 
 interface User {
@@ -72,12 +79,12 @@ function MyHistory() {
   const [hireRequests, setHireRequests] = useState<HireRequestsCard[]>([]);
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
   const [cars, setCars] = useState<CarCard[]>([]);
-  const [drivers, setDrivers] = useState<DriverCard[]>([]);
+  //const [drivers, setDrivers] = useState<DriverCard[]>([]);
   const [selectedType, setSelectedType] = useState('all'); // Default to 'all'
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
+ // const [user, setUser] = useState<User | null>(null);
+ // const [error, setError] = useState<string | null>(null);
+  //const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
 
   useEffect(() => {
     const fetchRentRequests = async () => {
@@ -148,23 +155,7 @@ function MyHistory() {
         console.error('Failed to fetch cars:', error);
       }
 
-      try {
-        const response = await fetch('/api/check-drivers');
-        const contentType = response.headers.get('content-type');
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        if (contentType && contentType.includes('application/json')) {
-          const data = await response.json();
-          setDrivers(data);
-        } else {
-          throw new Error('Expected JSON response');
-        }
-      } catch (error) {
-        console.error('Failed to fetch drivers:', error);
-      }
+    
     };
 
  
@@ -230,7 +221,7 @@ function MyHistory() {
           {/* Render Rent Requests */}
           {selectedType === 'all' || selectedType === 'rent'
             ? rentRequests
-                .filter((rentRequest) => rentRequest.type === selectedType || selectedType === 'rent' && rentRequest?.history == true || (rentRequest?.status === 'completed' ||
+                .filter((rentRequest) => rentRequest.type === selectedType || selectedType === 'rent' && rentRequest.history == true || (rentRequest?.status === 'completed' ||
                 rentRequest?.status === 'reject' ||
                 rentRequest?.status === 'cancel' 
               ))
@@ -243,7 +234,7 @@ function MyHistory() {
 
                   return (
                     <div
-                      key={rentRequest._id}
+                      key={rentRequest.id}
                       className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 ${
                         rentRequest.status === 'reject'
                           ? 'bg-red-500/50'
@@ -257,10 +248,12 @@ function MyHistory() {
                       <div className="flex flex-col lg:flex-row gap-8">
                         <div className="md:w-1/2">
                           {matchedCar?.images?.[0] && (
-                            <img
+                            <Image
                               src={matchedCar.images[0]}
                               alt={`${matchedCar.brand} ${matchedCar.model}`}
                               className="w-80 h-auto object-cover rounded-lg mb-2"
+                              width={100}
+                              height={100}
                             />
                           )}
                         </div>
@@ -299,7 +292,6 @@ function MyHistory() {
 
                                     console.log('sellRequests 2', sellRequests)
            //       console.log('isMyRequest', isMyRequest)
-                  console.log('user', user)
 
 
                 //  if (!isMyRequest) return null;
@@ -322,10 +314,12 @@ function MyHistory() {
                       <div className="flex flex-col lg:flex-row gap-8">
                         <div className="md:w-1/2">
                           {sellRequest?.images?.[0] && (
-                            <img
+                            <Image
                               src={sellRequest.images[0]}
                               alt={`${sellRequest.brand}`}
                               className="w-80 h-auto object-cover rounded-lg mb-2"
+                              width={100}
+                              height={100}
                             />
                           )}
                         </div>
@@ -363,7 +357,7 @@ function MyHistory() {
                 .map((hireRequest) => {
                                     console.log('22222222222222222222222 Hire')
 
-                  const matchedDriver = drivers.find((driver) => driver._id === hireRequest.driverId);
+                 // const matchedDriver = drivers.find((driver) => driver._id === hireRequest.driverId);
                 //  const isMyRequest = user?.email === hireRequest.userId;
 
                   console.log('22222222222222222222222 Hire')
@@ -371,7 +365,7 @@ function MyHistory() {
 
                   return (
                     <div
-                      key={hireRequest._id}
+                      key={hireRequest.id}
                       className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 ${
                         hireRequest.status === 'reject'
                           ? 'bg-red-500/50'

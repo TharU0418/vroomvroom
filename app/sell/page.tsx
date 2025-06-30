@@ -120,6 +120,8 @@ export default function Sell() {
       body: JSON.stringify(payload),
     });
 
+    if (!response.ok) throw new Error('Submission failed');
+
 
     setNotificationMessage('Car listed successfully!');
     setShowNotification(true);
