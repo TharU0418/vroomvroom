@@ -1,10 +1,10 @@
-import { useAuth } from '@/hooks/useAuth';
+//import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { IoIosCloseCircle } from "react-icons/io";
+//import { IoIosCloseCircle } from "react-icons/io";
 
 export interface SellCard {
-  _id: string;
+  id: string;
   district: string;
   city: string;
   condition: number;
@@ -25,7 +25,7 @@ export interface SellCard {
 }
 
 export interface CarCard {
-  _id: string;
+  id: string;
   brand: string;
   model: string;
   price: number;
@@ -66,18 +66,7 @@ function MySellRequest({ user }: { user: User }) {
         }
       };
 
-const fetchCars = async () => {
-        try {
-          const response = await fetch('/api/check-cars');
-          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-          const data = await response.json();
-          setCars(data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Failed to fetch cars:', error);
-          setLoading(false);
-        }
-      };
+
 
   
       fetchSellRequests();
@@ -87,30 +76,7 @@ const fetchCars = async () => {
   console.log('sellRequests 1111111111', sellRequests)
   console.log('cars', cars)
 
-    const handleRemoveFromList = async (requestId: string) => {
-      try {
-        const response = await fetch(`/api/rent-requests/${requestId}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ history: true }), // Update history field to true
-        });
-
-        if (response.ok) {
-          // Update rentRequests state
-          setSellRequests(prev => 
-            prev.map(sellRequest => 
-              sellRequest._id === requestId 
-              ? { ...sellRequest, history: true } 
-              : sellRequest
-            )
-          );
-        } else {
-          throw new Error('Failed to update rent request');
-        }
-      } catch (error) {
-        console.error('Error removing from list:', error);
-      }
-    };
+  
   console.log('cars', cars)
 
   const handleCancelRequest = async (requestId: string) => {
@@ -127,7 +93,7 @@ const fetchCars = async () => {
           // Update rentRequests state
           setSellRequests(prev => 
             prev.map(sellRequest => 
-              sellRequest._id === requestId 
+              sellRequest.id === requestId 
               ? { ...sellRequest, status: 'cancel' } 
               : sellRequest
             )
@@ -220,7 +186,7 @@ const fetchCars = async () => {
             return request ? (
               // <div key={request._id} className="relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 bg-white/10">
                 <div
-                  key={request._id}
+                  key={request.id}
                   className={`relative rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
                     request.status === 'reject'
                       ? 'bg-red-500/30'
