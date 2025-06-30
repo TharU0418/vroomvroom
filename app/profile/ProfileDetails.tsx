@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface User {
+interface Users {
   id: string;
   firstName: string;
   lastName: string;
@@ -15,7 +15,7 @@ interface User {
 
 // app/profile/ProfileDetails.tsx
 export default function ProfileDetails({ user }: { user: User }) {
-    const [users, setUsers] = useState<User[]>([]);
+    const [users, setUsers] = useState<Users[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
         console.log('users data', user)

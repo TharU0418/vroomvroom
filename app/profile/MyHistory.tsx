@@ -69,12 +69,15 @@ export interface SellCard {
   images: string[];
 }
 
-// interface User {
-//   email: string;
-//   userId: string;
-// }
+interface User {
+  email: string;
+  userId: string;
+}
 
-function MyHistory() {
+
+
+function MyHistory({ user }: { user: User }) {
+
   const [rentRequests, setRentRequests] = useState<RequestsCard[]>([]);
   const [hireRequests, setHireRequests] = useState<HireRequestsCard[]>([]);
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
@@ -85,6 +88,9 @@ function MyHistory() {
  // const [user, setUser] = useState<User | null>(null);
  // const [error, setError] = useState<string | null>(null);
   //const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
+
+
+  console.log(user)
 
   useEffect(() => {
     const fetchRentRequests = async () => {
