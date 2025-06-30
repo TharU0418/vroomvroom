@@ -221,7 +221,7 @@ function MyHistory() {
           {/* Render Rent Requests */}
           {selectedType === 'all' || selectedType === 'rent'
             ? rentRequests
-                .filter((rentRequest) => rentRequest.type === selectedType || selectedType === 'rent' && rentRequest.history == true || (rentRequest?.status === 'completed' ||
+                .filter((rentRequest) => rentRequest.type === selectedType || selectedType === 'rent' && rentRequest.history || (rentRequest?.status === 'completed' ||
                 rentRequest?.status === 'reject' ||
                 rentRequest?.status === 'cancel' 
               ))
