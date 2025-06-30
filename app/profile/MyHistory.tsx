@@ -71,7 +71,7 @@ export interface SellCard {
 
 interface User {
   email: string;
-  userId: string;
+  given_name: string;
 }
 
 
