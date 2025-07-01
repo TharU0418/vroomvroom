@@ -5,33 +5,41 @@ import { useRouter } from 'next/navigation';
 
 export default function DriverApplication() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    categories: [],
-    message: ''
-  });
+  const [formData, setFormData] = useState<{
+  name: string;
+  email: string;
+  phone: string;
+  categories: string[];
+  message: string;
+}>({
+  name: '',
+  email: '',
+  phone: '',
+  categories: [],
+  message: ''
+});
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    if (type === 'checkbox') {
-      const updatedCategories = checked
-        ? [...formData.categories, value]
-        : formData.categories.filter(cat => cat !== value);
-      
-      setFormData(prev => ({
-        ...prev,
-        categories: updatedCategories
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    }
-  };
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const { name, value, type, checked } = e.target;
+  
+  if (type === 'checkbox') {
+    const updatedCategories = checked
+      ? [...formData.categories, value]
+      : formData.categories.filter(cat => cat !== value);
+
+    setFormData(prev => ({
+      ...prev,
+      categories: updatedCategories
+    }));
+  } else {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+};
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
