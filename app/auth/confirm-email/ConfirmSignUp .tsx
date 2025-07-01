@@ -48,7 +48,7 @@ const router = useRouter();
 
       //console.log('form', formData)
 
-      const res = await fetch(`https://4s7ydqagj9.execute-api.eu-north-1.amazonaws.com/verify/verify-token`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_VERIFY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: JSON.stringify({...formData,code: code}),

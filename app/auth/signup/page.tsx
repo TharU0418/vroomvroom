@@ -22,6 +22,7 @@ function SignUp() {
   const [error, setError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 const router = useRouter();
+const mobileNumberPattern = /^07\d{8}$/;
 
       useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
   
@@ -31,6 +32,14 @@ const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+  setError('');
+  setPasswordError('');
+
+  // Validate mobile number
+  if (!mobileNumberPattern.test(formData.mobileNumber)) {
+    setError('Invalid mobile number.');
+    return;
+  }
 
     // Check if password and confirmPassword are the same
     if (formData.password !== formData.confirmPassword) {
@@ -126,6 +135,7 @@ const router = useRouter();
                   onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
                 />
               </div>
+              
 
               {/* Location */}
               <div>
@@ -186,7 +196,7 @@ const router = useRouter();
               </p> 
 
               {/* Display general error message */}
-              {error && <p className="text-red-600 bg-white p-1 w-1/2 text-center">{error}</p>}
+              {error && <p className="text-white p-1 w-1/2 text-center">{error}</p>}
 
               {/* Submit Button */}
               <button

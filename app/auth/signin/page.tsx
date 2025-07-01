@@ -36,7 +36,11 @@ const [notificationMessage, setNotificationMessage] = useState('');
 
 
   const data = await res.json();
-
+  if (!res.ok){
+    setNotificationMessage(data.message);
+  setShowNotification(true);
+  setTimeout(() => setShowNotification(false), 5000);
+   }
           console.log('data',data)
 
           
@@ -54,12 +58,16 @@ const [notificationMessage, setNotificationMessage] = useState('');
   console.log('credentials', data.tokens)
   console.log('credentials', data.tokens)
 
+ 
+  
+
   router.push('/');
 } catch (err) {
   const message = err instanceof Error ? err.message : 'Unknown error';
-  setNotificationMessage(message);
-  setShowNotification(true);
-  setTimeout(() => setShowNotification(false), 5000);
+  console.log('mess', message)
+  // setNotificationMessage(message);
+  // setShowNotification(true);
+  // setTimeout(() => setShowNotification(false), 5000);
 }
   };
 

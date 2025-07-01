@@ -37,35 +37,24 @@ function MyRequests({ user }: { user: User }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-
-  console.log('user', user.email)
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        
-        
         // Fetch rent requests
-        const requestsRes = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`,);
+        const requestsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`,);
         if (!requestsRes.ok) throw new Error(`HTTP error! status: ${requestsRes.status}`);
         const requestsData = await requestsRes.json();
        // const filteredRequests = requestsData.filter(requestsData1 => requestsData1.userId ===  user.email);
-const filteredRequests = requestsData.filter((requestsData1: { userId: string }) => 
-    requestsData1.userId === user.email
-);
-
-          console.log('filteredRequests', filteredRequests)
+        const filteredRequests = requestsData.filter((requestsData1: { userId: string }) => 
+            requestsData1.userId === user.email
+        );
         setRentRequests(filteredRequests);
-          console.log('rentRequests', rentRequests)
-
-        
         // Fetch cars
-        const carsRes = await fetch('https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent');
+        const carsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
         if (!carsRes.ok) throw new Error(`HTTP error! status: ${carsRes.status}`);
         const carsData = await carsRes.json();
         setCars(carsData);
-        
       } catch (error) {
         console.error('Failed to fetch data:', error);
         setError('Failed to load data. Please try again later.');
@@ -81,12 +70,9 @@ const filteredRequests = requestsData.filter((requestsData1: { userId: string })
   console.log('Updated hireRequests:', rentRequests);
 }, [rentRequests]);
 
-
-
-
   const handleRemoveFromList = async (requestId: string) => {
     try {
-      const response = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: requestId, history: true }),
@@ -106,7 +92,7 @@ const filteredRequests = requestsData.filter((requestsData1: { userId: string })
 
   const handleCancelRequest = async (requestId: string) => {
     try {
-      const response = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: requestId, status: 'cancel' }),
@@ -225,28 +211,28 @@ const filteredRequests = requestsData.filter((requestsData1: { userId: string })
       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-2 p-2">
         <h1 className="text-2xl font-bold text-black mb-8 text-center">Your Car Rental Requests</h1>
 
+        {rentRequests.filter(
+        (rentRequest) =>
+          rentRequest?.history == false &&
+          ['accept', 'on-going', 'pending', 'reject'].includes(rentRequest?.status)
+      ).length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-lg text-gray-700">You have no current rental requests.</p>
+        </div>
+      ) : (
         <div className="grid grid-cols-1 gap-6">
-  {rentRequests
-    .filter(
-      (rentRequest) =>
-        rentRequest?.history == false &&
-        ['accept', 'on-going', 'pending', 'reject'].includes(rentRequest?.status)
-    )
-    .map((request) => {
-      const car = cars.find((car) => car.id === request.carId);
-      return car ? (
+          {rentRequests
+            .filter(
+              (rentRequest) =>
+                rentRequest?.history == false &&
+                ['accept', 'on-going', 'pending', 'reject'].includes(rentRequest?.status)
+            )
+            .map((request) => {
+              const car = cars.find((car) => car.id === request.carId);
+              return car ? (
         <div
           key={request.id}
-          className={`relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 transition-all 
-            ${
-              request.status === 'reject'
-                ? 'bg-red-500/30'
-                : request.status === 'pending'
-                ? 'bg-yellow-500/30'
-                : request.status === 'accept'
-                ? 'bg-green-500/30'
-                : 'bg-white/10'
-            }`}
+          className={`relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 transition-all`}
         >
           {/* Close Button */}
           <div className="absolute top-2 right-2">
@@ -310,13 +296,13 @@ const filteredRequests = requestsData.filter((requestsData1: { userId: string })
               </div>
             </div>
           </div>
+                    </div>
+              ) : null;
+            })}
         </div>
-      ) : null;
-    })}
-</div>
-
-      </div>
+      )}
     </div>
+  </div>
   );
 }
 

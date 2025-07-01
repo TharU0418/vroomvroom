@@ -96,7 +96,7 @@ function MyHistory({ user }: { user: User }) {
     const fetchRentRequests = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
@@ -132,7 +132,7 @@ function MyHistory({ user }: { user: User }) {
         console.error('Failed to fetch hire-requests:', error);
       }
       try {
-          const response = await fetch(`https://yzrt64o9ga.execute-api.eu-north-1.amazonaws.com/buy/buy-cars`);
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
           const data = await response.json();
           
@@ -150,7 +150,7 @@ function MyHistory({ user }: { user: User }) {
     const fetchCars = async () => {
       try {
         // Fetch cars
-       const carsRes = await fetch('https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent');
+       const carsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`);
         if (!carsRes.ok) throw new Error(`HTTP error! status: ${carsRes.status}`);
         const carsData = await carsRes.json();
         console.log('carsData',carsData)
@@ -208,48 +208,41 @@ function MyHistory({ user }: { user: User }) {
       <h1 className="text-2xl font-bold text-black mb-1 text-center">Requests</h1>
 
       {/* Dropdown Menu for selecting request type */}
-      <div className="mb-6 flex justify-center">
-        <select
-          value={selectedType}
-          onChange={handleTypeChange}
-          className="bg-white p-2 rounded-md border border-gray-300"
-        >
-          {/* <option value="all">All Requests</option> */}
-          <option value="rent">Rent Request</option>
-          <option value="sell">Sell Request</option>
-          <option value="hire">Hire Request</option>
-        </select>
-      </div>
+      <select
+  value={selectedType}
+  onChange={handleTypeChange}
+  className="bg-white p-2 rounded-md border border-gray-300"
+>
+  <option value="all">All Requests</option>
+  <option value="rent">Rent Request</option>
+  <option value="sell">Sell Request</option>
+  <option value="hire">Hire Request</option>
+</select>
+
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           
           {/* Render Rent Requests */}
-          {selectedType === 'all' || selectedType === 'rent'
-            ? rentRequests
-                .filter((rentRequest) => rentRequest.type === selectedType || selectedType === 'rent' && rentRequest.history || (rentRequest?.status === 'completed' ||
-                rentRequest?.status === 'reject' ||
-                rentRequest?.status === 'cancel' 
-              ))
-                
-                .map((rentRequest) => {
-                  const matchedCar = cars.find((car) => car.id === rentRequest.carId);
-                //  const isMyRequest = user?.email === rentRequest.userId;
+  {(selectedType === 'all' || selectedType === 'rent') && (() => {
+  const filteredRentRequests = rentRequests.filter(
+    (rentRequest) =>
+      rentRequest.userId === user.email &&
+      ['completed', 'reject', 'cancel'].includes(rentRequest.status)
+  );
 
-                 // if (!isMyRequest) return null;
+  if (filteredRentRequests.length === 0) {
+    return (
+      <p className="text-center text-gray-500">No rent requests found.</p>
+    );
+  }
 
+  return filteredRentRequests.map((rentRequest) => {
+    const matchedCar = cars.find((car) => car.id === rentRequest.carId);
                   return (
                     <div
                       key={rentRequest.id}
-                      className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 ${
-                        rentRequest.status === 'reject'
-                          ? 'bg-red-500/50'
-                          : rentRequest.status === 'cancel'
-                          ? 'bg-blue-500/30'
-                          : rentRequest.status === 'completed'
-                          ? 'bg-green-500/100'
-                          : 'bg-white/10'
-                      }`}
+                      className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 bg-blue-500/30`}
                     >
                       <div className="flex flex-col lg:flex-row gap-8">
                         <div className="md:w-1/2">
@@ -275,47 +268,24 @@ function MyHistory({ user }: { user: User }) {
                       </div>
                     </div>
                   );
-                })
-            : null}
-
+  });
+})()}
           {/* Render Sell Requests */}
-          {selectedType === 'all' || selectedType === 'sell'
-            ? sellRequests
-            
-                .filter((sellRequest) => sellRequest.type === selectedType || selectedType === 'sell' 
-             //   && //sellRequest?.history == true || 
-               // (sellRequest?.status === 'completed' ||
-               // sellRequest?.status === 'reject' ||
-                //sellRequest?.status === 'cancel' 
-            //  )
-            )
-                
-                .map((sellRequest) => {
+       {(selectedType === 'all' || selectedType === 'sell') && (() => {
+  const filteredSellRequests = sellRequests.filter(
+    (sellRequest) =>
+      sellRequest.userName === user.email &&
+      ['completed', 'reject', 'cancel'].includes(sellRequest.status)
+  );
 
-                  console.log('sellRequests', sellRequests)
-                  //const matchedDriver = drivers.find((driver) => driver._id === hireRequest.driverId);
-               //   const isMyRequest = user?.userId === sellRequest.user;
+  if (filteredSellRequests.length === 0) {
+    return <p className="text-center text-gray-500">No sell requests found.</p>;
+  }
 
-                                    console.log('sellRequests 2', sellRequests)
-           //       console.log('isMyRequest', isMyRequest)
-
-
-                //  if (!isMyRequest) return null;
-
-                                    console.log('sellRequests 3', sellRequests)
-
-                  return (
+  return filteredSellRequests.map((sellRequest) => (
                     <div
                       key={sellRequest.id}
-                      className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 ${
-                        sellRequest.status === 'reject'
-                          ? 'bg-red-500/50'
-                          : sellRequest.status === 'cancel'
-                          ? 'bg-blue-500/30'
-                          : sellRequest.status === 'completed'
-                          ? 'bg-green-500/100'
-                          : 'bg-white/10'
-                      }`}
+                      className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20  bg-blue-500/30`}
                     >
                       <div className="flex flex-col lg:flex-row gap-8">
                         <div className="md:w-1/2">
@@ -351,36 +321,25 @@ function MyHistory({ user }: { user: User }) {
                         </div>
                       </div>
                     </div>
-                  );
-                })
-            : null}
+                ));
+})()}
 
             {/* Render Hire Requests */}
-          {selectedType === 'hire' || selectedType === 'hire'
-            ? hireRequests
-            
-                .filter((hireRequest) => hireRequest.type === selectedType || selectedType === 'hire')
-                .map((hireRequest) => {
-                                    console.log('22222222222222222222222 Hire')
+{(selectedType === 'all' || selectedType === 'hire') && (() => {
+  const filteredHireRequests = hireRequests.filter(
+    (hireRequest) =>
+      hireRequest.userId === user.email &&
+      ['completed', 'reject', 'cancel'].includes(hireRequest.status)
+  );
 
-                 // const matchedDriver = drivers.find((driver) => driver._id === hireRequest.driverId);
-                //  const isMyRequest = user?.email === hireRequest.userId;
+  if (filteredHireRequests.length === 0) {
+    return <p className="text-center text-gray-500">No hire requests found.</p>;
+  }
 
-                  console.log('22222222222222222222222 Hire')
-                  //if (!isMyRequest) return null;
-
-                  return (
+  return filteredHireRequests.map((hireRequest) => (
                     <div
                       key={hireRequest.id}
-                      className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 ${
-                        hireRequest.status === 'reject'
-                          ? 'bg-red-500/50'
-                          : hireRequest.status === 'cancel'
-                          ? 'bg-blue-500/30'
-                          : hireRequest.status === 'completed'
-                          ? 'bg-green-500/100'
-                          : 'bg-white/10'
-                      }`}
+                      className={`rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 bg-blue-500/30 `}
                     >
                       <div className="flex flex-col lg:flex-row gap-8">
 
@@ -397,9 +356,9 @@ function MyHistory({ user }: { user: User }) {
                         </div>
                       </div>
                     </div>
-                  );
-                })
-            : null}
+                 ));
+})()}
+            
 
         </div>
       </div>

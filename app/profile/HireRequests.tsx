@@ -206,16 +206,7 @@ useEffect(() => {
   {hireRequests.map((hireRequest) => (
     <div
       key={hireRequest._id}
-      className={`rounded-xl p-4 shadow-lg backdrop-blur border cursor-pointer border-white/20 transition-all
-        ${
-          hireRequest.status === 'reject'
-            ? 'bg-red-500/30'
-            : hireRequest.status === 'pending'
-            ? 'bg-yellow-500/30'
-            : hireRequest.status === 'available'
-            ? 'bg-green-500/30'
-            : 'bg-white/10'
-        }`}
+      className={`rounded-xl p-4 shadow-lg backdrop-blur border cursor-pointer border-white/20 transition-all bg-yellow-500/30`}
     >
       {/* Header */}
       <h2 className="text-lg md:text-xl text-black font-semibold mb-2">

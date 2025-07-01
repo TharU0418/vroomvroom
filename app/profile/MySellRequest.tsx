@@ -52,7 +52,7 @@ function MySellRequest({ user }: { user: User }) {
   useEffect(() => {
     const fetchSellRequests = async () => {
         try {
-          const response = await fetch(`https://yzrt64o9ga.execute-api.eu-north-1.amazonaws.com/buy/buy-cars`);
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
           const data = await response.json();
           console.log('daaaaata', data)
