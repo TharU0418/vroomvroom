@@ -45,7 +45,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 
 
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Form submission logic would go here
     console.log('Form submitted:', formData);
