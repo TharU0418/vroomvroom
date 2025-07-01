@@ -21,9 +21,12 @@ export default function DriverApplication() {
 
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  const { name, value, type, checked } = e.target;
-  
+  const { name, value, type } = e.target;
+
   if (type === 'checkbox') {
+    const target = e.target as HTMLInputElement; // Narrowing
+    const checked = target.checked;
+
     const updatedCategories = checked
       ? [...formData.categories, value]
       : formData.categories.filter(cat => cat !== value);
@@ -41,7 +44,8 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 };
 
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     // Form submission logic would go here
     console.log('Form submitted:', formData);
