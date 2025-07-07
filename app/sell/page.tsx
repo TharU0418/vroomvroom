@@ -7,6 +7,7 @@ import { ToggleSwitch } from '../components/ToggleSwitch ';
 //import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { useRouter } from 'next/navigation';
 
 export default function Sell() {
   //const router = useRouter(); // ✅ Move here
@@ -26,6 +27,7 @@ export default function Sell() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
+  const router = useRouter();
 
   const Notification = () => (
     <div className="fixed bottom-4 right-4 z-50">
@@ -103,7 +105,7 @@ export default function Sell() {
     const payload = {
       ...formData,
       images: base64Images,
-      status: 'available',
+      status: 'pending',
       report: null,
      userId : userDetails?.email,
       mobileNum : userDetails?.nickname
@@ -126,7 +128,7 @@ export default function Sell() {
     setNotificationMessage('Car listed successfully!');
     setShowNotification(true);
     setTimeout(() => setShowNotification(false), 3000);
-   // router.push('/profile');
+    router.push('/profile');
   } catch (error) {
     console.error('Error:', error);
     setNotificationMessage('Error submitting form');
@@ -347,12 +349,23 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                 value={formData.body_type}
                 onChange={(e) => setFormData({...formData, body_type: e.target.value})}
               >
-                <option value="">Select Body Type</option>
-                <option value="sedan">Sedan</option>
-                <option value="suv">SUV</option>
-                <option value="hatchback">Hatchback</option>
-                <option value="coupe">Coupe</option>
-              </select>
+                <option value="">Select Car Type</option>
+                  <option value="luxury">Luxury Sedan</option>
+                  <option value="Premium_suv">Premium SUV</option>
+                  <option value="sports">Sports Car</option>
+                  <option value="electric">Electric Vehicle</option>
+                  <option value="hatchback">Hatchback</option>
+                  <option value="convertible">Convertible</option>
+                  <option value="crossover_suv">Crossover SUV</option>
+                  <option value="coupe">Coupe</option>
+                  <option value="sedan">Sedan</option>
+                  <option value="minivan">Minivan</option>
+                  <option value="luxury_sedan">Luxury Sedan</option>
+                  <option value="compact_car">Compact Car</option>
+                  <option value="luxury_sports_car">Luxury Sports Car</option>
+                  <option value="city_car">City Car</option>
+                  <option value="roadster">Roadster</option>
+                </select>
             </div>
             <div>
               <label className="block text-white mb-2">Price</label>

@@ -91,7 +91,7 @@ const formData2 = {
 const [rentalDetails, setRentalDetails] = useState({
     needDriver: 'no',
     pickupTime: '08:00',
-    pickupLocation: 'airport',
+    pickupLocation: '',
   });
   const currentYear = new Date().getFullYear();
   const startYear = 1990;
@@ -260,7 +260,7 @@ console.log('searchResult', searchResults)
             className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
             onClick={handleCloseModal}
           >
-    <div className="bg-white rounded-xl min-w-[900px] max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="bg-white/90 rounded-xl min-w-[900px] max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h2 className="text-2xl font-bold text-gray-800">
@@ -300,7 +300,7 @@ console.log('searchResult', searchResults)
                         <p className="font-medium capitalize">{selectedCar.fueltype}</p>
                       </div>
                       <div>
-                        <h3 className="text-gray-500 text-sm">Seats</h3>
+                        <h3 className="text-gray-500 text-sm">Condition</h3>
                         <p className="font-medium">{selectedCar.seats}</p>
                       </div>
                     </div>
@@ -343,7 +343,7 @@ console.log('searchResult', searchResults)
                         </select>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-4">
+                      {/* <div className="grid grid-cols-2 gap-4"> */}
                         <div>
                           <label className="block text-gray-700 mb-1">Pickup Time</label>
                           <select
@@ -378,7 +378,7 @@ console.log('searchResult', searchResults)
         />
                         </div>
                       </div>
-                    </div>
+                    {/* </div> */}
                     
                     {/* Pricing Summary */}
                     {/* <div className="bg-red-50 p-4 rounded-lg border border-red-100">

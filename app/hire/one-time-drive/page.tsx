@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 interface FormData {
@@ -29,7 +30,7 @@ function OneTimeDrive() {
     status:'pending'
   });
 
-
+const router = useRouter();
   const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
     
@@ -88,7 +89,8 @@ body: JSON.stringify({ ...formData, type: 'one-time',status:'pending', userId: u
       }
   setNotificationMessage(`Request registered successfully!`);
       setShowNotification(true);
-      
+                router.push('/hire');
+
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
     //  alert('Request registered successfully!');

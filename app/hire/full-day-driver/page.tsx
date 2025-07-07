@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { useRouter } from 'next/navigation';
 import React, {useEffect, useState } from 'react'
 
 
@@ -30,6 +31,8 @@ function FullDriver() {
   type: 'full-day',  // Set default type value to 'full-day',
   status:'pending'
 });
+
+const router = useRouter();
 
 const {user} = useAuth();
  const [showNotification, setShowNotification] = useState(false);
@@ -75,10 +78,10 @@ useEffect(() => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.userId) {
-      alert('User ID is missing. Please log in and try again.');
-      return;
-    }
+    // if (!formData.userId) {
+    //   alert('User ID is missing. Please log in and try again.');
+    //   return;
+    // }
 
     console.log('formData.userId', formData.userId);
     console.log('formData.type', formData.type); // Check the type value
@@ -106,7 +109,8 @@ body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: us
 
        setNotificationMessage(`Request registered successfully!`);
       setShowNotification(true);
-      
+                router.push('/hire');
+
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
    } catch (error: unknown) {

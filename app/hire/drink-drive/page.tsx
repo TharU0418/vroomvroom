@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { useRouter } from 'next/navigation';
 import React, {useEffect, useState } from 'react'
 
 
@@ -33,10 +34,13 @@ function DrinkDrive() {
   status:'pending'
 });
 
+const router = useRouter();
   const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
     
       const {user} = useAuth();
+
+    
   
       const Notification = () => (
         <div className="fixed bottom-4 right-4 z-50">
@@ -107,10 +111,11 @@ body: JSON.stringify({ ...formData, status:'pending', type: 'drinkdrive', userId
         throw new Error(data.error || 'Failed to submit request');
       }
 
-      alert('Request registered successfully!');
+    //  alert('Request registered successfully!');
       setNotificationMessage(`Request registered successfully!`);
       setShowNotification(true);
-      
+          router.push('/hire');
+
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
     } catch (error: unknown) {

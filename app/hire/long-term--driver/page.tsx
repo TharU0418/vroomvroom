@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { useRouter } from 'next/navigation';
 import React, {useEffect, useState } from 'react'
 
 
@@ -49,6 +50,8 @@ const [showNotification, setShowNotification] = useState(false);
       );
    
   console.log('formData', formData);
+
+  const router = useRouter();
 
   const {user} = useAuth();
 
@@ -107,7 +110,8 @@ setTypeSet('long-term')
 
       setNotificationMessage(`Request registered successfully!`);
       setShowNotification(true);
-      
+                router.push('/hire');
+
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
     } catch (error: unknown) {
