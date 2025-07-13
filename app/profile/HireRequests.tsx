@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaChevronDown, FaChevronUp, FaInfoCircle, FaUser } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaUser } from 'react-icons/fa';
 
 export interface RequestsCard {
   id: string;
@@ -35,7 +35,7 @@ interface User {
 
 function HireRequests({ user }: { user: User }) {
   const [hireRequests, setHireRequests] = useState<RequestsCard[]>([]);
-  const [drivers, setDrivers] = useState<DriverCard[]>([]);
+  //const [drivers, setDrivers] = useState<DriverCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -66,25 +66,27 @@ function HireRequests({ user }: { user: User }) {
       }
     };
 
-    const fetchDrivers = async () => {
-      try {
-        const response = await fetch('/api/check-drivers');
-        const contentType = response.headers.get('content-type');
+    console.log('user', user)
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
-        }
+    // const fetchDrivers = async () => {
+    //   try {
+    //     const response = await fetch('/api/check-drivers');
+    //     const contentType = response.headers.get('content-type');
 
-        if (contentType && contentType.includes('application/json')) {
-          const data = await response.json();
-          setDrivers(data);
-        } else {
-          throw new Error('Expected JSON response');
-        }
-      } catch (error) {
-        console.error('Failed to fetch drivers:', error);
-      }
-    };
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
+    //     }
+
+    //     if (contentType && contentType.includes('application/json')) {
+    //       const data = await response.json();
+    //       setDrivers(data);
+    //     } else {
+    //       throw new Error('Expected JSON response');
+    //     }
+    //   } catch (error) {
+    //     console.error('Failed to fetch drivers:', error);
+    //   }
+    // };
 
     fetchRentRequests();
    // fetchDrivers();
@@ -165,15 +167,15 @@ function HireRequests({ user }: { user: User }) {
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'pending': return <div className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse"></div>;
-      case 'accept': return <div className="w-3 h-3 rounded-full bg-green-500"></div>;
-      case 'reject': return <div className="w-3 h-3 rounded-full bg-red-500"></div>;
-      case 'cancel': return <div className="w-3 h-3 rounded-full bg-gray-500"></div>;
-      default: return <div className="w-3 h-3 rounded-full bg-blue-500"></div>;
-    }
-  };
+  // const getStatusIcon = (status: string) => {
+  //   switch (status.toLowerCase()) {
+  //     case 'pending': return <div className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse"></div>;
+  //     case 'accept': return <div className="w-3 h-3 rounded-full bg-green-500"></div>;
+  //     case 'reject': return <div className="w-3 h-3 rounded-full bg-red-500"></div>;
+  //     case 'cancel': return <div className="w-3 h-3 rounded-full bg-gray-500"></div>;
+  //     default: return <div className="w-3 h-3 rounded-full bg-blue-500"></div>;
+  //   }
+  // };
 
   const filteredRequests = statusFilter === 'all' 
     ? hireRequests 
@@ -296,7 +298,7 @@ function HireRequests({ user }: { user: User }) {
               </div>
             </div>
             <h2 className="text-xl font-bold text-gray-700 mb-2">No Hire Requests Found</h2>
-            <p className="text-gray-500 mb-6">You haven't made any driver hire requests yet.</p>
+            <p className="text-gray-500 mb-6">You have not made any driver hire requests yet.</p>
           </div>
         ) : (
           <div className="space-y-4">

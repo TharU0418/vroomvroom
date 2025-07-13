@@ -1,7 +1,7 @@
 import FAQ from "./components/FAQ";
 import HeroSlider from "./components/HeroSlider";
 import HowWork from "./components/HowWork";
-import Navbar from "./components/Navbar";
+//import Navbar from "./components/Navbar";
 import WhatUs from "./components/WhatUs";
 import WhyUs from "./components/WhyUs";
 
