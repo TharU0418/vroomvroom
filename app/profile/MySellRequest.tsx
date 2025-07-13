@@ -263,7 +263,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaChevronDown, FaChevronUp, FaInfoCircle, FaCar } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaCar } from 'react-icons/fa';
 
 export interface SellCard {
   id: string;
@@ -521,7 +521,7 @@ function MySellRequest({ user }: { user: User }) {
               </div>
             </div>
             <h2 className="text-xl font-bold text-gray-700 mb-2">No Sell Requests Found</h2>
-            <p className="text-gray-500 mb-6">You haven't submitted any car sell requests yet.</p>
+            <p className="text-gray-500 mb-6">You have not submitted any car sell requests yet.</p>
             <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
               Sell a Car
             </button>
