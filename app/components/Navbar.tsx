@@ -5,6 +5,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
+import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +31,23 @@ const Navbar = () => {
   const {user, logout} = useAuth();
 
   console.log('user nav', user)
+
+    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+  useEffect(() => {
+          const token = localStorage.getItem('idToken');
+          if (token) {
+            const decoded = decodeToken(token);
+            console.log('Decoded token:', decoded);
+      
+            if (decoded && decoded.email && decoded.given_name) {
+              setUserDetails({
+                email: decoded.email,
+                given_name: decoded.given_name,
+                nickname:decoded.nickname
+              });
+            }
+          }
+        }, []);
 
   return (
     <nav 
@@ -99,23 +117,25 @@ const Navbar = () => {
               
               {user? (
                  <div className="hidden md:flex items-center space-x-4 pr-10">
-                    <button className="text-white hover:text-gray-300" aria-label="Notifications">
+                    {/* <button className="text-white hover:text-gray-300" aria-label="Notifications">
                       🔔
-                    </button>
+                    </button> */}
                 
                     <div className="relative">
                       <div
                         className="w-8 h-8 rounded-full overflow-hidden cursor-pointer border border-white"
                         //onClick={() => setActiveMenu(activeMenu === 'avatar' ? null : 'avatar')}
-                      ><Link
-                      href="/profile">
-                        <Image
-                                                  src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
-                                                  alt="User Avatar"
-                                                  width={32}
-                                                  height={32}
-                                                />
-                                                </Link>
+                      >
+                        <Link href="/profile">
+  <Image
+  //src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
+    src={`https://avatar.iran.liara.run/username?username=${userDetails?.given_name}`}
+    alt="User Avatar"
+    width={32}
+    height={32}
+  />
+</Link>
+
                       </div>
                               
                               

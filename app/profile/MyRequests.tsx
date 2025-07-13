@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { IoIosCloseCircle } from "react-icons/io";
+import { IoIosCloseCircle, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { FaCar, FaCalendarAlt, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa';
 
 export interface RequestsCard {
   id: string;
@@ -30,26 +31,28 @@ interface User {
   given_name: string;
 }
 
-
 function MyRequests({ user }: { user: User }) {
   const [rentRequests, setRentRequests] = useState<RequestsCard[]>([]);
   const [cars, setCars] = useState<CarCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         // Fetch rent requests
-        const requestsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`,);
+        const requestsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`);
         if (!requestsRes.ok) throw new Error(`HTTP error! status: ${requestsRes.status}`);
         const requestsData = await requestsRes.json();
-       // const filteredRequests = requestsData.filter(requestsData1 => requestsData1.userId ===  user.email);
         const filteredRequests = requestsData.filter((requestsData1: { userId: string }) => 
             requestsData1.userId === user.email
         );
         setRentRequests(filteredRequests);
+        
         // Fetch cars
         const carsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
         if (!carsRes.ok) throw new Error(`HTTP error! status: ${carsRes.status}`);
@@ -66,10 +69,6 @@ function MyRequests({ user }: { user: User }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-  console.log('Updated hireRequests:', rentRequests);
-}, [rentRequests]);
-
   const handleRemoveFromList = async (requestId: string) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
@@ -79,9 +78,7 @@ function MyRequests({ user }: { user: User }) {
       });
 
       if (response.ok) {
-        setRentRequests(prev => prev.map(req => 
-          req.id === requestId ? { ...req, history: true } : req
-        ));
+        setRentRequests(prev => prev.filter(req => req.id !== requestId));
       } else {
         throw new Error('Failed to update rent request');
       }
@@ -96,10 +93,7 @@ function MyRequests({ user }: { user: User }) {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: requestId, status: 'cancel' }),
-        
       });
-      console.log(JSON.stringify({ id: requestId, status: 'cancel' }))
-
 
       if (response.ok) {
         setRentRequests(prev => prev.map(req => 
@@ -113,13 +107,12 @@ function MyRequests({ user }: { user: User }) {
     }
   };
 
-
   const handleCompleteRequest = async (requestId: string) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: requestId,status: 'completed' }),
+        body: JSON.stringify({ id: requestId, status: 'completed' }),
       });
 
       if (response.ok) {
@@ -127,60 +120,86 @@ function MyRequests({ user }: { user: User }) {
           req.id === requestId ? { ...req, status: 'completed' } : req
         ));
       } else {
-        throw new Error('Failed to completed rent request');
+        throw new Error('Failed to complete rent request');
       }
     } catch (error) {
       console.error('Error completing rent request:', error);
     }
   };
-  console.log('rentRequests', rentRequests)
-  console.log('rentCars 12', cars)
 
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'pending': return 'bg-yellow-100 border-yellow-500';
+      case 'accept': return 'bg-green-100 border-green-500';
+      case 'on-going': return 'bg-blue-100 border-blue-500';
+      case 'reject': return 'bg-red-100 border-red-500';
+      case 'cancel': return 'bg-gray-100 border-gray-500';
+      case 'completed': return 'bg-purple-100 border-purple-500';
+      default: return 'bg-gray-100 border-gray-500';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'pending': return 'Pending';
+      case 'accept': return 'Accepted';
+      case 'on-going': return 'On Going';
+      case 'reject': return 'Rejected';
+      case 'cancel': return 'Cancelled';
+      case 'completed': return 'Completed';
+      default: return status;
+    }
+  };
+
+  const toggleCardExpand = (id: string) => {
+    setExpandedCard(expandedCard === id ? null : id);
+  };
+
+  const filteredRequests = statusFilter === 'all' 
+    ? rentRequests.filter(req => 
+        !req.history && 
+        ['accept', 'on-going', 'pending', 'reject'].includes(req.status)
+      )
+    : rentRequests.filter(req => 
+        !req.history && 
+        req.status.toLowerCase() === statusFilter
+      );
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
-          <h1 className="text-2xl font-bold text-black mb-8 text-center animate-pulse">Loading Your Requests...</h1>
+      <div className="min-h-screen p-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Your Car Rental Requests</h1>
+            <div className="relative">
+              <button className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg">
+                <span>Loading...</span>
+              </button>
+            </div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+          <div className="space-y-4">
             {[...Array(3)].map((_, index) => (
-              <div 
-                key={index} 
-                className="relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 bg-white/10 animate-pulse"
-              >
-                <div className="absolute top-2 right-2">
-                  <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+              <div key={index} className="bg-white rounded-xl shadow p-4 animate-pulse">
+                <div className="flex items-center justify-between">
+                  <div className="h-6 bg-gray-200 rounded w-1/4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/6"></div>
                 </div>
                 
-                <div className="flex flex-col lg:flex-row gap-8">
-                  <div className="md:w-1/2">
-                    <div className="w-full h-64 bg-gray-200 rounded-lg mb-2"></div>
+                <div className="flex flex-col md:flex-row gap-4 mt-4">
+                  <div className="w-full md:w-1/3">
+                    <div className="w-full h-40 bg-gray-200 rounded-xl"></div>
                   </div>
                   
-
-                  <div className="md:w-1/2 space-y-4">
-                    <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                  <div className="w-full md:w-2/3 space-y-3">
+                    <div className="h-5 bg-gray-200 rounded w-3/4"></div>
                     <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                     <div className="h-4 bg-gray-200 rounded w-1/3"></div>
                     <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                   </div>
                 </div>
                 
                 <div className="h-10 bg-gray-200 rounded w-1/3 mt-4"></div>
-                
-                {/* Driving Car Animation */}
-                <div className="absolute bottom-4 left-0 w-full flex justify-center">
-                  <div className="animate-[drive_2s_linear_infinite] text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
-                      <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z" />
-                      <path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z" />
-                      <path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
-                    </svg>
-                  </div>
-                </div>
               </div>
             ))}
           </div>
@@ -192,9 +211,9 @@ function MyRequests({ user }: { user: User }) {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-2xl w-full p-8 text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Error Loading Requests</h1>
-          <p className="text-white mb-6">{error}</p>
+        <div className="bg-white rounded-xl shadow-lg border border-gray-200 max-w-2xl w-full p-8 text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Error Loading Requests</h1>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button 
             onClick={() => window.location.reload()}
             className="bg-gradient-to-r from-red-400 to-red-600 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all"
@@ -207,102 +226,176 @@ function MyRequests({ user }: { user: User }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-2 p-2">
-        <h1 className="text-2xl font-bold text-black mb-8 text-center">Your Car Rental Requests</h1>
-
-        {rentRequests.filter(
-        (rentRequest) =>
-          rentRequest?.history == false &&
-          ['accept', 'on-going', 'pending', 'reject'].includes(rentRequest?.status)
-      ).length === 0 ? (
-        <div className="text-center py-10">
-          <p className="text-lg text-gray-700">You have no current rental requests.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-6">
-          {rentRequests
-            .filter(
-              (rentRequest) =>
-                rentRequest?.history == false &&
-                ['accept', 'on-going', 'pending', 'reject'].includes(rentRequest?.status)
-            )
-            .map((request) => {
-              const car = cars.find((car) => car.id === request.carId);
-              return car ? (
-        <div
-          key={request.id}
-          className={`relative rounded-xl p-4 shadow-lg backdrop-blur border border-white/20 transition-all`}
-        >
-          {/* Close Button */}
-          <div className="absolute top-2 right-2">
-            <button
-              className="text-red-500 hover:text-red-700"
-              onClick={() => handleRemoveFromList(request.id)}
+    <div className="min-h-screen p-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Your Car Rental Requests</h1>
+          <div className="relative">
+            <button 
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow border border-gray-200"
             >
-              <IoIosCloseCircle size={24} />
+              <span>Filter</span>
+              <IoIosArrowDown size={16} />
             </button>
+            {showFilters && (
+              <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-48 z-10">
+                <div className="text-sm font-medium mb-2">Status</div>
+                <div className="space-y-2">
+                  {['all', 'pending', 'accept', 'on-going', 'reject'].map(status => (
+                    <label key={status} className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="statusFilter"
+                        checked={statusFilter === status}
+                        onChange={() => setStatusFilter(status)}
+                        className="accent-blue-500"
+                      />
+                      <span className="capitalize">{status === 'all' ? 'All Statuses' : status}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-
-          {/* Card Content */}
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-            {/* Car Image */}
-            <div className="w-full md:w-1/3">
-              <Image
-                src={car.images[0] || '/default-image.jpg'}
-                alt={car.brand}
-                className="w-full h-48 object-cover rounded-lg"
-                width={200}
-                height={100}
-              />
-            </div>
-
-            {/* Details */}
-            <div className="w-full md:w-2/3 space-y-2 md:space-y-4">
-              <h2 className="text-lg md:text-xl font-bold">
-                {car.brand} {car.model}
-              </h2>
-              <p className="text-sm md:text-base font-medium">
-                <span className="text-slate-600">Pickup Location:</span> {request.pickupLocation}
-              </p>
-              <p className="text-sm md:text-base font-medium">
-                <span className="text-slate-600">Pickup Date:</span> {request.pickupDate}
-              </p>
-              <p className="text-sm md:text-base font-medium">
-                <span className="text-slate-600">Return Date:</span> {request.returnDate}
-              </p>
-              <p className="text-sm md:text-base font-medium capitalize">
-                <span className="text-slate-600">Status:</span> {request.status}
-              </p>
-
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-col md:flex-row gap-3">
-                {request.status === 'pending' && (
-                  <button
-                    onClick={() => handleCancelRequest(request.id)}
-                    className="text-sm md:text-base text-white bg-gradient-to-r from-red-500 to-red-700 py-2 px-4 rounded-full w-full md:w-auto"
-                  >
-                    Cancel the Request
-                  </button>
-                )}
-                {request.status === 'accept' && (
-                  <button
-                    onClick={() => handleCompleteRequest(request.id)}
-                    className="text-sm md:text-base text-white bg-gradient-to-r from-green-500 to-green-700 py-2 px-4 rounded-full w-full md:w-auto"
-                  >
-                    Mark as Complete
-                  </button>
-                )}
+        </div>
+        
+        {filteredRequests.length === 0 ? (
+          <div className="bg-white rounded-xl shadow p-8 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="bg-gray-100 p-4 rounded-full">
+                <FaCar className="text-gray-400 text-2xl" />
               </div>
             </div>
+            <h2 className="text-xl font-bold text-gray-700 mb-2">No Current Requests</h2>
+            <p className="text-gray-500 mb-6">You have no active car rental requests at this time.</p>
           </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredRequests.map((request) => {
+              const car = cars.find(c => c.id === request.carId);
+              
+              return car ? (
+                <div 
+                  key={request.id}
+                  className="bg-white rounded-xl shadow overflow-hidden transition-all duration-300"
+                >
+                  <div 
+                    className="p-4 cursor-pointer"
+                    onClick={() => toggleCardExpand(request.id)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <h2 className="font-bold text-gray-800">{car.brand} {car.model}</h2>
+                        <span className="text-gray-500 text-sm">{car.year}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(request.status)}`}>
+                          {getStatusText(request.status)}
+                        </div>
+                        {expandedCard === request.id ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                      </div>
                     </div>
+                    
+                    <div className="flex flex-col md:flex-row gap-4 mt-4">
+                      <div className="w-full md:w-1/3">
+                        <div className="relative w-full h-40 rounded-xl overflow-hidden">
+                          <Image 
+                            src={car.images[0] || '/default-image.jpg'} 
+                            alt={`${car.brand} ${car.model}`}
+                            layout="fill"
+                            objectFit="cover"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="w-full md:w-2/3">
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div className="flex items-center gap-2">
+                            <FaMapMarkerAlt className="text-gray-400" />
+                            <span>{request.pickupLocation}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <FaCalendarAlt className="text-gray-400" />
+                            <span>{request.pickupDate}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <FaInfoCircle className="text-gray-400" />
+                            <span>{request.days} days</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <FaCalendarAlt className="text-gray-400" />
+                            <span>{request.returnDate}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-4 flex items-center">
+                          <span className="text-lg font-bold text-blue-600">Rs {car.price}/day</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {expandedCard === request.id && (
+                    <div className="px-4 pb-4 border-t border-gray-100 mt-2 pt-4 animate-fadeIn">
+                      <div className="flex justify-between items-center mb-2">
+                        <h3 className="font-medium text-gray-700">Car Details</h3>
+                        <button 
+                          className="text-red-500 hover:text-red-700"
+                          onClick={() => handleRemoveFromList(request.id)}
+                        >
+                          <IoIosCloseCircle size={24} />
+                        </button>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <span className="text-gray-500">Brand</span>
+                            <p className="font-medium">{car.brand}</p>
+                          </div>
+                          <div>
+                            <span className="text-gray-500">Model</span>
+                            <p className="font-medium">{car.model}</p>
+                          </div>
+                          <div>
+                            <span className="text-gray-500">Year</span>
+                            <p className="font-medium">{car.year}</p>
+                          </div>
+                          <div>
+                            <span className="text-gray-500">Location</span>
+                            <p className="font-medium">{car.location || 'N/A'}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="pt-4 flex gap-3">
+                          {request.status === 'pending' && (
+                            <button
+                              onClick={() => handleCancelRequest(request.id)}
+                              className="flex-1 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg font-medium"
+                            >
+                              Cancel Request
+                            </button>
+                          )}
+                          {request.status === 'accept' && (
+                            <button
+                              onClick={() => handleCompleteRequest(request.id)}
+                              className="flex-1 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-medium"
+                            >
+                              Mark as Complete
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : null;
             })}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
   );
 }
 

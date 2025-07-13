@@ -11,7 +11,7 @@ export const useRouteGuard = (options: { requiresAuth?: boolean; redirectIfAuth?
   useEffect(() => {
     if (loading) return; // wait until loading finishes
 
-    if (options.requiresAuth && !user) {
+    if (options.requiresAuth && user) {
       // If route requires auth but user is NOT signed in, redirect
       router.replace(options.redirectTo);
     }

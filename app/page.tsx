@@ -8,7 +8,7 @@ import WhyUs from "./components/WhyUs";
 export default function Home() {
   return (
     <div className="min-h-screen "> 
-<Navbar/>
+{/* <Navbar/> */}
 <HeroSlider/>
 <WhyUs/>
 <HowWork/>
