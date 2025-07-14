@@ -268,7 +268,7 @@ const Navbar = () => {
           <>
             <Link href="/auth/signin">
               <button
-                className="w-full text-white border-2 border-white px-4 py-3 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors"
+                className="w-full text-white border-2 border-white px-4 py-3 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors mb-2"
                 onClick={() => setIsOpen(false)}
               >
                 Sign In

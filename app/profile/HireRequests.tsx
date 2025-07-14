@@ -55,7 +55,10 @@ function HireRequests({ user }: { user: User }) {
 
         if (contentType && contentType.includes('application/json')) {
           const data = await response.json();
-          setHireRequests(data);
+           const filteredRequests = data.filter((requestsData1: { userId: string }) => 
+            requestsData1.userId === user.email
+        );
+          setHireRequests(filteredRequests);
           setLoading(false);
         } else {
           throw new Error('Expected JSON response');
@@ -94,16 +97,16 @@ function HireRequests({ user }: { user: User }) {
 
   const handleCancelRequest = async (requestId: string) => {
     try {
-      const response = await fetch(`/api/hire-requests/${requestId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE_REQUESTS}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'reject' }),
+        body: JSON.stringify({ id: requestId, status: 'cancel' }),
       });
 
       if (response.ok) {
         setHireRequests(prev => 
           prev.map(req => 
-            req.id === requestId ? { ...req, status: 'reject' } : req
+            req.id === requestId ? { ...req, status: 'cancel' } : req
           )
         );
 
@@ -120,10 +123,10 @@ function HireRequests({ user }: { user: User }) {
 
   const handleCompleteRequest = async (requestId: string) => {
     try {
-      const response = await fetch(`/api/hire-requests/${requestId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE_REQUESTS}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'accept' }),
+        body: JSON.stringify({  id: requestId,status: 'accept' }),
       });
 
       if (response.ok) {
