@@ -122,7 +122,7 @@ export default function Sell() {
         images: base64Images,
         status: 'pending',
         report: null,
-        userId: userDetails?.email,
+        userId: user,
         mobileNum: userDetails?.nickname
       };
 

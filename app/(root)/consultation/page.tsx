@@ -75,28 +75,28 @@ const consultationData = [
     id: 1,
     title: "Full Consultation",
     path: "/consultation/full-consultation",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/consultant1.jpg",
     description: "Complete vehicle consultation program that helps you through every step—from finding the right car to registration, leasing, and insurance. Backed by a highly experienced team."
   },
   {
     id: 2,
     title: "Insurance Consultation",
     path: "/consultation/insurance-consultation",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/consultant2.jpg",
     description: "Expert guidance to help you choose the right insurance plan for your vehicle. We compare options, explain coverage, and ensure you get the best protection at competitive rates."
   },
   {
     id: 3,
     title: "Vehicle Registration Consultation",
     path: "/consultation/registration-consultation",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/consultant3.jpg",
     description: "Expert help with the entire registration process. From documentation to legal compliance, our team ensures your vehicle is properly registered without hassle or delays."
   },
   {
     id: 4,
     title: "Leasing Consultation",
     path: "/consultation/leasing-consultation",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/consultant4.jpg",
     description: "Helps you find the best vehicle lease options tailored to your needs and budget. Our experienced team compares plans and explains terms for transparent leasing solutions."
   }
 ];

@@ -24,8 +24,8 @@ export default function ProfileLayout({ user }: { user: User }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto glass-container bg-red-50 bg-opacity-10 backdrop-blur-lg border rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row mt-20">
+    <div className="min-h-screen bg-white p-4 md:p-8">
+      <div className="max-w-6xl mx-auto glass-container bg-slate-500 bg-opacity-10 backdrop-blur-lg border rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row mt-20">
         {/* Sidebar Navigation */}
       <div className="w-full md:w-64 bg-gray-50 p-4 border-r border-gray-200 flex flex-col justify-between min-h-full">
   <div>

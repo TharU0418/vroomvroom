@@ -187,9 +187,9 @@ export default function CarDetailsPage() {
             </div>
             
             {/* Floating Price Tag */}
-            <div className="absolute -bottom-4 left-6 z-10 bg-red-600 text-white px-6 py-3 rounded-full font-bold text-xl shadow-lg">
+            {/* <div className="absolute -bottom-4 left-6 z-10 bg-red-600 text-white px-6 py-3 rounded-full font-bold text-xl shadow-lg">
               ${car.price.toLocaleString()}
-            </div>
+            </div> */}
           </div>
           
           {/* Details Panel */}
@@ -229,14 +229,14 @@ export default function CarDetailsPage() {
                 <div className="text-gray-500 text-sm">Report</div>
                 <div className="text-gray-900 font-medium">{car.report ? "Available" : "N/A"}</div>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                <div className="text-gray-500 text-sm">Status</div>
-                <div className="text-gray-900 font-medium">{car.status || "Available"}</div>
+               <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Price</div>
+                <div className="text-gray-900 font-medium">{car.price.toLocaleString()}</div>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+             {/* <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="text-gray-500 text-sm">Contact</div>
                 <div className="text-gray-900 font-medium">{car.mobileNum}</div>
-              </div>
+              </div> */}
             </div>
             
             {/* Description */}
@@ -254,18 +254,19 @@ export default function CarDetailsPage() {
                 <div className="flex-1">
                   <button
                     className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
+                    onClick={handleReportRequest}
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
-                    Request Vehicle Report
+                    {!user? (<p>Please Log In to acess the Vehicle Report</p>) : (<p>Request Vehicle Report</p>)}
                   </button>
                 </div>
               </div>
             </div>
             
             {/* Contact Seller */}
-            <div className="bg-gray-900 text-white rounded-xl p-6">
+            {/* <div className="bg-gray-900 text-white rounded-xl p-6">
               <h3 className="text-xl font-bold mb-4">Interested in this vehicle?</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors font-medium">
@@ -275,7 +276,7 @@ export default function CarDetailsPage() {
                   Schedule Test Drive
                 </button>
               </div>
-            </div>
+            </div> */}
           </motion.div>
         </motion.div>
         

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import { IoIosCloseCircle, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import React, { useCallback, useEffect, useState } from 'react';
+import { IoIosCloseCircle, IoIosArrowDown, IoIosArrowUp, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaCar, FaCalendarAlt, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa';
 
 export interface RequestsCard {
@@ -39,6 +39,14 @@ function MyRequests({ user }: { user: User }) {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+  // Calculate pagination values
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = rentRequests.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(rentRequests.length / itemsPerPage);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -165,6 +173,53 @@ function MyRequests({ user }: { user: User }) {
         req.status.toLowerCase() === statusFilter
       );
 
+      const handlePageChange = useCallback((newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [totalPages]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [statusFilter]);
+
+  // Pagination component
+  const Pagination = () => (
+    <div className="flex justify-center items-center mt-8 gap-2">
+      <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`p-2 rounded-full ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-blue-500 hover:bg-blue-50'}`}
+      >
+        <IoIosArrowBack size={20} />
+      </button>
+
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+        <button
+          key={page}
+          onClick={() => handlePageChange(page)}
+          className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all ${
+            currentPage === page
+              ? 'bg-blue-500 text-white shadow-md'
+              : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`p-2 rounded-full ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-blue-500 hover:bg-blue-50'}`}
+      >
+        <IoIosArrowForward size={20} />
+      </button>
+    </div>
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen p-4 bg-gray-50">
@@ -272,7 +327,7 @@ function MyRequests({ user }: { user: User }) {
           </div>
         ) : (
           <div className="space-y-4">
-            {filteredRequests.map((request) => {
+            {currentItems.map((request) => {
               const car = cars.find(c => c.id === request.carId);
               
               return car ? (
@@ -392,6 +447,7 @@ function MyRequests({ user }: { user: User }) {
                 </div>
               ) : null;
             })}
+                        {totalPages > 1 && <Pagination />}
           </div>
         )}
       </div>

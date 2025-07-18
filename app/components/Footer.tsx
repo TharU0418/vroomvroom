@@ -26,8 +26,9 @@ const Footer = () => {
   const serviceLinks = [
     { title: 'About Us', path: '/about' },
     { title: 'Contact', path: '/contact' },
-    { title: 'FAQ', path: '/faq' },
-    { title: 'Privacy Policy', path: '/privacy' },
+    { title: 'Careers', path: '/careers' },
+   // { title: 'FAQ', path: '/faq' },
+   // { title: 'Privacy Policy', path: '/privacy' },
     { title: 'Terms of Service', path: '/terms' },
   ];
 
@@ -79,7 +80,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6 pb-2 border-b-2 border-yellow-400 inline-block">
+            <h3 className="text-xl font-bold mb-6 pb-2 border-b-2 border-white inline-block">
               Quick Links
             </h3>
             <ul className="space-y-3">
@@ -87,7 +88,7 @@ const Footer = () => {
                 <motion.li key={item.title} whileHover={{ x: 5 }}>
                   <Link 
                     href={item.path}
-                    className="hover:text-yellow-300 transition-colors flex items-center"
+                    className="hover:transition-colors flex items-center"
                   >
                     <span className="mr-2">→</span> {item.title}
                   </Link>
@@ -98,7 +99,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-xl font-bold mb-6 pb-2 border-b-2 border-yellow-400 inline-block">
+            <h3 className="text-xl font-bold mb-6 pb-2 border-b-2 border-white inline-block">
               Our Services
             </h3>
             <ul className="space-y-3">
@@ -106,7 +107,7 @@ const Footer = () => {
                 <motion.li key={item.title} whileHover={{ x: 5 }}>
                   <Link 
                     href={item.path}
-                    className="hover:text-yellow-300 transition-colors flex items-center"
+                    className="transition-colors flex items-center"
                   >
                     <span className="mr-2">•</span> {item.title}
                   </Link>

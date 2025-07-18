@@ -364,7 +364,7 @@ const cities = formData.district ? locations[formData.district as keyof typeof l
                           <div className="mt-6 flex justify-between items-center">
                             <div className="flex items-center">
                               <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
-                              <span className="text-sm text-gray-600">Verified</span>
+                              {/* <span className="text-sm text-gray-600">Verified</span> */}
                             </div>
                             <button 
                               onClick={() => {

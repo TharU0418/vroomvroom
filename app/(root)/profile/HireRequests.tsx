@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { IoIosCloseCircle } from "react-icons/io";
+import React, { useCallback, useEffect, useState } from 'react';
+import { IoIosCloseCircle, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaChevronDown, FaChevronUp, FaUser } from 'react-icons/fa';
 
 export interface RequestsCard {
@@ -42,6 +42,15 @@ function HireRequests({ user }: { user: User }) {
   const [statusFilter, setStatusFilter] = useState('all');
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+  // Calculate pagination values
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = hireRequests.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(hireRequests.length / itemsPerPage);
 
   useEffect(() => {
     const fetchRentRequests = async () => {
@@ -180,9 +189,58 @@ function HireRequests({ user }: { user: User }) {
   //   }
   // };
 
+  // Handle page change
+  const handlePageChange = useCallback((newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [totalPages]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [statusFilter]);
+
   const filteredRequests = statusFilter === 'all' 
     ? hireRequests 
     : hireRequests.filter(req => req.status.toLowerCase() === statusFilter);
+
+    // Pagination component
+  const Pagination = () => (
+    <div className="flex justify-center items-center mt-8 gap-2">
+      <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`p-2 rounded-full ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-blue-500 hover:bg-blue-50'}`}
+      >
+        <IoIosArrowBack size={20} />
+      </button>
+
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+        <button
+          key={page}
+          onClick={() => handlePageChange(page)}
+          className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all ${
+            currentPage === page
+              ? 'bg-blue-500 text-white shadow-md'
+              : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`p-2 rounded-full ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-blue-500 hover:bg-blue-50'}`}
+      >
+        <IoIosArrowForward size={20} />
+      </button>
+    </div>
+  );
+
 
   if (loading) {
     return (
@@ -305,7 +363,7 @@ function HireRequests({ user }: { user: User }) {
           </div>
         ) : (
           <div className="space-y-4">
-            {filteredRequests.map((request) => (
+            {currentItems.map((request) => (
               <div 
                 key={request.id}
                 className={`bg-white rounded-xl shadow overflow-hidden transition-all duration-300 ${
@@ -401,6 +459,7 @@ function HireRequests({ user }: { user: User }) {
                 )}
               </div>
             ))}
+                        {totalPages > 1 && <Pagination />}
           </div>
         )}
         {showNotification && <Notification />}
