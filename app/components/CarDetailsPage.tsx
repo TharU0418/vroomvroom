@@ -2,37 +2,32 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import {  } from '../page';
-import { CarCard } from '../buy/page';
+import { CarCard } from '../(root)/buy/page';
 import { useAuth } from '@/hooks/useAuth';
+import Image from 'next/image';
 
 export default function CarDetailsPage() {
   const [car, setCar] = useState<CarCard | null>(null);
   const [activeImage, setActiveImage] = useState(0);
- // const [show360, setShow360] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
   const router = useRouter();
-
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const payload = {
-  userId: 'sas',
-  carId: car?.id,  // will be undefined if car is null
-};
+    userId: user?.id || '',
+    carId: car?.id,
+  };
 
- const handleReportRequest = () => {
-  if (car && car.report) {
-    window.open(car.report, "_blank");
-  }
+  const handleReportRequest = () => {
+    if (car && car.report) {
+      window.open(car.report, "_blank");
+    }
+    handleSubmit2();
+  };
 
-  handleSubmit2();
-};
-
-
-console.log('car', car)
-
-
-     const handleSubmit2 = async () => {
-    //e.preventDefault();
+  const handleSubmit2 = async () => {
     try {
       const res = await fetch('https://vih0lw3c29.execute-api.eu-north-1.amazonaws.com/sell/sell-request', {
         method: 'POST',
@@ -51,36 +46,92 @@ console.log('car', car)
 
   useEffect(() => {
     const carData = sessionStorage.getItem('selectedCar');
-    if (carData) setCar(JSON.parse(carData));
+    if (carData) {
+      setCar(JSON.parse(carData));
+      setIsLoading(false);
+    }
   }, []);
 
-  if (!car) return (
-    <div className="min-h-screen bg-gradient-to-r from-red-400 to-red-500 text-white  flex items-center justify-center">
+  if (isLoading) return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
       <div className="text-center">
         <div className="w-16 h-16 border-t-4 border-red-600 border-solid rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="text-white text-xl font-light">Loading your dream car...</p>
+        <p className="text-gray-800 text-xl font-light">Loading your dream car...</p>
       </div>
     </div>
   );
 
-  return (
-    <div className="min-h-screen bg-gradient-to-r from-red-500 via-red-700 to-red-900 text-white ">
+  if (!car) return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <svg className="w-16 h-16 text-red-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 className="text-xl font-bold text-gray-900 mb-2">Car Not Found</h3>
+        <p className="text-gray-600 mb-6">The car details could not be loaded</p>
+        <button 
+          onClick={() => router.push('/buy')}
+          className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+        >
+          Browse Cars
+        </button>
+      </div>
+    </div>
+  );
+
+  const handleImagePreview = (img: string) => {
+    setPreviewImage(img);
+    setShowPreview(true);
+  };
+
+  if (isLoading) return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-t-4 border-red-600 border-solid rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-gray-800 text-xl font-light">Loading your dream car...</p>
+      </div>
+    </div>
+  );
+
+   return (
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Preview Modal */}
+      {showPreview && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowPreview(false)}
+        >
+          <div className="max-w-4xl w-full">
+            <div className="relative aspect-video">
+              <Image
+                src={previewImage}
+                alt="Preview"
+                layout="fill"
+                objectFit="contain"
+                className="cursor-zoom-out"
+              />
+            </div>
+            <button 
+              className="absolute top-6 right-6 text-white bg-black/50 rounded-full p-2 hover:bg-red-600 transition-colors"
+              onClick={() => setShowPreview(false)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+      
       {/* Floating Back Button */}
       <button 
         onClick={() => router.back()}
-        className="fixed top-6 left-6 z-50 bg-white backdrop-blur-md text-white rounded-full p-3 hover:bg-red-600 transition-all duration-300 group"
+        className="fixed top-6 left-6 z-40 bg-white border border-gray-200 shadow-md text-gray-800 rounded-full p-3 hover:bg-red-600 hover:text-white transition-all duration-300 group"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
       </button>
-      
-      {/* Floating Share Button */}
-      {/* <button className="fixed top-6 right-6 z-50 bg-black/50 backdrop-blur-md text-white rounded-full p-3 hover:bg-red-600 transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-        </svg>
-      </button> */}
       
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 pt-24 pb-16">
@@ -93,30 +144,24 @@ console.log('car', car)
           {/* Image Gallery */}
           <div className="relative">
             {/* Main Image */}
-            <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-r from-red-900/20 to-gray-900/20 backdrop-blur-xl border border-gray-700/50 shadow-2xl">
-              <div 
-                className="w-full h-full bg-center bg-cover"
-                style={{ backgroundImage: `url(${car.images[activeImage]})` }}
-              />
-              
-              {/* 360° View Button */}
-              {/* <button 
-                onClick={() => setShow360(!show360)}
-                className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-full flex items-center gap-2 group hover:bg-red-700 transition-all"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>360° View</span>
-              </button> */}
-              
-              {/* Favorite Button */}
-              {/* <button className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white p-2 rounded-full hover:bg-red-700 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </button> */}
+            <div 
+              className="relative aspect-video rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 shadow-md cursor-zoom-in"
+              onClick={() => handleImagePreview(car.images[activeImage])}
+            >
+              <div className="w-full h-full relative">
+                <Image
+                  src={car.images[activeImage]}
+                  alt={`${car.brand} ${car.model}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
+                  <h1 className="text-white text-3xl font-bold">
+                    {car.brand} <span className="text-red-400">{car.model}</span>
+                  </h1>
+                </div>
+              </div>
             </div>
             
             {/* Thumbnails */}
@@ -125,20 +170,24 @@ console.log('car', car)
                 <button
                   key={index}
                   onClick={() => setActiveImage(index)}
-                  className={`flex-shrink-0 w-20 h-14 rounded-xl overflow-hidden border-2 transition-all ${
-                    activeImage === index ? 'border-red-600' : 'border-transparent'
+                  className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                    activeImage === index ? 'border-red-600' : 'border-gray-300'
                   }`}
                 >
-                  <div 
-                    className="w-full h-full bg-center bg-cover"
-                    style={{ backgroundImage: `url(${img})` }}
-                  />
+                  <div className="w-full h-full relative">
+                    <Image
+                      src={img}
+                      alt={`Thumbnail ${index + 1}`}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
                 </button>
               ))}
             </div>
             
             {/* Floating Price Tag */}
-            <div className="absolute -bottom-4 left-6 z-10 bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-3 rounded-full font-bold text-xl shadow-xl">
+            <div className="absolute -bottom-4 left-6 z-10 bg-red-600 text-white px-6 py-3 rounded-full font-bold text-xl shadow-lg">
               ${car.price.toLocaleString()}
             </div>
           </div>
@@ -148,161 +197,178 @@ console.log('car', car)
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl border border-gray-700/50 p-8 shadow-2xl relative overflow-hidden"
+            className="bg-white rounded-2xl border border-gray-200 p-8 shadow-lg relative overflow-hidden"
           >
-            {/* Decorative Elements */}
-            <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-red-600/10 blur-3xl"></div>
-            <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-blue-600/10 blur-3xl"></div>
-            
-            <h1 className="text-4xl font-bold text-white mb-2">
-              {car.brand} <span className="text-red-400">{car.model}</span>
-            </h1>
-            <p className="text-gray-300 mb-8">{car.year} • {car.district}, {car.city}</p>
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {car.brand} <span className="text-red-600">{car.model}</span>
+                </h1>
+                <p className="text-gray-600">{car.year} • {car.district}, {car.city}</p>
+              </div>
+              <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
+                {car.condition}
+              </div>
+            </div>
             
             {/* Specifications Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
-                <div className="text-gray-400 text-sm">Engine</div>
-                <div className="text-white font-medium">{car.engine_capacity}L</div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Engine</div>
+                <div className="text-gray-900 font-medium">{car.engine_capacity}L</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
-                <div className="text-gray-400 text-sm">Transmission</div>
-                <div className="text-white font-medium">{car.transmission}</div>
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Transmission</div>
+                <div className="text-gray-900 font-medium">{car.transmission}</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
-                <div className="text-gray-400 text-sm">Fuel Type</div>
-                <div className="text-white font-medium">{car.fueltype}</div>
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Fuel Type</div>
+                <div className="text-gray-900 font-medium">{car.fueltype}</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
-                <div className="text-gray-400 text-sm">Condition</div>
-                <div className="text-white font-medium">{car.condition}</div>
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Report</div>
+                <div className="text-gray-900 font-medium">{car.report ? "Available" : "N/A"}</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
-                <div className="text-gray-400 text-sm">Mileage</div>
-                <div className="text-white font-medium">42,000 km</div>
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Status</div>
+                <div className="text-gray-900 font-medium">{car.status || "Available"}</div>
               </div>
-              {/* <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50">
-                <div className="text-gray-400 text-sm">Color</div>
-                <div className="text-white font-medium">Midnight Black</div>
-              </div> */}
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="text-gray-500 text-sm">Contact</div>
+                <div className="text-gray-900 font-medium">{car.mobileNum}</div>
+              </div>
             </div>
             
             {/* Description */}
-            <div className="mb-10">
-              <h2 className="text-xl font-bold text-white mb-4">Description</h2>
-              <p className="text-gray-300 leading-relaxed">
-                {car.description || "This stunning vehicle is in impeccable condition both inside and out. With low mileage and a full service history, it's been meticulously maintained. Features include premium sound system, leather seats, advanced safety features, and a powerful yet efficient engine."}
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Description</h2>
+              <p className="text-gray-700 leading-relaxed">
+                {car.description}
               </p>
             </div>
             
-            {/* Features */}
-            {/* <div className="mb-10">
-              <h2 className="text-xl font-bold text-white mb-4">Key Features</h2>
-              <div className="flex flex-wrap gap-3">
-                {(car.features || ["Leather Seats", "Sunroof", "Navigation", "Backup Camera", "Bluetooth", "Heated Seats", "Apple CarPlay", "Keyless Entry"]).map((feature, i) => (
-                  <span key={i} className="bg-red-900/40 text-white px-3 py-1 rounded-full text-sm">
-                    {feature}
-                  </span>
-                ))}
+            {/* Vehicle Report */}
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 mb-8">
+              <h3 className="text-gray-900 text-xl font-bold mb-4">Vehicle Report</h3>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                  <button
+                    className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Request Vehicle Report
+                  </button>
+                </div>
               </div>
-            </div> */}
+            </div>
             
             {/* Contact Seller */}
-            <div className="bg-white bg-opacity-40 backdrop-blur-lg rounded-xl p-6 border border-gray-700/50">
-              {/* <h3 className="text-white text-xl font-bold mb-4">Contact Seller</h3> */}
+            <div className="bg-gray-900 text-white rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-4">Interested in this vehicle?</h3>
               <div className="flex flex-col sm:flex-row gap-4">
-                
-
-                 {user ? (
-                
-                <div className="flex-1 rounded-lg p-4 flex items-center gap-4"> 
-                 <button
-                  onClick={handleReportRequest}
-                  className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700"
-                >
-                  Request Vehicle Report
+                <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors font-medium">
+                  Contact Seller
                 </button>
-                </div>
-              ) : (
-                <p className="text-red-100">Please log in to request the vehicle report.</p>
-              )}
-
-                
+                <button className="flex-1 bg-white text-gray-900 hover:bg-gray-100 py-3 rounded-lg transition-colors font-medium border border-gray-300">
+                  Schedule Test Drive
+                </button>
               </div>
             </div>
           </motion.div>
         </motion.div>
         
-        {/* Similar Cars Section */}
-        {/* <motion.div
+        {/* Additional Images */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-20"
+          className="mt-16"
         >
-          <h2 className="text-3xl font-bold text-white mb-8">Similar Vehicles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50">
-              <div className="h-48 bg-gradient-to-r from-blue-900/30 to-purple-900/30 relative">
-                <div className="absolute bottom-4 left-4 bg-gradient-to-r from-blue-600 to-purple-700 text-white px-4 py-1 rounded-full font-bold">
-                  $32,500
-                </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">More Images</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {car.images.map((img, index) => (
+              <div 
+                key={index}
+                className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shadow-sm cursor-pointer"
+                onClick={() => handleImagePreview(img)}
+              >
+                <Image
+                  src={img}
+                  alt={`Preview ${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 hover:scale-105"
+                />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white">BMW 5 Series</h3>
-                <p className="text-gray-400 mb-4">2020 • 28,000 km</p>
-                <div className="flex gap-2 mb-4">
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Automatic</span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Sedan</span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Petrol</span>
+            ))}
+          </div>
+        </motion.div>
+        
+        {/* Specifications Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-16 bg-white rounded-2xl border border-gray-200 p-8 shadow-lg"
+        >
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">Technical Specifications</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Performance</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Engine</span>
+                  <span className="text-gray-900 font-medium">4.4L Twin-Turbo V8</span>
                 </div>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-purple-700 text-white py-2 rounded-lg font-medium">
-                  View Details
-                </button>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Horsepower</span>
+                  <span className="text-gray-900 font-medium">617 HP</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Torque</span>
+                  <span className="text-gray-900 font-medium">553 lb-ft</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">0-60 mph</span>
+                  <span className="text-gray-900 font-medium">3.1 seconds</span>
+                </div>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Top Speed</span>
+                  <span className="text-gray-900 font-medium">190 mph</span>
+                </div>
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50">
-              <div className="h-48 bg-gradient-to-r from-red-900/30 to-orange-900/30 relative">
-                <div className="absolute bottom-4 left-4 bg-gradient-to-r from-red-600 to-orange-600 text-white px-4 py-1 rounded-full font-bold">
-                  $28,900
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Features</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Transmission</span>
+                  <span className="text-gray-900 font-medium">8-Speed Automatic</span>
                 </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white">Audi A4</h3>
-                <p className="text-gray-400 mb-4">2019 • 35,000 km</p>
-                <div className="flex gap-2 mb-4">
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Automatic</span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Sedan</span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Diesel</span>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Drivetrain</span>
+                  <span className="text-gray-900 font-medium">All-Wheel Drive</span>
                 </div>
-                <button className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white py-2 rounded-lg font-medium">
-                  View Details
-                </button>
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50">
-              <div className="h-48 bg-gradient-to-r from-green-900/30 to-teal-900/30 relative">
-                <div className="absolute bottom-4 left-4 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-1 rounded-full font-bold">
-                  $38,200
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Brakes</span>
+                  <span className="text-gray-900 font-medium">Carbon Ceramic</span>
                 </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white">Mercedes C-Class</h3>
-                <p className="text-gray-400 mb-4">2021 • 19,000 km</p>
-                <div className="flex gap-2 mb-4">
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Automatic</span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Coupe</span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs">Hybrid</span>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Suspension</span>
+                  <span className="text-gray-900 font-medium">Adaptive M Suspension</span>
                 </div>
-                <button className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2 rounded-lg font-medium">
-                  View Details
-                </button>
+                <div className="flex justify-between border-b border-gray-100 pb-3">
+                  <span className="text-gray-600">Seats</span>
+                  <span className="text-gray-900 font-medium">Merino Leather</span>
+                </div>
               </div>
             </div>
           </div>
-        </motion.div> */}
+        </motion.div>
       </div>
     </div>
   );

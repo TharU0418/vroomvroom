@@ -34,9 +34,10 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('userEmail');
+    const name = localStorage.getItem('userName');
     if (token) {
-      setUser({ name: 'Authenticated User' });
+      setUser({ usera: 'Authenticated User', email:token,name:name });
     } else {
       setUser(null);
     }

@@ -1,30 +1,32 @@
-// app/layout.tsx (Server Component)
-import Footer from './components/Footer';
-//import Navbar from './components/Navbar';
-import './globals.css';
+export const dynamic = 'force-dynamic'
 
-import { Geist } from 'next/font/google';
+import type { Metadata } from "next";
+import { Inter, IBM_Plex_Serif } from "next/font/google";
+import "./globals.css";
 
-const geistSans = Geist({
+const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ['latin'],
-  variable: '--font-geist-sans',
-});
+  weight: ['400', '700'],
+  variable: '--font-ibm-plex-serif'
+})
 
-export const metadata = {
-  title: 'Vroom Vroom',
-  description: 'Secure car rental system',
+export const metadata: Metadata = {
+  title: "Horizon",
+  description: "Horizon is a modern banking platform for everyone.",
+  icons: {
+    icon: '/icons/logo.svg'
+  }
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body className={geistSans.variable}>
-        {/* <Navbar/> */}
-
-          {children}
-          
-          <Footer/>
-      </body>
+      <body className={`${inter.variable} ${ibmPlexSerif.variable}`}>{children}</body>
     </html>
   );
 }

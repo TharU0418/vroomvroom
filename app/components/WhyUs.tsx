@@ -1,40 +1,78 @@
-import React from 'react';
+'use client';
 
-const WhyUs = () => {
+import Image from 'next/image';
+
+const features = [
+  {
+    id: '01',
+    title: 'Pure Organic',
+    description:
+      'From soothing aloe Vera to revitalizing lavender, each element is handpicked.',
+  },
+  {
+    id: '02',
+    title: 'No Chemicals',
+    description:
+      'Reprehenderit esse labore id veniam ut veniam non ex adipisicing amet ullamco.',
+  },
+  {
+    id: '03',
+    title: 'Transformative',
+    description:
+      "Experience hair that's not only clean but also deeply nourished and beautifully rejuvenated.",
+  },
+  {
+    id: '04',
+    title: 'Environmentally',
+    description:
+      'We are committed to reducing our carbon footprint. Our packaging is eco-friendly.',
+  },
+];
+
+export default function WhyChooseUs() {
   return (
-    <div className="p-2 bg-red-950 min-h-screen flex items-center justify-center mt-10">
-      <section className="relative h-[86vh] w-[98%] overflow-hidden">
-        <div className="relative w-full h-full bg-red-900 p-2">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover absolute top-0 left-0 z-0"
-          >
-            <source src="/0305.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+    <section className="py-16 px-4 md:px-20 bg-gradient-to-br from-[#f0faff] to-white">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-12 items-center">
+        {/* Left side - two images */}
+        <div className="md:col-span-2 flex flex-col gap-4">
+          <Image
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Product 1"
+            width={500}
+            height={300}
+            className="rounded-xl object-cover w-full h-auto"
+          />
+          <Image
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Product 2"
+            width={500}
+            height={300}
+            className="rounded-xl object-cover w-full h-auto"
+          />
+        </div>
 
-          {/* Content Box Aligned to the Left */}
-          {/* <div className="absolute top-1/2 left-6 transform -translate-y-1/2 bg-white bg-opacity-90 p-8 rounded-md shadow-lg max-w-md z-10"> */}
-          <div className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-90 p-4 rounded-md shadow-lg w-[90%] 
-                md:left-6 md:p-8 md:max-w-md z-10">
-
-            <h1 className="text-3xl font-bold mb-4">Why Us?</h1>
-            <p className="text-sm md:text-base text-gray-700">
-              We provide unmatched quality and value, driven by innovation and a customer-first approach.
-              Our team is dedicated to delivering solutions that exceed expectations every time.
-               We provide unmatched quality and value, driven by innovation and a customer-first approach.
-              Our team is dedicated to delivering solutions that exceed expectations every time.
-               We provide unmatched quality and value, driven by innovation and a customer-first approach.
-              Our team is dedicated to delivering solutions that exceed expectations every time.
+        {/* Right side - larger text area */}
+        <div className="md:col-span-3 space-y-8">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-4">Why Choose Us</h2>
+            <p className="text-gray-600 max-w-2xl text-base md:text-lg">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh,
+              sit amet tempor nibh. Nulla consectetur nisl nec velit pharetra, a eleifend odio
+              dignissim.
             </p>
           </div>
-        </div>
-      </section>
-    </div>
-  );
-};
 
-export default WhyUs;
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {features.map((feature) => (
+              <div key={feature.id} className="bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition">
+                <div className="text-red-500 font-bold text-xl mb-2">{feature.id}</div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-1">{feature.title}</h4>
+                <p className="text-sm text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

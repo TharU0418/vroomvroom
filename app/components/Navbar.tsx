@@ -31,36 +31,39 @@ const Navbar = () => {
   const {user, logout} = useAuth();
 
   console.log('user nav', user)
+  console.log('user email', user?.email);
 
-    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
-  useEffect(() => {
-          const token = localStorage.getItem('idToken');
-          if (token) {
-            const decoded = decodeToken(token);
-            console.log('Decoded token:', decoded);
+
+
+  //   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
+  // useEffect(() => {
+  //         const token = localStorage.getItem('idToken');
+  //         if (token) {
+  //           const decoded = decodeToken(token);
+  //           console.log('Decoded token:', decoded);
       
-            if (decoded && decoded.email && decoded.given_name) {
-              setUserDetails({
-                email: decoded.email,
-                given_name: decoded.given_name,
-                nickname:decoded.nickname
-              });
-            }
-          }
-        }, []);
+  //           if (decoded && decoded.email && decoded.given_name) {
+  //             setUserDetails({
+  //               email: decoded.email,
+  //               given_name: decoded.given_name,
+  //               nickname:decoded.nickname
+  //             });
+  //           }
+  //         }
+  //       }, []);
 
   return (
     <nav 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-red-700 shadow-lg py-0' 
-          : 'bg-red-700 py-0'
+          ? 'bg-black shadow-lg py-0' 
+          : 'bg-black py-0'
       }`}
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center">
           {/* White rectangular logo section */}
-          <div className="w-[240px] md:w-[280px] h-20 bg-red-700 flex items-center justify-center relative z-10 border-r border-gray-200">
+          <div className="w-[240px] md:w-[280px] h-20 bg-black flex items-center justify-center relative z-10 ">
             <Link href="/" className="flex items-center space-x-2">
               {/* <FiCar className="h-8 w-8 text-red-600" /> */}
               {/* <span className="text-2xl font-bold text-gray-900 cursor-pointer tracking-tight">
@@ -81,7 +84,7 @@ const Navbar = () => {
 <div className="flex-1 relative overflow-hidden">
             {/* Trapezoid background */}
            <div 
-  className="absolute top-0 right-0 h-full w-full bg-gradient-to-r from-black to-black"
+  className="absolute top-0 right-0 h-full w-full "
   style={{ 
     clipPath: 'polygon(0% 0%, 96% 0%, 100% 100%, 100% 100%)',
     zIndex: 0
@@ -99,14 +102,14 @@ const Navbar = () => {
                     className={`relative px-4 py-2 text-sm font-medium transition-colors ${
                       activeMenu === item.title 
                         ? 'text-white' 
-                        : 'text-red-100 hover:text-white'
+                        : 'text-white hover:text-white'
                     }`}
                     onClick={() => setActiveMenu(item.title)}
                   >
                     {item.title}
                     {activeMenu === item.title && (
                       <motion.div 
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-white"
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-red-900"
                         layoutId="activeMenu"
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                       />
@@ -129,7 +132,7 @@ const Navbar = () => {
                         <Link href="/profile">
   <Image
   //src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
-    src={`https://avatar.iran.liara.run/username?username=${userDetails?.given_name}`}
+    src={`https://avatar.iran.liara.run/username?username=${user?.name}`}
     alt="User Avatar"
     width={32}
     height={32}
@@ -162,7 +165,7 @@ const Navbar = () => {
                     </div>
                                   </div>
               ):(<div className="flex space-x-3">
-                <Link href="/auth/signin">
+                <Link href="/sign">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -171,13 +174,13 @@ const Navbar = () => {
                     Sign In
                   </motion.button>
                 </Link>
-                <Link href="/auth/signup">
+                <Link href="/register">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-50 transition-colors shadow-lg"
                   >
-                    Sign Up
+                    Register
                   </motion.button>
                 </Link>
               </div>)}

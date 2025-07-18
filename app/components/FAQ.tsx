@@ -35,7 +35,7 @@ const FAQ = () => {
 
   return (
     // <section>
-    <section className="relative h-[86vh] w-full overflow-hidden mt-20 bg-red-50 p-4">
+    <section className="relative h-[86vh] w-full overflow-hidden mt-20 bg-white p-4">
 
         <h4 className='text-4xl font-bold text-black mb-4 text-center'>Frequently Asked Questions</h4>
 
