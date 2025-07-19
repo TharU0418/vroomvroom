@@ -123,9 +123,9 @@ body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: us
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-500 via-red-700 to-red-900 p-4 text-white">
-      <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8 mt-20 justify-center ">
-        <h1 className="text-4xl font-bold mb-4 text-center">Full Day Driver</h1>
+    <div className="min-h-screen bg-white p-4 text-black flex items-center justify-center">
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 max-w-6xl w-full mx-4 p-8 mt-20  ">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center text-red-800">Full Day Driver</h1>
 
         <p>
           With our Multi-Day Hire service, you can secure a professional driver for an extended period—whether it&rsquo;s a few days or a few weeks. 
@@ -138,64 +138,64 @@ body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: us
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col">
-              <label className="text-white">Pickup Date</label>
+              <label className="">Pickup Date</label>
               <input
                 type="date"
                 name="pickupDate"
                 value={formData.pickupDate}
                 onChange={handleChange}
-                className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black"
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
                 required
               />
             </div>
 
             <div className="flex flex-col">
-              <label className="text-white">Return Date</label>
+              <label className="">Return Date</label>
               <input
                 type="date"
                 name="returnDate"
                 value={formData.returnDate}
                 onChange={handleChange}
-                className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black"
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
                 required
               />
             </div>
           </div>
 
           <div className="flex flex-col">
-            <label className="text-white">Pickup Time</label>
+            <label className="">Pickup Time</label>
             <input
               type="time"
               name="pickupTime"
               value={formData.pickupTime}
               onChange={handleChange}
-              className="w-1/2 p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black"
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
               required
             />
           </div>
 
           <div className="flex flex-col">
-            <label className="text-white">Pickup Location</label>
+            <label className="">Pickup Location</label>
             <textarea
               name="pickupLocation"
               rows={2}
               value={formData.pickupLocation}
               onChange={handleChange}
               placeholder="e.g. colombo"
-              className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black placeholder-black"
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
               required
             />
           </div>
 
           <div className="flex flex-col">
-            <label className="text-white">Message</label>
+            <label className="">Message</label>
             <textarea
               name="message"
               rows={4}
               value={formData.message}
               onChange={handleChange}
               placeholder="I want ..."
-              className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black placeholder-black"
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
               required
             />
           </div>
@@ -205,7 +205,7 @@ body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: us
             <div className="flex justify-center items-center">
               <button
                 type="submit"
-                className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow mt-10 justify-center"
+                className="bg-red-800 hover:bg-red-900 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
               >
                 Request the driver
               </button>

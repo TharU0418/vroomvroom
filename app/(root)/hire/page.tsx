@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import cover1 from '../../../public/cover1.jpg';
 
 export default function Hire() {
 
@@ -10,28 +11,40 @@ export default function Hire() {
   return (
     <div className="min-h-screen bg-white text-black mt-20">
       {/* Full-width banner - optimized for mobile */}
-      <div className="bg-red-800 py-4 md:py-6 text-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Hire a Driver</h1>
-          <p className="mt-1 md:mt-2 text-sm md:text-base max-w-2xl mx-auto text-gray-200">
+
+       {/* Hero Section */}
+      <div className="relative h-[70vh] bg-black text-white">
+        <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
+<div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
+        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-red-600">Hire a Driver</span></h1>
+          <p className="text-xl max-w-3xl text-gray-300 mb-8">
             Expert guidance for all your vehicle needs - from selection to registration
           </p>
+          {/* <div className="flex space-x-4">
+            <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
+              Our Services
+            </button>
+            <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition">
+              Contact Us
+            </button>
+          </div> */}
         </div>
       </div>
+
     <div className="flex items-center justify-center bg-white p-4">
       
       <div className="max-w-6xl w-full mx-4 p-6">
         
         {/* <h1 className="text-4xl font-bold text-black mb-8 text-center">Hire a Driver</h1> */}
       
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 justify-center">
           {/* Card 1 */}
           <div onClick={() => router.push(`/hire/one-time-drive`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
-  src="https://plus.unsplash.com/premium_photo-1681821679118-bb069eeb2d98?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  width={150} 
-  height={64}
+  src="/hire1.jpg"
+ fill
   alt="One time driver booking image"
   className="w-full h-full object-cover" 
 />
@@ -47,9 +60,8 @@ export default function Hire() {
           <div onClick={() => router.push(`/hire/full-day-driver`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
-  src="https://images.unsplash.com/photo-1485575397155-c9b47f81f645?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-  width={150} 
-  height={64}
+src="/hire2.jpg"
+  fill
   alt="Multi-day driver hire image"
   className="w-full h-full object-cover" 
 />
@@ -65,9 +77,8 @@ export default function Hire() {
           <div onClick={() => router.push(`/hire/drink-drive`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
-  src="https://images.unsplash.com/photo-1541747277704-ef7fb8e1a31c?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-  width={150} 
-  height={100}
+ src="/hire3.jpg"
+  fill
   alt="Drink and drive safe return service image"
   className="w-full h-full object-cover" 
 />
@@ -83,9 +94,8 @@ export default function Hire() {
           <div onClick={() => router.push(`/hire/long-term--driver`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
-  src="https://images.unsplash.com/photo-1615563164538-89e1da13fcc4?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-  width={150} 
-  height={64}
+ src="/hire4.jpg"
+  fill
   alt="Long term driver contract image"
   className="w-full h-full object-cover" 
 />
@@ -98,7 +108,7 @@ export default function Hire() {
           </div>
         </div>
         {/* New Hiring Section */}
-        <div className="glass-container bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-6 mt-12 border border-blue-300 border-opacity-50">
+        <div className="glass-container bg-gradient-to-r from-red-600 to-red-800 rounded-xl p-6 mt-12 border border-red-300 border-opacity-50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">We are Hiring Drivers!</h2>
@@ -108,8 +118,8 @@ export default function Hire() {
               </p>
             </div>
             <button
-              onClick={() => router.push('/driver-application')}
-              className="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-100 transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+              onClick={() => router.push('/careers')}
+              className="bg-white text-red-600 font-bold py-3 px-8 rounded-full hover:bg-red-100 transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
             >
               Apply Now
             </button>

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FileUpload } from '../../components/ui/file-upload';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
@@ -8,6 +8,7 @@ import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import { useRouter } from 'next/navigation';
 import { ToggleSwitch } from '../../components/ToggleSwitch ';
 import { Modal } from '@/app/components/modal';
+import { Step1, Step2, Step3, Step4, Step5 } from '@/app/components/SellSteps';
 
 export default function Sell() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -17,7 +18,8 @@ export default function Sell() {
     transmission: '', body_type: '', price: '', description: '',
     mobileNum: '', negotiable: false, userId: ''
   });
-  const [files, setFiles] = useState<File[]>([]);
+const [files, setFiles] = useState<File[]>([]);
+const [previews, setPreviews] = useState<string[]>([]);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
@@ -63,9 +65,22 @@ export default function Sell() {
     }
   }, []);
 
-  const handleFileUpload = (files: File[]) => {
-    setFiles(files);
+  const handleFileUpload = (acceptedFiles: File[]) => {
+  const limitedFiles = acceptedFiles.slice(0, 5);
+  setFiles(limitedFiles);
+
+  // Generate previews
+  const urls = limitedFiles.map(file => URL.createObjectURL(file));
+  setPreviews(urls);
+};
+
+useEffect(() => {
+  return () => {
+    previews.forEach((url) => URL.revokeObjectURL(url));
   };
+}, [previews]);
+
+
 
   // Check if user is authenticated
   useEffect(() => {
@@ -174,7 +189,7 @@ export default function Sell() {
         images: base64Images,
         status: 'pending',
         report: null,
-        userId: user,
+        userId: user?.email,
         mobileNum: userDetails?.nickname
       };
 
@@ -187,6 +202,8 @@ export default function Sell() {
       });
 
       if (!response.ok) throw new Error('Submission failed');
+
+      console.log('pay', payload)
 
       setNotificationMessage('Car listed successfully!');
       setShowNotification(true);
@@ -207,258 +224,12 @@ export default function Sell() {
   const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
 
   // Step components
-  const Step1 = () => (
-    <div className="space-y-6 animate-fadeIn">
-      <h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Location Details</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Select District</label>
-          <select
-            value={formData.district}
-            onChange={(e) => setFormData({ ...formData, district: e.target.value, city: '' })}
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            required
-          >
-            <option value="">-- Choose a District --</option>
-            {districts.map((district) => (
-              <option key={district} value={district}>
-                {district}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Select City</label>
-          <select
-            value={formData.city}
-            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            required
-            disabled={!formData.district}
-          >
-            <option value="">-- Choose a City --</option>
-            {cities.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-    </div>
-  );
-
-  const Step2 = () => (
-    <div className="space-y-6 animate-fadeIn">
-      <h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Car Information</h2>
-      <div>
-        <label className="block text-gray-700 mb-2 font-medium">Condition</label>
-        <select
-          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-          required
-          value={formData.condition}
-          onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
-        >
-          <option value="">Select Condition</option>
-          <option value="new">Brand New</option>
-          <option value="used">Used</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="block text-gray-700 mb-2 font-medium">Car Brand</label>
-        <select
-          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-          required
-          value={formData.brand}
-          onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-        >
-          <option value="">Select Car Brand</option>
-          {brand.map((b) => (
-            <option key={b} value={b}>
-              {b}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Manufacture Year</label>
-          <select
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            required
-            value={formData.year}
-            onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-          >
-            <option value="">Select Year</option>
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Model</label>
-          <input
-            type="text"
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            placeholder="Enter model"
-            required
-            value={formData.model}
-            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-          />
-        </div>
-      </div>
-    </div>
-  );
-
-  const Step3 = () => (
-    <div className="space-y-6 animate-fadeIn">
-      <h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Technical Specifications</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Mileage (km)</label>
-          <input
-            type="number"
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            placeholder="Enter mileage"
-            required
-            value={formData.mileage}
-            onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
-          />
-        </div>
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Fuel Type</label>
-          <select
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            required
-            value={formData.fueltype}
-            onChange={(e) => setFormData({ ...formData, fueltype: e.target.value })}
-          >
-            <option value="">Select Fuel Type</option>
-            <option value="petrol">Petrol</option>
-            <option value="diesel">Diesel</option>
-            <option value="electric">Electric</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Engine Capacity</label>
-          <input
-            type="text"
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            placeholder="Enter engine capacity"
-            required
-            value={formData.engine_capacity}
-            onChange={(e) => setFormData({ ...formData, engine_capacity: e.target.value })}
-          />
-        </div>
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Transmission</label>
-          <select
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            required
-            value={formData.transmission}
-            onChange={(e) => setFormData({ ...formData, transmission: e.target.value })}
-          >
-            <option value="">Select Transmission</option>
-            <option value="automatic">Automatic</option>
-            <option value="manual">Manual</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-gray-700 mb-2 font-medium">Body Type</label>
-        <select
-          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-          required
-          value={formData.body_type}
-          onChange={(e) => setFormData({ ...formData, body_type: e.target.value })}
-        >
-          <option value="">Select Car Type</option>
-          <option value="luxury">Luxury Sedan</option>
-          <option value="Premium_suv">Premium SUV</option>
-          <option value="sports">Sports Car</option>
-          <option value="electric">Electric Vehicle</option>
-          <option value="hatchback">Hatchback</option>
-          <option value="convertible">Convertible</option>
-          <option value="crossover_suv">Crossover SUV</option>
-          <option value="coupe">Coupe</option>
-          <option value="sedan">Sedan</option>
-          <option value="minivan">Minivan</option>
-          <option value="luxury_sedan">Luxury Sedan</option>
-          <option value="compact_car">Compact Car</option>
-          <option value="luxury_sports_car">Luxury Sports Car</option>
-          <option value="city_car">City Car</option>
-          <option value="roadster">Roadster</option>
-        </select>
-      </div>
-    </div>
-  );
-
-  const Step4 = () => (
-    <div className="space-y-6 animate-fadeIn">
-      <h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Pricing & Description</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-gray-700 mb-2 font-medium">Price ($)</label>
-          <input
-            type="number"
-            className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-            placeholder="Enter price"
-            required
-            value={formData.price}
-            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-          />
-        </div>
-        <div className="flex items-center pt-6">
-          <label className="block text-gray-700 mb-2 font-medium mr-4">Negotiable</label>
-          <ToggleSwitch
-            checked={formData.negotiable}
-            onChange={() => setFormData(prev => ({ ...prev, negotiable: !prev.negotiable }))}
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-gray-700 mb-2 font-medium">Description</label>
-        <textarea
-          className="w-full p-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
-          placeholder="More about your car"
-          required
-          value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          rows={4}
-        />
-      </div>
-    </div>
-  );
-
-  const Step5 = () => (
-    <div className="space-y-6 animate-fadeIn">
-      <h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Upload Images</h2>
-      <div className="w-full max-w-4xl mx-auto min-h-96 border-2 border-dashed border-gray-300 bg-white rounded-lg p-4">
-        <FileUpload onChange={handleFileUpload} />
-      </div>
-      
-      {!user && (
-        <p className="text-red-500 mt-4 text-center bg-red-50 p-4 rounded-lg border border-red-200">
-          Sign in to sell your car.
-        </p>
-      )}
-    </div>
-  );
-
+ 
   return (
     <div className="min-h-screen bg-gray-50 p-4 pt-20">
-      {showSignInModal && <SignInModal />}
+      
+      {!user ? (<>{showSignInModal && <SignInModal />}</>) : (<></>)}
+
       <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden mt-20">
         {/* Progress bar */}
         <div className="bg-red-600 text-white p-4 text-center">
@@ -486,11 +257,18 @@ export default function Sell() {
 
         {/* Form Content */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {currentStep === 1 && <Step1 />}
-          {currentStep === 2 && <Step2 />}
-          {currentStep === 3 && <Step3 />}
-          {currentStep === 4 && <Step4 />}
-          {currentStep === 5 && <Step5 />}
+          {currentStep === 1 && <Step1 formData={formData} setFormData={setFormData} />}
+{currentStep === 2 && <Step2 formData={formData} setFormData={setFormData} />}
+{currentStep === 3 && <Step3 formData={formData} setFormData={setFormData} />}
+{currentStep === 4 && <Step4 formData={formData} setFormData={setFormData} />}
+{currentStep === 5 && (
+  <Step5
+    onFileChange={handleFileUpload}
+    previews={previews}
+    user={user}
+  />
+)}
+
 
           {/* Navigation buttons */}
           <div className="flex justify-between pt-4">

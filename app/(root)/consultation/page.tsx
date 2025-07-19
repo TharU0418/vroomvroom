@@ -46,7 +46,7 @@ function Guide() {
               <div 
                 key={service.id}
                 onClick={() => router.push(service.path)}
-                className="bg-white rounded-xl shadow-md border border-gray-200 p-4 sm:p-6 md:p-8 cursor-pointer hover:shadow-lg transition-shadow"
+                className="bg-white rounded-xl shadow-md border border-gray-00 p-4 sm:p-6 md:p-8 cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Image - full width on mobile, half on desktop */}

@@ -19,7 +19,7 @@ export interface SellCard {
   price: string;
   description: number;
   mobileNum: string;
-  userName: string;
+  userId: string;
   status: string;
   images: string[];
 }
@@ -421,7 +421,7 @@ function MySellRequest({ user }: { user: User }) {
                         <div className="space-y-2">
                           <div className="flex justify-between">
                             <span className="text-gray-500">Name</span>
-                            <span>{request.userName}</span>
+                            <span>{request.userId}</span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-500">Phone</span>

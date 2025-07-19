@@ -78,8 +78,10 @@ export default function CarListing() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
       const data = await res.json();
       console.log('data', data);
-
-      setCars(data);
+      const filteredCars = data.filter((caersData1: { status: string }) => 
+            caersData1.status === 'accept'
+        );
+      setCars(filteredCars);
     } catch (err) {
       console.error('Failed to fetch cars:', err);
     } finally {
