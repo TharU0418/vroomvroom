@@ -112,7 +112,7 @@ export default function Application() {
             <h1 className="text-3xl md:text-4xl font-bold mb-6">Application Submitted Successfully!</h1>
             <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
               Thank you for applying for the {jobDetails.title} position at DriveElite. 
-              Our hiring team will review your application and contact you if you're selected for an interview.
+              Our hiring team will review your application and contact you if you&rsquo;re selected for an interview.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button 
@@ -400,7 +400,7 @@ export default function Application() {
                       className="mt-1 mr-3"
                     />
                     <label htmlFor="updates" className="text-gray-700">
-                      I'd like to receive occasional updates about new job opportunities at DriveElite.
+                      I&rsquo;d like to receive occasional updates about new job opportunities at DriveElite.
                     </label>
                   </div>
                 </div>

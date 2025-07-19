@@ -4,7 +4,6 @@ import React from 'react';
 import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { FileUpload } from './ui/file-upload';
-import { ToggleSwitch } from './ToggleSwitch ';
 
 interface SellStepProps {
   formData: any;
@@ -259,7 +258,7 @@ export const Step4 = ({ formData, setFormData }: SellStepProps) => (
   </div>
 );
 
-export const Step5 = ({ onFileChange, previews = [], user }: SellStepProps) => (
+export const Step5 = ({ onFileChange, previews = [] }: SellStepProps) => (
   <div className="space-y-6 animate-fadeIn">
     <h2 className="text-2xl font-bold">Upload Images</h2>
     <FileUpload onChange={onFileChange!} previews={previews} />

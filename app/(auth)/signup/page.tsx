@@ -1,18 +1,18 @@
 'use client';
 import { useRouteGuard } from '@/hooks/useRouteGuard';
-import Image from 'next/image';
+//import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 function SignUp() {
   const searchParams = useSearchParams();
-  const emailFromQuery = searchParams.get('email') || '';
+  //const emailFromQuery = searchParams.get('email') || '';
 
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: emailFromQuery,
+    email: 'emailFromQuery',
     mobileNumber: '',
     location: '',
     password: '',

@@ -1,12 +1,9 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
-import { FileUpload } from '../../components/ui/file-upload';
+import { useEffect, useState } from 'react';
 import { locations } from '@/public/data/location';
-import { brand } from '@/public/data/brand';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import { useRouter } from 'next/navigation';
-import { ToggleSwitch } from '../../components/ToggleSwitch ';
 import { Modal } from '@/app/components/modal';
 import { Step1, Step2, Step3, Step4, Step5 } from '@/app/components/SellSteps';
 
@@ -217,11 +214,11 @@ useEffect(() => {
     }
   };
 
-  const currentYear = new Date().getFullYear();
-  const startYear = 1990;
-  const years = Array.from(new Array(currentYear - startYear + 1), (val, index) => currentYear - index);
-  const districts = Object.keys(locations);
-  const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
+  // const currentYear = new Date().getFullYear();
+  // const startYear = 1990;
+  // const years = Array.from(new Array(currentYear - startYear + 1), (val, index) => currentYear - index);
+  // const districts = Object.keys(locations);
+  // const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
 
   // Step components
  

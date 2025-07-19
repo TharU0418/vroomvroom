@@ -133,7 +133,7 @@ export default function CareersPage() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">WHY JOIN <span className="text-red-600">Vroom Vroom</span></h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            We're building a culture where passionate professionals can thrive and grow
+            We&rsquo;re building a culture where passionate professionals can thrive and grow
           </p>
         </div>
         
@@ -188,7 +188,7 @@ export default function CareersPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">OUR <span className="text-red-600">TEAM</span> SPEAKS</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              Hear from our employees about what it's like to work at DriveElite
+              Hear from our employees about what it&rsquo;s like to work at DriveElite
             </p>
           </div>
           
@@ -224,7 +224,7 @@ export default function CareersPage() {
                     <p className="text-red-600">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 italic">"{testimonial.quote}"</p>
+                <p className="text-gray-600 italic">&quot;{testimonial.quote}&quot;</p>
                 <div className="flex mt-6">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -336,7 +336,7 @@ export default function CareersPage() {
         
         <div className="mt-16 text-center">
           <p className="text-gray-600 mb-8">
-            Don't see a role that fits? Send us your resume anyway!
+            Don&rsquo;t see a role that fits? Send us your resume anyway!
           </p>
           <a 
             href="mailto:careers@driveelite.com" 
@@ -353,7 +353,7 @@ export default function CareersPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">OUR <span className="text-red-600">HIRING PROCESS</span></h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              We've designed a straightforward process to ensure the best fit for both candidates and DriveElite
+              We&rsquo;ve designed a straightforward process to ensure the best fit for both candidates and DriveElite
             </p>
           </div>
           

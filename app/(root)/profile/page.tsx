@@ -1,8 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import ProfileLayout from './ProfileLayout';
-import { decodeToken, DecodedToken } from '@/utils/decodeToken';
 import { useAuth } from '@/hooks/useAuth';
 //import { useRouteGuard } from '@/hooks/useRouteGuard';
 
@@ -27,7 +25,7 @@ export default function ProfilePage() {
   // }, []);
 
 
-  const {user, logout} = useAuth();
+  const {user} = useAuth();
   console.log('user nav', user)
   console.log('user email', user?.email);
 

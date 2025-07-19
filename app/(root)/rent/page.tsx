@@ -1,7 +1,7 @@
 'use client';
 
 //import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { brand } from "../../../public/data/brand";
 import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
@@ -85,7 +85,7 @@ const formData2 = {
   const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
-  const [defaultCars, setDefaultCars] = useState<Car[]>([]);
+  //const [defaultCars, setDefaultCars] = useState<Car[]>([]);
   const [selectedCar, setSelectedCar] = useState<Car | null>(null); // Track selected car
 const [rentalDetails, setRentalDetails] = useState({
     needDriver: 'no',
@@ -99,7 +99,7 @@ const [rentalDetails, setRentalDetails] = useState({
 
   const [showNotification, setShowNotification] = useState(false);
         const [notificationMessage, setNotificationMessage] = useState('');
-      const router = useRouter();
+   //   const router = useRouter();
     
         const Notification = () => (
           <div className="fixed bottom-4 right-4 z-50">
@@ -238,22 +238,22 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   };
 
-console.log('searchResult', searchResults)
+// console.log('searchResult', searchResults)
 
-  useEffect(() => {
-    const fetchDefaultCars = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`); // You need to create this API route
-        const data = await response.json();
-        console.log('data', data)
-        setDefaultCars(data);
-      } catch (err) {
-        console.error('Failed to fetch default cars:', err);
-      }
-    };
+//   useEffect(() => {
+//     const fetchDefaultCars = async () => {
+//       try {
+//         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`); // You need to create this API route
+//         const data = await response.json();
+//         console.log('data', data)
+//         setDefaultCars(data);
+//       } catch (err) {
+//         console.error('Failed to fetch default cars:', err);
+//       }
+//     };
 
-    fetchDefaultCars();
-  }, []);
+//     fetchDefaultCars();
+//   }, []);
 
   return (   //#ffbebe]
    <div className="min-h-screen flex items-center justify-center bg-white p-4">
@@ -352,7 +352,7 @@ console.log('searchResult', searchResults)
                   onChange={handleRentalDetailChange}
                   className="w-full p-3 border border-gray-300 rounded-md text-sm md:text-base"
                 >
-                  <option value="no">No, I'll drive myself</option>
+                  <option value="no">No, I&rsquo;ll drive myself</option>
                   <option value="yes">Yes, I need a driver</option>
                 </select>
               </div>

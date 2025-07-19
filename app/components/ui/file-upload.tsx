@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+//import Image from 'next/image';
+import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 interface FileUploadProps {
@@ -30,10 +31,12 @@ export const FileUpload = ({ onChange, previews }: FileUploadProps) => {
           <div className="flex flex-wrap gap-4">
             {previews.map((preview, index) => (
               <div key={index} className="w-32 h-32 relative">
-                <img
+                <Image
                   src={preview}
                   alt={`Preview ${index}`}
                   className="w-full h-full object-cover rounded-lg"
+                  width={100}
+                  height={100}
                 />
               </div>
             ))}

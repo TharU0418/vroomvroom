@@ -52,8 +52,8 @@ interface Car {
 
 export default function CarListing() {
   const [cars, setCars] = useState<CarCard[]>([]);
-  const [hasSearched, setHasSearched] = useState(false);
-  const [searchResults, setSearchResults] = useState<Car[]>([]);
+  //const [hasSearched, setHasSearched] = useState(false);
+  //const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -94,30 +94,30 @@ export default function CarListing() {
 console.log('cars', cars)
 
   
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setHasSearched(true); 
-    setIsLoading(true);
-    try {
-      const response = await fetch('/api/check-sell', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const result = await response.json();
-      if (result.success) {
-        setSearchResults(result.cars);
-      } else {
-        console.error('Search failed:', result.error);
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setHasSearched(true); 
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await fetch('/api/check-sell', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+  //     const result = await response.json();
+  //     if (result.success) {
+  //       setSearchResults(result.cars);
+  //     } else {
+  //       console.error('Search failed:', result.error);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const currentYear = new Date().getFullYear();
   const startYear = 1990;

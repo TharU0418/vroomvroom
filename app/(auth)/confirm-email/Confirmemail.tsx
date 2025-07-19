@@ -9,7 +9,7 @@ export default function ConfirmEmail() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   //const [timer, setTimer] = useState(60);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  //const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const router = useRouter();
@@ -55,15 +55,15 @@ export default function ConfirmEmail() {
 
       if (data === 'Invalid code') {
         setError('Invalid verification code. Please try again.');
-        setSuccess(false);
+        //setSuccess(false);
       } else {
-        setSuccess(true);
+        //setSuccess(true);
         router.push('/auth/signin');
       }
     } catch (err) {
       console.error(err);
       setError('An unexpected error occurred. Please try again.');
-      setSuccess(false);
+      //setSuccess(false);
     } finally {
       setIsLoading(false);
     }

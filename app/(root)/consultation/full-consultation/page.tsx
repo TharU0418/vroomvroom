@@ -92,7 +92,7 @@ function FullConsultation() {
             <h4 className="text-lg font-semibold text-gray-800">Full Guide – Expert Vehicle Consultation from Start to Finish</h4>
             <p className="text-gray-700">
               Full Guide is a comprehensive vehicle consultation program designed to walk you through every stage of the car-buying journey. 
-              Whether you're purchasing your first car or upgrading to your dream vehicle, our expert team is here to make the process simple, 
+              Whether you are purchasing your first car or upgrading to your dream vehicle, our expert team is here to make the process simple, 
               informed, and stress-free.
             </p>
             

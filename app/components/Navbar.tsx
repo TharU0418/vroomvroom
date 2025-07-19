@@ -5,7 +5,6 @@ import { FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
-import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

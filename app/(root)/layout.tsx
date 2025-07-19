@@ -1,15 +1,10 @@
 // app/layout.tsx (Server Component)
-import { GoogleOAuthProvider } from '@react-oauth/google';
 //import './globals.css';
 
-import { Geist } from 'next/font/google';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const geistSans = Geist({
-  subsets: ['latin'],
-  variable: '--font-geist-sans',
-});
+
 
 export const metadata = {
   title: 'Vroom Vroom',

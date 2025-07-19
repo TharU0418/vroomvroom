@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+//import { FcGoogle } from 'react-icons/fc';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   const handleLogin = async (credentialResponse: any) => {
     console.log('credentialResponse', credentialResponse); // Log the full response to inspect its structure
-    const { credential } = credentialResponse;
+   // const { credential } = credentialResponse;
 
     try {
       const response = await axios.post(
@@ -49,7 +49,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-white mt-20">
       <div className="w-full max-w-md space-y-6 p-8">
         <h2 className="text-2xl font-semibold text-gray-900">
-          What's your email?
+          What&rsquo;s your email?
         </h2>
 
         <input

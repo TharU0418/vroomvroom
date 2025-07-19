@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+//import { FcGoogle } from 'react-icons/fc';
 import { useRouteGuard } from '@/hooks/useRouteGuard';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -18,7 +18,7 @@ export default function Sign() {
         
             useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
 
-  const [input, setInput] = useState('');
+  //const [input, setInput] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,9 +61,9 @@ localStorage.setItem('userEmail', email);
 } catch (err) {
   const message = err instanceof Error ? err.message : 'Unknown error';
   console.log('mess', message)
-  // setNotificationMessage(message);
-  // setShowNotification(true);
-  // setTimeout(() => setShowNotification(false), 5000);
+  setNotificationMessage(message);
+  setShowNotification(true);
+  setTimeout(() => setShowNotification(false), 5000);
 }
   };
 
@@ -157,6 +157,8 @@ const handleLogin = async (credentialResponse: any) => {
           from Uber and its affiliates to the number provided.
         </p>
       </div>
+            {showNotification && <Notification />}
+
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 import { IoIosCloseCircle, IoIosArrowDown, IoIosArrowUp, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { FaCar, FaCalendarAlt, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa';
+import { FaCar, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 
 export interface RequestsCard {
   id: string;
@@ -115,25 +115,25 @@ function MyRequests({ user }: { user: User }) {
     }
   };
 
-  const handleCompleteRequest = async (requestId: string) => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: requestId, status: 'completed' }),
-      });
+  // const handleCompleteRequest = async (requestId: string) => {
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
+  //       method: 'PATCH',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ id: requestId, status: 'completed' }),
+  //     });
 
-      if (response.ok) {
-        setRentRequests(prev => prev.map(req => 
-          req.id === requestId ? { ...req, status: 'completed' } : req
-        ));
-      } else {
-        throw new Error('Failed to complete rent request');
-      }
-    } catch (error) {
-      console.error('Error completing rent request:', error);
-    }
-  };
+  //     if (response.ok) {
+  //       setRentRequests(prev => prev.map(req => 
+  //         req.id === requestId ? { ...req, status: 'completed' } : req
+  //       ));
+  //     } else {
+  //       throw new Error('Failed to complete rent request');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error completing rent request:', error);
+  //   }
+  // };
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
