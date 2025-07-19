@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 //import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 type JobOpening = {
@@ -93,7 +93,7 @@ export default function CareersPage() {
     setActiveJob(activeJob === id ? null : id);
   };
 
-  const router = useRouter();
+  //const router = useRouter();
 
   // const handleApplyClick = (id: string) => {
   //   router.push(`/apply/${id}`);

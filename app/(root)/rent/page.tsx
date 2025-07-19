@@ -80,7 +80,7 @@ const formData2 = {
 }
 
  
-  //const router = useRouter();
+  const router = useRouter();
 
   const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [loading, setLoading] = useState(false);
@@ -234,7 +234,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       setShowNotification(true);
     //alert('Rental confirmed!');
    // setSelectedCar(null);
-   //   router.push('/profile');
+      router.push('/profile');
 
   };
 
