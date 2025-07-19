@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 function SignUp() {
   const searchParams = useSearchParams();
-  const emailFromQuery = searchParams.get('email') || '';
+const emailFromQuery = searchParams?.get('email') || '';
 
   const [formData, setFormData] = useState({
     firstName: '',
