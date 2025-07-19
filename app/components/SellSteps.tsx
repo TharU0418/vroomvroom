@@ -20,7 +20,10 @@ export interface FormData {
   price: string;
   negotiable: boolean;
   description: string;
+  mobileNum: string;
+  userId: string;
 }
+
 
 interface SellStepProps {
   formData: FormData;
@@ -31,7 +34,10 @@ interface SellStepProps {
   user?: unknown; // or a more specific type if known
 }
 
-export const Step1 = ({ formData, setFormData }: SellStepProps) => {
+
+//export const Step1 = ({ formData, setFormData }: SellStepProps) => {
+    export const Step1: React.FC<SellStepProps> = ({ formData, setFormData }) => {
+
   const districts = Object.keys(locations);
   const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
 

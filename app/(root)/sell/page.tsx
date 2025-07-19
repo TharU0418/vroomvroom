@@ -7,14 +7,15 @@ import { useRouter } from 'next/navigation';
 import { Modal } from '@/app/components/modal';
 import { Step1, Step2, Step3, Step4, Step5 } from '@/app/components/SellSteps';
 
+
 export default function Sell() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
-    district: '', city: '', condition: '', brand: '', year: '',
-    model: '', mileage: '', fueltype: '', engine_capacity: '',
-    transmission: '', body_type: '', price: '', description: '',
-    mobileNum: '', negotiable: false, userId: ''
-  });
+ const [formData, setFormData] = useState({
+  district: '', city: '', condition: '', brand: '', year: '',
+  model: '', mileage: '', fueltype: '', engine_capacity: '',
+  transmission: '', body_type: '', price: '', description: '',
+  mobileNum: '', negotiable: false, userId: ''
+});
 const [files, setFiles] = useState<File[]>([]);
 const [previews, setPreviews] = useState<string[]>([]);
   const [showNotification, setShowNotification] = useState(false);
