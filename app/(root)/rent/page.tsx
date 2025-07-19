@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { brand } from "../../../public/data/brand";
 import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
-import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import { useRouter } from 'next/navigation';
 
 interface Car {
   id: string; // Added ID field
@@ -39,7 +39,6 @@ interface BookingDate {
 
 
 export default function Rent() {
-    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
 
   const [formData, setFormData] = useState({
     carType: '',
@@ -68,7 +67,7 @@ export default function Rent() {
 // });
 
 const formData2 = {
-  userId: userDetails?.email,
+  userId: '',
   carId:'',
   pickupDate: '',
   returnDate: '',
@@ -98,23 +97,24 @@ const [rentalDetails, setRentalDetails] = useState({
   const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);  
   const {user} = useAuth();
 
-  
-    useEffect(() => {
-        const token = localStorage.getItem('idToken');
-        if (token) {
-          const decoded = decodeToken(token);
+  const [showNotification, setShowNotification] = useState(false);
+        const [notificationMessage, setNotificationMessage] = useState('');
+      const router = useRouter();
     
-          if (decoded && decoded.email && decoded.given_name) {
-            setUserDetails({
-              email: decoded.email,
-              given_name: decoded.given_name,
-              nickname:decoded.nickname
-            });
-          }
-        }
-      }, []);
+        const Notification = () => (
+          <div className="fixed bottom-4 right-4 z-50">
+            
+            <div className="bg-green-500 text-white px-8 py-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out animate-fadeInUp">
+              <div className="flex items-center">
+                
+                <span className="font-semibold text-xl">{notificationMessage}</span>
+              </div>
+            </div>
+          </div>
+        );
 
-          console.log('userDetails', userDetails?.email)
+    
+
 
 
 const handleSubmit = async (e: React.FormEvent) => {
@@ -163,7 +163,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     
     const start = new Date(formData.pickupDate);
     const end = new Date(formData.returnDate);
-    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffTime = Math.abs(end.getTime() - start.getTime() + 1);
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
@@ -201,16 +201,19 @@ const handleSubmit = async (e: React.FormEvent) => {
     console.log('formData', formData)
     console.log('formData2', formData2)
 
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: JSON.stringify(formData2),
-        body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, pickupDate:formData.pickupDate,returnDate:formData.returnDate }),
+        body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, pickupDate:formData.pickupDate,returnDate:formData.returnDate, userId:user.email }),
 
       });
 
           console.log('res', formData.returnDate ,)
+
+                    console.log('res', user.email)
 
 
       if (!res.ok) {
@@ -218,8 +221,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         throw new Error(data.error || 'Failed to submit request');
       }
 
-      console.log('formData', formData)
-      alert('Request registered successfully!');
+      //console.log('formData', formData)
+      //alert('Request registered successfully!');
     } catch (error: unknown) {
   if (error instanceof Error) {
     alert(`Error: ${error.message}`);
@@ -227,9 +230,12 @@ const handleSubmit = async (e: React.FormEvent) => {
     alert('An unknown error occurred');
   }
 }
-    
-    alert('Rental confirmed!');
-    setSelectedCar(null);
+    setNotificationMessage(`Request registered successfully!`);
+      setShowNotification(true);
+    //alert('Rental confirmed!');
+   // setSelectedCar(null);
+   //   router.push('/profile');
+
   };
 
 console.log('searchResult', searchResults)
@@ -444,54 +450,55 @@ console.log('searchResult', searchResults)
     ) : hasSearched ? (
       searchResults.length > 0 ? (
         <div className="mt-4">
-          <h2 className="text-2xl font-bold text-black mb-6 border-b border-red-600 pb-2">
-            Your Search Results
-          </h2>
-          <div className="grid grid-cols-1 gap-6">
-            {searchResults.map((car, index) => (
-              <div
-                key={car.id || index}
-                onClick={() => setSelectedCar(car)}
-                className="bg-white rounded-xl p-6 h-full cursor-pointer hover:bg-gray-750 transition-all border border-gray-700"
-              >
-                <div className="flex gap-6 items-center">
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 border-2 border-red-600">
-                    <Image 
-                      src={car.images[0]}
-                      alt={`${car.brand} ${car.model}`}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-black text-xl font-bold">{car.brand} {car.model}</h3>
-                    <div className="flex gap-3 mt-2 flex-wrap">
-                      <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm">
-                        {car.year}
-                      </span>
-                      <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm">
-                        {car.transmission}
-                      </span>
-                      <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm">
-                        {car.fueltype}
-                      </span>
-                    </div>
-                    <p className="text-xl font-bold text-red-500 mt-4">
-                      ${car.price}/day
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+  <h2 className="text-2xl font-bold text-black mb-6 border-b-4 border-red-600 pb-2">
+    Your Search Results
+  </h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+    {searchResults.map((car, index) => (
+      <div
+        key={car.id || index}
+        onClick={() => setSelectedCar(car)}
+        className="bg-white rounded-2xl p-6 h-full cursor-pointer hover:shadow-xl hover:scale-105 transition-all border border-gray-300 hover:border-red-600"
+      >
+        <div className="flex gap-6 items-center">
+          <div className="relative w-48 h-48 rounded-lg overflow-hidden flex-shrink-0 border-2 border-red-600">
+            <Image
+              src={car.images[0]}
+              alt={`${car.brand} ${car.model}`}
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
-          <button
-            onClick={() => setHasSearched(false)}
-            className="mt-8 text-black font-medium hover:text-red-400 transition flex items-center gap-2"
-          >
-            {/* <ArrowLeftIcon className="w-5 h-5" /> */}
-            Back to Filters
-          </button>
+          <div className="flex-1">
+            <h3 className="text-black text-xl font-semibold hover:text-red-600 transition-all">{car.brand} {car.model}</h3>
+            <div className="flex gap-3 mt-2 flex-wrap">
+              <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
+                {car.year}
+              </span>
+              <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
+                {car.transmission}
+              </span>
+              <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
+                {car.fueltype}
+              </span>
+            </div>
+            <p className="text-xl font-bold text-red-500 mt-4">
+              ${car.price}/day
+            </p>
+          </div>
         </div>
+      </div>
+    ))}
+  </div>
+  <button
+    onClick={() => setHasSearched(false)}
+    className="mt-8 text-black font-medium hover:text-red-400 transition flex items-center gap-2"
+  >
+    {/* <ArrowLeftIcon className="w-5 h-5" /> */}
+    Back to Filters
+  </button>
+</div>
+
       ) : (
         <div className="text-center py-12">
           <div className="text-white text-2xl font-medium mb-2">
@@ -519,7 +526,7 @@ console.log('searchResult', searchResults)
           <div>
             <label className="block text-black mb-2 font-medium">Car Type</label>
             <select
-              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
+              className="w-full p-3 rounded-lg bg-white border border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
               onChange={(e) => setFormData({ ...formData, carType: e.target.value })}
             >
               
@@ -545,7 +552,7 @@ console.log('searchResult', searchResults)
           <div>
             <label className="block text-black mb-2">Car Brand</label>
             <select
-              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 backdrop-blur-sm text-white"
+              className="w-full p-3 rounded-lg bg-white border border-gray-700 backdrop-blur-sm text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
               onChange={(e) => setFormData({ ...formData, carBrand: e.target.value })}
             >
               <option value="">Select Car Brand</option>
@@ -560,7 +567,7 @@ console.log('searchResult', searchResults)
             <label className="block text-black mb-2">Maximum Budget</label>
             <input
               type="number"
-              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 backdrop-blur-sm text-white placeholder-white"
+              className="w-full p-3 rounded-lg bg-white border border-gray-700 backdrop-blur-sm text-black placeholder-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
               placeholder="Enter price"
               value={formData.price}
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -569,7 +576,7 @@ console.log('searchResult', searchResults)
           <div>
             <label className="block text-black mb-2">Manufacture Year</label>
             <select
-              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 backdrop-blur-sm text-white"
+              className="w-full p-3 rounded-lg bg-white border border-gray-700 backdrop-blur-sm text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
               onChange={(e) => setFormData({ ...formData, year: e.target.value })}
             >
               <option value="">Select Year</option>
@@ -589,7 +596,7 @@ console.log('searchResult', searchResults)
             <label className="block text-black mb-2 font-medium">Pickup Date</label>
             <input
               type="date"
-              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none placeholder-white"
+              className="w-full p-3 rounded-lg bg-white border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none placeholder-white"
               value={formData.pickupDate}
               onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
               required
@@ -599,7 +606,7 @@ console.log('searchResult', searchResults)
             <label className="block text-black mb-2 font-medium">Return Date</label>
             <input
               type="date"
-              className="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
+              className="w-full p-3 rounded-lg bg-white border border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
               value={formData.returnDate}
               onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
               required
@@ -618,7 +625,8 @@ console.log('searchResult', searchResults)
   )}
 </div>
 </div>
-      
+                                                {showNotification && <Notification />}
+
     </div>
     
   );

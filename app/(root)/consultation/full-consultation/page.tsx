@@ -1,8 +1,7 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { DecodedToken, decodeToken } from '@/utils/decodeToken';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 interface FormData {
   userId: string;
@@ -13,39 +12,21 @@ interface FormData {
 }
 
 function FullConsultation() {
+    const { user } = useAuth();
+    const email = user?.email;
+
   const [formData, setFormData] = useState<FormData>({
-    userId: '',
+    userId:'',
     name: '',
     mobileNumber: '',
     message: '',
     type: 'Full'
   });
 
-  const { user } = useAuth();
-  const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  useEffect(() => {
-    const token = localStorage.getItem('idToken');
-    if (token) {
-      const decoded = decodeToken(token);
-      if (decoded && decoded.email && decoded.given_name && decoded.nickname) {
-        setUserDetails({
-          email: decoded.email,
-          given_name: decoded.given_name,
-          nickname: decoded.nickname
-        });
-        // Pre-fill form with user details
-        setFormData(prev => ({
-          ...prev,
-          name: decoded.given_name,
-          mobileNumber: decoded.nickname,
-          userId: decoded.email
-        }));
-      }
-    }
-  }, []);
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,11 +35,13 @@ function FullConsultation() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log('formData',formData)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({...formData, userId:email }),
       });
 
       if (!res.ok) {
@@ -127,7 +110,7 @@ function FullConsultation() {
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             {/* Name and mobile fields only for non-logged-in users */}
-            {!user && (
+            {/* {!user && ( */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
                   <label className="block text-gray-700 font-medium mb-2">
@@ -137,6 +120,7 @@ function FullConsultation() {
                     name="name"
                     type="text"
                     value={formData.name}
+                    //value={user.email}
                     onChange={handleChange}
                     placeholder="Your full name"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
@@ -159,7 +143,7 @@ function FullConsultation() {
                   />
                 </div>
               </div>
-            )}
+            {/* )} */}
             
             <div className="flex flex-col">
               <label className="block text-gray-700 font-medium mb-2">

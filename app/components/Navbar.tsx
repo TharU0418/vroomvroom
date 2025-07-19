@@ -56,14 +56,14 @@ const Navbar = () => {
     <nav 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-black shadow-lg py-0' 
-          : 'bg-black py-0'
+          ? 'bg-red-700 shadow-lg py-0' 
+          : 'bg-red-700 py-0'
       }`}
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center">
           {/* White rectangular logo section */}
-          <div className="w-[240px] md:w-[280px] h-20 bg-black flex items-center justify-center relative z-10 ">
+          <div className="w-[240px] md:w-[280px] h-20 bg-red-700 flex items-center justify-center relative z-10 ">
             <Link href="/" className="flex items-center space-x-2">
               {/* <FiCar className="h-8 w-8 text-red-600" /> */}
               {/* <span className="text-2xl font-bold text-gray-900 cursor-pointer tracking-tight">

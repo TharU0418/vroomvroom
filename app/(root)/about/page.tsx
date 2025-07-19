@@ -27,14 +27,8 @@ export default function About() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Head>
-        <title>About Us | Vroom Vroom</title>
-        <meta name="description" content="Learn about our premium car rental, sales, and chauffeur services" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="min-h-screen bg-white mt-20">
 
-     
       {/* Hero Section */}
       <div className="relative h-[70vh] bg-black text-white">
         <div className="absolute inset-0 bg-black opacity-70 z-10"></div>

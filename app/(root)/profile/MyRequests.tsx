@@ -149,12 +149,12 @@ function MyRequests({ user }: { user: User }) {
 
   const getStatusText = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'pending': return 'Pending';
-      case 'accept': return 'Accepted';
-      case 'on-going': return 'On Going';
-      case 'reject': return 'Rejected';
-      case 'cancel': return 'Cancelled';
-      case 'completed': return 'Completed';
+      case 'pending': return 'pending';
+      case 'accept': return 'accept';
+      case 'on-progress': return 'on-progress';
+      case 'reject': return 'reject';
+      case 'cancel': return 'cancel';
+      case 'completed': return 'completed';
       default: return status;
     }
   };
@@ -164,11 +164,12 @@ function MyRequests({ user }: { user: User }) {
   };
 
   const filteredRequests = statusFilter === 'all' 
-    ? rentRequests.filter(req => 
+    ? currentItems.filter(req => 
         !req.history && 
-        ['accept', 'on-going', 'pending', 'reject'].includes(req.status)
+        ['accept', 'on-progress', 'pending', 'cancel', 'reject','completed'].includes(req.status)
       )
-    : rentRequests.filter(req => 
+
+    : currentItems.filter(req => 
         !req.history && 
         req.status.toLowerCase() === statusFilter
       );
@@ -179,6 +180,9 @@ function MyRequests({ user }: { user: User }) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [totalPages]);
+
+
+    console.log('totalPages',totalPages)
 
   // Reset to page 1 when filters change
   useEffect(() => {
@@ -297,7 +301,7 @@ function MyRequests({ user }: { user: User }) {
               <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-48 z-10">
                 <div className="text-sm font-medium mb-2">Status</div>
                 <div className="space-y-2">
-                  {['all', 'pending', 'accept', 'on-going', 'reject'].map(status => (
+                  {['all', 'pending', 'accept', 'on-progress', 'reject', 'cancel'].map(status => (
                     <label key={status} className="flex items-center gap-2">
                       <input
                         type="radio"
@@ -327,7 +331,7 @@ function MyRequests({ user }: { user: User }) {
           </div>
         ) : (
           <div className="space-y-4">
-            {currentItems.map((request) => {
+            {filteredRequests.map((request) => {
               const car = cars.find(c => c.id === request.carId);
               
               return car ? (
@@ -366,21 +370,22 @@ function MyRequests({ user }: { user: User }) {
                       
                       <div className="w-full md:w-2/3">
                         <div className="grid grid-cols-2 gap-3 text-sm">
-                          <div className="flex items-center gap-2">
-                            <FaMapMarkerAlt className="text-gray-400" />
-                            <span>{request.pickupLocation}</span>
-                          </div>
+                          
                           <div className="flex items-center gap-2">
                             <FaCalendarAlt className="text-gray-400" />
                             <span>{request.pickupDate}</span>
                           </div>
-                          <div className="flex items-center gap-2">
+                          {/* <div className="flex items-center gap-2">
                             <FaInfoCircle className="text-gray-400" />
                             <span>{request.days} days</span>
-                          </div>
+                          </div> */}
                           <div className="flex items-center gap-2">
                             <FaCalendarAlt className="text-gray-400" />
                             <span>{request.returnDate}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <FaMapMarkerAlt className="text-gray-400" />
+                            <span>{request.pickupLocation}</span>
                           </div>
                         </div>
                         
@@ -424,7 +429,7 @@ function MyRequests({ user }: { user: User }) {
                         </div>
                         
                         <div className="pt-4 flex gap-3">
-                          {request.status === 'pending' && (
+                          {request.status === 'pending' || request.status == 'accept' || request.status == 'on-progress' && (
                             <button
                               onClick={() => handleCancelRequest(request.id)}
                               className="flex-1 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg font-medium"
@@ -432,14 +437,14 @@ function MyRequests({ user }: { user: User }) {
                               Cancel Request
                             </button>
                           )}
-                          {request.status === 'accept' && (
+                          {/* {request.status === 'accept' && (
                             <button
                               onClick={() => handleCompleteRequest(request.id)}
                               className="flex-1 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-medium"
                             >
                               Mark as Complete
                             </button>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </div>

@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import { useRouter } from 'next/navigation';
 import { ToggleSwitch } from '../../components/ToggleSwitch ';
+import { Modal } from '@/app/components/modal';
 
 export default function Sell() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,6 +23,8 @@ export default function Sell() {
   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
   const router = useRouter();
   const { user } = useAuth();
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [countdown, setCountdown] = useState(10);
 
   // Form steps
   const steps = [
@@ -64,6 +67,27 @@ export default function Sell() {
     setFiles(files);
   };
 
+  // Check if user is authenticated
+  useEffect(() => {
+    if (!user) {
+      setShowSignInModal(true);
+      
+      // Start countdown for redirect
+      const timer = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            router.push('/sign');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [user, router]);
+
   const nextStep = () => {
     if (validateStep(currentStep)) {
       setCurrentStep(prev => Math.min(prev + 1, 5));
@@ -95,6 +119,34 @@ export default function Sell() {
     }
   };
 
+  // Sign In Modal Component
+  const SignInModal = () => (
+    <Modal isOpen={showSignInModal} onClose={() => {}}>
+      <div className="p-6 text-center">
+        <h3 className="text-2xl font-bold mb-4">Sign In Required</h3>
+        <p className="mb-6">
+          You need to sign in to list your car for sale.
+          <br />
+          Redirecting to sign in page in {countdown} seconds...
+        </p>
+        <div className="flex justify-center space-x-4">
+          <button 
+            onClick={() => router.push('/sign')}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+          >
+            Sign In Now
+          </button>
+          <button 
+            onClick={() => router.push('/')}
+            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+          >
+            Go Home
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -406,6 +458,7 @@ export default function Sell() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 pt-20">
+      {showSignInModal && <SignInModal />}
       <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden mt-20">
         {/* Progress bar */}
         <div className="bg-red-600 text-white p-4 text-center">

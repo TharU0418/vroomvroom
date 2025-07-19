@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import cover1 from '../../../public/cover1.jpg';
 
 function Guide() {
   const router = useRouter();
@@ -10,14 +11,28 @@ function Guide() {
   return (
     <div className="min-h-screen bg-white text-black mt-20">
       {/* Full-width banner - optimized for mobile */}
-      <div className="bg-red-800 py-4 md:py-6 text-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Consultation Services</h1>
-          <p className="mt-1 md:mt-2 text-sm md:text-base max-w-2xl mx-auto text-gray-200">
+
+      {/* Hero Section */}
+      <div className="relative h-[70vh] bg-black text-white">
+        <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
+<div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
+        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-red-600">Consultation Services</span></h1>
+          <p className="text-xl max-w-3xl text-gray-300 mb-8">
             Expert guidance for all your vehicle needs - from selection to registration
           </p>
+          {/* <div className="flex space-x-4">
+            <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
+              Our Services
+            </button>
+            <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition">
+              Contact Us
+            </button>
+          </div> */}
         </div>
       </div>
+
+
 
       {/* Main content container */}
       <div className="px-2 sm:px-4 py-4"> 
