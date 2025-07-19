@@ -27,13 +27,17 @@ export interface FormData {
 
 interface SellStepProps {
   formData: FormData;
-  setFormData: (data: FormData) => void;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>; // ✅ Fix
   files?: File[];
   previews?: string[];
   onFileChange?: (files: File[]) => void;
   user?: unknown; // or a more specific type if known
 }
-
+interface Step5Props {
+  onFileChange: (files: File[]) => void;
+  previews?: string[];
+  user?: unknown;
+}
 
 //export const Step1 = ({ formData, setFormData }: SellStepProps) => {
     export const Step1: React.FC<SellStepProps> = ({ formData, setFormData }) => {
@@ -281,10 +285,11 @@ export const Step4 = ({ formData, setFormData }: SellStepProps) => (
   </div>
 );
 
-export const Step5 = ({ onFileChange, previews = [] }: SellStepProps) => (
+export const Step5: React.FC<Step5Props> = ({ onFileChange, previews = [], user }) => (
   <div className="space-y-6 animate-fadeIn">
     <h2 className="text-2xl font-bold">Upload Images</h2>
-    <FileUpload onChange={onFileChange!} previews={previews} />
+    <FileUpload onChange={onFileChange} previews={previews} />
+    {/* Optional user message */}
     {/* {!user && (
       <p className="text-red-500 mt-4 text-center bg-red-50 p-4 rounded-lg border border-red-200">
         Sign in to sell your car.
