@@ -83,7 +83,7 @@ export default function ConfirmEmail() {
             {otp.map((digit, i) => (
               <input
                 key={i}
-                ref={(el) => (inputRefs.current[i] = el)}
+                ref={(el) => {inputRefs.current[i] = el;}}
                 maxLength={1}
                 className="w-12 h-12 text-xl text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                 value={digit}
