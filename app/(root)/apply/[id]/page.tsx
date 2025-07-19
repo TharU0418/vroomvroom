@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 export default function ApplicationPage() {
   const router = useRouter();
-  const { jobId } = router.query;
+ // const { jobId } = router.query;
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -25,7 +25,7 @@ export default function ApplicationPage() {
   const [fileName, setFileName] = useState('');
 
   const jobDetails = {
-    id: jobId || '123',
+    id:  '1',
     title: "Customer Experience Manager",
     department: "Operations",
     type: "Full-time",
