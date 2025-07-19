@@ -39,16 +39,16 @@ export interface CarCard {
   reason:string;
 }
 
-interface Car {
-  id: string;
-  brand: string;
-  type: string;
-  model: string;
-  transmission: string;
-  fueltype: string;
-  year: string;
-  price: number;
-}
+// interface Car {
+//   id: string;
+//   brand: string;
+//   type: string;
+//   model: string;
+//   transmission: string;
+//   fueltype: string;
+//   year: string;
+//   price: number;
+// }
 
 export default function CarListing() {
   const [cars, setCars] = useState<CarCard[]>([]);

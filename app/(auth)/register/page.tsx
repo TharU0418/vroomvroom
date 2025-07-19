@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 //import { FcGoogle } from 'react-icons/fc';
-import { GoogleLogin } from '@react-oauth/google';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 export default function LoginPage() {
@@ -15,7 +15,7 @@ export default function LoginPage() {
     router.push(`/signup?email=${encodeURIComponent(input.trim())}`);
   };
 
-  const handleLogin = async (credentialResponse: any) => {
+  const handleLogin = async (credentialResponse: CredentialResponse) => {
     console.log('credentialResponse', credentialResponse); // Log the full response to inspect its structure
    // const { credential } = credentialResponse;
 
@@ -37,12 +37,16 @@ export default function LoginPage() {
       // Then redirect
       router.push('/');
       // Redirect to the home page
-    } catch (err: any) {
+    } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
       console.error('Error status:', err.response?.status);
       console.error('Error data:', err.response?.data);
       console.error('Full Axios error:', err.toJSON());
-      alert('Authentication failed. Please try again.');
+    } else {
+      console.error('Unknown error', err);
     }
+    alert('Authentication failed. Please try again.');
+  }
   };
 
   return (

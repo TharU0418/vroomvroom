@@ -5,13 +5,30 @@ import { locations } from '@/public/data/location';
 import { brand } from '@/public/data/brand';
 import { FileUpload } from './ui/file-upload';
 
+export interface FormData {
+  district: string;
+  city: string;
+  condition: string;
+  brand: string;
+  year: string;
+  model: string;
+  mileage: string;
+  fueltype: string;
+  engine_capacity: string;
+  transmission: string;
+  body_type: string;
+  price: string;
+  negotiable: boolean;
+  description: string;
+}
+
 interface SellStepProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   files?: File[];
   previews?: string[];
   onFileChange?: (files: File[]) => void;
-  user?: any;
+  user?: unknown; // or a more specific type if known
 }
 
 export const Step1 = ({ formData, setFormData }: SellStepProps) => {

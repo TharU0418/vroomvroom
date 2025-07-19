@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { locations } from '@/public/data/location';
+//import { locations } from '@/public/data/location';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import { useRouter } from 'next/navigation';

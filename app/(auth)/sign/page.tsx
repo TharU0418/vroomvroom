@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 //import { FcGoogle } from 'react-icons/fc';
 import { useRouteGuard } from '@/hooks/useRouteGuard';
-import { GoogleLogin } from '@react-oauth/google';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 export default function Sign() {
@@ -35,7 +35,7 @@ export default function Sign() {
     const data = await res.json();
     console.log('data', data)
 
-     const { email, name } = data;
+     const { email } = data;
 console.log(email)
 
 localStorage.setItem('userEmail', email);
@@ -67,7 +67,7 @@ localStorage.setItem('userEmail', email);
 }
   };
 
-const handleLogin = async (credentialResponse: any) => {
+const handleLogin = async (credentialResponse: CredentialResponse) => {
     console.log('credentialResponse', credentialResponse); // Log the full response to inspect its structure
   //  const { credential } = credentialResponse;
 
@@ -89,12 +89,16 @@ const handleLogin = async (credentialResponse: any) => {
       // Then redirect
       router.push('/');
       // Redirect to the home page
-    } catch (err: any) {
+    } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
       console.error('Error status:', err.response?.status);
       console.error('Error data:', err.response?.data);
       console.error('Full Axios error:', err.toJSON());
-      alert('Authentication failed. Please try again.');
+    } else {
+      console.error('Unknown error', err);
     }
+    alert('Authentication failed. Please try again.');
+  }
   };
     const Notification = () => (
       <div className="fixed bottom-4 right-4 z-50">
