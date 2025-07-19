@@ -285,7 +285,7 @@ export const Step4 = ({ formData, setFormData }: SellStepProps) => (
   </div>
 );
 
-export const Step5: React.FC<Step5Props> = ({ onFileChange, previews = [], user }) => (
+export const Step5: React.FC<Step5Props> = ({ onFileChange, previews = [] }) => (
   <div className="space-y-6 animate-fadeIn">
     <h2 className="text-2xl font-bold">Upload Images</h2>
     <FileUpload onChange={onFileChange} previews={previews} />
