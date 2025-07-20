@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { DecodedToken, decodeToken } from '@/utils/decodeToken';
 import { useRouter } from 'next/navigation';
-import { Modal } from '@/app/components/modal';
-import { Step1, Step2, Step3, Step4, Step5 } from '@/app/components/SellSteps';
+import { Step1, Step2, Step3, Step4, Step5 } from '@/components/SellSteps';
+import { Modal } from '@/components/modal';
 
 
 export default function Sell() {
