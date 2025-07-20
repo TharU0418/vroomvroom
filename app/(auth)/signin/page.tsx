@@ -129,7 +129,7 @@ const [notificationMessage, setNotificationMessage] = useState('');
               </div> */}
               
               <p className="text-white  text-sm font-medium">
-                Don&apos;t Have an Account ?  <Link href="/auth/signup">
+                Don&apos;t Have an Account ?  <Link href="register">
                
                   Sign Up
               </Link>

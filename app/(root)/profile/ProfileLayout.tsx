@@ -20,7 +20,7 @@ export default function ProfileLayout({ user }: { user: User }) {
     { id: 'requests', label: 'My Rent Requests', icon: '📋' },
     { id: 'hirerequests', label: 'My Hire Requests', icon: '💼' },
     { id: 'mysellrequest', label: 'My Sell Request', icon: '🚗' },
-    { id: 'history', label: 'My History', icon: '🕒' },
+   // { id: 'history', label: 'My History', icon: '🕒' },
   ];
 
   return (
@@ -81,7 +81,7 @@ export default function ProfileLayout({ user }: { user: User }) {
             {activeTab === 'requests' && <MyRequests user={user} />}
              {activeTab === 'hirerequests' && <HireRequests user={user} />}
              {activeTab === 'mysellrequest' && <MySellRequest user={user} />}
-          {activeTab === 'history' && <MyHistory user={user} />}
+          {/* {activeTab === 'history' && <MyHistory user={user} />} */}
           {/*     {activeTab === 'mysellrequest' && <MySellRequest userName={user.given_name} />}
              */}
           </div>

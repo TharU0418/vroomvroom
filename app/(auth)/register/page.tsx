@@ -5,10 +5,14 @@ import { useState } from 'react';
 //import { FcGoogle } from 'react-icons/fc';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { useRouteGuard } from '@/hooks/useRouteGuard';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [input, setInput] = useState('');
   const router = useRouter();
+              useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
+  
 
   const handleContinue = () => {
     if (!input.trim()) return;
@@ -87,9 +91,16 @@ export default function LoginPage() {
         onError={() => console.log('Login Failed')} 
       />
 
+        <p className="text-black  text-sm font-medium">
+                Already Have an Account ?  <Link href="sign">
+               
+                  <span className='text-red-700 font-bold'>Sign In</span>
+              </Link>
+              </p> 
+
         <p className="text-xs text-gray-500 text-center mt-6">
-          By proceeding, you consent to get calls, WhatsApp or SMS/RCS messages, including by automated means,
-          from Uber and its affiliates to the number provided.
+          By proceeding, you consent to get email, including by automated means,
+          from Vroom Vroom and its affiliates to the number provided.
         </p>
       </div>
     </div>

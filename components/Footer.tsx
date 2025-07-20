@@ -19,7 +19,7 @@ const Footer = () => {
   const socialLinks = [
     // { name: 'Twitter', path: '#', icon: '🐦' },
     { name: 'Instagram', path: '#', icon: <FaInstagram/> },
-    { name: 'Facebook', path: '#', icon: <FaFacebook/>},
+    { name: 'Facebook', path: 'https://web.facebook.com/people/VRoom-VRoom/61562063228667/', icon: <FaFacebook/>},
     { name: 'YouTube', path: '#', icon: <FaYoutube/> },
   ];
 
@@ -69,7 +69,7 @@ const Footer = () => {
                   key={social.name}
                   href={social.path}
                   whileHover={{ y: -3 }}
-                  className="text-2xl hover:text-yellow-300 transition-colors"
+                  className="text-2xl transition-colors"
                   aria-label={social.name}
                 >
                   {social.icon}

@@ -1,9 +1,9 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, {useEffect, useState } from 'react'
+import React, {useState } from 'react'
 
 
 interface FormData {
@@ -35,6 +35,7 @@ const [typeSet, setTypeSet] = useState('long-term'); // Set default value to 'fu
 
 const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     
   
       const Notification = () => (
@@ -55,23 +56,7 @@ const [showNotification, setShowNotification] = useState(false);
 
   const {user} = useAuth();
 
-    const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
-  
-    useEffect(() => {
-          const token = localStorage.getItem('idToken');
-          if (token) {
-            const decoded = decodeToken(token);
-            console.log('Decoded token:', decoded);
-      
-            if (decoded && decoded.email && decoded.given_name) {
-              setUserDetails({
-                email: decoded.email,
-                given_name: decoded.given_name,
-                nickname:decoded.nickname
-              });
-            }
-          }
-        }, []);
+   
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -81,10 +66,8 @@ const [showNotification, setShowNotification] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if (!formData.userId) {
-    //   alert('User ID is missing. Please log in and try again.');
-    //   return;
-    // }
+        setLoading(true);
+
 
     console.log('formData.userId', formData.userId);
     console.log('formData.type', formData.type); // Check the type value
@@ -99,7 +82,7 @@ setTypeSet('long-term')
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({...formData, type: typeSet, status:'pending',userId: userDetails?.email }),
+  body: JSON.stringify({...formData, type: typeSet, status:'pending',userId: user?.email }),
 });
 
 
@@ -120,6 +103,8 @@ setTypeSet('long-term')
   } else {
     alert('An unknown error occurred');
   }
+}finally{
+      setLoading(false);
 }
   };
 
@@ -208,15 +193,22 @@ setTypeSet('long-term')
             {user ? (
             <div className="flex justify-center items-center">
               <button
-                type="submit"
-                className="bg-red-800 hover:bg-red-900 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
-              >
-                Request a driver
-              </button>
+  type="submit"
+  disabled={loading}
+  className={`bg-red-800 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 ${
+    loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-900'
+  }`}
+>
+  {loading ? 'Submitting...' : 'Request the driver'}
+</button>
             </div>
           ) : (
             <div className="flex justify-center items-center mt-4">
-              <p className="text-white">Please log in.</p>
+               <p className="text-black bg-white p-4 rounded-lg w-full text-center">
+                Please sign in to hire a driver  <Link href="/sign" className="text-red-700 hover:underline">
+                Sign In
+              </Link>
+                </p>
             </div>
           )}
         </form>

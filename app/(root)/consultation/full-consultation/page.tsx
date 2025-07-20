@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 interface FormData {
@@ -25,6 +26,8 @@ function FullConsultation() {
 
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
+const [loading, setLoading] = useState(false);
+const router = useRouter();
 
   
 
@@ -35,6 +38,7 @@ function FullConsultation() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     console.log('formData',formData)
     try {
@@ -52,20 +56,25 @@ function FullConsultation() {
       setNotificationMessage('Request registered successfully');
       setShowNotification(true);
       
-      // Reset form
+     
+      setTimeout(() => setShowNotification(false), 2000);
+       // Reset form
       setFormData(prev => ({
         ...prev,
         message: '',
         ...(!user && { name: '', mobileNumber: '' }) // Clear fields if not logged in
       }));
       
-      setTimeout(() => setShowNotification(false), 3000);
+      router.push('/consultation')
     } catch (error: unknown) {
       if (error instanceof Error) {
         alert(`Error: ${error.message}`);
       } else {
         alert('An unexpected error occurred.');
       }
+    }finally{
+          setLoading(false);
+
     }
   };
 
@@ -140,6 +149,7 @@ function FullConsultation() {
                     placeholder="Your phone number"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
                     required
+                    maxLength={10}
                   />
                 </div>
               </div>
@@ -163,9 +173,13 @@ function FullConsultation() {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-red-800 hover:bg-red-900 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
-              >
-                Request Consultation
+                  disabled={loading}
+
+className={`bg-red-800 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 ${
+    loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-900'
+  }`}              >
+                 {loading ? 'Submitting...' : ' Request Consultation'}
+
               </button>
             </div>
           </form>

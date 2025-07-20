@@ -25,31 +25,13 @@ const Navbar = () => {
     { title: 'Rent', path: '/rent' },
     { title: 'Hire', path: '/hire' },
     { title: 'Consultation', path: '/consultation' },
+    { title: 'About Us', path: '/about' }
   ];
 
   const {user, logout} = useAuth();
 
   console.log('user nav', user)
   console.log('user email', user?.email);
-
-
-
-  //   const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
-  // useEffect(() => {
-  //         const token = localStorage.getItem('idToken');
-  //         if (token) {
-  //           const decoded = decodeToken(token);
-  //           console.log('Decoded token:', decoded);
-      
-  //           if (decoded && decoded.email && decoded.given_name) {
-  //             setUserDetails({
-  //               email: decoded.email,
-  //               given_name: decoded.given_name,
-  //               nickname:decoded.nickname
-  //             });
-  //           }
-  //         }
-  //       }, []);
 
   return (
     <nav 
@@ -64,33 +46,26 @@ const Navbar = () => {
           {/* White rectangular logo section */}
           <div className="w-[240px] md:w-[280px] h-20 bg-red-700 flex items-center justify-center relative z-10 ">
             <Link href="/" className="flex items-center space-x-2">
-              {/* <FiCar className="h-8 w-8 text-red-600" /> */}
-              {/* <span className="text-2xl font-bold text-gray-900 cursor-pointer tracking-tight">
-                VroomVroom
-                
-              </span> */}
               <Image 
-  src="/logo.png" 
-  alt="Luxury Car"
-  width={150} // replace with your actual image width
-  height={64} // replace with your actual image height
-  className="object-contain"
-/>
+                src="/logo.png" 
+                alt="Luxury Car"
+                width={150} // replace with your actual image width
+                height={64} // replace with your actual image height
+                className="object-contain"
+              />
             </Link>
           </div>
 
           {/* Trapezoidal red section */}
-<div className="flex-1 relative overflow-hidden">
+          <div className="flex-1 relative overflow-hidden">
             {/* Trapezoid background */}
            <div 
-  className="absolute top-0 right-0 h-full w-full "
-  style={{ 
-    clipPath: 'polygon(0% 0%, 96% 0%, 100% 100%, 100% 100%)',
-    zIndex: 0
-  }}
-/>
-
-            
+              className="absolute top-0 right-0 h-full w-full "
+              style={{ 
+                clipPath: 'polygon(0% 0%, 96% 0%, 100% 100%, 100% 100%)',
+                zIndex: 0
+              }}
+            />
             {/* Desktop Menu */}
             <div className="relative z-10 hidden md:flex items-center justify-between h-20 pl-8 pr-10">
               <div className="flex items-center space-x-2">
@@ -129,15 +104,24 @@ const Navbar = () => {
                         //onClick={() => setActiveMenu(activeMenu === 'avatar' ? null : 'avatar')}
                       >
                         <Link href="/profile">
-  <Image
-  //src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
-    src={`https://avatar.iran.liara.run/username?username=${user?.name}`}
-    alt="User Avatar"
-    width={32}
-    height={32}
-  />
-</Link>
-
+                          {!user.name ? (
+                            <Image
+                          //src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
+                            src={`https://avatar.iran.liara.run/public`}
+                            alt="User Avatar"
+                            width={32}
+                            height={32}
+                          />
+                          ) : (
+                            <Image
+                          //src="https://avatar.iran.liara.run/username?username=Tharusha+Dilshan"
+                            src={`https://avatar.iran.liara.run/username?username=${user?.name}`}
+                            alt="User Avatar"
+                            width={32}
+                            height={32}
+                          />
+                          )}
+                        </Link>
                       </div>
                               
                               
@@ -161,28 +145,29 @@ const Navbar = () => {
                                                   </button>
                                                 </div>
                           )} */}
-                    </div>
-                                  </div>
-              ):(<div className="flex space-x-3">
-                <Link href="/sign">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="text-white border-2 border-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white hover:text-red-600 transition-colors"
-                  >
-                    Sign In
-                  </motion.button>
-                </Link>
-                <Link href="/register">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-50 transition-colors shadow-lg"
-                  >
-                    Register
-                  </motion.button>
-                </Link>
-              </div>)}
+                  </div>
+                </div>
+              ):(
+                <div className="flex space-x-3">
+                  <Link href="/sign">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="text-white border-2 border-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white hover:text-red-600 transition-colors"
+                    >
+                      Sign In
+                    </motion.button>
+                  </Link>
+                  <Link href="/register">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-50 transition-colors shadow-lg"
+                    >
+                      Register
+                    </motion.button>
+                  </Link>
+                </div>)}
             </div>
 
             {/* Mobile Menu Button */}
@@ -202,12 +187,23 @@ const Navbar = () => {
               </button>
             </motion.div> */}
             <div className="md:hidden relative z-30 h-20 flex items-center justify-end pr-4">
+    {!user ? (<>{isOpen ? <></> : <>
+    <Link href="/sign">
+              <button
+                className="w-full text-white border-2 border-white px-3 py-2 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors mb-1"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign In
+              </button>
+            </Link>
+    </>}</>) : (<></>)}
+
   <motion.button
     whileTap={{ scale: 0.9 }}
     onClick={() => setIsOpen(!isOpen)}
     className="text-white p-2 rounded-lg hover:bg-red-600 focus:outline-none"
   >
-    {isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
+    {isOpen ? <FiX className="h-6 w-6" /> : <><FiMenu className="h-6 w-6" /></>}
   </motion.button>
 </div>
 
@@ -268,7 +264,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link href="/auth/signin">
+            {/* <Link href="/auth/signin">
               <button
                 className="w-full text-white border-2 border-white px-4 py-3 rounded-lg text-base font-medium hover:bg-white hover:text-red-600 transition-colors mb-2"
                 onClick={() => setIsOpen(false)}
@@ -283,7 +279,7 @@ const Navbar = () => {
               >
                 Sign Up 
               </button>
-            </Link>
+            </Link> */}
           </>
         )}
       </div>

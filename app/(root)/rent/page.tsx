@@ -6,6 +6,7 @@ import { brand } from "../../../public/data/brand";
 import Image from 'next/image';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface Car {
   id: string; // Added ID field
@@ -256,14 +257,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 //   }, []);
 
   return (   //#ffbebe]
-   <div className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="max-w-6xl w-full mx-4 p-8 mt-20">
+<div className="min-h-screen flex justify-center items-center bg-white p-4">
+      <div className="max-w-6xl w-full justify-center items-center p-8 mt-20">
         <h1 className="text-4xl font-bold text-black mb-8 text-center">Rent a Car</h1>
         
         {/* Selected Car Modal */}
        {selectedCar && (
   <div 
-    className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
+    className="fixed inset-0 bg-black bg-opacity-70 flex  z-50 p-4"
     onClick={handleCloseModal}
   >
     {/* Responsive container */}
@@ -428,8 +429,10 @@ const handleSubmit = async (e: React.FormEvent) => {
                   Request the vehicle
                 </button>
               ) : (
-                <p className="text-red-500 bg-white p-4 rounded-lg w-full text-center">
-                  Sign in to rent a car
+                <p className="text-black bg-white p-4 rounded-lg w-full text-center">
+                Please sign in to rent a car  <Link href="/sign" className="text-red-700 hover:underline">
+                Sign In
+              </Link>
                 </p>
               )}
             </div>
@@ -439,85 +442,89 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
           </div>
         )}
+<div className='justify-center items-center bg-gray-200 p-4 rounded-2xl '>
+<div className="w-[80vw] max-w-[95vw] flex flex-col md:flex-row justify-center items-center  md:p-6 ">
+{/* <div className="w-full max-w-screen-sm mx-auto flex flex-col md:flex-row gap-8 bg-gray-200 p-4 md:p-6 rounded-2xl"> */}
+{/* <div className="w-[90vw] max-w-[95vw] mx-auto flex flex-col md:flex-row gap-8 bg-gray-200 p-4 md:p-6 rounded-2xl"> */}
 
-   <div className="flex flex-col md:flex-row gap-8 bg-gray-200 p-6 rounded-2xl">
-  {/* Left Side - Results */}
-  <div className={`${hasSearched ? 'w-full' : 'hidden'}`}>
-    {loading ? (
-      <div className="flex justify-center items-center mt-6">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500"></div>
-      </div>
-    ) : hasSearched ? (
-      searchResults.length > 0 ? (
-        <div className="mt-4">
-  <h2 className="text-2xl font-bold text-black mb-6 border-b-4 border-red-600 pb-2">
-    Your Search Results
-  </h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
-    {searchResults.map((car, index) => (
-      <div
-        key={car.id || index}
-        onClick={() => setSelectedCar(car)}
-        className="bg-white rounded-2xl p-6 h-full cursor-pointer hover:shadow-xl hover:scale-105 transition-all border border-gray-300 hover:border-red-600"
-      >
-        <div className="flex gap-6 items-center">
-          <div className="relative w-48 h-48 rounded-lg overflow-hidden flex-shrink-0 border-2 border-red-600">
-            <Image
-              src={car.images[0]}
-              alt={`${car.brand} ${car.model}`}
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className="flex-1">
-            <h3 className="text-black text-xl font-semibold hover:text-red-600 transition-all">{car.brand} {car.model}</h3>
-            <div className="flex gap-3 mt-2 flex-wrap">
-              <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
-                {car.year}
-              </span>
-              <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
-                {car.transmission}
-              </span>
-              <span className="bg-red-700 text-gray-200 px-3 py-1 rounded-full text-sm font-semibold">
-                {car.fueltype}
-              </span>
+{/* Left Side - Results */}
+<div className={`${hasSearched ? 'w-full' : 'hidden'}`}>
+  {loading ? (
+    <div className="flex mt-6">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500"></div>
+    </div>
+  ) : hasSearched ? (
+    searchResults.length > 0 ? (
+      <div className="mt-4 px-4 sm:px-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 sm:mb-6 border-b-2 sm:border-b-4 border-red-600 pb-2">
+          Your Search Results
+        </h2>
+        <div className="grid grid-cols-1 gap-4 sm:gap-6">
+          {searchResults.map((car, index) => (
+            <div
+              key={car.id || index}
+              onClick={() => setSelectedCar(car)}
+              className="bg-white rounded-2xl p-4 sm:p-6 cursor-pointer hover:shadow-xl transition-all border border-gray-300 hover:border-red-600"
+            >
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <div className="relative w-full sm:w-40 sm:h-40 md:w-48 md:h-48 h-48 rounded-lg overflow-hidden border-2 border-red-600 mx-auto sm:mx-0">
+                  <Image
+                    src={car.images[0]}
+                    alt={`${car.brand} ${car.model}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <h3 className="text-lg sm:text-xl font-semibold hover:text-red-600 transition-all">
+                    {car.brand} {car.model}
+                  </h3>
+                  <div className="flex justify-center sm:justify-start gap-2 mt-2 flex-wrap">
+                    <span className="bg-red-700 text-gray-200 px-2 py-1 text-xs sm:text-sm rounded-full font-semibold">
+                      {car.year}
+                    </span>
+                    <span className="bg-red-700 text-gray-200 px-2 py-1 text-xs sm:text-sm rounded-full font-semibold">
+                      {car.transmission}
+                    </span>
+                    <span className="bg-red-700 text-gray-200 px-2 py-1 text-xs sm:text-sm rounded-full font-semibold">
+                      {car.fueltype}
+                    </span>
+                  </div>
+                  <p className="text-lg sm:text-xl font-bold text-red-500 mt-3 sm:mt-4">
+                    ${car.price}/day
+                  </p>
+                </div>
+              </div>
             </div>
-            <p className="text-xl font-bold text-red-500 mt-4">
-              ${car.price}/day
-            </p>
-          </div>
+          ))}
         </div>
+        <button
+          onClick={() => setHasSearched(false)}
+          className="mt-6 text-black font-medium hover:text-red-400 transition flex items-center justify-center sm:justify-start gap-2"
+        >
+          Back to Filters
+        </button>
       </div>
-    ))}
-  </div>
-  <button
-    onClick={() => setHasSearched(false)}
-    className="mt-8 text-black font-medium hover:text-red-400 transition flex items-center gap-2"
-  >
-    {/* <ArrowLeftIcon className="w-5 h-5" /> */}
-    Back to Filters
-  </button>
+    ) : (
+      <div className="text-center py-12 px-4">
+        <div className="text-black text-2xl font-medium mb-2">
+          No matching vehicles found
+        </div>
+        <p className="text-gray-500 mb-6">
+          Try adjusting your search filters
+        </p>
+        <button
+          onClick={() => setHasSearched(false)}
+          className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+        >
+          Modify Search
+        </button>
+      </div>
+    )
+  ) : null}
 </div>
 
-      ) : (
-        <div className="text-center py-12">
-          <div className="text-white text-2xl font-medium mb-2">
-            No matching vehicles found
-          </div>
-          <p className="text-gray-400 mb-6">
-            Try adjusting your search filters
-          </p>
-          <button
-            onClick={() => setHasSearched(false)}
-            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-          >
-            Modify Search
-          </button>
-        </div>
-      )
-    ) : null}
-  </div>
-
+</div>
   {/* Right Side - Form */}
   {!hasSearched && (
     <div className="w-full">
@@ -592,27 +599,29 @@ const handleSubmit = async (e: React.FormEvent) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-black mb-2 font-medium">Pickup Date</label>
-            <input
-              type="date"
-              className="w-full p-3 rounded-lg bg-white border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none placeholder-white"
-              value={formData.pickupDate}
-              onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-black mb-2 font-medium">Return Date</label>
-            <input
-              type="date"
-              className="w-full p-3 rounded-lg bg-white border border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-              value={formData.returnDate}
-              onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
-              required
-            />
-          </div>
-        </div>
+  <div>
+    <label className="block text-black mb-2 font-medium">Pickup Date</label>
+    <input
+      type="date"
+      className="w-full p-3 rounded-lg bg-white border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none placeholder-white"
+      value={formData.pickupDate}
+      onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
+      required
+    />
+  </div>
+  <div>
+    <label className="block text-black mb-2 font-medium">Return Date</label>
+    <input
+      type="date"
+      className="w-full p-3 rounded-lg bg-white border border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
+      value={formData.returnDate}
+      min={formData.pickupDate || ''}
+      onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
+      required
+    />
+  </div>
+</div>
+
 
         <button
           type="submit"

@@ -231,27 +231,37 @@ useEffect(() => {
       <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden mt-20">
         {/* Progress bar */}
         <div className="bg-red-600 text-white p-4 text-center">
-          <h1 className="text-3xl font-bold mb-2">Sell your Car</h1>
-          <div className="flex justify-center space-x-2 mt-4">
-            {steps.map((step, index) => (
-              <div key={index} className="flex items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  currentStep > index + 1 
-                    ? 'bg-green-500' 
-                    : currentStep === index + 1 
-                      ? 'bg-white text-red-600' 
-                      : 'bg-gray-300'
-                }`}>
-                  {index + 1}
-                </div>
-                <div className="ml-2 text-sm font-medium">{step}</div>
-                {index < steps.length - 1 && (
-                  <div className={`w-10 h-1 mx-2 ${currentStep > index + 1 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                )}
-              </div>
-            ))}
+  <h1 className="text-3xl font-bold mb-2">Sell your Car</h1>
+
+  <div className="mt-4 overflow-x-auto">
+    <div className="flex items-center justify-start space-x-4 px-2 whitespace-nowrap min-w-max">
+      {steps.map((step, index) => (
+        <div key={index} className="flex items-center">
+          <div
+            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+              currentStep > index + 1
+                ? 'bg-green-500'
+                : currentStep === index + 1
+                ? 'bg-white text-red-600'
+                : 'bg-gray-300'
+            }`}
+          >
+            {index + 1}
           </div>
+          <div className="ml-2 text-sm font-medium">{step}</div>
+          {index < steps.length - 1 && (
+            <div
+              className={`w-10 h-1 mx-2 ${
+                currentStep > index + 1 ? 'bg-green-500' : 'bg-gray-300'
+              }`}
+            ></div>
+          )}
         </div>
+      ))}
+    </div>
+  </div>
+</div>
+
 
         {/* Form Content */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">

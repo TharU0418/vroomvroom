@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useRouteGuard } from '@/hooks/useRouteGuard';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import Link from 'next/link';
 
 export default function Sign() {
 
@@ -115,7 +116,7 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
   
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white mt-20">
+    <div className="min-h-screen flex items-center justify-center bg-white mt-10">
       <div className="w-full max-w-md space-y-6 p-8">
         <h2 className="text-2xl font-semibold text-gray-900">
           Welcome Back
@@ -156,9 +157,17 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
         onError={() => console.log('Login Failed')} 
       />
 
+
+      <p className="text-black  text-sm font-medium">
+                Don&apos;t Have an Account ?  <Link href="register">
+               
+                  <span className='text-red-700 font-bold'>Sign Up</span>
+              </Link>
+              </p> 
+
         <p className="text-xs text-gray-500 text-center mt-6">
-          By proceeding, you consent to get calls, WhatsApp or SMS/RCS messages, including by automated means,
-          from Uber and its affiliates to the number provided.
+          By proceeding, you consent to get email, including by automated means,
+          from Vroom Vroom and its affiliates to the number provided.
         </p>
       </div>
             {showNotification && <Notification />}

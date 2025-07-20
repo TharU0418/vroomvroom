@@ -47,8 +47,22 @@ interface Step5Props {
 
   return (
     <div className="space-y-6 animate-fadeIn">
-<h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Location Details</h2>      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+<h2 className="text-2xl font-bold text-gray-900 border-b border-gray-300 pb-2">Location/Personal Details</h2>      
+       <label className="block text-gray-700 mb-2 font-medium">Mobile Number</label>
+    <input
+      type="tel"
+      value={formData.mobileNum}
+      onChange={(e) => setFormData({ ...formData, mobileNum: e.target.value })}
+     className="w-1/2 p-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+            placeholder="Enter your mobile number"
+            required
+            maxLength={10}
+/>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+       
         <div>
+       
           <label className="block text-gray-700 mb-2 font-medium">Select District</label>
           <select
             value={formData.district}

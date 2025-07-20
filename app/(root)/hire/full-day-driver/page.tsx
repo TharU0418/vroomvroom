@@ -1,9 +1,9 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { DecodedToken, decodeToken } from '@/utils/decodeToken';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, {useEffect, useState } from 'react'
+import React, {useState } from 'react'
 
 
 interface FormData {
@@ -37,6 +37,7 @@ const router = useRouter();
 const {user} = useAuth();
  const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
+const [loading, setLoading] = useState(false);
     
   
       const Notification = () => (
@@ -51,22 +52,7 @@ const {user} = useAuth();
         </div>
       );
   
-  const [userDetails, setUserDetails] = useState<DecodedToken | null>(null);
-useEffect(() => {
-        const token = localStorage.getItem('idToken');
-        if (token) {
-          const decoded = decodeToken(token);
-          console.log('Decoded token:', decoded);
-    
-          if (decoded && decoded.email && decoded.given_name) {
-            setUserDetails({
-              email: decoded.email,
-              given_name: decoded.given_name,
-              nickname:decoded.nickname
-            });
-          }
-        }
-      }, []);
+
 
   console.log('formData', formData);
 
@@ -77,31 +63,13 @@ useEffect(() => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // if (!formData.userId) {
-    //   alert('User ID is missing. Please log in and try again.');
-    //   return;
-    // }
-
-    console.log('formData.userId', formData.userId);
-    console.log('formData.type', formData.type); // Check the type value
-//setTypeSet('full-day')
-
-    console.log('formData', formData); // Check the type value
-    console.log('formData.type', formData.type); // Check the type value
-
-
+    setLoading(true);
     try {
-    console.log('formData send', formData.type); // Check the type value
-
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: userDetails?.email }),
-});
-    console.log('formData send 2', formData.type); // Check the type value
-
-
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: user?.email }),
+      });
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || 'Failed to submit request');
@@ -119,6 +87,8 @@ body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: us
   } else {
     alert('An unknown error occurred');
   }
+}finally{
+  setLoading(false);
 }
   };
 
@@ -204,15 +174,23 @@ body: JSON.stringify({ ...formData, type: 'full-day',status:'pending',userId: us
             {user ? (
             <div className="flex justify-center items-center">
               <button
-                type="submit"
-                className="bg-red-800 hover:bg-red-900 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
-              >
-                Request the driver
-              </button>
+  type="submit"
+  disabled={loading}
+  className={`bg-red-800 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 ${
+    loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-900'
+  }`}
+>
+  {loading ? 'Submitting...' : 'Request the driver'}
+</button>
+
             </div>
           ) : (
             <div className="flex justify-center items-center mt-4">
-              <p className="text-white">Please log in.</p>
+               <p className="text-black bg-white p-4 rounded-lg w-full text-center">
+                Please sign in to hire a driver  <Link href="/sign" className="text-red-700 hover:underline">
+                Sign In
+              </Link>
+                </p>
             </div>
           )}
        

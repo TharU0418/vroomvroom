@@ -2,11 +2,11 @@
 
 import ProfileLayout from './ProfileLayout';
 import { useAuth } from '@/hooks/useAuth';
-//import { useRouteGuard } from '@/hooks/useRouteGuard';
+import { useRouteGuard } from '@/hooks/useRouteGuard';
 
 export default function ProfilePage() {
  // const [user, setUser] = useState<DecodedToken | null>(null);
-  //useRouteGuard({ requiresAuth: true, redirectTo: '/' });
+  useRouteGuard({ requiresAuth: true, redirectTo: '/' });
 
   // useEffect(() => {
   //   const token = localStorage.getItem('idToken');
@@ -31,7 +31,7 @@ export default function ProfilePage() {
 
 
   if (!user) {
-    return <div className="text-center mt-20">Loading or not authenticated...</div>;
+    return <div className="text-center mt-20"></div>;
   }
 
   console.log(user)

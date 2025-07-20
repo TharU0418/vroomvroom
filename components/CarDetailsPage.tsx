@@ -27,6 +27,10 @@ export default function CarDetailsPage() {
     handleSubmit2();
   };
 
+  const handleLogin = () => {
+    router.push('/sign')
+  }
+
   const handleSubmit2 = async () => {
     try {
       const res = await fetch('https://vih0lw3c29.execute-api.eu-north-1.amazonaws.com/sell/sell-request', {
@@ -253,14 +257,30 @@ export default function CarDetailsPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <button
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
-                    onClick={handleReportRequest}
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    {!user? (<p>Please Log In to acess the Vehicle Report</p>) : (<p>Request Vehicle Report</p>)}
-                  </button>
+  className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors flex items-center justify-center"
+  onClick={user ? handleReportRequest : handleLogin}
+>
+  <svg
+    className="w-5 h-5 mr-2"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+    ></path>
+  </svg>
+  {!user ? (
+    <p>Please Log In to access the Vehicle Report</p>
+  ) : (
+    <p>Request Vehicle Report</p>
+  )}
+</button>
+
                 </div>
               </div>
             </div>

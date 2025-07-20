@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 interface FormData {
@@ -27,7 +28,10 @@ function RegistrationConsultation() {
     
       const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
     
+      
 
     
       const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,6 +41,8 @@ function RegistrationConsultation() {
     
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+            setLoading(true);
+
         try {
           const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
             method: 'POST',
@@ -48,24 +54,30 @@ function RegistrationConsultation() {
             const data = await res.json();
             throw new Error(data.error || 'Failed to submit request');
           }
-    
+          router.push('/consultation')
+
           setNotificationMessage('Request registered successfully');
           setShowNotification(true);
           
-          // Reset form
+         
+
+          setTimeout(() => setShowNotification(false), 2000);
+           // Reset form
           setFormData(prev => ({
             ...prev,
             message: '',
             ...(!user && { name: '', mobileNumber: '' }) // Clear fields if not logged in
           }));
-          
-          setTimeout(() => setShowNotification(false), 3000);
+                router.push('/consultation')
         } catch (error: unknown) {
           if (error instanceof Error) {
             alert(`Error: ${error.message}`);
           } else {
             alert('An unexpected error occurred.');
           }
+        }finally{
+              setLoading(false);
+
         }
       };
     
@@ -145,6 +157,7 @@ With Vehicle Registration Consultation, you’ll save time, avoid errors, and ge
                     placeholder="Your phone number"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
                     required
+                    maxLength={10}
                   />
                 </div>
               </div>
@@ -168,9 +181,13 @@ With Vehicle Registration Consultation, you’ll save time, avoid errors, and ge
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-red-800 hover:bg-red-900 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
-              >
-                Request Consultation
+                  disabled={loading}
+
+className={`bg-red-800 text-white py-3 px-8 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 ${
+    loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-900'
+  }`}              >
+                 {loading ? 'Submitting...' : ' Request Consultation'}
+
               </button>
             </div>
           </form>

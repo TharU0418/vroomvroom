@@ -6,25 +6,25 @@ import Image from 'next/image';
 
 export default function About() {
   const [stats, setStats] = useState([
-    { value: 0, label: 'Happy Customers', suffix: 'K+' },
-    { value: 0, label: 'Vehicles', suffix: '+' },
-    { value: 0, label: 'Cities', suffix: '+' },
-    { value: 0, label: 'Team Members', suffix: '+' },
+    { value: 100, label: 'Happy Customers', suffix: '+' },
+    { value: 10, label: 'Vehicles', suffix: '+' },
+    { value: 2, label: 'Cities', suffix: '' },
+    { value: 10, label: 'Team Members', suffix: '+' },
   ]);
 
-  useEffect(() => {
-    // Animate stats counter
-    const interval = setInterval(() => {
-      setStats(prev => prev.map((stat, i) => ({
-        ...stat,
-        value: stat.value < [25, 500, 45, 80][i] 
-          ? Math.min(stat.value + Math.ceil([25, 500, 45, 80][i] / 20), [25, 500, 45, 80][i]) 
-          : stat.value
-      })));
-    }, 50);
+  // useEffect(() => {
+  //   // Animate stats counter
+  //   const interval = setInterval(() => {
+  //     setStats(prev => prev.map((stat, i) => ({
+  //       ...stat,
+  //       value: stat.value < [25, 500, 45, 80][i] 
+  //         ? Math.min(stat.value + Math.ceil([25, 500, 45, 80][i] / 20), [25, 500, 45, 80][i]) 
+  //         : stat.value
+  //     })));
+  //   }, 50);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div className="min-h-screen bg-white mt-20">
@@ -34,7 +34,7 @@ export default function About() {
         <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center z-0"></div>
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">ABOUT <span className="text-red-600">DRIVE ELITE</span></h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">ABOUT <span className="text-red-600">Vroom Vroom</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
             Premium car rental, sales, hire driver and consultation services for the discerning client
           </p>
@@ -67,9 +67,9 @@ export default function About() {
               and deliver peace of mind to every customer who chooses us.
             </p>
             <div className="flex space-x-4">
-              <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
+              {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
                 Our Fleet
-              </button>
+              </button> */}
               <button className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition">
                 Meet Our Team
               </button>
@@ -116,7 +116,7 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             { 
-              title: "Car Sales", 
+              title: "Buy Car", 
               icon: "💰", 
               desc: "Quality pre-owned and brand new cars with comprehensive warranties" 
             },
@@ -126,7 +126,7 @@ export default function About() {
               desc: "We help you find the best driver to assit you." 
             },
             { 
-              title: "Consultationr Services", 
+              title: "Consultation Services", 
               icon: "👔", 
               desc: "Any problem you faced about a vechicle our professional team will guide you." 
             },{ 
