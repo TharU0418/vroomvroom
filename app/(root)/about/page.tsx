@@ -1,16 +1,23 @@
 'use client';
 // pages/about.tsx
-import { useState, useEffect } from 'react';
+//import { useState } from 'react';
 //import Head from 'next/head';
 import Image from 'next/image';
 
 export default function About() {
-  const [stats, setStats] = useState([
+  // const [stats, setStats] = useState([
+  //   { value: 100, label: 'Happy Customers', suffix: '+' },
+  //   { value: 10, label: 'Vehicles', suffix: '+' },
+  //   { value: 2, label: 'Cities', suffix: '' },
+  //   { value: 10, label: 'Team Members', suffix: '+' },
+  // ]);
+
+  const stats= [
     { value: 100, label: 'Happy Customers', suffix: '+' },
     { value: 10, label: 'Vehicles', suffix: '+' },
     { value: 2, label: 'Cities', suffix: '' },
     { value: 10, label: 'Team Members', suffix: '+' },
-  ]);
+  ];
 
   // useEffect(() => {
   //   // Animate stats counter
