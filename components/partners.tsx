@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useRef } from 'react';
-import { FaChevronLeft } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
+//import { FaChevronLeft } from "react-icons/fa";
+//import { FaChevronRight } from "react-icons/fa";
 
 const logos = [
   '/parners1.jpg',
@@ -14,14 +14,14 @@ const logos = [
 export default function Partners() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -200 : 200,
-        behavior: 'smooth',
-      });
-    }
-  };
+  // const scroll = (direction: 'left' | 'right') => {
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollBy({
+  //       left: direction === 'left' ? -200 : 200,
+  //       behavior: 'smooth',
+  //     });
+  //   }
+  // };
 
   return (
     <div className="py-12  text-center bg-white">

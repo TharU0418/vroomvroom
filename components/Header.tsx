@@ -1,10 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FiMenu, FiX } from 'react-icons/fi';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useAuth } from '@/hooks/useAuth';
 
 const Header = () => {
 
