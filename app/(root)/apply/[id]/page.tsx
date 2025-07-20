@@ -257,10 +257,10 @@ if (!job) {
                   <p>{job.type}</p>
                 </div>
                 
-                <div>
+                {/* <div>
                   <h3 className="text-gray-500 text-sm">Salary Range</h3>
                   <p>{job.salary}</p>
-                </div>
+                </div> */}
               </div>
             </div>
             
