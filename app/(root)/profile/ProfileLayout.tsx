@@ -5,7 +5,7 @@ import MyRequests from './MyRequests';
 import HireRequests from './HireRequests';
 import ProfileDetails from './ProfileDetails';
 import MySellRequest from './MySellRequest';
-import MyHistory from './MyHistory';
+//import MyHistory from './MyHistory';
 
 interface User {
   email: string;
