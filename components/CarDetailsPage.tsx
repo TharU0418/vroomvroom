@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { CarCard } from '../(root)/buy/page';
 import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
+import { CarCard } from '@/app/(root)/buy/page';
 
 export default function CarDetailsPage() {
   const [car, setCar] = useState<CarCard | null>(null);
