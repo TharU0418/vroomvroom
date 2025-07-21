@@ -27,11 +27,13 @@
 
 // hooks/useAuth.ts
 'use client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const useAuth = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('userEmail');
@@ -45,9 +47,11 @@ export const useAuth = () => {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('idToken');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
     setUser(null);
+        router.push('/'); 
+        window.location.reload();
   };
 
   return { user, loading, logout };

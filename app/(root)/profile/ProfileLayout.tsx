@@ -5,6 +5,7 @@ import MyRequests from './MyRequests';
 import HireRequests from './HireRequests';
 import ProfileDetails from './ProfileDetails';
 import MySellRequest from './MySellRequest';
+import { useAuth } from '@/hooks/useAuth';
 //import MyHistory from './MyHistory';
 
 interface User {
@@ -22,6 +23,8 @@ export default function ProfileLayout({ user }: { user: User }) {
     { id: 'mysellrequest', label: 'My Sell Request', icon: '🚗' },
    // { id: 'history', label: 'My History', icon: '🕒' },
   ];
+
+  const {logout} = useAuth();
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-8">
@@ -54,14 +57,12 @@ export default function ProfileLayout({ user }: { user: User }) {
 
   {/* Sign Out Button */}
   <button
-    onClick={() => {
-      // Replace with your sign-out logic
-      console.log('Signing out...');
-    }}
-    className="mt-6 w-full text-left flex items-center p-3 rounded-xl text-white bg-red-600 hover:bg-red-500 transition-all duration-200"
-  >
-    🚪 <span className="ml-3 font-medium">Sign Out</span>
-  </button>
+  onClick={logout}
+  className="mt-6 w-full text-left flex items-center p-3 rounded-xl text-white bg-red-600 hover:bg-red-500 transition-all duration-200"
+>
+  🚪 <span className="ml-3 font-medium">Sign Out</span>
+</button>
+
 </div>
 
 
