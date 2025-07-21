@@ -43,7 +43,7 @@ const jobId = params?.id; // Keep it as a string
   const [fileName, setFileName] = useState('');
 
   const[jobs, setJobs] = useState<JobOpening[]>([]);
-    const [loading, setLoading] = useState(true);
+    //const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const fetchJobs = async () => {
@@ -60,13 +60,13 @@ const jobId = params?.id; // Keep it as a string
             console.log('Fetched drivers:', data);
             setJobs(data);
            // setFilteredDrivers(data); // Set the filtered list initially to all drivers
-            setLoading(false);
+          //  setLoading(false);
           } else {
             throw new Error('Expected JSON response');
           }
         } catch (error) {
           console.error('Failed to fetch cars:', error);
-          setLoading(false);
+        //  setLoading(false);
         }
       };
       fetchJobs();

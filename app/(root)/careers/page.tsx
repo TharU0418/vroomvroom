@@ -20,7 +20,7 @@ type JobOpening = {
 export default function CareersPage() {
   const [activeJob, setActiveJob] = useState<number | null>(null);
   const[jobs, setJobs] = useState<JobOpening[]>([]);
-  const [loading, setLoading] = useState(true);
+ // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -37,13 +37,13 @@ export default function CareersPage() {
           console.log('Fetched drivers:', data);
           setJobs(data);
          // setFilteredDrivers(data); // Set the filtered list initially to all drivers
-          setLoading(false);
+       //   setLoading(false);
         } else {
           throw new Error('Expected JSON response');
         }
       } catch (error) {
         console.error('Failed to fetch cars:', error);
-        setLoading(false);
+        //setLoading(false);
       }
     };
     fetchJobs();
