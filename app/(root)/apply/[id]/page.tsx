@@ -74,7 +74,7 @@ const jobId = params?.id; // Keep it as a string
 
 
 
-  const job = jobs.find(j => j.id == jobId);
+const job = jobs.find(j => j.id === Number(jobId));
 
 if (!job) {
   return (
