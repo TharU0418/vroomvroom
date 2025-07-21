@@ -112,7 +112,7 @@ const HeroSlider = () => {
                 {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors mt-4">
                   {slide.buttonText}
                 </button> */}
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm md:text-lg font-medium transition-colors mt-4">
+                <button className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-md text-sm md:text-lg font-medium transition-colors mt-4">
 {slide.buttonText}
                 </button>
               </Link>

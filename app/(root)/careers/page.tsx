@@ -1,6 +1,6 @@
 'use client';
 // pages/careers.tsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //import Head from 'next/head';
 //import Image from 'next/image';
 //import { useRouter } from 'next/navigation';
@@ -19,54 +19,37 @@ type JobOpening = {
 
 export default function CareersPage() {
   const [activeJob, setActiveJob] = useState<number | null>(null);
-  
-  const jobOpenings: JobOpening[] = [
-    {
-      id: 1,
-      title: "Full Time Driver",
-      department: "driving",
-      type: "Full-time",
-      location: "Colombo",
-      description: "Work as a full time driver",
-      responsibilities: [
-        "Manage and mentor a team of customer service representatives",
-        "Develop and implement customer service policies and procedures",
-        "Analyze customer feedback and implement improvements",
-        "Handle escalated customer issues",
-        "Collaborate with other departments to enhance customer experience"
-      ],
-      requirements: [
-        "2+ years in customer service management",
-        "Experience in automotive or luxury service industry",
-        "Excellent communication and leadership skills",
-        "Proficiency with CRM software",
-        "Ability to analyze data and create reports"
-      ]
-    },
-    {
-      id: 2,
-      title: "Part Time Driver (Female)",
-      department: "driving",
-      type: "Part-time",
-      location: "Colombo/Kandy",
-      description: "Work as a full time driver",
-      responsibilities: [
-        "Develop responsive and accessible user interfaces",
-        "Collaborate with designers and backend developers",
-        "Optimize applications for maximum speed and scalability",
-        "Implement automated testing and CI/CD pipelines",
-        "Mentor junior developers and conduct code reviews"
-      ],
-      requirements: [
-        "5+ years of frontend development experience",
-        "Expertise in React, Next.js, and TypeScript",
-        "Strong knowledge of modern CSS frameworks (Tailwind)",
-        "Experience with RESTful APIs and GraphQL",
-        "Familiarity with automated testing frameworks"
-      ]
-    }
-  ];
+  const[jobs, setJobs] = useState<JobOpening[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch(`https://hl848w6d2h.execute-api.eu-north-1.amazonaws.com/open-jobs/job`);
+        const contentType = response.headers.get('content-type');
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        if (contentType && contentType.includes('application/json')) {
+          const data = await response.json();
+          console.log('Fetched drivers:', data);
+          setJobs(data);
+         // setFilteredDrivers(data); // Set the filtered list initially to all drivers
+          setLoading(false);
+        } else {
+          throw new Error('Expected JSON response');
+        }
+      } catch (error) {
+        console.error('Failed to fetch cars:', error);
+        setLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
+  
+ 
   const toggleJobDetails = (id: number) => {
     setActiveJob(activeJob === id ? null : id);
   };
@@ -220,7 +203,7 @@ export default function CareersPage() {
         </div>
         
         <div className="space-y-6">
-          {jobOpenings.map((job) => (
+          {jobs.map((job) => (
             <div 
               key={job.id} 
               className="border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:border-red-500 hover:shadow-lg"
@@ -293,7 +276,7 @@ export default function CareersPage() {
                   
                  <div className="mt-8">
   <Link 
-    href={`/apply/${job.id}`}
+    href={`/apply/${job?.id}`}
     className="inline-block bg-red-600 text-white px-8 py-3 rounded-full font-medium hover:bg-red-700 transition"
   >
     Apply Now

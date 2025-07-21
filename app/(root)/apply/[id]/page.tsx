@@ -1,6 +1,6 @@
 'use client';
 // pages/apply/[jobId].tsx
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import Head from 'next/head';
 import { FiUploadCloud, FiCheck, FiArrowLeft } from 'react-icons/fi';
 import { useParams, useRouter } from 'next/navigation';
@@ -21,10 +21,12 @@ export default function ApplicationPage() {
   const router = useRouter();
  // const { jobId } = router.query;
   const params = useParams();
-  const jobId = Number(params?.id);
+const jobId = params?.id; // Keep it as a string
 
-  console.log('para', params)
+  console.log('para 1', params)
+  console.log('jobId 2', jobId)
   
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -40,57 +42,39 @@ export default function ApplicationPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [fileName, setFileName] = useState('');
 
+  const[jobs, setJobs] = useState<JobOpening[]>([]);
+    const [loading, setLoading] = useState(true);
   
-const jobs: JobOpening[] = [
-  {
-    id: 1,
-    title: "Full Time Driver",
-    department: "driving",
-    type: "Full-time",
-    location: "Colombo",
-    description: "Work as a full time driver",
-    responsibilities: [
-        "Manage and mentor a team of customer service representatives",
-        "Develop and implement customer service policies and procedures",
-        "Analyze customer feedback and implement improvements",
-        "Handle escalated customer issues",
-        "Collaborate with other departments to enhance customer experience"
-      ],
-      requirements: [
-        "2+ years in customer service management",
-        "Experience in automotive or luxury service industry",
-        "Excellent communication and leadership skills",
-        "Proficiency with CRM software",
-        "Ability to analyze data and create reports"
-      ],
-    deadline: "August 30, 2025"
-  },
-  {
-    id: 2,
-    title: "Part Time Driver (Female)",
-    department: "driving",
-    type: "Part-time",
-    location: "Colombo/Kandy",
-    description: "Work as a part time driver",
-    responsibilities: [
-        "Manage and mentor a team of customer service representatives",
-        "Develop and implement customer service policies and procedures",
-        "Analyze customer feedback and implement improvements",
-        "Handle escalated customer issues",
-        "Collaborate with other departments to enhance customer experience"
-      ],
-      requirements: [
-        "2+ years in customer service management",
-        "Experience in automotive or luxury service industry",
-        "Excellent communication and leadership skills",
-        "Proficiency with CRM software",
-        "Ability to analyze data and create reports"
-      ],
-    deadline: "August 30, 2025"
-  }
-];
+    useEffect(() => {
+      const fetchJobs = async () => {
+        try {
+          const response = await fetch(`https://hl848w6d2h.execute-api.eu-north-1.amazonaws.com/open-jobs/job`);
+          const contentType = response.headers.get('content-type');
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            console.log('Fetched drivers:', data);
+            setJobs(data);
+           // setFilteredDrivers(data); // Set the filtered list initially to all drivers
+            setLoading(false);
+          } else {
+            throw new Error('Expected JSON response');
+          }
+        } catch (error) {
+          console.error('Failed to fetch cars:', error);
+          setLoading(false);
+        }
+      };
+      fetchJobs();
+    }, []);
 
-  const job = jobs.find(j => j.id === Number(jobId));
+
+
+  const job = jobs.find(j => j.id == jobId);
 
 if (!job) {
   return (

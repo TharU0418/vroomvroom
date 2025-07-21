@@ -258,18 +258,18 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   return (   //#ffbebe]
 <div className="min-h-screen flex justify-center items-center bg-white p-4">
-      <div className="max-w-6xl w-full justify-center items-center p-8 mt-20">
+      <div className="max-w-6xl justify-center items-center w-full p-8 mt-20">
         <h1 className="text-4xl font-bold text-black mb-8 text-center">Rent a Car</h1>
         
         {/* Selected Car Modal */}
        {selectedCar && (
   <div 
-    className="fixed inset-0 bg-black bg-opacity-70 flex  z-50 p-4"
+    className="fixed inset-0 justify-center items-center  bg-black bg-opacity-70 flex  z-50 p-4"
     onClick={handleCloseModal}
   >
     {/* Responsive container */}
-    <div className="bg-white/90 rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto mx-2 sm:mx-4">
-      <div className="p-4 md:p-6">
+    <div className="bg-white/90 justify-center items-center rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto mx-2 sm:mx-4">
+      <div className="p-4 md:p-6 justify-center items-center">
         <div className="flex justify-between items-start mb-4">
           {/* Responsive title */}
           <h2 className="text-xl sm:text-2xl font-bold text-gray-800 max-w-[80%] break-words">
@@ -362,7 +362,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-700 mb-1">Pickup Time</label>
-                  <select
+                  {/* <select
                     name="pickupTime"
                     value={rentalDetails.pickupTime}
                     onChange={handleRentalDetailChange}
@@ -376,7 +376,15 @@ const handleSubmit = async (e: React.FormEvent) => {
                                 </option>
                               ) : null;
                             })}
-                          </select>
+                          </select> */}
+                          <input
+              type="time"
+              name="pickupTime"
+              value={rentalDetails.pickupTime}
+              onChange={handleRentalDetailChange}
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
+              required
+            />
                         </div>
                         
                        <div>
@@ -443,7 +451,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </div>
         )}
 <div className='justify-center items-center bg-gray-200 p-4 rounded-2xl '>
-<div className="w-[80vw] max-w-[95vw] flex flex-col md:flex-row justify-center items-center  md:p-6 ">
+<div className="w-[70vw] max-w-[95vw] flex flex-col md:flex-row justify-center items-center  md:p-6 ">
 {/* <div className="w-full max-w-screen-sm mx-auto flex flex-col md:flex-row gap-8 bg-gray-200 p-4 md:p-6 rounded-2xl"> */}
 {/* <div className="w-[90vw] max-w-[95vw] mx-auto flex flex-col md:flex-row gap-8 bg-gray-200 p-4 md:p-6 rounded-2xl"> */}
 
