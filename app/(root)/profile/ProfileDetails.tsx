@@ -12,6 +12,7 @@ interface Users {
 interface User {
   email: string;
   given_name: string;
+  name:string;
 }
 
 export default function ProfileDetails({ user }: { user: User }) {
