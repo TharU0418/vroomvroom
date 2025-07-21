@@ -25,7 +25,7 @@ export default function CareersPage() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch(`https://hl848w6d2h.execute-api.eu-north-1.amazonaws.com/open-jobs/job`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_JOB}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
