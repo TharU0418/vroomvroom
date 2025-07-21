@@ -11,6 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 interface User {
   email: string;
   given_name: string;
+  name:string;
 }
 
 export default function ProfileLayout({ user }: { user: User }) {
