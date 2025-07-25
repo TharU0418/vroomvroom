@@ -7,8 +7,8 @@ import { useRef } from 'react';
 
 const logos = [
   '/parners1.jpg',
-  '/parners1.jpg',
-  '/parners1.jpg'
+ // '/parners1.jpg',
+ // '/parners1.jpg'
 ];
 
 export default function Partners() {

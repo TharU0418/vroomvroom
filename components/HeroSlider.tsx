@@ -18,13 +18,13 @@ interface Slide {
 const HeroSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [slides] = useState<Slide[]>([
-    {
-      id: 1,
-      title: 'Car Rent',
-      description: 'Explore thousands of vehicles from trusted dealers and private sellers nationwide.',
-      buttonText: 'Try it now',
-      path: 'rent'
-    },
+    // {
+    //   id: 1,
+    //   title: 'Car Rent',
+    //   description: 'Explore thousands of vehicles from trusted dealers and private sellers nationwide.',
+    //   buttonText: 'Try it now',
+    //   path: 'rent'
+    // },
     {
       id: 2,
       title: 'Hire a Driver',
@@ -32,33 +32,33 @@ const HeroSlider = () => {
       buttonText: 'Try it now',
       path: 'hire'
     },
-    {
-      id: 3,
-      title: 'Sell Your Car',
-      description: 'Get approved for competitive rates in minutes.',
-      buttonText: 'Try it now',
-      path: 'sell'
-    },
-    {
-      id: 4,
-      title: 'Buy a Car',
-      description: "Know your vehicle's true market value with our free valuation service.",
-      buttonText: 'Try it now',
-      path: 'buy'
-    },
+    // {
+    //   id: 3,
+    //   title: 'Sell Your Car',
+    //   description: 'Get approved for competitive rates in minutes.',
+    //   buttonText: 'Try it now',
+    //   path: 'sell'
+    // },
+    // {
+    //   id: 4,
+    //   title: 'Buy a Car',
+    //   description: "Know your vehicle's true market value with our free valuation service.",
+    //   buttonText: 'Try it now',
+    //   path: 'buy'
+    // },
     {
       id: 5,
       title: 'Consultations',
       description: 'Access detailed reports for any vehicle in our database.',
       buttonText: 'Try it now',
-      path: 'consultations'
+      path: 'consultation'
     }
   ]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 10000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [slides.length]);
 

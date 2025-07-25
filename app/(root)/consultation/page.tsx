@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import cover1 from '../../../public/cover1.jpg';
 
 function Guide() {
   const router = useRouter();
-    
+    //  const [showChat, setShowChat] = useState(false); // State for chat visibility
+
   return (
     <div className="min-h-screen bg-white text-black mt-20">
       {/* Full-width banner - optimized for mobile */}
@@ -80,6 +81,92 @@ function Guide() {
           </div>
         </div>
       </div>
+        {/* <div className="fixed bottom-6 right-6 z-50">
+       {showChat ? (
+  <div className="bg-white shadow-lg rounded-lg w-80 h-96 mb-4 flex flex-col">
+    <div className="bg-red-600 text-white p-3 rounded-t-lg flex justify-between">
+      <h3 className="font-bold">Live Chat</h3>
+      <button 
+        onClick={() => setShowChat(false)}
+        className="text-white hover:text-gray-200"
+      >
+        ✕
+      </button>
+    </div>
+    <div className="flex-1 p-4 overflow-y-auto flex flex-col items-center justify-center space-y-4">
+      <p className="text-gray-700 text-center">How can we help you?</p>
+      <button 
+  onClick={() => {
+    window.open('https://wa.me/94740662095', '_blank');
+  }}
+  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md w-3/4 text-center"
+>
+  Hire
+</button>
+
+      <button 
+        onClick={() => {
+          // You can implement consultation chat logic here
+              window.open('https://wa.me/94740662095', '_blank');
+        }}
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md w-3/4 text-center"
+      >
+        Consultation
+      </button>
+    </div>
+  </div>
+) : null}
+
+        
+        <button
+          onClick={() => setShowChat(!showChat)}
+          className="bg-red-600 text-white rounded-full p-4 shadow-lg hover:bg-red-700 transition-all"
+          aria-label="Open chat"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-6 w-6" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" 
+            />
+          </svg>
+        </button>
+      </div> */}
+
+ <div className="fixed bottom-6 right-6 z-50">
+      
+        
+        <button
+onClick={() => {
+    window.open('https://wa.me/94740662095', '_blank');
+
+  }}          className="bg-red-600 text-white rounded-full p-4 shadow-lg hover:bg-red-700 transition-all"
+          aria-label="Open chat"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-6 w-6" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" 
+            />
+          </svg>
+        </button>
+      </div>
+
     </div>
   )
 }

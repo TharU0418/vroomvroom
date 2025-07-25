@@ -9,9 +9,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const menuItems = [
-    { title: 'Rent', path: '/rent' },
-    { title: 'Hire', path: '/hire' },
-    { title: 'Buy', path: '/buy' },
+    // { title: 'Rent', path: '/rent' },
+    // { title: 'Hire', path: '/hire' },
+    // { title: 'Buy', path: '/buy' },
     { title: 'Sell', path: '/sell' },
     { title: 'Consultation', path: '/consultation' },
   ];

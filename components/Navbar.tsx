@@ -20,18 +20,16 @@ const Navbar = () => {
   }, []);
 
   const menuItems = [
-    { title: 'Buy', path: '/buy' },
-    { title: 'Sell', path: '/sell' },
-    { title: 'Rent', path: '/rent' },
+    // { title: 'Buy', path: '/buy' },
+    // { title: 'Sell', path: '/sell' },
+    // { title: 'Rent', path: '/rent' },
+    { title: 'Home', path: '/' },
     { title: 'Hire', path: '/hire' },
     { title: 'Consultation', path: '/consultation' },
     { title: 'About Us', path: '/about' }
   ];
 
   const {user, logout} = useAuth();
-
-  console.log('user nav', user)
-  console.log('user email', user?.email);
 
   return (
     <nav 

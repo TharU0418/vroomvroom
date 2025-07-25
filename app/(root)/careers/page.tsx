@@ -36,6 +36,7 @@ export default function CareersPage() {
           const data = await response.json();
           console.log('Fetched drivers:', data);
           setJobs(data);
+          
          // setFilteredDrivers(data); // Set the filtered list initially to all drivers
        //   setLoading(false);
         } else {
