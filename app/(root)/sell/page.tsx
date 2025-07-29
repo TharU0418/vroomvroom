@@ -210,6 +210,7 @@ useEffect(() => {
       setNotificationMessage('Error submitting form');
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
+      console.log(error)
     }
   };
 
