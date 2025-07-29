@@ -5,17 +5,6 @@ import { locations } from '@/public/data/location';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-// export interface CarCard {
-//   _id: string;
-//   brand: string;
-//   model: string;
-//   price: number;
-//   year: number;
-//   images: string[];
-//   district: string;
-//   city: string;
-// }
-
 export interface CarCard {
   id: string;
   brand: string;
@@ -35,7 +24,7 @@ export interface CarCard {
   features?: string[];
   type?: string;
   report: string;
-  status?: string; // ✅ Add this line,
+  status?: string; 
   reason:string;
 }
 
@@ -78,7 +67,6 @@ export default function CarListing() {
       setIsLoading(true);
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BUY}`);
       const data = await res.json();
-      console.log('data', data);
       const filteredCars = data.filter((caersData1: { status: string }) => 
             caersData1.status === 'accept'
         );
@@ -92,7 +80,6 @@ export default function CarListing() {
   fetchCars();
 }, []); // ✅ keep it empty
 
-console.log('cars', cars)
 
   
   // const handleSubmit = async (e: React.FormEvent) => {
@@ -127,7 +114,6 @@ console.log('cars', cars)
 const cities = formData.district ? locations[formData.district as keyof typeof locations] : [];
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
-  console.log('cars', cars)
 
   // Combine search query with filters
   const filteredCars = cars.filter(

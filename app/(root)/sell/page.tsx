@@ -201,14 +201,12 @@ useEffect(() => {
 
       if (!response.ok) throw new Error('Submission failed');
 
-      console.log('pay', payload)
 
       setNotificationMessage('Car listed successfully!');
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
       router.push('/profile');
     } catch (error) {
-      console.error('Error:', error);
       setNotificationMessage('Error submitting form');
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);

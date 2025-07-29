@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-//import { FcGoogle } from 'react-icons/fc';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { useRouteGuard } from '@/hooks/useRouteGuard';
@@ -11,7 +10,7 @@ import Link from 'next/link';
 export default function LoginPage() {
   const [input, setInput] = useState('');
   const router = useRouter();
-              useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
+  useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
   
 
   const handleContinue = () => {
@@ -20,9 +19,7 @@ export default function LoginPage() {
   };
 
   const handleLogin = async (credentialResponse: CredentialResponse) => {
-    console.log('credentialResponse', credentialResponse); // Log the full response to inspect its structure
    // const { credential } = credentialResponse;
-
     try {
       const response = await axios.post(
         "https://g79c9ghmgk.execute-api.eu-north-1.amazonaws.com/signin/gsignin",
@@ -31,11 +28,9 @@ export default function LoginPage() {
           withCredentials: true,
         }
       );
-
-      console.log('response', response)
-      // ✅ Option A: From JSON response
+      // From JSON response
       const { email, name } = response.data;
-      // ✅ Store in localStorage
+      // Store in localStorage
       localStorage.setItem('userEmail', email);
       localStorage.setItem('userName', name);
       // Then redirect
@@ -44,8 +39,6 @@ export default function LoginPage() {
     } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
       console.error('Error status:', err.response?.status);
-      console.error('Error data:', err.response?.data);
-      console.error('Full Axios error:', err.toJSON());
     } else {
       console.error('Unknown error', err);
     }

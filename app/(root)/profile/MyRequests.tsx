@@ -182,8 +182,6 @@ function MyRequests({ user }: { user: User }) {
   }, [totalPages]);
 
 
-    console.log('totalPages',totalPages)
-
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);

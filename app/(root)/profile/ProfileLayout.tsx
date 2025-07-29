@@ -19,9 +19,9 @@ export default function ProfileLayout({ user }: { user: User }) {
 
   const tabs = [
     { id: 'profile', label: 'My Profile', icon: '👤' },
-    { id: 'requests', label: 'My Rent Requests', icon: '📋' },
+  //  { id: 'requests', label: 'My Rent Requests', icon: '📋' },
     { id: 'hirerequests', label: 'My Hire Requests', icon: '💼' },
-    { id: 'mysellrequest', label: 'My Sell Request', icon: '🚗' },
+    //{ id: 'mysellrequest', label: 'My Sell Request', icon: '🚗' },
    // { id: 'history', label: 'My History', icon: '🕒' },
   ];
 

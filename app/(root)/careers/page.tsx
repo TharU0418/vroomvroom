@@ -34,7 +34,6 @@ export default function CareersPage() {
 
         if (contentType && contentType.includes('application/json')) {
           const data = await response.json();
-          console.log('Fetched drivers:', data);
           setJobs(data);
           
          // setFilteredDrivers(data); // Set the filtered list initially to all drivers

@@ -26,8 +26,6 @@ export default function ProfilePage() {
 
 
   const {user} = useAuth();
-  console.log('user nav', user)
-  console.log('user email', user?.email);
 
 
   if (!user) {

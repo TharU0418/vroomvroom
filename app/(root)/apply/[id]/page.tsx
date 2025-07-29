@@ -23,10 +23,6 @@ export default function ApplicationPage() {
   const params = useParams();
 const jobId = params?.id; // Keep it as a string
 
-  console.log('para 1', params)
-  console.log('jobId 2', jobId)
-  
-
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -57,7 +53,6 @@ const jobId = params?.id; // Keep it as a string
   
           if (contentType && contentType.includes('application/json')) {
             const data = await response.json();
-            console.log('Fetched drivers:', data);
             setJobs(data);
            // setFilteredDrivers(data); // Set the filtered list initially to all drivers
           //  setLoading(false);

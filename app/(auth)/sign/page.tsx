@@ -34,10 +34,7 @@ export default function Sign() {
 
 
     const data = await res.json();
-    console.log('data', data)
-
-     const { email } = data;
-console.log(email)
+    const { email } = data;
 
 localStorage.setItem('userEmail', email);
      // localStorage.setItem('userName', name);
@@ -49,7 +46,6 @@ localStorage.setItem('userEmail', email);
   setShowNotification(true);
   setTimeout(() => setShowNotification(false), 5000);
    }
-          console.log('data',data)
 
           
   if (!res.ok) throw new Error(data.error || 'Login failed');
@@ -61,7 +57,6 @@ localStorage.setItem('userEmail', email);
  // router.push('/');
 } catch (err) {
   const message = err instanceof Error ? err.message : 'Unknown error';
-  console.log('mess', message)
   setNotificationMessage(message);
   setShowNotification(true);
   setTimeout(() => setShowNotification(false), 5000);
@@ -69,7 +64,6 @@ localStorage.setItem('userEmail', email);
   };
 
 const handleLogin = async (credentialResponse: CredentialResponse) => {
-    console.log('credentialResponse', credentialResponse); // Log the full response to inspect its structure
   //  const { credential } = credentialResponse;
 
     try {
@@ -80,11 +74,9 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
           withCredentials: true,
         }
       );
-
-      console.log('response', response)
-      // ✅ Option A: From JSON response
+      // From JSON response
       const { email, name } = response.data;
-      // ✅ Store in localStorage
+      //Store in localStorage
       localStorage.setItem('userEmail', email);
       localStorage.setItem('userName', name);
       // Then redirect
@@ -92,9 +84,7 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
       // Redirect to the home page
     } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
-      console.error('Error status:', err.response?.status);
       console.error('Error data:', err.response?.data);
-      console.error('Full Axios error:', err.toJSON());
     } else {
       console.error('Unknown error', err);
     }
