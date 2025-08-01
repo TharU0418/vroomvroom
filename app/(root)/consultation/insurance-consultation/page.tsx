@@ -147,6 +147,18 @@ We understand that every driver and vehicle is unique. That&rsquo;s why our cons
 
             <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
 
+<li>Needs Assessment
+</li>
+<li>Policy Comparison
+</li>
+<li>Coverage Explanation 
+</li>
+<li>Claims Support
+</li>
+</ul>
+
+{/* <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
+
 <li>Needs Assessment – We evaluate your driving habits, vehicle type, and coverage requirements to recommend the right insurance options.
 </li>
 <li>Policy Comparison – We compare multiple plans from trusted providers to ensure you get the best coverage at competitive rates.
@@ -155,7 +167,7 @@ We understand that every driver and vehicle is unique. That&rsquo;s why our cons
 </li>
 <li>Claims Support – Need help understanding or filing a claim? Our team is here to guide you through the process step by step.
 </li>
-</ul>
+</ul> */}
 
 <p className='mt-2'>
 With years of experience in the vehicle and insurance industries, our consultants make sure your car is not just insured—but properly protected. Whether you&rsquo;re insuring a new purchase or reviewing your current plan, Insurance Consultation gives you peace of mind on the road.        </p>

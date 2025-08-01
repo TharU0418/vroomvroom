@@ -128,7 +128,7 @@ src="/hire2.jpg"
           </div>
 
           {/* Card 4 */}
-          <div onClick={() => router.push(`/hire/long-term--driver`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
+          <div onClick={() => router.push(`/hire/long-term-driver`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
  src="/hire4.jpg"

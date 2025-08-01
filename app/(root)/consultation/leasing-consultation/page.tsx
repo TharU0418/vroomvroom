@@ -143,6 +143,22 @@ With expert support and deep industry knowledge, we help you:
 
 </p>
             <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
+<li>  Understand Leasing Options 
+</li>
+<li>Compare Plans and Rates 
+</li>
+<li>Review Terms & Conditions
+</li>
+<li>Negotiate Smartly
+
+</li>
+<li>Prepare for End-of-Lease
+</li>
+</ul>
+
+
+
+            {/* <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
 <li>  Understand Leasing Options – Learn the difference between types of leases (personal, business, short-term, long-term) and what suits your situation best.
 </li>
 <li>Compare Plans and Rates – We evaluate multiple leasing offers from trusted providers to find the most cost-effective and transparent deals.
@@ -154,7 +170,7 @@ With expert support and deep industry knowledge, we help you:
 </li>
 <li>Prepare for End-of-Lease – Get guidance on what happens when your lease ends, from buyout options to renewal or return.
 </li>
-</ul>
+</ul> */}
 
 <p className='mt-2'>
 Whether you&rsquo;re leasing for personal convenience or business flexibility, our Leasing Consultation ensures you get the right vehicle with the right terms—quickly and stress-free.        </p>

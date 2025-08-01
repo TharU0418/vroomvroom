@@ -166,6 +166,20 @@ Our service is designed to ensure your vehicle is registered legally, efficientl
 </p>
 
             <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
+<li>  Document Preparation
+</li>
+<li>Process Navigation
+</li>
+<li>Compliance Assurance
+
+</li>
+<li>On-Demand Support
+
+</li></ul>
+
+
+
+            {/* <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
 <li>  Document Preparation – We guide you through the required forms and paperwork based on your vehicle type and region.
 </li>
 <li>Process Navigation – From temporary permits to permanent plates, we explain each step so you know exactly what to expect.
@@ -175,7 +189,7 @@ Our service is designed to ensure your vehicle is registered legally, efficientl
 </li>
 <li>On-Demand Support – Whether you’re registering a new purchase, a leased car, or transferring ownership, we’re here to help.
 
-</li></ul>
+</li></ul> */}
 
 <p className='mt-2'>
 With Vehicle Registration Consultation, you’ll save time, avoid errors, and get on the road faster—with confidence that everything is done right.        </p>

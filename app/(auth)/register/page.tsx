@@ -22,7 +22,7 @@ export default function LoginPage() {
    // const { credential } = credentialResponse;
     try {
       const response = await axios.post(
-        "https://g79c9ghmgk.execute-api.eu-north-1.amazonaws.com/signin/gsignin",
+        `${process.env.NEXT_PUBLIC_API_URL_GOOGLE_SIGNUP}`,
         { token: credentialResponse.credential },
         {
           withCredentials: true,
