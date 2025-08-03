@@ -33,7 +33,7 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
         >
           <Image
   src={`/hero-${index + 1}.jpg`}
-  alt={slide.title}
+  alt='title'
   width={1920}
   height={1080}
   className="object-cover"
