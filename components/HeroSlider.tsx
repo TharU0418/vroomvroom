@@ -94,7 +94,7 @@ const HeroSlider = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
           <Image
             src={`/hero-${index + 1}.webp`} // Replace with your image paths
-            alt={slide.title}
+            alt='title'
             className="absolute inset-0 w-full h-full object-cover"
              width={250} // replace with your actual image width
             height={150}
