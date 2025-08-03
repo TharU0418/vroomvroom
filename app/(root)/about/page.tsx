@@ -43,7 +43,7 @@ export default function About() {
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">ABOUT <span className="text-red-600">Vroom Vroom</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-            Premium car rental, sales, hire driver and consultation services for the discerning client
+            Hire professional drivers, consultation services and premium car rental,for the discerning client
           </p>
           {/* <div className="flex space-x-4">
             <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
@@ -77,9 +77,9 @@ export default function About() {
               {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
                 Our Fleet
               </button> */}
-              <button className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition">
+              {/* <button className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition">
                 Meet Our Team
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="relative h-[500px] rounded-xl overflow-hidden shadow-xl">
@@ -123,13 +123,8 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             { 
-              title: "Buy Car", 
-              icon: "💰", 
-              desc: "Quality pre-owned and brand new cars with comprehensive warranties" 
-            },
-            { 
               title: "Hire Driver", 
-              icon: "🛒", 
+              icon: "🚘", 
               desc: "We help you find the best driver to assit you." 
             },
             { 
@@ -140,6 +135,11 @@ export default function About() {
               title: "Car Rental", 
               icon: "🚗", 
               desc: "Short-term rentals with flexible options and premium vehicles" 
+            },
+            { 
+              title: "Buy Car", 
+              icon: "💰", 
+              desc: "Quality pre-owned and brand new cars with comprehensive warranties" 
             }
           ].map((service, index) => (
             <div 

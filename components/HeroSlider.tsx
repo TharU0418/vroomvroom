@@ -27,9 +27,9 @@ const HeroSlider = () => {
     // },
     {
       id: 2,
-      title: 'Hire a Driver',
-      description: 'Reach a best drivers across Sri Lanka.',
-      buttonText: 'Try it now',
+      title: 'Hire a Professional Driver in Sri Lanka – Fast, Reliable & Safe',
+      description: 'Find trusted, experienced drivers anywhere in Sri Lanka — for tours, daily commutes, airport transfers & more.',
+      buttonText: 'Book Your Driver Now',
       path: 'hire'
     },
     // {
@@ -48,10 +48,10 @@ const HeroSlider = () => {
     // },
     {
       id: 5,
-      title: 'Consultations',
+      title: 'Consultations service in Sri Lanka – Fast, Reliable & Safe',
       description: 'Access detailed reports for any vehicle in our database.',
-      buttonText: 'Try it now',
-      path: 'consultation'
+      buttonText: 'Book Your Consultations Now',
+      path: '/consultation'
     }
   ]);
 
@@ -93,7 +93,7 @@ const HeroSlider = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
           <Image
-            src={`/hero-${index + 1}.jpg`} // Replace with your image paths
+            src={`/hero-${index + 1}.webp`} // Replace with your image paths
             alt={slide.title}
             className="absolute inset-0 w-full h-full object-cover"
              width={250} // replace with your actual image width
@@ -103,10 +103,10 @@ const HeroSlider = () => {
                 md:ml-40 md:p-6 md:w-auto max-w-6xl">
             <div className="space-y-6">
               {/* <h2 className="text-5xl font-bold leading-tight">{slide.title}</h2> */}
-              <h2 className="text-2xl md:text-5xl font-bold leading-tight">{slide.title}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">{slide.title}</h2>
 
               {/* <p className="text-xl max-w-2xl">{slide.description}</p> */}
-              <p className="text-sm md:text-xl max-w-2xl">{slide.description}</p>
+              <p className="text-s md:text-xl max-w-2xl">{slide.description}</p>
 
               <Link href={slide.path}>
                 {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors mt-4">

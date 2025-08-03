@@ -32,12 +32,13 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
           }`}
         >
           <Image
-            src={src}
-            alt={`Slide ${index + 1}`}
-            className="w-full h-full object-cover rounded-lg"
-            width={250}
-            height={150}
-          />
+  src={`/hero-${index + 1}.jpg`}
+  alt={slide.title}
+  width={1920}
+  height={1080}
+  className="object-cover"
+/>
+
         </div>
       ))}
 

@@ -15,7 +15,7 @@ interface User {
   name:string;
 }
 
-export default function ProfileDetails({ user }: { user: User }) {
+export default function ProfileDetails({ user }: { user: string }) {
   const [users, setUsers] = useState<Users[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -27,7 +27,7 @@ export default function ProfileDetails({ user }: { user: User }) {
         const data = await res.json();
 
         const filteredUsers = data.users.filter(
-          (item: { email: string }) => item.email === user.email
+          (item: { email: string }) => item.email === user
         );
 
         setUsers(filteredUsers);
@@ -39,7 +39,7 @@ export default function ProfileDetails({ user }: { user: User }) {
     };
 
     fetchUsers();
-  }, [user.email]);
+  }, [user]);
 
   const displayValue = (value?: string) => {
     return value && value.trim() !== "" ? value : "Not Found";
@@ -103,14 +103,14 @@ console.log('currentUser', currentUser)
               <div>
                 <label className="text-sm font-medium text-gray-600">Full Name</label>
                 <p className="mt-1 p-2 bg-gray-50 rounded">
-                 {user.name}
+                 {user}
                 </p>
               </div>
 
               <div>
                 <label className="text-sm font-medium text-gray-600">Email</label>
                 <p className="mt-1 p-2 bg-gray-50 rounded">
-                 {user.email}
+                 {user}
                 </p>
               </div>
              

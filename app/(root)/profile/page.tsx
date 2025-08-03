@@ -26,15 +26,16 @@ export default function ProfilePage() {
 
 
   const {user} = useAuth();
+    const email = user?.email;
 
 
-  if (!user) {
+  if (!email) {
     return <div className="text-center mt-20"></div>;
   }
 
-  console.log(user)
+  console.log('yu',email)
 
-  return <ProfileLayout user={user} />;
+  return <ProfileLayout user={email} />;
 }
 
 // 'use client';

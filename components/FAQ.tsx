@@ -8,20 +8,20 @@ type AccordionItem = {
 
 const items: AccordionItem[] = [
   {
-    title: 'Do You Want to sell a car?',
-    content: `What&rsquo;s your car worth? Receive the absolute best value for your trade-in vehicle. We even handle all paperwork. Schedule your appointment today!`,
+    title: 'How quickly can I book a driver for a one-time need, like an airport run or a few errands?',
+    content: `Our One-Time Booking (Hourly/On-Demand) service is designed for speed and flexibility! You can typically book a trusted, professional driver with minimal notice, depending on current availability. Simply select your desired date and time through our easy online platform or app, and we'll confirm a driver ready to provide reliable, convenient transportation for your specific needs.`,
   },
   {
-    title: 'Tell us what car you want ?',
+    title: 'If I use the "Drive Me Home" service after drinking, does the driver use my car?',
     content: 'Your must-have features, lifestyle, and budget.',
   },
   {
-    title: 'How to schedule a service online?',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla, velit id laoreet hendrerit, sapien nisl varius dolor, eu consequat erat augue in eros. Fusce non orci vitae eros porta consequat non at ante. Etiam et ligula quam. In condimentum ex nec sapien luctus pulvinar. Curabitur quis leo quis ex aliquam interdum.',
+    title: 'What are the main advantages of hiring a driver for multiple days or long-term?',
+    content: 'Our Multi-Day Hire and Long-Term Driver (Full-Time/Contracted) services offer consistency and peace of mind. You benefit from having the same professional driver who becomes familiar with your routine, schedule, and preferences. This eliminates the need for repeated bookings, ensures dependable daily transportation (perfect for trips, guests, or daily commutes), and builds a trusted relationship. Long-term contracts provide even greater routine familiarity and personalized service.',
   },
   {
-    title: 'Connect with Vroomvroom',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla, velit id laoreet hendrerit, sapien nisl varius dolor, eu consequat erat augue in eros. Fusce non orci vitae eros porta consequat non at ante. Etiam et ligula quam. In condimentum ex nec sapien luctus pulvinar. Curabitur quis leo quis ex aliquam interdum.',
+    title: 'What does the Full Vehicle Consultation cover if I am buying a car?',
+    content: 'Our Full Consultation is your complete start-to-finish guide! We provide personalized expert support through every step: helping you select the perfect vehicle based on your budget/lifestyle, navigating registration paperwork, finding the best leasing options, securing competitive insurance coverage, and ensuring your car is road-ready. We handle the complexities behind the scenes so you drive away with confidence.',
   }
 ];
 

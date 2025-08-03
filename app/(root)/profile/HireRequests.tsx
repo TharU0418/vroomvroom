@@ -28,12 +28,12 @@ export interface DriverCard {
   description?: string;
 }
 
-interface User {
-  email: string;
-  given_name: string;
-}
+// interface User {
+//   email: string;
+//   given_name: string;
+// }
 
-function HireRequests({ user }: { user: User }) {
+function HireRequests({ user }: { user: string }) {
   const [hireRequests, setHireRequests] = useState<RequestsCard[]>([]);
   //const [drivers, setDrivers] = useState<DriverCard[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +65,7 @@ function HireRequests({ user }: { user: User }) {
         if (contentType && contentType.includes('application/json')) {
           const data = await response.json();
            const filteredRequests = data.filter((requestsData1: { userId: string }) => 
-            requestsData1.userId === user.email
+            requestsData1.userId === user
         );
           setHireRequests(filteredRequests);
           setLoading(false);
