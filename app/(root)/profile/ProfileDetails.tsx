@@ -9,11 +9,11 @@ interface Users {
   mobileNumber: string;
 }
 
-interface User {
-  email: string;
-  given_name: string;
-  name:string;
-}
+// interface User {
+//   email: string;
+//   given_name: string;
+//   name:string;
+// }
 
 export default function ProfileDetails({ user }: { user: string }) {
   const [users, setUsers] = useState<Users[]>([]);
