@@ -79,9 +79,9 @@ export default function ProfileLayout({ user }: { user: User }) {
 
           {/* Uncomment when ready */}
          <div className="bg-gray-50 rounded-xl p-4 md:p-6 min-h-[500px]">
-          {activeTab === 'profile' && <ProfileDetails user={user} />} 
+          {activeTab === 'profile' && <ProfileDetails user={user.email} />} 
             {activeTab === 'requests' && <MyRequests user={user} />}
-             {activeTab === 'hirerequests' && <HireRequests user={user} />}
+             {activeTab === 'hirerequests' && <HireRequests user={user.email} />}
              {activeTab === 'mysellrequest' && <MySellRequest user={user} />}
           {/* {activeTab === 'history' && <MyHistory user={user} />} */}
           {/*     {activeTab === 'mysellrequest' && <MySellRequest userName={user.given_name} />}
