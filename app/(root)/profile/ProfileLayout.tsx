@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import MyRequests from './MyRequests';
+//import MyRequests from './MyRequests';
 import HireRequests from './HireRequests';
 import ProfileDetails from './ProfileDetails';
-import MySellRequest from './MySellRequest';
+//import MySellRequest from './MySellRequest';
 import { useAuth } from '@/hooks/useAuth';
 //import MyHistory from './MyHistory';
 
