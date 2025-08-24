@@ -31,7 +31,7 @@ const ForgetPassword = () => {
         setMessage(data.message || 'Something went wrong');
       }
     } catch (err) {
-      setMessage('Error initiating password reset');
+      setMessage(err instanceof Error ? err.message : 'Error starting password reset');
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,8 @@ const ForgetPassword = () => {
         setMessage(data.message || 'Failed to reset password');
       }
     } catch (err) {
-      setMessage('Error confirming password reset');
+      setMessage(err instanceof Error ? err.message : 'Error confirming password reset');
+
     } finally {
       setLoading(false);
     }

@@ -328,8 +328,8 @@ const Navbar = () => {
     // { title: 'Sell', path: '/sell' },
     // { title: 'Rent', path: '/rent' },
     { title: 'Home', path: '/' },
-    { title: 'Hire', path: '/hire' },
-    { title: 'Consultation', path: '/consultation' },
+    { title: 'Hire a Driver', path: '/hire' },
+    { title: 'Consultations', path: '/consultation' },
     { title: 'About Us', path: '/about' }
   ];
 
