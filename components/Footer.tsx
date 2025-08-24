@@ -29,7 +29,7 @@ const Footer = () => {
     { title: 'Careers', path: '/careers' },
    // { title: 'FAQ', path: '/faq' },
    // { title: 'Privacy Policy', path: '/privacy' },
-    { title: 'Terms of Service', path: '/terms' },
+  //  { title: 'Terms of Service', path: '/terms' },
   ];
 
   return (

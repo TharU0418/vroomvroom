@@ -52,10 +52,11 @@ function HireRequests({ user }: { user: string }) {
   const currentItems = hireRequests.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(hireRequests.length / itemsPerPage);
 
+
   useEffect(() => {
     const fetchRentRequests = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE_REQUESTS}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
@@ -67,6 +68,8 @@ function HireRequests({ user }: { user: string }) {
            const filteredRequests = data.filter((requestsData1: { userId: string }) => 
             requestsData1.userId === user
         );
+        console.log('data', data)
+           console.log('data', user)
           setHireRequests(filteredRequests);
           setLoading(false);
         } else {

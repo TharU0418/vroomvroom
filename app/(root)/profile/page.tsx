@@ -5,28 +5,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { useRouteGuard } from '@/hooks/useRouteGuard';
 
 export default function ProfilePage() {
- // const [user, setUser] = useState<DecodedToken | null>(null);
+
   useRouteGuard({ requiresAuth: true, redirectTo: '/' });
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('idToken');
-  //   if (token) {
-  //     const decoded = decodeToken(token);
-  //     console.log('Decoded token:', decoded);
-
-  //     if (decoded && decoded.email && decoded.given_name) {
-  //       setUser({
-  //         email: decoded.email,
-  //         given_name: decoded.given_name,
-  //         nickname:decoded.nickname
-  //       });
-  //     }
-  //   }
-  // }, []);
 
 
   const {user} = useAuth();
-    const email = user?.email;
+  const email = user?.email;
 
 
   if (!email) {

@@ -8,13 +8,13 @@ import MySellRequest from './MySellRequest';
 import { useAuth } from '@/hooks/useAuth';
 //import MyHistory from './MyHistory';
 
-interface User {
-  email: string;
-  given_name: string;
-  name:string;
-}
+// interface User {
+//   email: string;
+//   given_name: string;
+//   name:string;
+// }
 
-export default function ProfileLayout({ user }: { user: User }) {
+export default function ProfileLayout({ user }: { user: string }) {
   const [activeTab, setActiveTab] = useState('profile');
 
   const tabs = [
@@ -35,7 +35,7 @@ export default function ProfileLayout({ user }: { user: User }) {
   <div>
     <div className="mb-6 p-2">
       <h2 className="text-xl font-bold text-gray-800">User Dashboard</h2>
-      <p className="text-sm text-gray-500">Welcome, {user.given_name}</p>
+      <p className="text-sm text-gray-500">Welcome, {user}</p>
     </div>
 
     <nav className="space-y-1">
@@ -79,10 +79,10 @@ export default function ProfileLayout({ user }: { user: User }) {
 
           {/* Uncomment when ready */}
          <div className="bg-gray-50 rounded-xl p-4 md:p-6 min-h-[500px]">
-          {activeTab === 'profile' && <ProfileDetails user={user.email} />} 
-            {activeTab === 'requests' && <MyRequests user={user} />}
-             {activeTab === 'hirerequests' && <HireRequests user={user.email} />}
-             {activeTab === 'mysellrequest' && <MySellRequest user={user} />}
+          {activeTab === 'profile' && <ProfileDetails user={user} />} 
+            {/* {activeTab === 'requests' && <MyRequests user={user} />} */}
+             {activeTab === 'hirerequests' && <HireRequests user={user} />}
+             {/* {activeTab === 'mysellrequest' && <MySellRequest user={user} />} */}
           {/* {activeTab === 'history' && <MyHistory user={user} />} */}
           {/*     {activeTab === 'mysellrequest' && <MySellRequest userName={user.given_name} />}
              */}
