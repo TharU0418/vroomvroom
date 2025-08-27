@@ -258,7 +258,7 @@ const consultationData = [
     id: 1,
     title: "Full Consultation",
     path: "/consultation/full-consultation",
-    image: "/consultant1.jpg",
+    image: "/consultant1.webp",
     description: "Complete vehicle consultation program that helps you through every step—from finding the right car to registration, leasing, and insurance. Backed by a highly experienced team."
   },
   {
@@ -279,7 +279,7 @@ const consultationData = [
     id: 4,
     title: "Leasing Consultation",
     path: "/consultation/leasing-consultation",
-    image: "/consultant4.webp",
+    image: "/consultant4.jpg",
     description: "Helps you find the best vehicle lease options tailored to your needs and budget. Our experienced team compares plans and explains terms for transparent leasing solutions."
   }
 ];

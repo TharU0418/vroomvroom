@@ -82,7 +82,7 @@ const [isVisible, setIsVisible] = useState(false);
           className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
-  src="/hire1.jpg"
+  src="/hire5.jpg"
  fill
   alt="One time driver booking image"
   className="w-full h-full object-cover" 
@@ -118,7 +118,7 @@ src="/hire2.jpg"
           <div onClick={() => router.push(`/hire/drink-drive?mode=lady`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
- src="/hire3.jpg"
+ src="/hire6.jpg"
   fill
   alt="Drink and drive safe return service image"
   className="w-full h-full object-cover" 
