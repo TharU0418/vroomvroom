@@ -37,7 +37,7 @@ const router = useRouter();
       const [notificationMessage, setNotificationMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const searchParams = useSearchParams();
-    const mode = searchParams.get('mode');
+const mode = searchParams ? searchParams.get('mode') : null;
 
     useEffect(() => {
   if (mode === 'lady') {
