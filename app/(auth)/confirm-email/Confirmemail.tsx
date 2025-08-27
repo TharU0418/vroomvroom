@@ -70,14 +70,19 @@ export default function ConfirmEmail() {
       if (!res.ok) throw new Error(data.message || 'Verification failed');
 
       router.push('/sign');
-    } catch (err: any) {
-      const errMsg = err.message || 'An unexpected error occurred.';
-      setError(errMsg);
+    } catch (err: unknown) {
+  let errMsg = 'An unexpected error occurred.';
 
-      if (errMsg.toLowerCase().includes('resend') || errMsg.toLowerCase().includes('too many')) {
-        setResendAllowed(true);
-      }
-    } finally {
+  if (err instanceof Error) {
+    errMsg = err.message;
+  }
+
+  setError(errMsg);
+
+  if (errMsg.toLowerCase().includes('resend') || errMsg.toLowerCase().includes('too many')) {
+    setResendAllowed(true);
+  }
+} finally {
       setIsLoading(false);
     }
   };
@@ -101,9 +106,16 @@ export default function ConfirmEmail() {
       setResendMessage('Verification code resent successfully.');
       setResendAllowed(false);
       setResendCooldown(60); // 60 seconds cooldown
-    } catch (err: any) {
-      setError(err.message || 'Could not resend verification code.');
-    } finally {
+    } catch (err: unknown) {
+  let errMsg = 'Could not resend verification code.';
+
+  if (err instanceof Error) {
+    errMsg = err.message;
+  }
+
+  setError(errMsg);
+}
+ finally {
       setIsLoading(false);
     }
   };
