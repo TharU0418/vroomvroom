@@ -19,7 +19,6 @@ interface FormData {
 
 function OnedayDriver() {
 
-const [typeSet, setTypeSet] = useState('long-term'); // Set default value to 'full-day'
 
  const [formData, setFormData] = useState<FormData>({
   userId: '',
