@@ -52,7 +52,7 @@ const ForgetPassword = () => {
     setMessage('');
 
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_API_URL_RESET_PASSWORD, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RESET_PASSWORD}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
