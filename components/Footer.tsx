@@ -13,7 +13,9 @@ const Footer = () => {
      { title: 'Hire', path: '/hire' },
     // { title: 'Buy', path: '/buy' },
     //{ title: 'Sell', path: '/sell' },
+    { title: 'Lady Driver', path: '/ladycab' },
     { title: 'Consultation', path: '/consultation' },
+    
   ];
 
   const socialLinks = [

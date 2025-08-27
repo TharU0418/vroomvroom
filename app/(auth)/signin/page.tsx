@@ -57,8 +57,6 @@ const [notificationMessage, setNotificationMessage] = useState('');
   console.log('data', data)
   console.log('credentials', data.tokens)
   console.log('credentials', data.tokens)
-
- 
   
 
   router.push('/');

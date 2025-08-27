@@ -91,22 +91,24 @@ const HeroSlider = () => {
             index === activeSlide ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
+          <div className=" inset-0 bg-gradient-to-r from-black/60 to-transparent" />
+          
           <Image
-            src={`/hero-${index + 1}.webp`} // Replace with your image paths
-            alt='title'
-            className="absolute inset-0 w-full h-full object-cover"
-             width={250} // replace with your actual image width
-            height={150}
-          />
-<div className="relative z-10 w-[90%] ml-4 p-4 text-white bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border 
+  src={`/hero-${index + 1}.webp`}
+  alt="title"
+  className="absolute w-full object-cover"
+  fill // Automatically sizes image to its container
+  priority // Optional: prioritize this image for faster loading
+/>
+
+<div className="relative z-10 w-[90%] ml-4 p-4 text-white bg-white bg-opacity-40 backdrop-blur-lg rounded-xl shadow-lg border 
                 md:ml-40 md:p-6 md:w-auto max-w-6xl">
             <div className="space-y-6">
               {/* <h2 className="text-5xl font-bold leading-tight">{slide.title}</h2> */}
-              <h2 className="text-2xl md:text-3xl font-bold leading-tight">{slide.title}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight text-black">{slide.title}</h2>
 
               {/* <p className="text-xl max-w-2xl">{slide.description}</p> */}
-              <p className="text-s md:text-xl max-w-2xl">{slide.description}</p>
+              <p className="text-s md:text-xl max-w-2xl text-black">{slide.description}</p>
 
               <Link href={slide.path}>
                 {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors mt-4">

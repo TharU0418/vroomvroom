@@ -11,7 +11,6 @@ const emailFromQuery = searchParams?.get('email') || '';
 
   const [formData, setFormData] = useState({
     firstName: '',
-    lastName: '',
     email: emailFromQuery,
     mobileNumber: '',
     location: '',
@@ -25,6 +24,8 @@ const emailFromQuery = searchParams?.get('email') || '';
   const [passwordError, setPasswordError] = useState('');
   const router = useRouter();
   const mobileNumberPattern = /^07\d{8}$/;
+const [showPassword, setShowPassword] = useState(true);
+const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
   useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
 
@@ -111,34 +112,52 @@ const emailFromQuery = searchParams?.get('email') || '';
               className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
               placeholder="Enter your mobile number"
               required
+              maxLength={10}
               onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
             />
           </div>
 
-          <div>
-            <label className="block text-black mb-1">Password</label>
-            <input
-              type="password"
-              className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-              placeholder="Enter your password"
-              required
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            />
-            {passwordError && (
-              <p className="text-red-600 text-xs mt-1">{passwordError}</p>
-            )}
-          </div>
+         <div className="relative">
+  <label className="block text-black mb-1">Password</label>
+  <input
+    type={showPassword ? 'text' : 'password'}
+    className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black pr-10"
+    placeholder="Enter your password"
+    required
+    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+  />
+  <button
+    type="button"
+    className="absolute right-3 top-10 transform -translate-y-1/2 text-gray-500"
+    onClick={() => setShowPassword(!showPassword)}
+    tabIndex={-1}
+  >
+    {showPassword ? '🙈' : '👁️'}
+  </button>
+  {passwordError && (
+    <p className="text-red-600 text-xs mt-1">{passwordError}</p>
+  )}
+</div>
 
-          <div>
-            <label className="block text-black mb-1">Confirm Password</label>
-            <input
-              type="password"
-              className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-              placeholder="Confirm your password"
-              required
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-            />
-          </div>
+<div className="relative">
+  <label className="block text-black mb-1">Confirm Password</label>
+  <input
+    type={showConfirmPassword ? 'text' : 'password'}
+    className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black pr-10"
+    placeholder="Confirm your password"
+    required
+    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+  />
+  <button
+    type="button"
+    className="absolute right-3 top-10 transform -translate-y-1/2 text-gray-500"
+    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+    tabIndex={-1}
+  >
+    {showConfirmPassword ? '🙈' : '👁️'}
+  </button>
+</div>
+
 
           <div className="flex items-center">
             <input
@@ -155,7 +174,7 @@ const emailFromQuery = searchParams?.get('email') || '';
           <div className="flex justify-center">
             <p className="text-black text-sm">
               Already have an account?{' '}
-              <Link href="/signin" className="text-red-700 hover:underline">
+              <Link href="/sign" className="text-red-700 hover:underline font-bold">
                 Sign In
               </Link>
             </p>

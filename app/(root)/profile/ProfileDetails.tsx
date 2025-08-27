@@ -69,17 +69,17 @@ console.log('currentUser', users[0])
           return (
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-600">First Name</label>
+                <label className="text-sm font-medium text-gray-600">Full Name</label>
                 <p className="mt-1 p-2 bg-gray-50 rounded">
                   {displayValue(users[0].firstName)}
                 </p>
               </div>
-              <div>
+              {/* <div>
                 <label className="text-sm font-medium text-gray-600">Last Name</label>
                 <p className="mt-1 p-2 bg-gray-50 rounded">
                   {displayValue(users[0].lastName)}
                 </p>
-              </div>
+              </div> */}
               <div>
                 <label className="text-sm font-medium text-gray-600">Email</label>
                 <p className="mt-1 p-2 bg-gray-50 rounded">
@@ -92,12 +92,12 @@ console.log('currentUser', users[0])
                   {displayValue(users[0].mobileNumber)}
                 </p>
               </div>
-              <div>
+              {/* <div>
                 <label className="text-sm font-medium text-gray-600">Location</label>
                 <p className="mt-1 p-2 bg-gray-50 rounded">
                   {displayValue(users[0].location)}
                 </p>
-              </div>
+              </div> */}
               <div>
                 {/* <button
                   onClick={() => alert("Edit functionality goes here")}

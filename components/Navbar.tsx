@@ -329,6 +329,7 @@ const Navbar = () => {
     // { title: 'Rent', path: '/rent' },
     { title: 'Home', path: '/' },
     { title: 'Hire a Driver', path: '/hire' },
+    { title: 'Lady Driver', path: '/ladycab' },
     { title: 'Consultations', path: '/consultation' },
     { title: 'About Us', path: '/about' }
   ];

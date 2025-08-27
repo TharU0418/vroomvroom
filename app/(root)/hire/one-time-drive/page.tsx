@@ -2,7 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, {  useEffect, useRef, useState } from 'react';
 
 interface FormData {
@@ -30,11 +30,25 @@ function OneTimeDrive() {
     status:'pending'
   });
 
+
+  
 const router = useRouter();
   const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    
+    const searchParams = useSearchParams();
+    const mode = searchParams.get('mode');
+
+    useEffect(() => {
+  if (mode === 'lady') {
+    setFormData(prev => ({
+      ...prev,
+      type: 'lady-one-time'
+    }));
+  }
+}, [mode]);
+
+    console.log('mode', mode);
   
       const Notification = () => (
         <div className="fixed bottom-4 right-4 z-50">
@@ -66,7 +80,7 @@ const router = useRouter();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ ...formData, type: 'one-time',status:'pending', userId: user?.email }),
+body: JSON.stringify({ ...formData, status:'pending', userId: user?.email }),
       });
 
       if (!res.ok) {
@@ -75,7 +89,15 @@ body: JSON.stringify({ ...formData, type: 'one-time',status:'pending', userId: u
       }
   setNotificationMessage(`Request registered successfully!`);
       setShowNotification(true);
-                router.push('/hire');
+
+      // Redirect conditionally based on mode
+if (mode === 'lady') {
+  router.push('/ladycab');
+} else {
+  router.push('/hire');
+}
+
+           
 
       // Hide notification after 3 seconds
       setTimeout(() => setShowNotification(false), 5000);
@@ -197,6 +219,7 @@ body: JSON.stringify({ ...formData, type: 'one-time',status:'pending', userId: u
               required
             />
           </div>
+
 
           {/* Only show the button if the user is logged in */}
             {user ? (

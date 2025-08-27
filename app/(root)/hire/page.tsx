@@ -77,7 +77,10 @@ const [isVisible, setIsVisible] = useState(false);
       
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 justify-center">
           {/* Card 1 */}
-          <div onClick={() => router.push(`/hire/one-time-drive`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
+          <div 
+          onClick={() => router.push(`/hire/one-time-drive`)} 
+          
+          className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
   src="/hire1.jpg"
@@ -143,25 +146,12 @@ src="/hire2.jpg"
               </div>
             </div>
           </div>
+
+           
         </div>
-        {/* New Hiring Section */}
-        <div className="glass-container bg-gradient-to-r from-red-600 to-red-800 rounded-xl p-6 mt-12 border border-red-300 border-opacity-50">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">We are Hiring Drivers!</h2>
-              <p className="text-blue-100 max-w-2xl">
-                Join our team of professional drivers. Earn competitive pay with flexible hours,
-                comprehensive training, and the freedom to set your own schedule. No experience required!
-              </p>
-            </div>
-            <button
-              onClick={() => router.push('/careers')}
-              className="bg-white text-red-600 font-bold py-3 px-8 rounded-full hover:bg-red-100 transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
+
+        
+      
     
       </div>
       </div>

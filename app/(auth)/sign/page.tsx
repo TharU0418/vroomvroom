@@ -16,7 +16,8 @@ export default function Sign() {
       });
          const [showNotification, setShowNotification] = useState(false);
         const [notificationMessage, setNotificationMessage] = useState('');
-        
+        const [showPassword, setShowPassword] = useState(false);
+
             useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
 
   //const [input, setInput] = useState('');
@@ -32,29 +33,29 @@ export default function Sign() {
       credentials: 'include',
     });
 
+const data = await res.json();
 
-    const data = await res.json();
-    const { email } = data;
-
-localStorage.setItem('userEmail', email);
-     // localStorage.setItem('userName', name);
-      // Then redirect
-      router.push('/');
-
+    
   if (!res.ok){
+    console.log('data',data.message)
     setNotificationMessage(data.message);
   setShowNotification(true);
   setTimeout(() => setShowNotification(false), 5000);
    }
 
           
-  if (!res.ok) throw new Error(data.error || 'Login failed');
+  if (!res.ok) throw new Error(data.message);
 
+    const { email } = data;
+
+localStorage.setItem('userEmail', email);
+     // localStorage.setItem('userName', name);
+      // Then redirect
+      
 
  
-  
 
- // router.push('/');
+  router.push('/');
 } catch (err) {
   const message = err instanceof Error ? err.message : 'Unknown error';
   setNotificationMessage(message);
@@ -120,20 +121,39 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
           placeholder="Enter your email"
           className="w-full p-3 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
         />
-        <input
-          type="password"
-        //  value={input}
-          required
-                  onChange={(e) => setFormData({...formData, password: e.target.value})}
-          placeholder="Enter your password"
-          className="w-full p-3 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-        />
+        <div className="relative">
+  <label className="block text-black mb-1">Password</label>
+  <input
+    type={showPassword ? 'text' : 'password'}
+    className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black pr-10"
+    placeholder="Enter your password"
+    required
+    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+  />
+  <button
+    type="button"
+    className="absolute right-3 top-12 transform -translate-y-1/2 text-gray-500"
+    onClick={() => setShowPassword(!showPassword)}
+    tabIndex={-1}
+  >
+    {showPassword ? '🙈' : '👁️'}
+  </button>
+  
+</div>
+
 
         <button 
         onClick={handleSubmit}
         className="w-full bg-red-700 text-white py-3 rounded-md text-sm font-semibold hover:opacity-90 transition">
           Sign In
         </button>
+
+        <p className="text-black  text-sm font-medium">
+                Forgot Password  <Link href="reset">
+               
+                  <span className='text-red-700 font-bold'>Reset</span>
+              </Link>
+              </p> 
 
         <div className="relative text-center my-4">
           <div className="absolute inset-0 flex items-center">

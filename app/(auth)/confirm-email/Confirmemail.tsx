@@ -7,20 +7,36 @@ export default function ConfirmEmail() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  //const [timer, setTimer] = useState(60);
   const [error, setError] = useState('');
-  //const [success, setSuccess] = useState(false);
+  const [resendMessage, setResendMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [resendAllowed, setResendAllowed] = useState(true);
+  const [resendCooldown, setResendCooldown] = useState(0);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const router = useRouter();
 
+  // Get email from query params
   useEffect(() => {
     const paramEmail = searchParams?.get('email') ?? '';
     setEmail(paramEmail);
   }, [searchParams]);
 
+  // Countdown timer for resend cooldown
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (resendCooldown > 0) {
+      interval = setInterval(() => {
+        setResendCooldown((prev) => prev - 1);
+      }, 1000);
+    } else {
+      setResendAllowed(true);
+    }
+    return () => clearInterval(interval);
+  }, [resendCooldown]);
+
+  // Handle OTP input changes
   const handleChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return; // Only allow digits
+    if (!/^\d*$/.test(value)) return;
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -35,12 +51,13 @@ export default function ConfirmEmail() {
     }
   };
 
+  // Submit verification code
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
+    setResendMessage('');
     const code = otp.join('');
-    console.log(email, code)
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_VERIFY}`, {
@@ -50,20 +67,42 @@ export default function ConfirmEmail() {
       });
 
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Verification failed');
 
-      if (!res.ok) throw new Error(data.error || 'Verification failed');
+      router.push('/sign');
+    } catch (err: any) {
+      const errMsg = err.message || 'An unexpected error occurred.';
+      setError(errMsg);
 
-      if (data === 'Invalid code') {
-        setError('Invalid verification code. Please try again.');
-        //setSuccess(false);
-      } else {
-        //setSuccess(true);
-        router.push('/auth/signin');
+      if (errMsg.toLowerCase().includes('resend') || errMsg.toLowerCase().includes('too many')) {
+        setResendAllowed(true);
       }
-    } catch (err) {
-      console.error(err);
-      setError('An unexpected error occurred. Please try again.');
-      //setSuccess(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Resend verification code
+  const handleResend = async () => {
+    setIsLoading(true);
+    setError('');
+    setResendMessage('');
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_VERIFY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, resend: true }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Resend failed');
+
+      setResendMessage('Verification code resent successfully.');
+      setResendAllowed(false);
+      setResendCooldown(60); // 60 seconds cooldown
+    } catch (err: any) {
+      setError(err.message || 'Could not resend verification code.');
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +122,9 @@ export default function ConfirmEmail() {
             {otp.map((digit, i) => (
               <input
                 key={i}
-                ref={(el) => {inputRefs.current[i] = el;}}
+                ref={(el) => {
+                  inputRefs.current[i] = el;
+                }}
                 maxLength={1}
                 className="w-12 h-12 text-xl text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                 value={digit}
@@ -94,6 +135,7 @@ export default function ConfirmEmail() {
           </div>
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
+          {resendMessage && <p className="text-green-600 text-sm">{resendMessage}</p>}
 
           <button
             type="submit"
@@ -104,8 +146,14 @@ export default function ConfirmEmail() {
           </button>
         </form>
 
-        <button className="text-sm text-gray-600 hover:underline mt-2">
-          Login with email
+        <button
+          className="text-sm text-gray-600 hover:underline mt-2 disabled:opacity-50"
+          onClick={handleResend}
+          disabled={!resendAllowed}
+        >
+          {resendAllowed
+            ? 'Resend the verification code'
+            : `You can resend in ${resendCooldown}s`}
         </button>
       </div>
     </div>

@@ -10,11 +10,24 @@ import Link from 'next/link';
 export default function LoginPage() {
   const [input, setInput] = useState('');
   const router = useRouter();
+    const [message, setMessage] = useState('');
+  
   useRouteGuard({ redirectIfAuth: true, redirectTo: '/' });
   
 
   const handleContinue = () => {
-    if (!input.trim()) return;
+    setMessage('');
+    const trimmedEmail = input.trim();
+
+    // Basic email format validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+      setMessage('Please enter a valid email address.');
+    return;
+  }
+
+   // if (!input.trim()) return;
     router.push(`/signup?email=${encodeURIComponent(input.trim())}`);
   };
 
@@ -54,11 +67,12 @@ export default function LoginPage() {
         </h2>
 
         <input
-          type="text"
+          type="email"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter your email"
           className="w-full p-3 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
+          required
         />
 
         <button 
@@ -66,6 +80,12 @@ export default function LoginPage() {
         className="w-full bg-red-700 text-white py-3 rounded-md text-sm font-semibold hover:opacity-90 transition">
           Continue
         </button>
+
+        {message && (
+          <div className={`mt-6 p-4 rounded-lg text-center ${message.includes('successfully') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {message}
+          </div>
+        )}
 
         <div className="relative text-center my-4">
           <div className="absolute inset-0 flex items-center">

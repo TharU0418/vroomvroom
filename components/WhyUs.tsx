@@ -36,14 +36,14 @@ export default function WhyChooseUs() {
         {/* Left side - two images */}
         <div className="md:col-span-2 flex flex-col gap-4">
           <Image
-            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            src="/home2.webp" 
             alt="Product 1"
             width={500}
             height={300}
             className="rounded-xl object-cover w-full h-auto"
           />
           <Image
-            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            src="/home1.webp" 
             alt="Product 2"
             width={500}
             height={300}
