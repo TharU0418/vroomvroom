@@ -10,7 +10,7 @@ const Footer = () => {
   
   const menuItems = [
     // { title: 'Rent', path: '/rent' },
-     { title: 'Hire', path: '/hire' },
+     { title: 'Hire a Driver', path: '/hire' },
     // { title: 'Buy', path: '/buy' },
     //{ title: 'Sell', path: '/sell' },
     { title: 'Lady Driver', path: '/ladycab' },

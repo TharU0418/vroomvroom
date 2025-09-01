@@ -62,17 +62,16 @@ export default function About() {
           <div>
             <h2 className="text-4xl font-bold mb-6">OUR <span className="text-red-600">STORY</span></h2>
             <p className="text-gray-600 mb-6">
-              Founded in 2010, Drive Elite began with a simple mission: to transform the way people rent, buy, and experience cars. 
-              What started as a small fleet of 10 premium vehicles has grown into one of the most trusted names in the industry.
+              Vroom Vroom is a trusted, professional service provider specializing in comprehensive vehicle consultancy, 
+              flexible driver hire (available for both short- and long-term durations), and responsible transportation solutions 
+              tailored for individuals who may be under the influence and unable to drive safely.
+
             </p>
             <p className="text-gray-600 mb-6">
-              Our commitment to quality, customer satisfaction, and innovation has driven our growth. Today, we offer a diverse 
-              range of vehicles from economy to luxury, along with professional chauffeur services for every occasion.
+              Our mission is to ensure every journey is smooth, safe, and stress-free by delivering reliable, customer-focused vehicle support services. We pride ourselves on our punctuality, discretion, and commitment to client safety. For added comfort and choice, we also offer dedicated lady driver services, ideal for clients who feel more at ease with a female chauffeur—ensuring a personalized and respectful travel experience for all.
+
             </p>
-            <p className="text-gray-600 mb-8">
-              At Drive Elite, we believe in more than just providing transportation. We create experiences, build relationships, 
-              and deliver peace of mind to every customer who chooses us.
-            </p>
+            
             <div className="flex space-x-4">
               {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
                 Our Fleet
@@ -155,7 +154,7 @@ export default function About() {
       </div>
 
       {/* Team Section */}
-      <div className="py-20 bg-white">
+      {/* <div className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">MEET OUR <span className="text-red-600">TEAM</span></h2>
@@ -178,14 +177,14 @@ export default function About() {
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-bold mb-1">{member.name}</h3>
                   <p className="text-red-600 mb-4">{member.role}</p>
-                  <div className="flex justify-center space-x-4">
+                  <div className="flex justify-center space-x-4"> */}
                     {/* <a href="#" className="text-gray-600 hover:text-red-600">
                       <span className="sr-only">Twitter</span>
                       <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                       </svg>
                     </a> */}
-                    <a href="#" className="text-gray-600 hover:text-red-600">
+                    {/* <a href="#" className="text-gray-600 hover:text-red-600">
                       <span className="sr-only">LinkedIn</span>
                       <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -197,7 +196,7 @@ export default function About() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* CTA Section */}
       {/* <div className="py-20 bg-red-600 text-white">

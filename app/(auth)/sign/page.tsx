@@ -37,7 +37,7 @@ const data = await res.json();
 
     
   if (!res.ok){
-    console.log('data',data.message)
+    console.log('data',data)
     setNotificationMessage(data.message);
   setShowNotification(true);
   setTimeout(() => setShowNotification(false), 5000);
@@ -122,7 +122,6 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
           className="w-full p-3 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
         />
         <div className="relative">
-  <label className="block text-black mb-1">Password</label>
   <input
     type={showPassword ? 'text' : 'password'}
     className="w-full p-2.5 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-black pr-10"
@@ -151,7 +150,7 @@ const handleLogin = async (credentialResponse: CredentialResponse) => {
         <p className="text-black  text-sm font-medium">
                 Forgot Password  <Link href="reset">
                
-                  <span className='text-red-700 font-bold'>Reset</span>
+                  <span className='text-red-700 font-bold'>Reset Password</span>
               </Link>
               </p> 
 

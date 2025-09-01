@@ -56,7 +56,7 @@ const [isVisible, setIsVisible] = useState(false);
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-red-600">Lady Cab Driver</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-            Expert guidance for all your vehicle needs - from selection to registration
+            Find a professional lady driver for Safe, reliable, and convenient driving services tailored to your needs.
           </p>
           {/* <div className="flex space-x-4">
             <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">

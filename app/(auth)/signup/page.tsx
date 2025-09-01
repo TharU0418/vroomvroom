@@ -13,7 +13,7 @@ const emailFromQuery = searchParams?.get('email') || '';
     firstName: '',
     email: emailFromQuery,
     mobileNumber: '',
-    location: '',
+   // location: '',
     password: '',
     confirmPassword: '',
     terms: false,
@@ -58,15 +58,21 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(true);
         body: JSON.stringify(formData),
       });
 
+      console.log('formData:', formData); // Debugging line
+
       const data = await res.json();
 
+      console.log('data:', data); // Debugging line
 
       if (!res.ok) {
+              console.log('data:', data); // Debugging line
+
         throw new Error(data.error || 'Something went wrong');
       }
 
       alert('User registered successfully!');
-      router.push(`/confirm-email?email=${encodeURIComponent(formData.email)}`);
+      //router.push(`/confirm-email?email=${encodeURIComponent(formData.email)}`);
+      router.push('/sign')
 
     } catch (error: unknown) {
       if (error instanceof Error) {

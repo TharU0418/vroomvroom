@@ -37,7 +37,9 @@ const ForgetPassword = () => {
       if (data.success) {
         setStep('confirm');
         setMessage(data.message);
-      } else {
+      } else if(data.message == 'Cannot reset password for the user as there is no registered/verified email or phone_number'){
+       setMessage('Please accept the user guidelines first that send on your registered email');
+    }else {
         setMessage(data.message || 'Something went wrong');
       }
     } catch (err) {
