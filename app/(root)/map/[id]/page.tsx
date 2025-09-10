@@ -1,4 +1,5 @@
 'use client';
+
 import { useAuth } from "@/hooks/useAuth";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -23,21 +24,14 @@ export interface RequestsCard {
   reason: string;
 }
 
-interface PageProps {
-  params: {
-    id: string
-  }
-}
-
-
-function MyLocation({ params }: PageProps) {
+export default function Page({ params }: { params: { id: string } }) {
   const [tracking, setTracking] = useState<boolean>(false);
   const [locations, setLocations] = useState<Location[]>([]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [hireRequest, setHireRequest] = useState<RequestsCard | null>(null);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
-    const email = user?.email;
+  const email = user?.email;
 
   useEffect(() => {
     const fetchHireRequest = async () => {
@@ -55,7 +49,7 @@ function MyLocation({ params }: PageProps) {
     };
 
     fetchHireRequest();
-  }, []);
+  }, [params.id]);
 
   const sendLocationToAPI = async (location: Location) => {
     try {
@@ -68,8 +62,8 @@ function MyLocation({ params }: PageProps) {
           ...location,
           hireRequestId: params.id,
           driverId: user?.id,
-          userId:email,
-          rideId:params.id,
+          userId: email,
+          rideId: params.id,
         }),
       });
 
@@ -108,7 +102,7 @@ function MyLocation({ params }: PageProps) {
     if (tracking) return;
     setTracking(true);
     getLocation();
-    intervalRef.current = setInterval(getLocation, 2 * 60 * 1000);
+    intervalRef.current = setInterval(getLocation, 2 * 60 * 1000); // every 2 minutes
   };
 
   const stopRide = () => {
@@ -139,11 +133,11 @@ function MyLocation({ params }: PageProps) {
     <div className="min-h-screen bg-gray-900 text-white p-6">
       <div className="max-w-4xl mx-auto pt-20">
         <h1 className="text-3xl font-bold mb-8 text-center text-red-500">Ride Tracking</h1>
-        
+
         {/* Hire Request Card */}
         <div className="bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border-l-4 border-red-500">
           <h2 className="text-2xl font-semibold mb-4 text-white">Hire Request Details</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <div className="flex">
@@ -159,7 +153,7 @@ function MyLocation({ params }: PageProps) {
                 <span className="text-white">{new Date(hireRequest.returnDate).toLocaleDateString()}</span>
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <div className="flex">
                 <span className="text-gray-400 w-32">Pickup Time:</span>
@@ -172,7 +166,7 @@ function MyLocation({ params }: PageProps) {
               <div className="flex">
                 <span className="text-gray-400 w-32">Status:</span>
                 <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                  hireRequest.status === 'approved' ? 'bg-green-500' : 
+                  hireRequest.status === 'approved' ? 'bg-green-500' :
                   hireRequest.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
                 }`}>
                   {hireRequest.status}
@@ -180,7 +174,7 @@ function MyLocation({ params }: PageProps) {
               </div>
             </div>
           </div>
-          
+
           {hireRequest.message && (
             <div className="mt-4 pt-4 border-t border-gray-700">
               <span className="text-gray-400 block mb-2">Message:</span>
@@ -192,36 +186,32 @@ function MyLocation({ params }: PageProps) {
         {/* Tracking Controls */}
         <div className="bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-6 text-white">Location Tracking</h2>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button 
-              onClick={startRide} 
+            <button
+              onClick={startRide}
               disabled={tracking}
               className={`px-6 py-3 rounded-lg font-semibold text-white transition-all ${
-                tracking 
-                  ? 'bg-gray-600 cursor-not-allowed' 
-                  : 'bg-red-600 hover:bg-red-700'
+                tracking ? 'bg-gray-600 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'
               }`}
             >
               {tracking ? 'Tracking in Progress' : 'Start Ride Tracking'}
             </button>
-            
-            <button 
-              onClick={stopRide} 
+
+            <button
+              onClick={stopRide}
               disabled={!tracking}
               className={`px-6 py-3 rounded-lg font-semibold text-white transition-all ${
-                !tracking 
-                  ? 'bg-gray-600 cursor-not-allowed' 
-                  : 'bg-gray-700 hover:bg-gray-600'
+                !tracking ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'
               }`}
             >
               Stop Tracking
             </button>
           </div>
-          
+
           <p className="text-center text-gray-400 mt-4">
-            {tracking 
-              ? 'Tracking your location every 2 minutes' 
+            {tracking
+              ? 'Tracking your location every 2 minutes'
               : 'Click "Start Ride Tracking" to begin'}
           </p>
         </div>
@@ -229,7 +219,7 @@ function MyLocation({ params }: PageProps) {
         {/* Location History */}
         <div className="bg-gray-800 rounded-xl shadow-lg p-6">
           <h2 className="text-2xl font-semibold mb-4 text-white">Location History</h2>
-          
+
           {locations.length === 0 ? (
             <p className="text-gray-400 text-center py-4">No location data recorded yet</p>
           ) : (
@@ -263,5 +253,3 @@ function MyLocation({ params }: PageProps) {
     </div>
   );
 }
-
-export default MyLocation;
