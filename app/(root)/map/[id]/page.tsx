@@ -1,5 +1,4 @@
 import Location from '@/components/Location';
-import React from 'react'
 
 interface PageProps {
   params: {
@@ -7,10 +6,7 @@ interface PageProps {
   };
 }
 
-function page({params} : PageProps) {
-  return (
-    <Location params={params}/>
-  )
+// ✅ Capitalized function name and typed server component
+export default function Page({ params }: PageProps) {
+  return <Location params={params} />;
 }
-
-export default page
