@@ -1,4 +1,4 @@
-import MyLocation from '@/components/MyLOcation'
+import Location from '@/components/Location';
 import React from 'react'
 
 interface PageProps {
@@ -9,7 +9,7 @@ interface PageProps {
 
 function page({params} : PageProps) {
   return (
-    <MyLocation params={params}/>
+    <Location params={params}/>
   )
 }
 
