@@ -15,6 +15,7 @@ interface FormData {
   message: string;
   type: string;  // Set 'full-day' type in the interface
   status:string;
+  driverStatus:string;
 }
 
 function DrinkDrive() {
@@ -29,7 +30,8 @@ function DrinkDrive() {
   pickupLocation: '',
   message: '',
   type: 'drinkdrive',  // Set default type value to 'full-day'
-  status:'pending'
+  status:'pending',
+  driverStatus:'not_assigned'
 });
 
 const router = useRouter();

@@ -15,6 +15,7 @@ interface FormData {
   message: string;
   type: string;  // Set 'full-day' type in the interface
   status:string,
+  driverStatus:string
 }
 
 function OnedayDriver() {
@@ -28,7 +29,8 @@ function OnedayDriver() {
   pickupLocation: '',
   message: '',
   type: 'long-term',  // Set default type value to 'full-day'
-  status:'pending'
+  status:'pending',
+  driverStatus:'not_assigned'
 });
 
 
