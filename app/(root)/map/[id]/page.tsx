@@ -11,7 +11,7 @@
 //   return <Location params={params} />;
 // }
 
-import { type Metadata } from 'next';
+//import { type Metadata } from 'next';
 import Location from '@/components/Location';
 
 type PageProps = {
