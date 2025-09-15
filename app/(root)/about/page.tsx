@@ -62,14 +62,24 @@ export default function About() {
           <div>
             <h2 className="text-4xl font-bold mb-6">OUR <span className="text-red-600">STORY</span></h2>
             <p className="text-gray-600 mb-6">
-              Vroom Vroom is a trusted, professional service provider specializing in comprehensive vehicle consultancy, 
-              flexible driver hire (available for both short- and long-term durations), and responsible transportation solutions 
-              tailored for individuals who may be under the influence and unable to drive safely.
+              VroomVroom is more than just a name—it’s a movement. As a trusted automotive marketplace and mobility partner, we bring together a full spectrum of vehicle-related services under one roof. From buying your next car online to finding a reliable driver for the night, we’re here to make every part of your automotive journey seamless, smart, and stress-free.
 
             </p>
             <p className="text-gray-600 mb-6">
-              Our mission is to ensure every journey is smooth, safe, and stress-free by delivering reliable, customer-focused vehicle support services. We pride ourselves on our punctuality, discretion, and commitment to client safety. For added comfort and choice, we also offer dedicated lady driver services, ideal for clients who feel more at ease with a female chauffeur—ensuring a personalized and respectful travel experience for all.
+At our core, VroomVroom is driven by one mission: to simplify and elevate the vehicle ownership experience through ethical, user-friendly, and transparent solutions. Whether you’re a first-time buyer or a seasoned motorist, we’ve got you covered.
+            </p>
 
+            <p className="text-gray-600 mb-6">
+              Need a driver for a few hours, days, or long-term? We offer reliable, professional drivers on-demand to match your schedule and lifestyle.
+              If you’ve had a few drinks or feel unfit to drive, our discreet pickup service ensures you and your car get home safely—without judgment or compromise.
+              For clients who prefer a female chauffeur, we proudly offer trained, respectful lady drivers to ensure a comfortable, personalized travel experience.
+              Easily search for trusted service providers and genuine spare parts with our reliable platform—saving you time, effort, and uncertainty.
+            </p>
+
+            <p className="text-gray-600 mb-6">
+              At VroomVroom, we’re not just keeping up with the future of mobility—we’re helping shape it. Whether it’s finding the perfect ride, the right driver, or the best parts, we’re your go-to partner for everything on wheels.
+
+Let’s move smarter. Let’s move better. Let’s move with VroomVroom.
             </p>
             
             <div className="flex space-x-4">

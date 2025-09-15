@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import cover1 from '../../../public/cover1.jpg';
+import cover1 from '../../../public/hire-main.png';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Hire() {
@@ -50,24 +50,28 @@ const [isVisible, setIsVisible] = useState(false);
       {/* Full-width banner - optimized for mobile */}
 
        {/* Hero Section */}
-      <div className="relative h-[70vh] bg-black text-white">
-        <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
-<div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
-        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-red-600">Hire a Driver</span></h1>
+      <div className="relative h-[40vh] bg-black text-white">
+       <div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
+        <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Hire a Driver</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-            Expert guidance for all your vehicle needs - from selection to registration
+            Experience the convenience and safety of hiring a professional driver for any occasion. Whether it's a one-time trip, a full-day service, or a long-term arrangement, we've got you covered.
           </p>
-          {/* <div className="flex space-x-4">
-            <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
+          <div className="flex space-x-4">
+            {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
               Our Services
             </button>
             <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition">
               Contact Us
-            </button>
-          </div> */}
+            </button> */}
+          </div>
         </div>
+
+
       </div>
+
+
+
 
     <div className="flex items-center justify-center bg-white p-4">
       

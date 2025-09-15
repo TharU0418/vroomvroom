@@ -5,21 +5,21 @@ import Image from 'next/image';
 const features = [
   {
     id: '01',
-    title: 'Pure Organic',
+    title: 'Your Safty',
     description:
-      'From soothing aloe Vera to revitalizing lavender, each element is handpicked.',
+      'Your safety is our top priority. All our drivers are thoroughly vetted and trained to ensure a secure journey.',
   },
   {
     id: '02',
-    title: 'No Chemicals',
+    title: 'Professional Drivers',
     description:
-      'Reprehenderit esse labore id veniam ut veniam non ex adipisicing amet ullamco.',
+      'Our drivers are experienced, courteous, and knowledgeable about local routes and traffic conditions.',
   },
   {
     id: '03',
-    title: 'Transformative',
+    title: 'Premium Quality Service',
     description:
-      "Experience hair that's not only clean but also deeply nourished and beautifully rejuvenated.",
+      "We pride ourselves on delivering top-notch service, ensuring your ride is comfortable and enjoyable.",
   },
   {
     id: '04',

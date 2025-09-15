@@ -48,15 +48,15 @@ const HeroSlider = () => {
     // },
     {
       id: 5,
-      title: 'Consultations service in Sri Lanka – Fast, Reliable & Safe',
-      description: 'Access detailed reports for any vehicle in our database.',
+      title: 'Consultation services in Sri Lankae',
+      description: 'Have questions about buying, selling, or financing a car? Our experts are here to help.',
       buttonText: 'Book Your Consultations Now',
       path: '/consultation'
     },
     {
       id: 6,
-      title: 'Hire a Professional Lady Driver in Sri Lanka – Fast, Reliable & Safe',
-      description: 'Find trusted, experienced drivers anywhere in Sri Lanka — for tours, daily commutes, airport transfers & more.',
+      title: 'Hire a Professional Lady Driver in Sri Lanka',
+      description: 'Need a safe and reliable ride home',
       buttonText: 'Book Your Driver Now',
       path: 'ladycab'
     }

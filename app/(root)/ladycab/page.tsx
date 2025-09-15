@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import cover1 from '../../../public/cover1.jpg';
+import cover1 from '../../../public/la-hire-main.png';
 import { useEffect, useRef, useState } from 'react';
 
 export default function LadyCab() {
@@ -49,23 +49,22 @@ const [isVisible, setIsVisible] = useState(false);
     <div className="min-h-screen bg-white text-black mt-20">
       {/* Full-width banner - optimized for mobile */}
 
-       {/* Hero Section */}
-      <div className="relative h-[70vh] bg-black text-white">
-        <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
-<div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
-        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-red-600">Lady Cab Driver</span></h1>
+         {/* Hero Section */}
+      <div className="relative h-[40vh] bg-black text-white">
+       <div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
+        <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Lady Cab Driver</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-            Find a professional lady driver for Safe, reliable, and convenient driving services tailored to your needs.
+      Experience the convenience and safety of hiring a professional female driver for any occasion. Whether it's a one-time trip, a full-day service, or a long-term arrangement, we've got you covered.
           </p>
-          {/* <div className="flex space-x-4">
-            <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
+          <div className="flex space-x-4">
+            {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
               Our Services
             </button>
             <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition">
               Contact Us
-            </button>
-          </div> */}
+            </button> */}
+          </div>
         </div>
       </div>
 
@@ -101,7 +100,7 @@ const [isVisible, setIsVisible] = useState(false);
           className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
-src="/hire2.jpg"
+src="/hire7.jpg"
   fill
   alt="Multi-day driver hire image"
   className="w-full h-full object-cover" 
@@ -118,7 +117,7 @@ src="/hire2.jpg"
           <div onClick={() => router.push(`/hire/drink-drive?mode=lady`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
- src="/hire6.jpg"
+ src="/hire8.jpeg"
   fill
   alt="Drink and drive safe return service image"
   className="w-full h-full object-cover" 
@@ -135,7 +134,7 @@ src="/hire2.jpg"
           <div onClick={() => router.push(`/hire/long-term-driver?mode=lady`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
- src="/hire4.jpg"
+ src="/hire6.jpg"
   fill
   alt="Long term driver contract image"
   className="w-full h-full object-cover" 

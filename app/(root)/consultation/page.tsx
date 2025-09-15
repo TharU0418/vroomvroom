@@ -51,13 +51,15 @@ const [isVisible, setIsVisible] = useState(false);
       {/* Full-width banner - optimized for mobile */}
 
       {/* Hero Section */}
-      <div className="relative h-[70vh] bg-black text-white">
+      <div className="relative h-[40vh] bg-black text-white">
         <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
-<div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
-        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-red-600">Consultation Services</span></h1>
+<div style={{ backgroundColor:'bg-red-600' }} className="absolute inset-0 bg-cover bg-center z-0"></div>
+
+{/* <div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div> */}
+        <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Consultation Services</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-            Expert guidance for all your vehicle needs - from selection to registration
+            Expert guidance for all your vehicle needs—from selection to registration, leasing, and insurance.
           </p>
           {/* <div className="flex space-x-4">
             <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
