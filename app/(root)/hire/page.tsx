@@ -55,7 +55,7 @@ const [isVisible, setIsVisible] = useState(false);
         <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Hire a Driver</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-            Experience the convenience and safety of hiring a professional driver for any occasion. Whether it's a one-time trip, a full-day service, or a long-term arrangement, we've got you covered.
+            Experience the convenience and safety of hiring a professional driver for any occasion. Whether it is a one-time trip, a full-day service, or a long-term arrangement, we have got you covered.
           </p>
           <div className="flex space-x-4">
             {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">

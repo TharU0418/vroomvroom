@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
-import cover1 from '../../../public/cover1.jpg';
+//import cover1 from '../../../public/cover1.jpg';
 
 function Guide() {
   const router = useRouter();
