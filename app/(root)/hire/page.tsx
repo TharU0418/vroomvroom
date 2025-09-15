@@ -87,7 +87,7 @@ const [isVisible, setIsVisible] = useState(false);
           className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
-  src="/hire1.jpg"
+  src="/hire1.png"
  fill
   alt="One time driver booking image"
   className="w-full h-full object-cover" 
@@ -104,7 +104,7 @@ const [isVisible, setIsVisible] = useState(false);
           <div onClick={() => router.push(`/hire/full-day-driver`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
-src="/hire2.jpg"
+src="/hire2.jpeg"
   fill
   alt="Multi-day driver hire image"
   className="w-full h-full object-cover" 
@@ -121,7 +121,7 @@ src="/hire2.jpg"
           <div onClick={() => router.push(`/hire/drink-drive`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image 
- src="/hire3.jpg"
+ src="/hire3.jpeg"
   fill
   alt="Drink and drive safe return service image"
   className="w-full h-full object-cover" 
@@ -138,7 +138,7 @@ src="/hire2.jpg"
           <div onClick={() => router.push(`/hire/long-term-driver`)} className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
- src="/hire4.jpg"
+ src="/hire4.png"
   fill
   alt="Long term driver contract image"
   className="w-full h-full object-cover" 

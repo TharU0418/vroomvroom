@@ -23,9 +23,9 @@ const features = [
   },
   {
     id: '04',
-    title: 'Environmentally',
+    title: '24/7 Customer Support',
     description:
-      'We are committed to reducing our carbon footprint. Our packaging is eco-friendly.',
+      'We are here to assist you anytime, anywhere. Our customer support team is available around the clock to address your needs.',
   },
 ];
 

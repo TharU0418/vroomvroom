@@ -270,13 +270,13 @@ const consultationData = [
     image: "/consultant2.webp",
     description: "Expert guidance to help you choose the right insurance plan for your vehicle. We compare options, explain coverage, and ensure you get the best protection at competitive rates."
   },
-  {
-    id: 3,
-    title: "Vehicle Registration Consultation",
-    path: "/consultation/registration-consultation",
-    image: "/consultant3.webp",
-    description: "Expert help with the entire registration process. From documentation to legal compliance, our team ensures your vehicle is properly registered without hassle or delays."
-  },
+  // {
+  //   id: 3,
+  //   title: "Vehicle Registration Consultation",
+  //   path: "/consultation/registration-consultation",
+  //   image: "/consultant3.webp",
+  //   description: "Expert help with the entire registration process. From documentation to legal compliance, our team ensures your vehicle is properly registered without hassle or delays."
+  // },
   {
     id: 4,
     title: "Leasing Consultation",
