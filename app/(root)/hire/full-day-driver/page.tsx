@@ -16,6 +16,7 @@ interface FormData {
   type: string;  // Set 'full-day' type in the interface
   status:'pending';
   driverStatus:string;
+  cab:boolean;
 }
 
 function FullDriver() {
@@ -31,7 +32,8 @@ function FullDriver() {
   message: '',
   type: 'full-day',  // Set default type value to 'full-day',
   status:'pending',
-  driverStatus:'not_assigned'
+  driverStatus:'not_assigned',
+  cab:false
 });
 
 const router = useRouter();
@@ -210,6 +212,20 @@ if (mode === 'lady') {
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
               required
             />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="">Cab</label>
+            <select
+              name="cab"
+              value={formData.cab}
+              onChange={handleChange}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
+              required
+            >
+              <option value="true">With a Cab</option>
+              <option value="false">Without a Cab</option>
+            </select>
           </div>
 
           <div className="flex flex-col">

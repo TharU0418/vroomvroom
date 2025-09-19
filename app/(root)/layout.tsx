@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: 'Vroom Vroom',
-  description: 'Secure car rental system',
+  description: 'Secure car rental system, hire professional drivers, and enjoy seamless rides with Vroom Vroom.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

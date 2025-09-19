@@ -7,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="min-h-screen w-full justify-between font-inter fixed">
+    <main className="min-h-screen w-full justify-between font-inter ">
       <Header/>
              <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID || ''}>
 

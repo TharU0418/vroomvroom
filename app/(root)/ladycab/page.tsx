@@ -152,7 +152,7 @@ src="/hire7.jpg"
 
         
         {/* New Hiring Section */}
-        <div className="glass-container bg-gradient-to-r from-red-600 to-red-800 rounded-xl p-6 mt-12 border border-red-300 border-opacity-50">
+        {/* <div className="glass-container bg-gradient-to-r from-red-600 to-red-800 rounded-xl p-6 mt-12 border border-red-300 border-opacity-50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">We are Hiring Drivers!</h2>
@@ -168,7 +168,7 @@ src="/hire7.jpg"
               Apply Now
             </button>
           </div>
-        </div>
+        </div> */}
     
       </div>
       </div>

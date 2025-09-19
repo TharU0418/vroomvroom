@@ -28,7 +28,7 @@ const Footer = () => {
   const serviceLinks = [
     { title: 'About Us', path: '/about' },
     { title: 'Contact', path: '/contact' },
-    { title: 'Careers', path: '/careers' },
+  //  { title: 'Careers', path: '/careers' },
    // { title: 'FAQ', path: '/faq' },
    // { title: 'Privacy Policy', path: '/privacy' },
   //  { title: 'Terms of Service', path: '/terms' },
