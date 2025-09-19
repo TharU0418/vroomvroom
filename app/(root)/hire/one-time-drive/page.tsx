@@ -15,7 +15,7 @@ interface FormData {
   type: string;  // Set 'full-day' type in the interface
   status:string;
   driverStatus:string;
-  cab:boolean;
+  cab:string;
 }
 
 function OneTimeDrive() {
@@ -31,7 +31,7 @@ function OneTimeDrive() {
     type: 'one-time',  // Set default type value to 'full-day'
     status:'pending',
     driverStatus:'not_assigned',
-    cab:false
+    cab:'false'
   });
 
 
@@ -74,11 +74,20 @@ const mode = searchParams ? searchParams.get('mode') : null;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleChange2  = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+  
+    setFormData({
+      ...formData,
+      [name]: value === "true"  // Convert string to boolean
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
- 
+ console.log('Submitting form data:', formData);
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
@@ -213,7 +222,7 @@ if (mode === 'lady') {
             <select
               name="cab"
               value={formData.cab}
-              onChange={handleChange}
+              onChange={handleChange2}
               className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
               required
             >
@@ -238,7 +247,7 @@ if (mode === 'lady') {
 
 
           {/* Only show the button if the user is logged in */}
-            {user ? (
+            {!user ? (
             <div className="flex justify-center items-center">
                <button
   type="submit"

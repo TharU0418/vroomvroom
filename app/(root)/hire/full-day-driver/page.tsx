@@ -16,7 +16,7 @@ interface FormData {
   type: string;  // Set 'full-day' type in the interface
   status:'pending';
   driverStatus:string;
-  cab:boolean;
+  cab:string;
 }
 
 function FullDriver() {
@@ -33,7 +33,7 @@ function FullDriver() {
   type: 'full-day',  // Set default type value to 'full-day',
   status:'pending',
   driverStatus:'not_assigned',
-  cab:false
+  cab:'false'
 });
 
 const router = useRouter();
@@ -74,7 +74,14 @@ const mode = searchParams ? searchParams.get('mode') : null;
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+const handleChange2  = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const { name, value } = e.target;
 
+  setFormData({
+    ...formData,
+    [name]: value === "true"  // Convert string to boolean
+  });
+};
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -219,7 +226,7 @@ if (mode === 'lady') {
             <select
               name="cab"
               value={formData.cab}
-              onChange={handleChange}
+              onChange={handleChange2}
               className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
               required
             >
