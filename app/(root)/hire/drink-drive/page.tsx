@@ -91,11 +91,11 @@ const mode = searchParams ? searchParams.get('mode') : null;
 
       console.log('Submitting form data:', formData);
 
-//       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
-//   method: 'POST',
-//   headers: { 'Content-Type': 'application/json' },
-// body: JSON.stringify({ ...formData, status:'pending', userId: user?.email }),
-// });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ ...formData, status:'pending', userId: user?.email }),
+});
 
 
       if (!res.ok) {
