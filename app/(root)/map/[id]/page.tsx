@@ -11,15 +11,25 @@
 //   return <Location params={params} />;
 // }
 
-import { type Metadata } from 'next';
-import Location from '@/components/Location';
+//import { type Metadata } from 'next';
+//import Location from '@/components/Location';
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
+// type PageProps = {
+//   params: {
+//     id: string;
+//   };
+// };
 
-export default function Page({ params }: PageProps) {
-  return <Location params={params} />;
+// export default function Page({ params }: PageProps) {
+//   return <Location params={params} />;
+// }
+
+import React from 'react'
+
+function page() {
+  return (
+    <div>page</div>
+  )
 }
+
+export default page
