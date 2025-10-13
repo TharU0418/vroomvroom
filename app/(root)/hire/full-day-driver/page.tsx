@@ -68,7 +68,6 @@ const mode = searchParams ? searchParams.get('mode') : null;
   
 
 
-  console.log('formData', formData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

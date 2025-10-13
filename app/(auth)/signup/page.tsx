@@ -58,11 +58,9 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(true);
         body: JSON.stringify(formData),
       });
 
-      console.log('formData:', formData); // Debugging line
 
       const data = await res.json();
 
-      console.log('data:', data); // Debugging line
 
       if (!res.ok) {
               console.log('data:', data); // Debugging line

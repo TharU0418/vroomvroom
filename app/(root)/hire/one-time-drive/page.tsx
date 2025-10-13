@@ -247,7 +247,7 @@ if (mode === 'lady') {
 
 
           {/* Only show the button if the user is logged in */}
-            {!user ? (
+            {user ? (
             <div className="flex justify-center items-center">
                <button
   type="submit"
