@@ -325,11 +325,11 @@ const Navbar = () => {
 
   const menuItems = [
     { title: 'Home', path: '/' },
-    { title: 'Hire a Driver', path: '/hire' },
+    { title: 'Hire Driver', path: '/hire' },
     { title: 'Lady Driver', path: '/ladycab' },
-        { title: 'Buy', path: '/buy' },
-     { title: 'Sell', path: '/sell' },
-    { title: 'Rent', path: '/rent' },
+    { title: 'Buy', path: '/buy' },
+    { title: 'Sell', path: '/sell' },
+    { title: 'Hire Cab', path: '/hireacab' },
     { title: 'Consultations', path: '/consultation' },
     { title: 'About Us', path: '/about' }
   ];

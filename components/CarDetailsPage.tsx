@@ -219,7 +219,7 @@ export default function CarDetailsPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="text-gray-500 text-sm">Engine</div>
-                <div className="text-gray-900 font-medium">{car.engine_capacity}L</div>
+                <div className="text-gray-900 font-medium">{car.engine_capacity}cc</div>
               </div>
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="text-gray-500 text-sm">Transmission</div>
@@ -334,7 +334,7 @@ export default function CarDetailsPage() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mt-16 bg-white rounded-2xl border border-gray-200 p-8 shadow-lg"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">Technical Specifications</h2>
+          {/* <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">Technical Specifications</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
@@ -388,7 +388,7 @@ export default function CarDetailsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </div>

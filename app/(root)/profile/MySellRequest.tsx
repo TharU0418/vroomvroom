@@ -35,12 +35,12 @@ export interface CarCard {
   description?: string;
 }
 
-interface User {
-  email: string;
-  given_name: string;
-}
+// interface User {
+//   email: string;
+//   given_name: string;
+// }
 
-function MySellRequest({ user }: { user: User }) {
+function MySellRequest({ user }: { user: string }) {
   const [sellRequests, setSellRequests] = useState<SellCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
@@ -74,8 +74,9 @@ function MySellRequest({ user }: { user: User }) {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         const filteredRequests = data.filter((requestsData1: { userId: string }) => 
-          requestsData1.userId === user.email
+          requestsData1.userId === user
         );
+     
         setSellRequests(filteredRequests);
         setLoading(false);
       } catch (error) {

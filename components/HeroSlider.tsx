@@ -18,13 +18,13 @@ interface Slide {
 const HeroSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [slides] = useState<Slide[]>([
-    // {
-    //   id: 1,
-    //   title: 'Car Rent',
-    //   description: 'Explore thousands of vehicles from trusted dealers and private sellers nationwide.',
-    //   buttonText: 'Try it now',
-    //   path: 'rent'
-    // },
+    {
+      id: 1,
+      title: 'Hire Cabs in Sri Lanka – Wide Range of Vehicles Available',
+      description: 'Choose from economy, luxury, SUVs & more for your next trip. Easy booking & great rates.',
+      buttonText: 'Hire Your Cab Now',
+      path: 'hireacab'
+    },
     {
       id: 2,
       title: 'Hire a Professional Driver in Sri Lanka – Fast, Reliable & Safe',
@@ -32,23 +32,23 @@ const HeroSlider = () => {
       buttonText: 'Book Your Driver Now',
       path: 'hire'
     },
-    // {
-    //   id: 3,
-    //   title: 'Sell Your Car',
-    //   description: 'Get approved for competitive rates in minutes.',
-    //   buttonText: 'Try it now',
-    //   path: 'sell'
-    // },
-    // {
-    //   id: 4,
-    //   title: 'Buy a Car',
-    //   description: "Know your vehicle's true market value with our free valuation service.",
-    //   buttonText: 'Try it now',
-    //   path: 'buy'
-    // },
+    {
+      id: 3,
+      title: 'Sell Your Car Fast in Sri Lanka',
+      description: 'Get a free instant valuation and connect with serious buyers today.',
+      buttonText: 'Sell Your Car Now',
+      path: 'sell'
+    },
+    {
+      id: 4,
+      title: 'Buy a Car in Sri Lanka – Wide Selection of New & Used Cars',
+      description: "Browse thousands of listings from trusted dealers & private sellers.",
+      buttonText: 'Buy Your Car Now',
+      path: 'buy'
+    },
     {
       id: 5,
-      title: 'Consultation services in Sri Lankae',
+      title: 'Consultation services in Sri Lanka',
       description: 'Have questions about buying, selling, or financing a car? Our experts are here to help.',
       buttonText: 'Book Your Consultations Now',
       path: '/consultation'

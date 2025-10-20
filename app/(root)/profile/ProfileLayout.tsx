@@ -4,7 +4,7 @@ import { useState } from 'react';
 //import MyRequests from './MyRequests';
 import HireRequests from './HireRequests';
 import ProfileDetails from './ProfileDetails';
-//import MySellRequest from './MySellRequest';
+import MySellRequest from './MySellRequest';
 import { useAuth } from '@/hooks/useAuth';
 //import MyHistory from './MyHistory';
 
@@ -21,7 +21,7 @@ export default function ProfileLayout({ user }: { user: string }) {
     { id: 'profile', label: 'My Profile', icon: '👤' },
   //  { id: 'requests', label: 'My Rent Requests', icon: '📋' },
     { id: 'hirerequests', label: 'My Hire Requests', icon: '💼' },
-    //{ id: 'mysellrequest', label: 'My Sell Request', icon: '🚗' },
+    { id: 'mysellrequest', label: 'My Sell Request', icon: '🚗' },
    // { id: 'history', label: 'My History', icon: '🕒' },
   ];
 
@@ -82,7 +82,7 @@ export default function ProfileLayout({ user }: { user: string }) {
           {activeTab === 'profile' && <ProfileDetails user={user} />} 
             {/* {activeTab === 'requests' && <MyRequests user={user} />} */}
              {activeTab === 'hirerequests' && <HireRequests user={user} />}
-             {/* {activeTab === 'mysellrequest' && <MySellRequest user={user} />} */}
+             {activeTab === 'mysellrequest' && <MySellRequest user={user} />}
           {/* {activeTab === 'history' && <MyHistory user={user} />} */}
           {/*     {activeTab === 'mysellrequest' && <MySellRequest userName={user.given_name} />}
              */}
