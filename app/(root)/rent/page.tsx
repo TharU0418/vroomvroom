@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { redirect } from 'next/navigation';
+//import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { brand } from '@/public/data/brand';
