@@ -34,6 +34,7 @@ export default function Sign() {
     });
 
 const data = await res.json();
+console.log('Response data:', data);
 
     
   if (!res.ok){

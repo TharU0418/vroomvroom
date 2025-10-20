@@ -324,12 +324,12 @@ const Navbar = () => {
   }, [pathname]);
 
   const menuItems = [
-    // { title: 'Buy', path: '/buy' },
-    // { title: 'Sell', path: '/sell' },
-    // { title: 'Rent', path: '/rent' },
     { title: 'Home', path: '/' },
     { title: 'Hire a Driver', path: '/hire' },
     { title: 'Lady Driver', path: '/ladycab' },
+        { title: 'Buy', path: '/buy' },
+     { title: 'Sell', path: '/sell' },
+    { title: 'Rent', path: '/rent' },
     { title: 'Consultations', path: '/consultation' },
     { title: 'About Us', path: '/about' }
   ];
