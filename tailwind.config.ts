@@ -8,6 +8,7 @@ export default {
   ],
   theme: {
   extend: {
+
     backgroundColor: {
       default: '#991B1B', // red-800 hex
     },
@@ -24,5 +25,7 @@ export default {
   },
 },
 
-  plugins: [],
+  // tailwind.config.js
+plugins: [require('tailwind-scrollbar-hide')],
+
 } satisfies Config;

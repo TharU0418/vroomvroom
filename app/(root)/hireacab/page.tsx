@@ -1,633 +1,263 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-//import { redirect } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
-import { brand } from '@/public/data/brand';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
-interface Car {
-  id: string; // Added ID field
-  brand: string;
-  type: string;
-  model: string;
-  transmission: string;
-  fueltype: string;
-  year: string;
-  price: number;
-  images: string[];
-  seats: number; // Added missing property
-  bookedDates:BookingDate[]
-}
-interface BookingDate {
-  pickedDate: string;
-  returnDate: string;
-}
-
-export const dynamic = 'force-dynamic';
-
-
-export default function Rent() {
-
-// redirect('/'); 
-//    useRouteGuard({ blockAlways: true, redirectTo: '/' });
-// }
-
-  const [formData, setFormData] = useState({
-    carType: '',
-    carBrand: '',
-    model: '',
-    transmission:'',
-    fueltype: '',
-    year: '',
-    price: '',
-    pickupDate:'',
-    returnDate:'',
-    terms: false
-  });
-
-
-
-const formData2 = {
-  userId: '',
-  carId:'',
-  pickupDate: '',
-  returnDate: '',
-  pickupTime:'',
-  pickupLocation: '',
-  driver: '',
-  history:false,
-  deleteReq:false,
-  status:'pending'
-}
-
- 
+export default function HireaCab() {
   const router = useRouter();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPulsing, setIsPulsing] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const welcomeRef = useRef<HTMLDivElement>(null);
 
-  const [searchResults, setSearchResults] = useState<Car[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
-  //const [defaultCars, setDefaultCars] = useState<Car[]>([]);
-  const [selectedCar, setSelectedCar] = useState<Car | null>(null); // Track selected car
-const [rentalDetails, setRentalDetails] = useState({
-    needDriver: 'no',
-    pickupTime: '08:00',
-    pickupLocation: '',
-  });
-  const currentYear = new Date().getFullYear();
-  const startYear = 1990;
-  const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);  
-  const {user} = useAuth();
+  useEffect(() => {
+    const appearTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 500);
 
-  const [showNotification, setShowNotification] = useState(false);
-        const [notificationMessage, setNotificationMessage] = useState('');
-   //   const router = useRouter();
-    
-        const Notification = () => (
-          <div className="fixed bottom-4 right-4 z-50">
-            
-            <div className="bg-green-500 text-white px-8 py-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out animate-fadeInUp">
-              <div className="flex items-center">
-                
-                <span className="font-semibold text-xl">{notificationMessage}</span>
-              </div>
-            </div>
-          </div>
-        );
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
 
-    
+    const hideTimer = setTimeout(() => {
+      setShowWelcome(false);
+    }, 5000);
 
+    const pulseTimer = setTimeout(() => {
+      setIsPulsing(false);
+    }, 3000);
 
+    return () => {
+      clearTimeout(appearTimer);
+      clearTimeout(loadingTimer);
+      clearTimeout(hideTimer);
+      clearTimeout(pulseTimer);
+    };
+  }, []);
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setHasSearched(true);
-
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
-    const allCars = await response.json();
-
-    const selectedPickup = new Date(formData.pickupDate);
-    const selectedReturn = new Date(formData.returnDate);
-
-    // Filtering logic
-    const filtered = allCars.filter((car: Car) => {
-      const matchesType = formData.carType ? car.type === formData.carType : true;
-      const matchesBrand = formData.carBrand ? car.brand === formData.carBrand : true;
-      const matchesYear = formData.year ? car.year === formData.year : true;
-      const matchesFuel = formData.fueltype ? car.fueltype === formData.fueltype : true;
-      const matchesPrice = formData.price ? car.price <= parseFloat(formData.price) : true;
-
-      const isAvailable = !car.bookedDates?.some((booking: { pickedDate: string, returnDate: string }) => {
-        const bookedStart = new Date(booking.pickedDate);
-        const bookedEnd = new Date(booking.returnDate);
-
-        // Check if selected dates overlap with any booked dates
-        return selectedPickup <= bookedEnd && selectedReturn >= bookedStart;
-      });
-
-      return matchesType && matchesBrand && matchesYear && matchesFuel && matchesPrice && isAvailable;
-    });
-
-    setSearchResults(filtered);
-  } catch (err) {
-    console.error("Search failed:", err);
-    setSearchResults([]);
-  } finally {
-    setLoading(false);
-  }
-};
-
-// Calculate rental days
-  const calculateRentalDays = () => {
-    if (!formData.pickupDate || !formData.returnDate) return 0;
-    
-    const start = new Date(formData.pickupDate);
-    const end = new Date(formData.returnDate);
-    const diffTime = Math.abs(end.getTime() - start.getTime() + 1);
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  };
-
-  // Close modal when clicking outside
-  const handleCloseModal = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      setSelectedCar(null);
-    }
-  };
-
-  const handleRentalDetailChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-) => {
-  const { name, value } = e.target;
-  setRentalDetails((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
-  const handleRentNow = async() => {
-    if (!selectedCar) return;
-    
-    // Here you would typically process the rental
-    console.log('Renting car with details:', {
-      car: selectedCar,
-      rentalDates: {
-        pickupDate: formData.pickupDate,
-        returnDate: formData.returnDate
-      },
-      rentalDetails,
-     
-    });
-
-
-    console.log('formData', formData)
-    console.log('formData2', formData2)
-
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        //body: JSON.stringify(formData2),
-        body: JSON.stringify({ ...formData2, carId: selectedCar.id, driver:rentalDetails.needDriver,  pickupTime:rentalDetails.pickupTime,pickupLocation: rentalDetails.pickupLocation, pickupDate:formData.pickupDate,returnDate:formData.returnDate, userId:user.email }),
-
-      });
-
-          console.log('res', formData.returnDate ,)
-
-                    console.log('res', user.email)
-
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to submit request');
-      }
-
-      //console.log('formData', formData)
-      //alert('Request registered successfully!');
-    } catch (error: unknown) {
-  if (error instanceof Error) {
-    alert(`Error: ${error.message}`);
-  } else {
-    alert('An unknown error occurred');
-  }
-}
-    setNotificationMessage(`Request registered successfully!`);
-      setShowNotification(true);
-    //alert('Rental confirmed!');
-   // setSelectedCar(null);
-      router.push('/profile');
-
-  };
-
-// console.log('searchResult', searchResults)
-
-//   useEffect(() => {
-//     const fetchDefaultCars = async () => {
-//       try {
-//         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`); // You need to create this API route
-//         const data = await response.json();
-//         console.log('data', data)
-//         setDefaultCars(data);
-//       } catch (err) {
-//         console.error('Failed to fetch default cars:', err);
-//       }
-//     };
-
-//     fetchDefaultCars();
-//   }, []);
-
-  return (   //#ffbebe]
-<div className="min-h-screen flex justify-center items-center bg-white p-4">
-      <div className="max-w-6xl justify-center items-center w-full p-8 mt-20">
-        <h1 className="text-4xl font-bold text-black mb-8 text-center">Rent a Car</h1>
-        
-        {/* Selected Car Modal */}
-       {selectedCar && (
-  <div 
-    className="fixed inset-0 justify-center items-center  bg-black bg-opacity-70 flex  z-50 p-4"
-    onClick={handleCloseModal}
-  >
-    {/* Responsive container */}
-    <div className="bg-white/90 justify-center items-center rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto mx-2 sm:mx-4">
-      <div className="p-4 md:p-6 justify-center items-center">
-        <div className="flex justify-between items-start mb-4">
-          {/* Responsive title */}
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 max-w-[80%] break-words">
-            {selectedCar.brand} {selectedCar.model} ({selectedCar.year})
-          </h2>
-          {/* Larger close button for mobile */}
-          <button 
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedCar(null);
-            }}
-            className="text-gray-500 hover:text-red-500 text-3xl p-1"
-            aria-label="Close modal"
-          >
-            &times;
-          </button>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 text-black">
+      {/* Enhanced Hero Section */}
+      <div className="relative h-[80vh] bg-red-600 to-black overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-red-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+          <div className="absolute top-40 right-10 w-72 h-72 bg-red-600 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-red-700 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Responsive image container */}
-          <div className="relative h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden">
-            <Image 
-              src={selectedCar.images[0]}
-              alt={`${selectedCar.brand} ${selectedCar.model}`}
-              layout="fill"
-              objectFit="cover"
-            />
+
+        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+          {/* Animated Title */}
+          <div className="mb-2 transform transition-all duration-1000 hover:scale-105">
+                      <h1 className="text-4xl md:text-6xl font-bold mb-4"><span className="text-white">Hire a Cab</span></h1>
+
           </div>
-                  
-                  <div className="space-y-4">
-            <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
-                      <div>
-                        <h3 className="text-gray-500 text-sm">Type</h3>
-                        <p className="font-medium">{selectedCar.type}</p>
-                      </div>
-                      <div>
-                        <h3 className="text-gray-500 text-sm">Transmission</h3>
-                        <p className="font-medium capitalize">{selectedCar.transmission}</p>
-                      </div>
-                      <div>
-                        <h3 className="text-gray-500 text-sm">Fuel Type</h3>
-                        <p className="font-medium capitalize">{selectedCar.fueltype}</p>
-                      </div>
-                      <div>
-                        <h3 className="text-gray-500 text-sm">Condition</h3>
-                        <p className="font-medium">{selectedCar.seats}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Rental Dates Display (non-editable) */}
-                    <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="font-medium mb-2">Rental Period</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-gray-500 text-sm">Pickup Date</p>
-                          <p className="font-medium">{formData.pickupDate || 'Not selected'}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-500 text-sm">Return Date</p>
-                          <p className="font-medium">{formData.returnDate || 'Not selected'}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-500 text-sm">Total Days</p>
-                          <p className="font-medium">{calculateRentalDays()} days</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-500 text-sm">Price per Day</p>
-                          <p className="font-bold">${selectedCar.price}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* New Rental Details Fields */}
-                     <div className="space-y-4">
-              {/* Driver selection - full width on mobile */}
-              <div>
-                <label className="block text-gray-700 mb-1">Need a Driver?</label>
-                <select
-                  name="needDriver"
-                  value={rentalDetails.needDriver}
-                  onChange={handleRentalDetailChange}
-                  className="w-full p-3 border border-gray-300 rounded-md text-sm md:text-base"
-                >
-                  <option value="no">No, I&rsquo;ll drive myself</option>
-                  <option value="yes">Yes, I need a driver</option>
-                </select>
+
+          {/* Enhanced Content Card */}
+          <div className="bg-black/40 backdrop-blur-lg rounded-3xl p-8 max-w-4xl border border-white/10 shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
+            <p className="text-xl md:text-xl text-gray-100 mb-2 leading-relaxed font-light">
+              Need a Reliable Cab? We've Got You Covered!
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6 text-left mb-2">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 group">
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold">✓</span>
+                  </div>
+                  <span className="text-white font-medium">Wedding Car Hire</span>
+                </div>
+                <div className="flex items-center space-x-3 group">
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold">✓</span>
+                  </div>
+                  <span className="text-white font-medium">Airport Transfers</span>
+                </div>
               </div>
-                      
-                      {/* Time & location - responsive grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-700 mb-1">Pickup Time</label>
-                  {/* <select
-                    name="pickupTime"
-                    value={rentalDetails.pickupTime}
-                    onChange={handleRentalDetailChange}
-                    className="w-full p-3 border border-gray-300 rounded-md text-sm md:text-base"
-                  >
-                            {Array.from({ length: 13 }, (_, i) => {
-                              const hour = i + 8;
-                              return hour <= 20 ? (
-                                <option key={hour} value={`${hour}:00`}>
-                                  {hour}:00
-                                </option>
-                              ) : null;
-                            })}
-                          </select> */}
-                          <input
-              type="time"
-              name="pickupTime"
-              value={rentalDetails.pickupTime}
-              onChange={handleRentalDetailChange}
-                    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
-              required
-            />
-                        </div>
-                        
-                       <div>
-                  <label className="block text-gray-700 mb-1">Pickup Location</label>
-                  <textarea
-                    name="pickupLocation"
-                    rows={2}
-                    value={rentalDetails.pickupLocation}
-                    onChange={handleRentalDetailChange}
-                    placeholder="e.g. Colombo"
-                    className="w-full p-3 rounded-lg border border-gray-300 text-black placeholder-gray-500 text-sm md:text-base"
-                    required
-                  />
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 group">
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold">✓</span>
+                  </div>
+                  <span className="text-white font-medium">Tourist Trips</span>
+                </div>
+                <div className="flex items-center space-x-3 group">
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold">✓</span>
+                  </div>
+                  <span className="text-white font-medium">Daily Travel & More</span>
                 </div>
               </div>
             </div>
-                    
-          {/* Pricing summary */}
-            <div className="bg-red-50 p-4 rounded-lg border border-red-100">
-              <h3 className="font-bold text-gray-800 mb-2">Pricing Summary</h3>
-                      <div className="flex justify-between mb-1">
-                        <span>Base Price ({calculateRentalDays()} days)</span>
-                        <span>${(calculateRentalDays() * selectedCar.price).toFixed(2)}</span>
-                      </div>
-                      {rentalDetails.needDriver === 'yes' && (
-                        <div className="flex justify-between mb-1">
-                          <span>Driver Service</span>
-                          <span>+${(calculateRentalDays() * 30).toFixed(2)}</span>
-                        </div>
-                      )}
-                      <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between font-bold">
-                        <span>Total Amount</span>
-                        <span>
-                          ${(
-                            calculateRentalDays() * selectedCar.price +
-                            (rentalDetails.needDriver === 'yes' ? calculateRentalDays() * 30 : 0)
-                          ).toFixed(2)}
+
+            {/* Call to Action */}
+            <div className="bg-red-600/20 rounded-2xl p-6 border border-red-500/30">
+              <p className="text-white text-lg font-semibold mb-3">
+                📞 Call Now: <span className="text-2xl font-black bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent">072611897</span>
+              </p>
+              <p className="text-gray-300">
+                Book your cab in minutes! Enjoy a smooth, hassle-free ride every time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Enhanced Scrolling Cards Section */}
+      <div className="py-16 bg-gradient-to-b from-gray-100 to-white">
+        <div className="container mx-auto px-4">
+          <div className="relative overflow-hidden">
+            {/* Gradient Fades */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-100 to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-100 to-transparent z-10"></div>
+            
+            <div className="flex space-x-6 animate-scroll hover:pause">
+              {[
+                { img: "/hire1.png", title: "Wedding Car", desc: "Professional hourly driver", badge: "Popular" },
+                { img: "/hire2.jpeg", title: "Normal Cab", desc: "Multi-day hire available", badge: "Flexible" },
+                { img: "/hirecab1.png", title: "Tourist Package", desc: "Safe and responsible travel", badge: "Popular" },
+                { img: "/hire4.png", title: "Travel Package", desc: "Long-term driver contracts", badge: "Premium" },
+                { img: "/hire1.png", title: "Luxury Rides", desc: "Premium comfort experience", badge: "Luxury" },
+                { img: "/hire2.jpeg", title: "City Tours", desc: "Explore the city in style", badge: "Explore" }
+              ].map((service, index) => (
+                <div 
+                  key={index}
+                  className="flex-shrink-0 w-80 group cursor-pointer transform hover:scale-105 transition-all duration-500"
+                >
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200 hover:shadow-2xl hover:border-red-500/20 transition-all duration-300">
+                    {/* Image Container */}
+                    <div className="relative h-64 overflow-hidden">
+                      <Image
+                        src={service.img}
+                        fill
+                        alt={service.title}
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                      
+                      {/* Badge */}
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                          {service.badge}
                         </span>
                       </div>
+                      
+                      {/* Title */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-white text-2xl font-bold mb-1">{service.title}</h3>
+                        <p className="text-gray-200 text-sm">{service.desc}</p>
+                      </div>
                     </div>
                     
-                   {/* Responsive button */}
-            <div className="flex justify-center">
-              {user ? (
-                <button
-                  type="submit"
-                  className="bg-white hover:bg-red-200 text-red-500 py-3 px-6 rounded shadow w-full sm:w-auto text-center"
-                  onClick={handleRentNow}
-                >
-                  Request the vehicle
-                </button>
+                    {/* Hover Action */}
+                    <div className="p-4 bg-gradient-to-r from-white to-gray-50">
+                      <div className="flex items-center justify-between">
+                        {/* <span className="text-gray-600 text-sm">Book now</span>
+                        <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <span className="text-white font-bold">→</span>
+                        </div> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Enhanced WhatsApp Components */}
+      {showWelcome && (
+        <div 
+          ref={welcomeRef}
+          className="fixed bottom-24 right-6 z-50 bg-gradient-to-r from-red-600 to-red-700 rounded-2xl shadow-2xl p-4 max-w-xs border border-red-500/30 backdrop-blur-sm"
+          style={{ 
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.9)'
+          }}
+        >
+          <div className="flex items-start space-x-3">
+            <div className="flex-shrink-0">
+              {isLoading ? (
+                <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
               ) : (
-                <p className="text-black bg-white p-4 rounded-lg w-full text-center">
-                Please sign in to rent a car  <Link href="/sign" className="text-red-700 hover:underline">
-                Sign In
-              </Link>
-                </p>
+                <div className="bg-white/20 p-2 rounded-full">
+                  <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
+                </div>
               )}
             </div>
-            </div>
-                </div>
-              </div>
+            <div className="flex-1">
+              <p className="font-semibold text-white text-sm">
+                {isLoading ? 'Setting up WhatsApp booking...' : 'Ready to book your ride?'}
+              </p>
+              <p className="text-red-100 text-xs mt-1">
+                Click the button below to chat with us instantly!
+              </p>
             </div>
           </div>
-        )}
-<div className='justify-center items-center bg-gray-200 p-4 rounded-2xl '>
-<div className="w-[70vw] max-w-[95vw] flex flex-col md:flex-row justify-center items-center  md:p-6 ">
-{/* <div className="w-full max-w-screen-sm mx-auto flex flex-col md:flex-row gap-8 bg-gray-200 p-4 md:p-6 rounded-2xl"> */}
-{/* <div className="w-[90vw] max-w-[95vw] mx-auto flex flex-col md:flex-row gap-8 bg-gray-200 p-4 md:p-6 rounded-2xl"> */}
-
-{/* Left Side - Results */}
-<div className={`${hasSearched ? 'w-full' : 'hidden'}`}>
-  {loading ? (
-    <div className="flex mt-6">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500"></div>
-    </div>
-  ) : hasSearched ? (
-    searchResults.length > 0 ? (
-      <div className="mt-4 px-4 sm:px-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-black mb-4 sm:mb-6 border-b-2 sm:border-b-4 border-red-600 pb-2">
-          Your Search Results
-        </h2>
-        <div className="grid grid-cols-1 gap-4 sm:gap-6">
-          {searchResults.map((car, index) => (
-            <div
-              key={car.id || index}
-              onClick={() => setSelectedCar(car)}
-              className="bg-white rounded-2xl p-4 sm:p-6 cursor-pointer hover:shadow-xl transition-all border border-gray-300 hover:border-red-600"
-            >
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                <div className="relative w-full sm:w-40 sm:h-40 md:w-48 md:h-48 h-48 rounded-lg overflow-hidden border-2 border-red-600 mx-auto sm:mx-0">
-                  <Image
-                    src={car.images[0]}
-                    alt={`${car.brand} ${car.model}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex-1 text-center sm:text-left">
-                  <h3 className="text-lg sm:text-xl font-semibold hover:text-red-600 transition-all">
-                    {car.brand} {car.model}
-                  </h3>
-                  <div className="flex justify-center sm:justify-start gap-2 mt-2 flex-wrap">
-                    <span className="bg-red-700 text-gray-200 px-2 py-1 text-xs sm:text-sm rounded-full font-semibold">
-                      {car.year}
-                    </span>
-                    <span className="bg-red-700 text-gray-200 px-2 py-1 text-xs sm:text-sm rounded-full font-semibold">
-                      {car.transmission}
-                    </span>
-                    <span className="bg-red-700 text-gray-200 px-2 py-1 text-xs sm:text-sm rounded-full font-semibold">
-                      {car.fueltype}
-                    </span>
-                  </div>
-                  <p className="text-lg sm:text-xl font-bold text-red-500 mt-3 sm:mt-4">
-                    ${car.price}/day
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+          {/* Speech bubble tail */}
+          <div className="absolute bottom-0 right-6 transform translate-y-3 rotate-45 w-4 h-4 bg-red-600"></div>
         </div>
+      )}
+      
+      {/* Enhanced WhatsApp Button */}
+      <div className="fixed bottom-6 right-6 z-50 group">
         <button
-          onClick={() => setHasSearched(false)}
-          className="mt-6 text-black font-medium hover:text-red-400 transition flex items-center justify-center sm:justify-start gap-2"
+          onClick={() => window.open('https://wa.me/94740343095?text=Welcome', '_blank')}
+          aria-label="Chat on WhatsApp"
+          className={`
+            relative bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white rounded-2xl p-5 shadow-2xl
+            transition-all duration-700 ease-out
+            hover:scale-110 hover:shadow-3xl hover:rotate-12
+            focus:outline-none focus:ring-4 focus:ring-green-500/50
+            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+            ${isPulsing ? 'animate-pulse-slow' : 'animate-float'}
+            before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity
+          `}
         >
-          Back to Filters
-        </button>
-      </div>
-    ) : (
-      <div className="text-center py-12 px-4">
-        <div className="text-black text-2xl font-medium mb-2">
-          No matching vehicles found
-        </div>
-        <p className="text-gray-500 mb-6">
-          Try adjusting your search filters
-        </p>
-        <button
-          onClick={() => setHasSearched(false)}
-          className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-        >
-          Modify Search
-        </button>
-      </div>
-    )
-  ) : null}
-</div>
-
-</div>
-  {/* Right Side - Form */}
-  {!hasSearched && (
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div>
-            <label className="block text-black mb-2 font-medium">Car Type</label>
-            <select
-              className="w-full p-3 rounded-lg bg-white border border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-              onChange={(e) => setFormData({ ...formData, carType: e.target.value })}
+          <div className="relative">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 24 24"
+              className="h-7 w-7 fill-current drop-shadow-lg"
             >
-              
-              <option value="">Select Car Type</option>
-              <option value="luxury">Luxury Sedan</option>
-              <option value="Premium_suv">Premium SUV</option>
-              <option value="sports">Sports Car</option>
-              <option value="electric">Electric Vehicle</option>
-              <option value="hatchback">Hatchback</option>
-              <option value="convertible">Convertible</option>
-              <option value="crossover_suv">Crossover SUV</option>
-              <option value="coupe">Coupe</option>
-              <option value="sedan">Sedan</option>
-              <option value="minivan">Minivan</option>
-              <option value="luxury_sedan">Luxury Sedan</option>
-              <option value="compact_car">Compact Car</option>
-              <option value="luxury_sports_car">Luxury Sports Car</option>
-              <option value="city_car">City Car</option>
-              <option value="roadster">Roadster</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-black mb-2">Car Brand</label>
-            <select
-              className="w-full p-3 rounded-lg bg-white border border-gray-700 backdrop-blur-sm text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-              onChange={(e) => setFormData({ ...formData, carBrand: e.target.value })}
-            >
-              <option value="">Select Car Brand</option>
-              {brand.map((b) => (
-                <option key={b} value={b}>
-                  {b}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-black mb-2">Maximum Budget</label>
-            <input
-              type="number"
-              className="w-full p-3 rounded-lg bg-white border border-gray-700 backdrop-blur-sm text-black placeholder-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-              placeholder="Enter price"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-            />
-          </div>
-          <div>
-            <label className="block text-black mb-2">Manufacture Year</label>
-            <select
-              className="w-full p-3 rounded-lg bg-white border border-gray-700 backdrop-blur-sm text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-              onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-            >
-              <option value="">Select Year</option>
-              {years.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
           </div>
           
-          {/* Other form fields with similar styling */}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <div>
-    <label className="block text-black mb-2 font-medium">Pickup Date</label>
-    <input
-      type="date"
-      className="w-full p-3 rounded-lg bg-white border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none placeholder-white"
-      value={formData.pickupDate}
-      onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
-      required
-    />
-  </div>
-  <div>
-    <label className="block text-black mb-2 font-medium">Return Date</label>
-    <input
-      type="date"
-      className="w-full p-3 rounded-lg bg-white border border-gray-700 text-black focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-      value={formData.returnDate}
-      min={formData.pickupDate || ''}
-      onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
-      required
-    />
-  </div>
-</div>
-
-
-        <button
-          type="submit"
-          className="w-full py-3.5 px-6 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-red-900/30"
-        >
-          SEARCH VEHICLES
+          {/* Enhanced Tooltip - Fixed string issue */}
+          <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-gray-900 to-black text-white text-sm font-semibold px-4 py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-0 translate-x-2 whitespace-nowrap shadow-2xl border border-gray-700 before:absolute before:left-full before:top-1/2 before:-translate-y-1/2 before:border-8 before:border-transparent before:border-l-black">
+            Hire Driver through WhatsApp
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-transparent rounded-xl"></div>
+          </div>
         </button>
-      </form>
-    </div>
-  )}
-</div>
-</div>
-                                                {showNotification && <Notification />}
+      </div>
 
+      {/* Add custom animations to tailwind config */}
+      <style jsx>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        .hover\\:pause:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
-    
   );
 }

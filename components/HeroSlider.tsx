@@ -18,19 +18,20 @@ interface Slide {
 const HeroSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [slides] = useState<Slide[]>([
+    
     {
       id: 1,
-      title: 'Hire Cabs in Sri Lanka – Wide Range of Vehicles Available',
-      description: 'Choose from economy, luxury, SUVs & more for your next trip. Easy booking & great rates.',
-      buttonText: 'Hire Your Cab Now',
-      path: 'hireacab'
-    },
-    {
-      id: 2,
       title: 'Hire a Professional Driver in Sri Lanka – Fast, Reliable & Safe',
       description: 'Find trusted, experienced drivers anywhere in Sri Lanka — for tours, daily commutes, airport transfers & more.',
       buttonText: 'Book Your Driver Now',
       path: 'hire'
+    },
+    {
+      id: 2,
+      title: 'Hire Cabs in Sri Lanka – Wide Range of Vehicles Available',
+      description: 'Choose from economy, luxury, SUVs & more for your next trip. Easy booking & great rates.',
+      buttonText: 'Hire Your Cab Now',
+      path: 'hireacab'
     },
     {
       id: 3,
@@ -39,27 +40,28 @@ const HeroSlider = () => {
       buttonText: 'Sell Your Car Now',
       path: 'sell'
     },
+    
     {
       id: 4,
+      title: 'Hire a Professional Lady Driver in Sri Lanka',
+      description: 'Need a safe and reliable ride home',
+      buttonText: 'Book Your Driver Now',
+      path: 'ladycab'
+    },
+    {
+      id: 5,
       title: 'Buy a Car in Sri Lanka – Wide Selection of New & Used Cars',
       description: "Browse thousands of listings from trusted dealers & private sellers.",
       buttonText: 'Buy Your Car Now',
       path: 'buy'
     },
     {
-      id: 5,
+      id: 6,
       title: 'Consultation services in Sri Lanka',
       description: 'Have questions about buying, selling, or financing a car? Our experts are here to help.',
       buttonText: 'Book Your Consultations Now',
       path: '/consultation'
     },
-    {
-      id: 6,
-      title: 'Hire a Professional Lady Driver in Sri Lanka',
-      description: 'Need a safe and reliable ride home',
-      buttonText: 'Book Your Driver Now',
-      path: 'ladycab'
-    }
   ]);
 
   useEffect(() => {
