@@ -1,11 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HireaCab() {
-  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [isPulsing, setIsPulsing] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
@@ -59,7 +57,7 @@ export default function HireaCab() {
           {/* Enhanced Content Card */}
           <div className="bg-black/40 backdrop-blur-lg rounded-3xl p-8 max-w-4xl border border-white/10 shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
             <p className="text-xl md:text-xl text-gray-100 mb-2 leading-relaxed font-light">
-              Need a Reliable Cab? We've Got You Covered!
+              Need a Reliable Cab? We have Got You Covered!
             </p>
             
             <div className="grid md:grid-cols-2 gap-6 text-left mb-2">
