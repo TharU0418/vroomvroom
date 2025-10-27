@@ -63,13 +63,13 @@ export default function About() {
           <div>
             <h2 className="text-4xl font-bold mb-6">OUR <span className="text-red-600">STORY</span></h2>
             <p className="text-gray-600 mb-6">
-Vroom Vroom is more than just a name. It's a movement. As a reputable automotive platform and mobility partner, we bring under one roof an entire spectrum of vehicle-related services. If you're buying your next car online or renting a quality driver for the night, we're here to make every step of your automotive journey seamless, smart, and trouble-free.
+Vroom Vroom is more than just a name. It is a movement. As a reputable automotive platform and mobility partner, we bring under one roof an entire spectrum of vehicle-related services. If you are buying your next car online or renting a quality driver for the night, we are here to make every step of your automotive journey seamless, smart, and trouble-free.
 
             </p>
 
 
             <p className="text-gray-600 mb-6">
-             At Vroom Vroom, we’re not just keeping up with the future of mobility—we’re helping shape it. Whether it’s finding the perfect ride, the right driver, or the best parts, we’re your go-to partner for everything on wheels. Let’s move smarter. Let’s move better. Let’s move with VroomVroom.
+             At Vroom Vroom, we are not just keeping up with the future of mobility, we are helping shape it. Whether it is finding the perfect ride, the right driver, or the best parts, we&rsquo;re your go-to partner for everything on wheels. Let&rsquo;s move smarter. Let&rsquo;s move better. Let&rsquo;s move with VroomVroom.
             </p>
             
             <div className="flex space-x-4">
