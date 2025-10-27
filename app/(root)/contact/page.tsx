@@ -17,9 +17,9 @@ export default function ContactPage() {
           <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-red-800 rounded-full opacity-20"></div>
           
           <div className="relative z-10">
-            <h2 className="text-3xl font-bold mb-4">Let's Connect</h2>
+            <h2 className="text-3xl font-bold mb-4">Let&rsquo;s Connect</h2>
             <p className="text-red-100 mb-12 text-sm leading-relaxed">
-              Join with us to experience top-notch driving services across Sri Lanka. Whether you need a driver for daily commutes, long trips, or tours, we're here to help!
+              Join with us to experience top-notch driving services across Sri Lanka. Whether you need a driver for daily commutes, long trips, or tours, we&rsquo;re here to help!
             </p>
 
             <div className="space-y-6 mb-16">
