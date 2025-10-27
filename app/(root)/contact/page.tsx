@@ -1,6 +1,6 @@
 'use client';
 
-import { FaPhone, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
+import { FaPhone, FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
 import { CiMail } from "react-icons/ci";
 import { IoLocation } from "react-icons/io5";
 import { FaPaperPlane } from "react-icons/fa";
