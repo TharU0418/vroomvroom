@@ -55,8 +55,7 @@ const [isVisible, setIsVisible] = useState(false);
         <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Lady Cab Driver</span></h1>
           <p className="text-xl max-w-3xl text-gray-300 mb-8">
-      Experience the convenience and safety of hiring a professional female driver for any occasion. Whether it is a one-time trip, a full-day service, or a long-term arrangement, we have got you covered.
-          </p>
+Enjoy the comfort and safety of having a professional lady driver for the day. Whether a one-time drive, full-day rental, or long-term engagement, we've got you covered.          </p>
           <div className="flex space-x-4">
             {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">
               Our Services
@@ -89,7 +88,7 @@ const [isVisible, setIsVisible] = useState(false);
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                 <h3 className="text-white text-xl font-bold">One Time Booking</h3>
-                <p className="text-gray-200 font-small">Hire a professional lady driver by the hour for same-day use.</p>
+                <p className="text-gray-200 font-small">Hire a professional femaledriver by the hour for same-day use.</p>
               </div>
             </div>
           </div>
@@ -125,7 +124,8 @@ src="/hire7.jpg"
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                 <h3 className="text-white text-xl font-bold">Drink and Drive</h3>
-                <p className="text-gray-200 font-small">Offers a safe and responsible way to get home—our lady driver will drive your vehicle when you’ve been drinking.</p>
+                <p className="text-gray-200 font-small">
+                  Provides a responsible and safe way to get returning home. When you are drunk, our driver will handle your car.</p>
               </div>
             </div>
           </div>
@@ -142,7 +142,8 @@ src="/hire7.jpg"
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                 <h3 className="text-white text-xl font-bold"> Long Term Driver</h3>
-                <p className="text-gray-200 font-small">Allows you to hire a dedicated lady driver on a monthly or yearly basis through a formal agreement.</p>
+                <p className="text-gray-200 font-small">
+                  Allows you to hire a dedicated female driver on a monthly or yearly basis through a formal agreement.</p>
               </div>
             </div>
           </div>

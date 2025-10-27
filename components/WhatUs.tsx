@@ -75,13 +75,13 @@ function WhatUs() {
   };
 
   return (
-    <section className="w-full bg-black py-16 px-4">
+    <section className="w-full bg-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-red-700 mb-4">
             VroomVroom vs. Traditional Car Buying
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+          <p className="text-black max-w-2xl mx-auto text-lg">
             Vroom Vroom simplifies the process of buying and selling cars online, providing a streamlined, user-friendly platform.
           </p>
         </div>

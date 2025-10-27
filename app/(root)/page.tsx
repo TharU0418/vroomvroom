@@ -7,7 +7,7 @@ import HeroSlider from "@/components/HeroSlider";
 import Partners from "@/components/partners";
 import WhatUs from "@/components/WhatUs";
 import WhyChooseUs from "@/components/WhyUs";
-
+import OurServices from "@/components/OurServices";
 
 
 export default function Home() {
@@ -17,8 +17,9 @@ export default function Home() {
 <HeroSlider/>
 <Partners/>
 <WhyChooseUs/>
+<OurServices/>
 {/* <HowWork/> */}
-<WhatUs/>
+{/* <WhatUs/> */}
 <FAQ/>
 
     </div>

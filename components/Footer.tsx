@@ -9,10 +9,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const menuItems = [
-    // { title: 'Rent', path: '/rent' },
+     { title: 'Hire a Cab', path: '/hirecab' },
      { title: 'Hire a Driver', path: '/hire' },
-    // { title: 'Buy', path: '/buy' },
-    //{ title: 'Sell', path: '/sell' },
+     { title: 'Buy', path: '/buy' },
+    { title: 'Sell', path: '/sell' },
     { title: 'Lady Driver', path: '/ladycab' },
     { title: 'Consultation', path: '/consultation' },
     
@@ -62,7 +62,7 @@ const Footer = () => {
               Vroom Vroom
             </motion.div>
             <p className="text-red-100 max-w-xs">
-              Your ultimate car rental and hiring platform. Find your perfect ride today!
+              Your trusted partner for seamless car hiring, buying, and selling experiences in Sri Lanka.
             </p>
             
             <div className="flex space-x-4 pt-4">

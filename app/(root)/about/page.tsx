@@ -1,4 +1,5 @@
 'use client';
+import WhatUs from '@/components/WhatUs';
 // pages/about.tsx
 //import { useState } from 'react';
 //import Head from 'next/head';
@@ -62,24 +63,13 @@ export default function About() {
           <div>
             <h2 className="text-4xl font-bold mb-6">OUR <span className="text-red-600">STORY</span></h2>
             <p className="text-gray-600 mb-6">
-              VroomVroom is more than just a name—it’s a movement. As a trusted automotive marketplace and mobility partner, we bring together a full spectrum of vehicle-related services under one roof. From buying your next car online to finding a reliable driver for the night, we’re here to make every part of your automotive journey seamless, smart, and stress-free.
+Vroom Vroom is more than just a name. It's a movement. As a reputable automotive platform and mobility partner, we bring under one roof an entire spectrum of vehicle-related services. If you're buying your next car online or renting a quality driver for the night, we're here to make every step of your automotive journey seamless, smart, and trouble-free.
 
             </p>
-            <p className="text-gray-600 mb-6">
-At our core, VroomVroom is driven by one mission: to simplify and elevate the vehicle ownership experience through ethical, user-friendly, and transparent solutions. Whether you’re a first-time buyer or a seasoned motorist, we’ve got you covered.
-            </p>
+
 
             <p className="text-gray-600 mb-6">
-              Need a driver for a few hours, days, or long-term? We offer reliable, professional drivers on-demand to match your schedule and lifestyle.
-              If you’ve had a few drinks or feel unfit to drive, our discreet pickup service ensures you and your car get home safely—without judgment or compromise.
-              For clients who prefer a female chauffeur, we proudly offer trained, respectful lady drivers to ensure a comfortable, personalized travel experience.
-              Easily search for trusted service providers and genuine spare parts with our reliable platform—saving you time, effort, and uncertainty.
-            </p>
-
-            <p className="text-gray-600 mb-6">
-              At VroomVroom, we’re not just keeping up with the future of mobility—we’re helping shape it. Whether it’s finding the perfect ride, the right driver, or the best parts, we’re your go-to partner for everything on wheels.
-
-Let’s move smarter. Let’s move better. Let’s move with VroomVroom.
+             At Vroom Vroom, we’re not just keeping up with the future of mobility—we’re helping shape it. Whether it’s finding the perfect ride, the right driver, or the best parts, we’re your go-to partner for everything on wheels. Let’s move smarter. Let’s move better. Let’s move with VroomVroom.
             </p>
             
             <div className="flex space-x-4">
@@ -121,47 +111,7 @@ Let’s move smarter. Let’s move better. Let’s move with VroomVroom.
       </div>
 
       {/* Services */}
-      <div className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">OUR <span className="text-red-600">SERVICES</span></h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
-            Comprehensive automotive solutions tailored to meet your every need
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { 
-              title: "Hire Driver", 
-              icon: "🚘", 
-              desc: "We help you find the best driver to assit you." 
-            },
-            { 
-              title: "Consultation Services", 
-              icon: "👔", 
-              desc: "Any problem you faced about a vechicle our professional team will guide you." 
-            },{ 
-              title: "Car Rental", 
-              icon: "🚗", 
-              desc: "Short-term rentals with flexible options and premium vehicles" 
-            },
-            { 
-              title: "Buy Car", 
-              icon: "💰", 
-              desc: "Quality pre-owned and brand new cars with comprehensive warranties" 
-            }
-          ].map((service, index) => (
-            <div 
-              key={index} 
-              className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
-            >
-              <div className="text-5xl mb-6">{service.icon}</div>
-              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-              <p className="text-gray-600">{service.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <WhatUs/>
 
       {/* Team Section */}
       {/* <div className="py-20 bg-white">

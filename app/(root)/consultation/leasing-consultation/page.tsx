@@ -132,29 +132,10 @@ const [showWelcome, setShowWelcome] = useState(true);
                  
           <div className="prose max-w-none mb-8">
             <h4 className="text-lg font-semibold text-gray-800">Leasing Consultation – Find the Right Lease with Confidence</h4>
-            <p className="text-gray-700">
-  Leasing a vehicle can be a smart and flexible alternative to buying—but only if you fully understand your options. 
-  Our Leasing Consultation service is designed to guide you through every detail of the leasing process, ensuring you 
-  make an informed and financially sound decision.
+            <p className="text-black">
+Leasing a vehicle can be a smart, flexible alternative to purchasing—but only if you have your information straight. Our Leasing Consultation service is your own personal navigator through every phase of the leasing process, 
+ensuring you make a completely knowledgeable and financially prudent choice.
 </p>
-            <p className="mt-3 text-gray-700">
-
-With expert support and deep industry knowledge, we help you:
-
-</p>
-            <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
-<li>  Understand Leasing Options 
-</li>
-<li>Compare Plans and Rates 
-</li>
-<li>Review Terms & Conditions
-</li>
-<li>Negotiate Smartly
-
-</li>
-<li>Prepare for End-of-Lease
-</li>
-</ul>
 
 
 
@@ -173,8 +154,7 @@ With expert support and deep industry knowledge, we help you:
 </ul> */}
 
 <p className='mt-2'>
-Whether you&rsquo;re leasing for personal convenience or business flexibility, our Leasing Consultation ensures you get the right vehicle with the right terms—quickly and stress-free.        </p>
-      
+      Whether you&rsquo;re leasing for personal comfort or business flexibility, our Leasing Consultation assists you in obtaining the appropriate car with the proper terms—quickly and easily. </p>
 
        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             {/* Name and mobile fields only for non-logged-in users */}

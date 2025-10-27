@@ -144,25 +144,64 @@ const [isVisible, setIsVisible] = useState(false);
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center text-red-800">Full Consultation</h1>
           
-          <div className="prose max-w-none mb-8">
-            <h4 className="text-lg font-semibold text-gray-800">Full Guide – Expert Vehicle Consultation from Start to Finish</h4>
-            <p className="text-gray-700">
-              Full Guide is a comprehensive vehicle consultation program designed to walk you through every stage of the car-buying journey. 
-              Whether you are purchasing your first car or upgrading to your dream vehicle, our expert team is here to make the process simple, 
-              informed, and stress-free.
-            </p>
-            
-            <p className="mt-3 text-gray-700">
-              We bring years of industry experience to help you make the right decisions with confidence:
-            </p>
-            
-            <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
-              <li>Vehicle Selection – We help you identify and choose the right vehicle based on your lifestyle, preferences, and budget, whether new or used.</li>
-              <li>Registration Support – Our team handles all the paperwork and guides you through the registration process so your vehicle is ready for the road.</li>
-              <li>Leasing Assistance – We help you explore the best leasing options, ensuring flexible terms and cost-effective choices tailored to your needs.</li>
-              <li>Insurance Guidance – Get matched with reliable insurance providers offering the best protection at competitive rates.</li>
-            </ul>
-          </div>
+         <div className="max-w-4xl mx-auto mb-12 p-6 bg-white rounded-xl shadow-lg">
+    <h4 className="text-lg font-semibold text-gray-800">Expert Vehicle Consultation from Start to Finish</h4>
+  
+  <p className="text-gray-700 mb-6 mt-2 ">
+    Full Guide is a comprehensive car advisory service designed to guide you through every stage of the process of buying a car.
+Whether purchasing your first vehicle or upgrading to your dream vehicle, our experienced staff is here to make it simple
+informed, and trouble-free.
+  </p>
+  
+  <p className="mt-6 mb-4 text-gray-700 font-medium">
+    We bring years of industry experience to help you make the right decisions with confidence:
+  </p>
+  
+  {/* Chart-style list */}
+  <div className="relative">
+    {/* Vertical connector line */}
+    <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-red-200"></div>
+    
+    <ul className="space-y-6">
+      <li className="flex items-start">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white font-bold z-10">
+          1
+        </div>
+        <div className="ml-4 bg-red-50 p-4 rounded-lg border-l-4 border-red-600 flex-1">
+          <h5 className="font-semibold text-red-800 mb-1">Vehicle Selection</h5>
+        </div>
+      </li>
+      
+      <li className="flex items-start">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white font-bold z-10">
+          2
+        </div>
+        <div className="ml-4 bg-red-50 p-4 rounded-lg border-l-4 border-red-600 flex-1">
+          <h5 className="font-semibold text-red-800 mb-1">Registration Support</h5>
+        </div>
+      </li>
+      
+      <li className="flex items-start">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white font-bold z-10">
+          3
+        </div>
+        <div className="ml-4 bg-red-50 p-4 rounded-lg border-l-4 border-red-600 flex-1">
+          <h5 className="font-semibold text-red-800 mb-1">Leasing Assistance</h5>
+        </div>
+      </li>
+      
+      <li className="flex items-start">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white font-bold z-10">
+          4
+        </div>
+        <div className="ml-4 bg-red-50 p-4 rounded-lg border-l-4 border-red-600 flex-1">
+          <h5 className="font-semibold text-red-800 mb-1">Insurance Guidance</h5>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             {/* Name and mobile fields only for non-logged-in users */}

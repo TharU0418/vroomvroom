@@ -57,7 +57,7 @@ export default function HireaCab() {
           {/* Enhanced Content Card */}
           <div className="bg-black/40 backdrop-blur-lg rounded-3xl p-8 max-w-4xl border border-white/10 shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
             <p className="text-xl md:text-xl text-gray-100 mb-2 leading-relaxed font-light">
-              Need a Reliable Cab? We have Got You Covered!
+              Need a aeliable cab? We have got you covered!
             </p>
             
             <div className="grid md:grid-cols-2 gap-6 text-left mb-2">
@@ -66,13 +66,13 @@ export default function HireaCab() {
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Wedding Car Hire</span>
+                  <span className="text-white font-medium">Wedding car hire</span>
                 </div>
                 <div className="flex items-center space-x-3 group">
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Airport Transfers</span>
+                  <span className="text-white font-medium">Airport transfers</span>
                 </div>
               </div>
               <div className="space-y-4">
@@ -80,13 +80,13 @@ export default function HireaCab() {
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Tourist Trips</span>
+                  <span className="text-white font-medium">Tourist trips</span>
                 </div>
                 <div className="flex items-center space-x-3 group">
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Daily Travel & More</span>
+                  <span className="text-white font-medium">Daily travel & more</span>
                 </div>
               </div>
             </div>

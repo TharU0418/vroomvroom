@@ -22,7 +22,7 @@ const HeroSlider = () => {
     {
       id: 1,
       title: 'Hire a Professional Driver in Sri Lanka – Fast, Reliable & Safe',
-      description: 'Find trusted, experienced drivers anywhere in Sri Lanka — for tours, daily commutes, airport transfers & more.',
+      description: 'Find trusted, experienced drivers anywhere in Sri Lanka for tours, daily commutes, airport transfers & more.',
       buttonText: 'Book Your Driver Now',
       path: 'hire'
     },

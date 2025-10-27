@@ -56,11 +56,10 @@ export default function WhyChooseUs() {
           <div>
             <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-4">Why Choose Us</h2>
             <p className="text-gray-600 text-base">
-              Vroom Vroom.lk connects you with the best professional drivers across Sri Lanka — whether you 
-need a driver for daily travel in Colombo, long-distance trips to Jaffna, or scenic tours 
-through Ella, Kandy, and Galle. Any person who strugle to find their dream car, we are here to help you. 
-Our team of experts will guide you through the entire process, from selecting the perfect vehicle to handling all 
-the paperwork and insurance. We ensure a seamless experience so you can focus on enjoying your new ride.
+   Vroom Vroom.lk offers you the finest professional drivers in Sri Lanka, from a daily commute driver in Colombo, 
+   long trips to Jaffna, or tour travelling in Ella, Kandy, and Galle. Whoever cannot afford their dream car, we are here to help. 
+   Our professional crew will guide you through the entire process, from selecting the perfect vehicle to dealing with all the paperwork 
+   and insurance. We make it a breeze so you can focus on having good times in your new vehicle.
             </p>
           </div>
 

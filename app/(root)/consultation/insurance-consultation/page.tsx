@@ -135,27 +135,16 @@ const [showWelcome, setShowWelcome] = useState(true);
                     <div className="prose max-w-none mb-8">
 
                  <h4 className="text-lg font-semibold text-gray-800">Insurance Consultation – Expert Guidance for the Right Vehicle Coverage</h4>
-            <p className="text-gray-700">
-Choosing the right vehicle insurance can be overwhelming—but with our Insurance Consultation service, 
-you&rsquo;re never alone. Our dedicated team of insurance specialists offers clear, personalized advice to help you
- find the most suitable coverage at the best value.
+            <p className="text-black">
+ Choosing the right vehicle insurance can be overwhelming but with our Insurance Consultation service, you&rsquo;re never alone. 
+ Our insurance specialists offer clear, one-on-one advice to help you get the most suitable cover at the best value.
 </p>
-            <p className="mt-3 text-gray-700">
+            {/* <p className="mt-3 text-gray-700">
 
 We understand that every driver and vehicle is unique. That&rsquo;s why our consultation covers:
-</p>
+</p> */}
 
-            <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
 
-<li>Needs Assessment
-</li>
-<li>Policy Comparison
-</li>
-<li>Coverage Explanation 
-</li>
-<li>Claims Support
-</li>
-</ul>
 
 {/* <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-700">
 
@@ -170,8 +159,8 @@ We understand that every driver and vehicle is unique. That&rsquo;s why our cons
 </ul> */}
 
 <p className='mt-2'>
-With years of experience in the vehicle and insurance industries, our consultants make sure your car is not just insured—but properly protected. Whether you&rsquo;re insuring a new purchase or reviewing your current plan, Insurance Consultation gives you peace of mind on the road.        </p>
-                </div>
+With decades of combined experience in the insurance and automotive industries, our consultants make sure your car is not just insured but properly protected. Whether you&rsquo;re insuring a new buy or reviewing your current plan, Insurance Consultation gives you confidence on the road.               
+</p> </div>
 
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">

@@ -331,7 +331,7 @@ const Navbar = () => {
     { title: 'Sell', path: '/sell' },
     { title: 'Hire Cab', path: '/hireacab' },
     { title: 'Consultations', path: '/consultation' },
-    { title: 'About Us', path: '/about' }
+  //  { title: 'About Us', path: '/about' }
   ];
 
   const {user, logout} = useAuth();
