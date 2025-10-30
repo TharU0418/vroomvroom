@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import {FaTiktok} from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,12 +20,14 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    // { name: 'Twitter', path: '#', icon: '🐦' },
-    { name: 'Instagram', path: '#', icon: <FaInstagram/> },
-    { name: 'Facebook', path: 'https://web.facebook.com/people/VRoom-VRoom/61562063228667/', icon: <FaFacebook/>},
-    { name: 'YouTube', path: '#', icon: <FaYoutube/> },
+   
+    { name: 'Instagram', path: 'https://www.instagram.com/vroomvroom.lk/', icon: <FaInstagram/> },
+    { name: 'Facebook', path: 'https://web.facebook.com/people/VRoom-VRoom/61562063228667', icon: <FaFacebook/>},
+    { name: 'YouTube', path: 'https://www.youtube.com/@VroomVroomlk', icon: <FaYoutube/> },
+    { name: 'Tik Tock', path: 'https://www.tiktok.com/@vroomvroom.lk?lang=en', icon: <FaTiktok/> },
   ];
 
+  
   const serviceLinks = [
     { title: 'About Us', path: '/about' },
     { title: 'Contact', path: '/contact' },

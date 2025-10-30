@@ -94,7 +94,7 @@ export default function HireaCab() {
             {/* Call to Action */}
             <div className="bg-red-600/20 rounded-2xl p-6 border border-red-500/30">
               <p className="text-white text-lg font-semibold mb-3">
-                📞 Call Now: <span className="text-2xl font-black bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent">072611897</span>
+                📞 Call Now: <span className="text-2xl font-black bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent">0701505090 / 0701780780</span>
               </p>
               <p className="text-gray-300">
                 Book your cab in minutes! Enjoy a smooth, hassle-free ride every time.
@@ -205,7 +205,7 @@ export default function HireaCab() {
       {/* Enhanced WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-50 group">
         <button
-          onClick={() => window.open('https://wa.me/94740343095?text=Welcome', '_blank')}
+          onClick={() => window.open('https://wa.me/701780780?text=Welcome', '_blank')}
           aria-label="Chat on WhatsApp"
           className={`
             relative bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white rounded-2xl p-5 shadow-2xl

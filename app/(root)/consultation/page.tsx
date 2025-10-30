@@ -220,7 +220,7 @@ const [isVisible, setIsVisible] = useState(false);
         {/* WhatsApp Button */}
      <div className="fixed bottom-6 right-6 z-50 group">
   <button
-    onClick={() => window.open('https://wa.me/94740343095?text=Welcome', '_blank')}
+    onClick={() => window.open('https://wa.me/94701780780?text=Welcome', '_blank')}
     aria-label="Chat on WhatsApp"
     className={`
       bg-[#25D366] text-white rounded-full p-4 shadow-xl relative

@@ -1,6 +1,6 @@
 'use client';
 
-import { FaPhone, FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
+import { FaPhone, FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa6";
 import { CiMail } from "react-icons/ci";
 import { IoLocation } from "react-icons/io5";
 import { FaPaperPlane } from "react-icons/fa";
@@ -29,7 +29,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-200 text-sm">PHONE</h4>
-                  <p className="text-white">+7402032323</p>
+                  <p className="text-white">0701505090 / 0701780780</p>
                 </div>
               </div>
 
@@ -60,10 +60,9 @@ export default function ContactPage() {
               <div className="flex gap-3">
                 {[
                   { icon: FaFacebookF, color: "hover:bg-blue-600", label: "Facebook", link:"https://web.facebook.com/people/VRoom-VRoom/61562063228667/" },
-                //  { icon: FaTwitter, color: "hover:bg-blue-400", label: "Twitter" },
-                  { icon: FaInstagram, color: "hover:bg-pink-600", label: "Instagram" , link:""},
-                  { icon: FaLinkedinIn, color: "hover:bg-blue-700", label: "LinkedIn" , link:""},
-                  { icon: FaYoutube, color: "hover:bg-red-500", label: "YouTube", link:"" }
+                  { icon: FaInstagram, color: "hover:bg-pink-600", label: "Instagram" , link:"https://www.instagram.com/vroomvroom.lk"},
+                  { icon: FaTiktok, color: "hover:bg-blue-700", label: "Tick Tock" , link:"https://www.tiktok.com/@vroomvroom.lk?lang=en"},
+                  { icon: FaYoutube, color: "hover:bg-red-500", label: "YouTube", link:"https://www.youtube.com/@VroomVroomlk" }
                 ].map((social, index) => (
                   <a
                     key={index}
