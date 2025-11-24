@@ -35,7 +35,7 @@ const HeroSlider = () => {
     },
     {
       id: 3,
-      title: 'Sell Your Car Fast in Sri Lanka',
+      title: 'Sell Your Car Fast.',
       description: 'Get a free instant valuation and connect with serious buyers today.',
       buttonText: 'Sell Your Car Now',
       path: 'sell'
@@ -43,7 +43,7 @@ const HeroSlider = () => {
     
     {
       id: 4,
-      title: 'Hire a Professional Lady Driver in Sri Lanka',
+      title: 'Hire a Professional Lady Driver',
       description: 'Need a safe and reliable ride home',
       buttonText: 'Book Your Driver Now',
       path: 'ladycab'
@@ -57,10 +57,17 @@ const HeroSlider = () => {
     },
     {
       id: 6,
-      title: 'Consultation services in Sri Lanka',
+      title: 'Consultation services,',
       description: 'Have questions about buying, selling, or financing a car? Our experts are here to help.',
       buttonText: 'Book Your Consultations Now',
       path: '/consultation'
+    },
+    {
+      id: 7,
+      title: 'Cab Service for Tourists in Sri Lanka',
+      description: 'Explore Sri Lanka with ease and comfort using our reliable cab services tailored for tourists.',
+      buttonText: 'Book Your Cab Now',
+      path: '/cab-tourist'
     },
   ]);
 
