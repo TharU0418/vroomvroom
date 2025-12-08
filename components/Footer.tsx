@@ -16,7 +16,7 @@ const Footer = () => {
     { title: 'Sell', path: '/sell' },
     { title: 'Lady Driver', path: '/ladycab' },
     { title: 'Consultation', path: '/consultation' },
-    
+    { title: 'Tourist Cab', path: '/cab-tourist' }    
   ];
 
   const socialLinks = [
@@ -31,6 +31,7 @@ const Footer = () => {
   const serviceLinks = [
     { title: 'About Us', path: '/about' },
     { title: 'Contact', path: '/contact' },
+    { title: 'Blogs', path: '/blog' },
   //  { title: 'Careers', path: '/careers' },
    // { title: 'FAQ', path: '/faq' },
    // { title: 'Privacy Policy', path: '/privacy' },
