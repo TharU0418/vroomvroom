@@ -1,6 +1,7 @@
+// app/blog/page.tsx
 import Link from "next/link";
 import Image from "next/image";
-import { blogs } from "@/DB/blogs";
+import { blogs } from "../../DB/blogs";
 
 export default function BlogPage() {
   return (
@@ -23,7 +24,9 @@ export default function BlogPage() {
             />
             <div className="p-4">
               <p className="text-sm text-white">{blog.category}</p>
-              <h2 className="text-xl font-semibold mt-1 text-white">{blog.title}</h2>
+              <h2 className="text-xl font-semibold mt-1 text-white">
+                {blog.title}
+              </h2>
               <p className="text-sm mt-2 text-white">{blog.description}</p>
               <span className="text-xs text-white">{blog.date}</span>
             </div>

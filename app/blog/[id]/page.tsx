@@ -3,8 +3,12 @@ import Image from "next/image";
 import { blogs } from "../../../DB/blogs";
 import { notFound } from "next/navigation";
 
-export default function BlogDetails({ params }: { params: { id: string } }) {
-  const blog = blogs.find((b) => b.id === Number(params.id));
+export default function BlogDetails({ params }: any) {
+  // Get ID from params
+  const id = Number(params.id);
+
+  // Find the blog
+  const blog = blogs.find((b) => b.id === id);
 
   if (!blog) return notFound();
 
@@ -29,7 +33,7 @@ export default function BlogDetails({ params }: { params: { id: string } }) {
       </p>
 
       <div
-        className="mt-6 prose prose-blue max-w-none text-white"
+        className="mt-6 prose max-w-none text-white"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
     </div>
