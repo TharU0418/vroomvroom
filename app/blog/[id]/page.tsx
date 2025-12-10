@@ -3,11 +3,15 @@ import Image from "next/image";
 import { blogs } from "../../../DB/blogs";
 import { notFound } from "next/navigation";
 
-export default function BlogDetails({ params }: any) {
-  // Get ID from params
-  const id = Number(params.id);
+// Define a simple type for params
+type BlogParams = {
+  params: {
+    id: string;
+  };
+};
 
-  // Find the blog
+export default function BlogDetails({ params }: BlogParams) {
+  const id = Number(params.id);
   const blog = blogs.find((b) => b.id === id);
 
   if (!blog) return notFound();

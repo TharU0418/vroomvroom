@@ -330,7 +330,7 @@ const Navbar = () => {
    // { title: 'Buy', path: '/buy' },
     { title: 'Sell', path: '/sell' },
     { title: 'Hire Cab', path: '/hireacab' },
-    { title: 'Consultations', path: '/consultation' },
+    { title: 'Consultations', path: '/consultation' }
   //  { title: 'About Us', path: '/about' }
   ];
 
