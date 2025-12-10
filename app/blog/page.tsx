@@ -1,6 +1,7 @@
 // app/blog/page.tsx
 import Link from "next/link";
 import { blogs } from "../../DB/blogs";
+import Image from "next/image";
 
 export default function BlogPage() {
   return (
@@ -14,7 +15,7 @@ export default function BlogPage() {
             href={`/blog/${blog.id}`}
             className="border rounded-lg overflow-hidden shadow hover:shadow-lg transition"
           >
-            <img
+            <Image
               src={blog.image}
               className="w-full h-56 object-cover"
               alt={blog.title}

@@ -1,4 +1,5 @@
 // app/blog/[id]/page.tsx
+import Image from "next/image";
 import { blogs } from "../../../DB/blogs";
 import { notFound } from "next/navigation";
 
@@ -13,7 +14,7 @@ export default function BlogDetails({ params }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4">
-      <img
+      <Image
         src={blog.image}
         alt={blog.title}
         className="w-full h-72 object-cover rounded-lg"
