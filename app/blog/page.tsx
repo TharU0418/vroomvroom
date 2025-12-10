@@ -1,7 +1,6 @@
-// app/blog/page.tsx
 import Link from "next/link";
-import { blogs } from "../../DB/blogs";
 import Image from "next/image";
+import { blogs } from "@/DB/blogs";
 
 export default function BlogPage() {
   return (

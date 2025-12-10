@@ -1,13 +1,15 @@
-// app/blog/[id]/page.tsx
 import Image from "next/image";
 import { blogs } from "../../../DB/blogs";
 import { notFound } from "next/navigation";
 
-export default function BlogDetails({
-  params,
-}: {
-  params: { id: string };
-}) {
+// Pre-generate static routes like /blog/1, /blog/2, ...
+export function generateStaticParams() {
+  return blogs.map((blog) => ({
+    id: blog.id.toString(),
+  }));
+}
+
+export default function BlogDetails({ params }: { params: { id: string } }) {
   const blog = blogs.find((b) => b.id === Number(params.id));
 
   if (!blog) return notFound();
@@ -18,7 +20,7 @@ export default function BlogDetails({
         src={blog.image}
         alt={blog.title}
         width={1200}
-  height={600}
+        height={600}
         className="w-full h-72 object-cover rounded-lg"
       />
 
@@ -26,12 +28,13 @@ export default function BlogDetails({
       <div className="text-white mt-2">
         <span>{blog.author}</span> • <span>{blog.date}</span>
       </div>
+
       <p className="text-sm text-blue-600 font-semibold mt-1 text-white">
         {blog.category}
       </p>
 
       <div
-        className="mt-6 prose prose-blue max-w-none text-white"
+        className="mt-6 prose max-w-none text-white"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
     </div>
