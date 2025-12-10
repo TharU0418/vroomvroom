@@ -3,7 +3,11 @@ import Image from "next/image";
 import { blogs } from "../../../DB/blogs";
 import { notFound } from "next/navigation";
 
-export default function BlogDetails({ params }: { params: { id: string } }) {
+export default function BlogDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
   const blog = blogs.find((b) => b.id === Number(params.id));
 
   if (!blog) return notFound();
@@ -17,11 +21,9 @@ export default function BlogDetails({ params }: { params: { id: string } }) {
       />
 
       <h1 className="text-4xl font-bold mt-6 text-white">{blog.title}</h1>
-
       <div className="text-white mt-2">
         <span>{blog.author}</span> • <span>{blog.date}</span>
       </div>
-
       <p className="text-sm text-blue-600 font-semibold mt-1 text-white">
         {blog.category}
       </p>

@@ -6,7 +6,7 @@ export const blogs = [
         category: "Tech",
         author: "Sarah Coder",
         date: "Nov 10, 2024",
-        image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80",
+        image: "https://promova.com/content/types_of_vehicles_9a57ec3d6b.png",
         description: "A comprehensive guide to using useEffect, useState, and custom hooks effectively.",
         content: `
       <h2>Introduction</h2>
@@ -29,7 +29,7 @@ export const blogs = [
         category: "Lifestyle",
         author: "Chef Mike",
         date: "Nov 15, 2024",
-        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+        image: "https://promova.com/content/types_of_vehicles_9a57ec3d6b.png",
         description: "Save time and eat better with these simple meal prep strategies.",
         content: "<p>Meal prep doesn't have to be boring. Here are 5 recipes you can make in under an hour.</p>"
     }
