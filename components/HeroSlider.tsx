@@ -21,7 +21,7 @@ const HeroSlider = () => {
     
     {
       id: 1,
-      title: 'Hire a Professional Driver in Sri Lanka – Fast, Reliable & Safe',
+      title: 'Hire a Professional Chauffeur in Sri Lanka – Fast, Reliable & Safe',
       description: 'Find trusted, experienced drivers anywhere in Sri Lanka for tours, daily commutes, airport transfers & more.',
       buttonText: 'Book Your Driver Now',
       path: 'hire'
@@ -33,38 +33,38 @@ const HeroSlider = () => {
       buttonText: 'Hire Your Cab Now',
       path: 'hireacab'
     },
-    {
-      id: 3,
-      title: 'Sell Your Car Fast.',
-      description: 'Get a free instant valuation and connect with serious buyers today.',
-      buttonText: 'Sell Your Car Now',
-      path: 'sell'
-    },
+    // {
+    //   id: 3,
+    //   title: 'Sell Your Car Fast.',
+    //   description: 'Get a free instant valuation and connect with serious buyers today.',
+    //   buttonText: 'Sell Your Car Now',
+    //   path: 'sell'
+    // },
     
-    {
-      id: 4,
-      title: 'Hire a Professional Lady Driver',
-      description: 'Need a safe and reliable ride home',
-      buttonText: 'Book Your Driver Now',
-      path: 'ladycab'
-    },
-    {
-      id: 5,
-      title: 'Buy a Car in Sri Lanka – Wide Selection of New & Used Cars',
-      description: "Browse thousands of listings from trusted dealers & private sellers.",
-      buttonText: 'Buy Your Car Now',
-      path: 'buy'
-    },
-    {
-      id: 6,
-      title: 'Consultation services,',
-      description: 'Have questions about buying, selling, or financing a car? Our experts are here to help.',
-      buttonText: 'Book Your Consultations Now',
-      path: '/consultation'
-    },
+    // {
+    //   id: 4,
+    //   title: 'Hire a Professional Lady Driver',
+    //   description: 'Need a safe and reliable ride home',
+    //   buttonText: 'Book Your Driver Now',
+    //   path: 'ladycab'
+    // },
+    // {
+    //   id: 5,
+    //   title: 'Buy a Car in Sri Lanka – Wide Selection of New & Used Cars',
+    //   description: "Browse thousands of listings from trusted dealers & private sellers.",
+    //   buttonText: 'Buy Your Car Now',
+    //   path: 'buy'
+    // },
+    // {
+    //   id: 6,
+    //   title: 'Consultation services,',
+    //   description: 'Have questions about buying, selling, or financing a car? Our experts are here to help.',
+    //   buttonText: 'Book Your Consultations Now',
+    //   path: '/consultation'
+    // },
     {
       id: 7,
-      title: 'Cab Service for Tourists in Sri Lanka',
+      title: 'Book a  Tourists Cab in Sri Lanka',
       description: 'Explore Sri Lanka with ease and comfort using our reliable cab services tailored for tourists.',
       buttonText: 'Book Your Cab Now',
       path: '/cab-tourist'
@@ -74,7 +74,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 5000);
+    }, 8000);
     return () => clearInterval(interval);
   }, [slides.length]);
 

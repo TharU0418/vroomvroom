@@ -13,7 +13,7 @@ function OurServices() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
           {[
             { 
-              title: "Hire Driver", 
+              title: "Hire a Chauffeur", 
               icon: "🚘", 
               desc: "We help you find the best driver to assit you." 
             },
@@ -28,20 +28,25 @@ function OurServices() {
               desc: "Any problem you faced about a vechicle our professional team will guide you." 
             },
             { 
-              title: "Lady Driver", 
-              icon: "💰", 
-              desc: "Your safety is our priority. Hire professional lady drivers for comfortable and secure rides." 
+              title: "Tourist Cab", 
+              icon: "👨‍💼", 
+              desc: "Explore Sri Lanka with ease and comfort using our reliable cab services tailored for tourists." 
             },
-            { 
-              title: "Buy Car", 
-              icon: "💰", 
-              desc: "Quality pre-owned and brand new cars with comprehensive warranties" 
-            },
-            { 
-              title: "Sell Car", 
-              icon: "💰", 
-              desc: "Sell your car quickly and easily with our hassle-free process" 
-            }
+            //{ 
+            //   title: "Lady Driver", 
+            //   icon: "💰", 
+            //   desc: "Your safety is our priority. Hire professional lady drivers for comfortable and secure rides." 
+            // },
+            // { 
+            //   title: "Buy Car", 
+            //   icon: "💰", 
+            //   desc: "Quality pre-owned and brand new cars with comprehensive warranties" 
+            // },
+            // { 
+            //   title: "Sell Car", 
+            //   icon: "💰", 
+            //   desc: "Sell your car quickly and easily with our hassle-free process" 
+            // }
           ].map((service, index) => (
             <div 
               key={index} 

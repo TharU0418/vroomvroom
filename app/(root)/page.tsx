@@ -15,7 +15,7 @@ export default function Home() {
     <div className="min-h-screen bg-white"> 
 {/* <Navbar/> */}
 <HeroSlider/>
-<Partners/>
+{/* <Partners/> */}
 <WhyChooseUs/>
 <OurServices/>
 {/* <HowWork/> */}
