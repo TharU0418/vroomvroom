@@ -3,11 +3,7 @@ import Image from "next/image";
 import { blogs } from "../../../DB/blogs";
 import { notFound } from "next/navigation";
 
-interface Props {
-  params: { id: string };
-}
-
-export default function BlogDetails({ params }: Props) {
+export default function BlogDetails({ params }: { params: { id: string } }) {
   const blog = blogs.find((b) => b.id === Number(params.id));
 
   if (!blog) return notFound();
