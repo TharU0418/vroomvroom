@@ -17,7 +17,9 @@ export default function BlogPage() {
           >
             <Image
               src={blog.image}
-              className="w-full h-full h-56 object-cover"
+              width={600}
+              height={400}
+              className="w-full h-56 object-cover"
               alt={blog.title}
             />
             <div className="p-4">

@@ -17,6 +17,8 @@ export default function BlogDetails({
       <Image
         src={blog.image}
         alt={blog.title}
+        width={1200}
+  height={600}
         className="w-full h-72 object-cover rounded-lg"
       />
 
