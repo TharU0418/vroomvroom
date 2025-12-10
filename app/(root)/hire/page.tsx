@@ -50,13 +50,27 @@ const [isVisible, setIsVisible] = useState(false);
       {/* Full-width banner - optimized for mobile */}
 
        {/* Hero Section */}
-      <div className="relative h-[40vh] bg-black text-white">
+      <div className="relative h-[70vh] bg-black text-white">
        <div style={{ backgroundImage: `url(${cover1})` }} className="absolute inset-0 bg-cover bg-center z-0"></div>
-        <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Hire a Driver</span></h1>
-          <p className="text-xl max-w-3xl text-gray-300 mb-8">
-              Discover the comfort and security of employing a professional driver for any sort of event. 
-              We can handle any kind of arrangement, be it a long-term agreement, a one-time trip, or a full-day service.          
+        <div className="bg-red-600 relative z-20 h-full flex flex-col justify-center items-center  px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Hire a Chauffeur</span></h1>
+          <p className="text-m max-w-3xl text-white mb-2">
+              Experience true comfort, safety, and professionalism with VroomVroom’s chauffeur services.
+We don’t provide “just a driver”—we provide highly trained, disciplined, and experienced professional chauffeurs who elevate every journey.
+
+Whether you need a chauffeur for your personal vehicle, a full cab + chauffeur solution, a one-time trip, a full-day booking, or a long-term arrangement, we tailor our service to fit your needs.
+</p>
+{/* <p>Our chauffeurs are:</p> */}
+<ul>
+  <li>• Well-mannered and presentable</li>
+  <li>• Trained in defensive driving</li>
+  <li>• Knowledgeable about routes, traffic, and local navigation</li>
+  <li>• Highly reliable and trustworthy</li>
+  <li>• Experienced in serving diplomats, corporates, families, and tourists</li>
+</ul>
+          <p className="text-m max-w-3xl text-white mt-2 mb-1">
+
+With VroomVroom, you enjoy premium service, complete convenience, and total peace of mind—every time you travel.    
           </p>
           <div className="flex space-x-4">
             {/* <button className="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">

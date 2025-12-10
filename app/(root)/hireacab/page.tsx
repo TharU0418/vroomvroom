@@ -39,7 +39,7 @@ export default function HireaCab() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 text-black">
       {/* Enhanced Hero Section */}
-      <div className="relative h-[80vh] bg-red-600 to-black overflow-hidden">
+      <div className="relative h-[100vh] bg-red-600 to-black overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-red-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
@@ -50,29 +50,36 @@ export default function HireaCab() {
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
           {/* Animated Title */}
           <div className="mb-2 transform transition-all duration-1000 hover:scale-105">
-                      <h1 className="text-4xl md:text-6xl font-bold mb-4"><span className="text-white">Hire a Cab</span></h1>
+                      <h1 className="text-4xl md:text-6xl font-bold mb-4 mt-2"><span className="text-white">Hire a Cab</span></h1>
 
           </div>
 
           {/* Enhanced Content Card */}
           <div className="bg-black/40 backdrop-blur-lg rounded-3xl p-8 max-w-4xl border border-white/10 shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
-            <p className="text-xl md:text-xl text-gray-100 mb-2 leading-relaxed font-light">
-              Need a aeliable cab? We have got you covered!
+            <p className="text-m  text-white mb-2 leading-relaxed font-light">
+              When you need a professional cab service provider in Sri Lanka, VroomVroom Rolling is your trusted partner.
             </p>
-            
-            <div className="grid md:grid-cols-2 gap-6 text-left mb-2">
+
+            <p className="text-m text-white mb-2 leading-relaxed font-light mb-4">
+              Speak to us, and we will arrange a clean, comfortable, and value-for-money chauffeur-driven cab tailored to any requirement—be it personal travel, 
+              corporate appointments, business meetings, or everyday mobility.
+              With VroomVroom Rolling, booking a cab is always fast, simple, and hassle-free.
+              Our reliable chauffeurs, well-maintained vehicles, and seamless service ensure that your journey is smooth from start to finish.
+              Choose VroomVroom Rolling where professionalism, comfort, and dependability come standard.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6 text-left mb-2 mt-2">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 group">
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Wedding car hire</span>
+                  <span className="text-white font-medium">Wedding Car Services</span>
                 </div>
                 <div className="flex items-center space-x-3 group">
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Airport transfers</span>
+                  <span className="text-white font-medium">Corporate Trips </span>
                 </div>
               </div>
               <div className="space-y-4">
@@ -80,15 +87,17 @@ export default function HireaCab() {
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Tourist trips</span>
+                  <span className="text-white font-medium">Airport Pickup & Drop</span>
                 </div>
                 <div className="flex items-center space-x-3 group">
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-white font-bold">✓</span>
                   </div>
-                  <span className="text-white font-medium">Daily travel & more</span>
+                  <span className="text-white font-medium"> Family Trips </span>
                 </div>
+                
               </div>
+              
             </div>
 
             {/* Call to Action */}

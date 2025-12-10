@@ -326,6 +326,7 @@ const Navbar = () => {
   const menuItems = [
     { title: 'Home', path: '/' },
     { title: 'Hire Driver', path: '/hire' },
+        { title: 'Tourist Cab', path: '/cab-tourist'},
    // { title: 'Lady Driver', path: '/ladycab' },
    // { title: 'Buy', path: '/buy' },
     { title: 'Sell', path: '/sell' },

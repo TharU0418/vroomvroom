@@ -12,9 +12,9 @@ const Footer = () => {
   const menuItems = [
      { title: 'Hire a Cab', path: '/hirecab' },
      { title: 'Hire a Driver', path: '/hire' },
-     { title: 'Buy', path: '/buy' },
+    // { title: 'Buy', path: '/buy' },
     { title: 'Sell', path: '/sell' },
-    { title: 'Lady Driver', path: '/ladycab' },
+    //{ title: 'Lady Driver', path: '/ladycab' },
     { title: 'Consultation', path: '/consultation' },
     { title: 'Tourist Cab', path: '/cab-tourist' }    
   ];
