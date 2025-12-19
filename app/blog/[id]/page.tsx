@@ -1,13 +1,12 @@
-// app/blog/[id]/page.tsx
-import Image from "next/image";
-import { blogs } from "../../../DB/blogs";
-import { notFound } from "next/navigation";
+interface BlogDetailsProps {
+  params: {
+    id: string;
+  };
+}
 
-export default function BlogDetails({ params }: any) {
-  // Get ID from params
+export default function BlogDetails({ params }: BlogDetailsProps) {
   const id = Number(params.id);
 
-  // Find the blog
   const blog = blogs.find((b) => b.id === id);
 
   if (!blog) return notFound();
@@ -28,7 +27,7 @@ export default function BlogDetails({ params }: any) {
         <span>{blog.author}</span> • <span>{blog.date}</span>
       </div>
 
-      <p className="text-sm text-blue-600 font-semibold mt-1 text-white">
+      <p className="text-sm font-semibold mt-1 text-white">
         {blog.category}
       </p>
 
