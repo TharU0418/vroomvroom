@@ -67,7 +67,7 @@ export default function HireaCab() {
               Our reliable chauffeurs, well-maintained vehicles, and seamless service ensure that your journey is smooth from start to finish.
               Choose VroomVroom Rolling where professionalism, comfort, and dependability come standard.
             </p>
-            <div className="grid md:grid-cols-2 gap-6 text-left mb-2 mt-2">
+            <div className="grid md:grid-cols-2 gap-6 text-center mb-2 mt-2">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 group">
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -101,7 +101,7 @@ export default function HireaCab() {
             </div>
 
             {/* Call to Action */}
-            <div className="bg-red-600/20 rounded-2xl p-6 border border-red-500/30">
+            <div className="bg-red-600/20 rounded-2xl p-6 border border-red-500/30 mt-6">
               <p className="text-white text-lg font-semibold mb-3">
                 📞 Call Now: <span className="text-2xl font-black bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent">0701505090 / 0701780780</span>
               </p>
@@ -124,11 +124,12 @@ export default function HireaCab() {
             <div className="flex space-x-6 animate-scroll hover:pause">
               {[
                 { img: "/hire1.png", title: "Wedding Car", desc: "Professional hourly driver", badge: "Popular" },
-                { img: "/hire2.jpeg", title: "Normal Cab", desc: "Multi-day hire available", badge: "Flexible" },
-                { img: "/hirecab1.png", title: "Tourist Package", desc: "Safe and responsible travel", badge: "Popular" },
-                { img: "/hire4.png", title: "Travel Package", desc: "Long-term driver contracts", badge: "Premium" },
-                { img: "/hire1.png", title: "Luxury Rides", desc: "Premium comfort experience", badge: "Luxury" },
-                { img: "/hire2.jpeg", title: "City Tours", desc: "Explore the city in style", badge: "Explore" }
+                { img: "/hire2.jpeg", title: "Cab for Personal Use", desc: "Multi-day hire available", badge: "Flexible" },
+                { img: "/hirecab7.png", title: "Cab for Corporate Meeting", desc: "Safe and responsible travel", badge: "Popular" },
+                { img: "/hirecab6.png", title: "Family Trip", desc: "Safe and responsible travel", badge: "Popular" },
+                { img: "/hirecab5.png", title: "Corporate  Trip", desc: "Long-term driver contracts", badge: "Premium" },
+                { img: "/hire1.png", title: "Air Port pickup/drop", desc: "Premium comfort experience", badge: "Luxury" },
+                { img: "/hire2.jpeg", title: "Cab for events", desc: "Explore the city in style", badge: "Explore" }
               ].map((service, index) => (
                 <div 
                   key={index}
@@ -147,12 +148,12 @@ export default function HireaCab() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                       
                       {/* Badge */}
-                      <div className="absolute top-4 right-4">
+                      {/* <div className="absolute top-4 right-4">
                         <span className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                           {service.badge}
                         </span>
                       </div>
-                      
+                       */}
                       {/* Title */}
                       <div className="absolute bottom-4 left-4 right-4">
                         <h3 className="text-white text-2xl font-bold mb-1">{service.title}</h3>

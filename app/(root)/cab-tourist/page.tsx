@@ -7,53 +7,145 @@ function Page() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Enhanced Hero Section */}
-      <div className="relative h-[100vh] bg-gradient-to-br from-red-600 to-red-500 overflow-hidden">
+      <div className="relative h-[140vh] bg-gradient-to-br from-red-600 to-red-500 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-black/10"></div>
      
 
-        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
-          {/* Animated Title */}
-          <div className="mb-8 transform transition-all duration-1000 hover:scale-105">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-white">Book a cab for your holiday</span>
-            </h1>
-            <div className="w-24 h-1 bg-white mx-auto mb-8"></div>
-          </div>
+        <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4 mt-10">
+  {/* Background Pattern/Image Layer */}
+  <div className="absolute inset-0 overflow-hidden rounded-3xl opacity-10">
+    <div className="absolute top-0 left-0 w-1/3 h-full">
+      <div className="w-full h-full bg-gradient-to-r from-blue-400 to-cyan-300"></div>
+    </div>
+    <div className="absolute top-0 right-0 w-2/3 h-full">
+      <div className="w-full h-full bg-gradient-to-l from-green-400 to-emerald-300"></div>
+    </div>
+  </div>
 
-          {/* Enhanced Content Card */}
-          <div className="bg-white/20 backdrop-blur-lg rounded-3xl p-8 max-w-4xl border border-white/30 shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
-            <p className="text-2xl md:text-3xl text-white mb-6 leading-relaxed font-light">
-              Trusted Cab Services for Tourists 
-            </p>
-            <ReadMore text={`
-              Choosing Sri Lanka for your holiday, corporate event, or annual conference is always a 
-good decision. Sri Lanka is a beautiful island close to India, known worldwide for its 
-nature, culture, wildlife, beaches, history, and festivals. 
-From Ramayana trails to ancient heritage sites, Sri Lanka offers unforgettable 
-experiences. 
-As you plan your trip, VroomVroom Tourist ensures the best transport options during your 
-stay. Whether you need an airport pickup, city-to-city transport, a round tour, or a 
-vehicle on disposal, we provide exactly what fits your requirements.
-            `}/>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {/* <button className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1">
-                Book With Driver
-              </button> */}
-              <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-all transform hover:-translate-y-1">
-               Call now -  0701505090
-              </button>
-            </div>
-          </div>
+  {/* Animated Title with Icon */}
+  <div className="mb-8 transform transition-all duration-1000 hover:scale-105 relative">
+    <div className="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400/20 rounded-full animate-pulse"></div>
+    <h1 className="text-5xl md:text-7xl font-bold mb-6 relative">
+      <span className="text-white drop-shadow-lg">
+        Book a cab for your holiday
+      </span>
+    </h1>
+    <div className="flex items-center justify-center gap-4 mb-8">
+      <div className="w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+      <div className="text-white/80">
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H15C15 3.9 14.1 3 13 3H11C9.9 3 9 3.9 9 5H6.5C5.84 5 5.29 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01ZM6.5 16C5.67 16 5 15.33 5 14.5S5.67 13 6.5 13S8 13.67 8 14.5 7.33 16 6.5 16ZM17.5 16C16.67 16 16 15.33 16 14.5S16.67 13 17.5 13 19 13.67 19 14.5 18.33 16 17.5 16ZM5 11L6.5 6.5H17.5L19 11H5Z"/>
+        </svg>
+      </div>
+      <div className="w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+    </div>
+  </div>
+
+  {/* Enhanced Content Card with Side Images */}
+  <div className="relative bg-white/15 backdrop-blur-xl rounded-3xl p-8 max-w-5xl border border-white/30 shadow-2xl transform hover:scale-[1.02] transition-all duration-500 overflow-hidden">
+    
+    {/* Decorative Images on Sides */}
+    <div className="absolute -left-16 top-1/4 w-32 h-48 rounded-2xl overflow-hidden border-4 border-white/30 shadow-xl rotate-6 hidden lg:block">
+      <div className="w-full h-full bg-gradient-to-br from-blue-500/40 to-cyan-400/30 flex items-center justify-center">
+        <svg className="w-16 h-16 text-white/60" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div className="absolute -right-16 top-1/3 w-32 h-48 rounded-2xl overflow-hidden border-4 border-white/30 shadow-xl -rotate-6 hidden lg:block">
+      <div className="w-full h-full bg-gradient-to-br from-emerald-500/40 to-green-400/30 flex items-center justify-center">
+        <svg className="w-16 h-16 text-white/60" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      </div>
+    </div>
+
+    {/* Main Content */}
+    <div className="relative z-10">
+      {/* Header with Icon */}
+      <div className="flex items-center justify-center gap-4 mb-6">
+        <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
+          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
         </div>
-        
-        {/* Floating Elements */}
-        <div className="absolute bottom-10 left-10 w-20 h-20 bg-yellow-400 rounded-full opacity-20 animate-bounce"></div>
-        <div className="absolute top-20 right-20 w-16 h-16 bg-white rounded-full opacity-30 animate-pulse"></div>
+        <p className="text-2xl md:text-3xl text-white leading-relaxed font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+          Trusted Cab Services for Tourists
+        </p>
       </div>
 
+      {/* Content with Image Placeholder */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <div className="lg:col-span-2 space-y-6">
+          <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+            Choosing Sri Lanka for your holiday, corporate event, or annual conference is always a great decision. Sri Lanka is a stunning island nation close to India, globally renowned for its rich culture, diverse landscapes, and warm hospitality.
+          </p>
+          
+          <div className="bg-gradient-to-r from-blue-500/20 to-green-500/20 p-4 rounded-2xl border border-white/20">
+            <p className="text-lg text-white/90 leading-relaxed">
+              From ancient heritage sites and sacred landmarks to the legendary Ramayana trails, Sri Lanka promises unforgettable memories for every traveler. As you plan your journey, VroomVroom Tourist ensures seamless and reliable transportation throughout your stay.
+            </p>
+          </div>
+        </div>
+
+        {/* Image Placeholder */}
+        <div className="relative h-64 lg:h-auto rounded-2xl overflow-hidden border-2 border-white/40 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 flex flex-col items-center justify-center p-4">
+            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-.5L13 19v-5.5l8 2.5z"/>
+              </svg>
+            </div>
+            <p className="text-white text-center font-semibold text-lg">
+              Explore Sri Lanka <br />in Comfort
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Services Icons */}
+      <div className="flex flex-wrap justify-center gap-6 mb-8">
+        {['Airport Pickup', 'City Transfers', 'Round Tours', 'Flexible Rental'].map((service, index) => (
+          <div key={index} className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-white font-medium">{service}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Call to Action */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button className="group relative bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 hover:scale-105 min-w-[200px]">
+          <div className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="flex items-center justify-center gap-3">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            <span>Call Now - 0701505090</span>
+          </div>
+        </button>
+        
+        <div className="flex items-center gap-2 text-white/80 mb-20">
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span className="text-sm">Available 24/7</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{/* Floating Elements */}
+<div className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full opacity-20 animate-bounce"></div>
+<div className="absolute top-20 right-20 w-20 h-20 bg-gradient-to-br from-white to-blue-100 rounded-full opacity-30 animate-pulse"></div>
+<div className="absolute top-1/3 left-1/4 w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-300 rounded-full opacity-25 animate-bounce delay-300"></div>
+
+</div>
+
       {/* Features Section */}
-<div id="features" className="py-20 px-4 max-w-7xl mx-auto">
+<div id="features" className="py-20 px-4 max-w-7xl mx-auto ">
   <div className="text-center mb-16">
     <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
       Why Choose Vroom Vroom?

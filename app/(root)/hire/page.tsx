@@ -56,10 +56,15 @@ const [isVisible, setIsVisible] = useState(false);
           <h1 className="text-4xl md:text-6xl font-bold mb-6"><span className="text-white">Hire a Chauffeur</span></h1>
           <p className="text-m max-w-3xl text-white mb-2">
               Experience true comfort, safety, and professionalism with VroomVroom’s chauffeur services.
-We don’t provide “just a driver”—we provide highly trained, disciplined, and experienced professional chauffeurs who elevate every journey.
-
-Whether you need a chauffeur for your personal vehicle, a full cab + chauffeur solution, a one-time trip, a full-day booking, or a long-term arrangement, we tailor our service to fit your needs.
-</p>
+              We don’t provide “just a driver”, we provide highly trained, disciplined, and experienced professional 
+              chauffeurs who elevate every journey.
+              We offer car and chauffeur services for full-day, half-day, or hourly requirements.
+Whether you need a personal vehicle or a professional chauffeur, our services are available on a flexible basis to suit your schedule.
+For long-term, mid-term, or short-term arrangements—including contract-based services—we are happy to tailor our solutions to meet your specific needs.
+          </p>
+<p>
+            Our chauffeurs are:
+          </p>
 {/* <p>Our chauffeurs are:</p> */}
 <ul>
   <li>• Well-mannered and presentable</li>
@@ -102,12 +107,11 @@ With VroomVroom, you enjoy premium service, complete convenience, and total peac
           className="glass-container bg-white bg-opacity-40 rounded-xl p-2 h-full cursor-pointer hover:scale-105 transition-transform">
             <div className="relative h-64 rounded-lg overflow-hidden">
              <Image 
-  src="/hire1.png"
- fill
-  alt="One time driver booking image"
-  className="w-full h-full object-cover" 
-/>
-
+              src="/hire1.png"
+              fill
+              alt="One time driver booking image"
+              className="w-full h-full object-cover" 
+            />    
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                 <h3 className="text-white text-xl font-bold">One Time Booking</h3>
                 <p className="text-gray-200 font-small">Hire a professional driver by the hour for same-day use.</p>
