@@ -1,14 +1,13 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
+import { blogs } from "../../../DB/blogs";
 
-interface BlogDetailsProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function BlogDetails({ params }: BlogDetailsProps) {
+export default function BlogDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
   const id = Number(params.id);
-
   const blog = blogs.find((b) => b.id === id);
 
   if (!blog) return notFound();
@@ -23,7 +22,9 @@ export default function BlogDetails({ params }: BlogDetailsProps) {
         className="w-full h-72 object-cover rounded-lg"
       />
 
-      <h1 className="text-4xl font-bold mt-6 text-white">{blog.title}</h1>
+      <h1 className="text-4xl font-bold mt-6 text-white">
+        {blog.title}
+      </h1>
 
       <div className="text-white mt-2">
         <span>{blog.author}</span> • <span>{blog.date}</span>
