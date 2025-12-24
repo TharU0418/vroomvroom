@@ -7,14 +7,14 @@ function Page() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Enhanced Hero Section */}
-      <div className="relative h-[140vh] bg-gradient-to-br from-red-600 to-red-500 overflow-hidden">
+<div className="relative min-h-screen md:h-[140vh] bg-gradient-to-br from-red-600 to-red-500 overflow-visible md:overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-black/10"></div>
+<div className="absolute inset-0 bg-black/10 hidden md:block"></div>
      
 
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4 mt-10">
   {/* Background Pattern/Image Layer */}
-  <div className="absolute inset-0 overflow-hidden rounded-3xl opacity-10">
+  <div className="absolute inset-0 overflow-visible md:overflow-hidden rounded-3xl opacity-10">
     <div className="absolute top-0 left-0 w-1/3 h-full">
       <div className="w-full h-full bg-gradient-to-r from-blue-400 to-cyan-300"></div>
     </div>
@@ -27,9 +27,10 @@ function Page() {
   <div className="mb-8 transform transition-all duration-1000 hover:scale-105 relative">
     <div className="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400/20 rounded-full animate-pulse"></div>
     <h1 className="text-5xl md:text-7xl font-bold mb-6 relative">
-      <span className="text-white drop-shadow-lg">
-        Book a cab for your holiday
-      </span>
+     <span className="block mt-12 sm:mt-0 text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white">
+  Book a cab for your holiday
+</span>
+
     </h1>
     <div className="flex items-center justify-center gap-4 mb-8">
       <div className="w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
@@ -46,7 +47,7 @@ function Page() {
   <div className="relative bg-white/15 backdrop-blur-xl rounded-3xl p-8 max-w-5xl border border-white/30 shadow-2xl transform hover:scale-[1.02] transition-all duration-500 overflow-hidden">
     
     {/* Decorative Images on Sides */}
-    <div className="absolute -left-16 top-1/4 w-32 h-48 rounded-2xl overflow-hidden border-4 border-white/30 shadow-xl rotate-6 hidden lg:block">
+    <div className="absolute -left-16 top-1/4 w-32 h-48 rounded-2xl overflow-visible md:overflow-hidden border-4 border-white/30 shadow-xl rotate-6 hidden lg:block">
       <div className="w-full h-full bg-gradient-to-br from-blue-500/40 to-cyan-400/30 flex items-center justify-center">
         <svg className="w-16 h-16 text-white/60" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
@@ -54,7 +55,7 @@ function Page() {
       </div>
     </div>
 
-    <div className="absolute -right-16 top-1/3 w-32 h-48 rounded-2xl overflow-hidden border-4 border-white/30 shadow-xl -rotate-6 hidden lg:block">
+    <div className="absolute -right-16 top-1/3 w-32 h-48 rounded-2xl overflow-visible md:overflow-hidden border-4 border-white/30 shadow-xl -rotate-6 hidden lg:block">
       <div className="w-full h-full bg-gradient-to-br from-emerald-500/40 to-green-400/30 flex items-center justify-center">
         <svg className="w-16 h-16 text-white/60" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -63,7 +64,7 @@ function Page() {
     </div>
 
     {/* Main Content */}
-    <div className="relative z-10">
+    <div className="relative z-10 mb-10">
       {/* Header with Icon */}
       <div className="flex items-center justify-center gap-4 mb-6">
         <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
@@ -91,7 +92,7 @@ function Page() {
         </div>
 
         {/* Image Placeholder */}
-        <div className="relative h-64 lg:h-auto rounded-2xl overflow-hidden border-2 border-white/40 shadow-lg">
+        <div className="relative h-64 lg:h-auto rounded-2xl overflow-visible md:overflow-hidden border-2 border-white/40 shadow-lg">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 flex flex-col items-center justify-center p-4">
             <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-4">
               <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -116,22 +117,44 @@ function Page() {
       </div>
 
       {/* Call to Action */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <button className="group relative bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 hover:scale-105 min-w-[200px]">
-          <div className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="flex items-center justify-center gap-3">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-            </svg>
-            <span>Call Now - 0701505090</span>
-          </div>
-        </button>
-        
-        <div className="flex items-center gap-2 text-white/80 mb-20">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span className="text-sm">Available 24/7</span>
-        </div>
+      <div className="flex flex-col items-center gap-6">
+  {/* Buttons row */}
+  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    
+    {/* Call Button */}
+    <button className="group relative bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 hover:scale-105 min-w-[200px]">
+      <div className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div className="flex items-center justify-center gap-3">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+        <span>Call Now - 0701505090</span>
       </div>
+    </button>
+
+    {/* Email Button */}
+    <a
+      href="mailto:hellovroomvroom@outlook.com"
+      className="group relative bg-gradient-to-r from-purple-500 to-pink-400 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 hover:scale-105 min-w-[200px]"
+    >
+      <div className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div className="flex items-center justify-center gap-3">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        <span>Email Us</span>
+      </div>
+    </a>
+
+  </div>
+
+  {/* Availability */}
+  <div className="flex items-center gap-2 text-white/80">
+    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+    <span className="text-sm">Available 24/7</span>
+  </div>
+</div>
+
       
     </div>
   </div>
@@ -251,11 +274,11 @@ function Page() {
   </div>
 
   {/* Optional: Add a CTA button */}
-  <div className="text-center mt-16">
+  {/* <div className="text-center mt-16">
     <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
       Book Your Journey Now
     </button>
-  </div>
+  </div> */}
 </div>
 
       {/* Services Section */}

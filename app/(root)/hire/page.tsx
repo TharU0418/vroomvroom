@@ -59,20 +59,17 @@ const [isVisible, setIsVisible] = useState(false);
               We don’t provide “just a driver”, we provide highly trained, disciplined, and experienced professional 
               chauffeurs who elevate every journey.
               We offer car and chauffeur services for full-day, half-day, or hourly requirements.
-Whether you need a personal vehicle or a professional chauffeur, our services are available on a flexible basis to suit your schedule.
-For long-term, mid-term, or short-term arrangements—including contract-based services—we are happy to tailor our solutions to meet your specific needs.
+              Whether you need a personal vehicle or a professional chauffeur, our services are available on a flexible basis to suit your schedule.
+              For long-term, mid-term, or short-term arrangements—including contract-based services—we are happy to tailor our solutions
+               to meet your specific needs.  Our chauffeurs are:
           </p>
-<p>
-            Our chauffeurs are:
-          </p>
-{/* <p>Our chauffeurs are:</p> */}
-<ul>
-  <li>• Well-mannered and presentable</li>
-  <li>• Trained in defensive driving</li>
-  <li>• Knowledgeable about routes, traffic, and local navigation</li>
-  <li>• Highly reliable and trustworthy</li>
-  <li>• Experienced in serving diplomats, corporates, families, and tourists</li>
-</ul>
+          <ul>
+              <li>• Well-mannered and presentable</li>
+              <li>• Trained in defensive driving</li>
+              <li>• Knowledgeable about routes, traffic, and local navigation</li>
+              <li>• Highly reliable and trustworthy</li>
+              <li>• Experienced in serving diplomats, corporates, families, and tourists</li>
+            </ul>
           <p className="text-m max-w-3xl text-white mt-2 mb-1">
 
 With VroomVroom, you enjoy premium service, complete convenience, and total peace of mind—every time you travel.    
