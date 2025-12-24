@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface BlogDetailsProps {
   params: {
     id: string;
