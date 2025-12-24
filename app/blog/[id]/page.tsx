@@ -2,13 +2,15 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { blogs } from "../../../DB/blogs";
 
-export default function BlogDetails({
+export default async function BlogDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const id = Number(params.id);
-  const blog = blogs.find((b) => b.id === id);
+  const { id } = await params;
+  const blogId = Number(id);
+
+  const blog = blogs.find((b) => b.id === blogId);
 
   if (!blog) return notFound();
 
