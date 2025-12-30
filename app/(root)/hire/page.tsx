@@ -110,7 +110,7 @@ With VroomVroom, you enjoy premium service, complete convenience, and total peac
               className="w-full h-full object-cover" 
             />    
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <h3 className="text-white text-xl font-bold">One Time Booking</h3>
+                <h3 className="text-white text-xl font-bold">Vroom Daily</h3>
                 <p className="text-gray-200 font-small">Hire a professional driver by the hour for same-day use.</p>
               </div>
             </div>
@@ -127,7 +127,7 @@ src="/hire2.jpeg"
 />
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <h3 className="text-white text-xl font-bold">Multi-Day Hire</h3>
+                <h3 className="text-white text-xl font-bold">Vroom Flex</h3>
                 <p className="text-gray-200 font-small">Book a dedicated driver for several days or even weeks perfect for short-term travel or business needs.</p>
               </div>
             </div>
@@ -144,7 +144,7 @@ src="/hire2.jpeg"
 />
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <h3 className="text-white text-xl font-bold">Drink and Drive</h3>
+                <h3 className="text-white text-xl font-bold">Vroom Safe</h3>
                 <p className="text-gray-200 font-small">
                   Provides a responsible and safe way to get returning home. When you are drunk, our driver will handle your car.</p>
               </div>
@@ -162,7 +162,7 @@ src="/hire2.jpeg"
 />
 
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <h3 className="text-white text-xl font-bold"> Long Term Driver</h3>
+                <h3 className="text-white text-xl font-bold"> Vroom Plus</h3>
                 <p className="text-gray-200 font-small">
                   Allows you to hire a dedicated driver on a monthly or yearly basis through a formal agreement.</p>
               </div>
