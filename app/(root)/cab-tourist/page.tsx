@@ -1,10 +1,17 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+type Particle = {
+  top: string
+  left: string
+  delay: string
+  duration: string
+}
 
 function Page() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
+  const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
     setIsVisible(true);
@@ -69,19 +76,19 @@ function Page() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-gray-900 overflow-hidden">
       {/* Animated Background Particles */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-red-500/20 rounded-full animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 5}s`
-            }}
-          />
-        ))}
-      </div>
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-red-500/20 rounded-full animate-pulse"
+          style={{
+            top: p.top,
+            left: p.left,
+            animationDelay: p.delay,
+            animationDuration: p.duration,
+          }}
+        />
+      ))}
+    </div>
 
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center px-4">
@@ -203,7 +210,10 @@ function Page() {
 
         {/* Interactive Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+          {features.map((feature, index) => {
+    const isActive = activeFeature === feature.id
+
+    return (
             <div
               key={feature.id}
               className={`group relative overflow-hidden rounded-3xl bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
@@ -238,7 +248,7 @@ function Page() {
                 </div>
               </div>
             </div>
-          ))}
+)})}
         </div>
 
         {/* Stats Section */}
