@@ -11,7 +11,7 @@ type Particle = {
 function Page() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
-  const [particles, setParticles] = useState<Particle[]>([])
+const [particles] = useState<Particle[]>([])
 
   useEffect(() => {
     setIsVisible(true);
@@ -212,7 +212,7 @@ function Page() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
     const isActive = activeFeature === feature.id
-
+console.log(isActive)
     return (
             <div
               key={feature.id}
