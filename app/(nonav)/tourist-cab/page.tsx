@@ -59,19 +59,20 @@ export default function Home() {
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="https://wa.me/94717505090"
-              onclick="return gtag_report_conversion('https://wa.me/94717505090');"
-   class="whatsapp-btn"
-              className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/30 min-w-[200px] text-center"
-            >
-              <span className="flex items-center justify-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.507 14.307l-.009.075c-.266 1.678-1.156 3.282-3.045 3.639-.854.163-1.894.125-3.485-.28-2.117-.543-4.288-2.262-6.002-4.919-1.05-1.64-1.864-3.763-1.864-5.589.002-2.922 2.195-5.32 4.971-5.32h.038c.898.004 1.739.345 2.38.976.674.663 1.047 1.56 1.047 2.514 0 .529-.127 1.04-.371 1.511-.067.129-.143.25-.226.367l-.004.006-.353.531c-.113.173-.024.409.185.477.643.208 1.365.257 2.136.143.476-.07 1.086-.225 1.62-.472.119-.055.254-.024.34.075l.844.94c.113.125.322.137.451.026l.002-.002.911-.84c.116-.107.294-.104.406.006l1.02 1.023c.114.115.116.303.004.42l-.842.975c-.054.063-.073.145-.052.223.02.078.08.142.159.166.914.281 1.682.695 2.299 1.232.125.11.135.302.022.426l-.948 1.084c-.105.12-.287.139-.418.043l-.965-.711c-.112-.082-.265-.082-.377.002l-1.061.797c-.112.084-.274.072-.372-.029l-.724-.813c-.045-.05-.106-.08-.171-.08-.119.001-.231.053-.306.145-.685.848-1.515 1.398-2.51 1.66-.179.047-.354.069-.525.069z"/>
-                </svg>
-                WhatsApp Now
-              </span>
-            </a>
-            
+  href="https://wa.me/94717505090"
+  onClick={() =>
+    gtag_report_conversion("https://wa.me/94717505090")
+  }
+  className="whatsapp-btn group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/30 min-w-[200px] text-center"
+>
+  <span className="flex items-center justify-center gap-2">
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.507 14.307l-.009.075c-.266 1.678-1.156 3.282-3.045 3.639-.854.163-1.894.125-3.485-.28-2.117-.543-4.288-2.262-6.002-4.919-1.05-1.64-1.864-3.763-1.864-5.589.002-2.922 2.195-5.32 4.971-5.32h.038c.898.004 1.739.345 2.38.976.674.663 1.047 1.56 1.047 2.514 0 .529-.127 1.04-.371 1.511-.067.129-.143.25-.226.367l-.004.006-.353.531c-.113.173-.024.409.185.477.643.208 1.365.257 2.136.143.476-.07 1.086-.225 1.62-.472.119-.055.254-.024.34.075l.844.94c.113.125.322.137.451.026l.002-.002.911-.84c.116-.107.294-.104.406.006l1.02 1.023c.114.115.116.303.004.42l-.842.975c-.054.063-.073.145-.052.223.02.078.08.142.159.166.914.281 1.682.695 2.299 1.232.125.11.135.302.022.426l-.948 1.084c-.105.12-.287.139-.418.043l-.965-.711c-.112-.082-.265-.082-.377.002l-1.061.797c-.112.084-.274.072-.372-.029l-.724-.813c-.045-.05-.106-.08-.171-.08-.119.001-.231.053-.306.145-.685.848-1.515 1.398-2.51 1.66-.179.047-.354.069-.525.069z"/>
+    </svg>
+    WhatsApp Now
+  </span>
+</a>
+
             <a
               href="mailto:hellovroomvroom@outlook.com"
               className="group relative px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 rounded-full text-lg font-semibold text-black shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-yellow-500/30 min-w-[200px] text-center"
