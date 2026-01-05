@@ -60,6 +60,8 @@ export default function Home() {
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="https://wa.me/94717505090"
+              onclick="return gtag_report_conversion('https://wa.me/94717505090');"
+   class="whatsapp-btn"
               className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/30 min-w-[200px] text-center"
             >
               <span className="flex items-center justify-center gap-2">

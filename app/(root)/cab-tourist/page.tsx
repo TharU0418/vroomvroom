@@ -13,7 +13,8 @@ function Page() {
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
 const [particles] = useState<Particle[]>([])
 
-const WHATSAPP_URL = 'https://wa.me/947717505090';
+const WHATSAPP_URL = 'https://wa.me/94717505090';
+
 
 
   useEffect(() => {
