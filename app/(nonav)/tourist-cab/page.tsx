@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-red-900 via-red-800 to-red-900">
@@ -63,9 +65,9 @@ export default function Home() {
   // onClick={() =>
   //   gtag_report_conversion("https://wa.me/94717505090")
   // }
-  onClick={() => {
-    if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
-      (window as any).gtag_report_conversion(
+   onClick={() => {
+    if (typeof window !== "undefined" && window.gtag_report_conversion) {
+      window.gtag_report_conversion(
         "https://wa.me/94717505090"
       );
     }
@@ -144,7 +146,7 @@ export default function Home() {
                 className="group relative rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-500 hover:-translate-y-4 hover:scale-[1.02]"
               >
                 <div className="absolute inset-0">
-                  <img
+                  <Image
                     src={card.img}
                     alt={card.title}
                     className="h-full w-full object-cover transform group-hover:scale-110 transition-transform duration-700"
