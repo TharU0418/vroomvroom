@@ -13,13 +13,27 @@ function Page() {
   const [activeFeature, setActiveFeature] = useState<number | null>(null);
 const [particles] = useState<Particle[]>([])
 
+const WHATSAPP_URL = 'https://wa.me/947717505090';
+
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // const handleWhatsAppClick = () => {
+  //   window.open('https://wa.me/94717505090?text=Hi%20VroomVroom%2C%20I%27d%20like%20to%20book%20a%20cab%20for%20my%20holiday%20in%20Sri%20Lanka', '_blank');
+  // };
+
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/94701505090?text=Hi%20VroomVroom%2C%20I%27d%20like%20to%20book%20a%20cab%20for%20my%20holiday%20in%20Sri%20Lanka', '_blank');
-  };
+  // Google Ads conversion tracking
+  if (typeof window !== 'undefined' && typeof window.gtag_report_conversion === 'function') {
+    window.gtag_report_conversion(WHATSAPP_URL);
+  }
+
+  // Open WhatsApp
+  window.open(WHATSAPP_URL, '_blank', 'noopener,noreferrer');
+};
+
 
   const features = [
     {
@@ -125,24 +139,27 @@ const [particles] = useState<Particle[]>([])
           <div className={`grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             
             {/* WhatsApp Card */}
-            <div 
-              className="group bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-8 backdrop-blur-sm border border-white/20 shadow-2xl cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-3xl"
-              onClick={handleWhatsAppClick}
-            >
-              <div className="relative">
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-white/20 rounded-full animate-ping"></div>
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-lg">
-                    <span className="text-3xl">💬</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">WhatsApp</h3>
-                  <p className="text-white/90 mb-4">Instant Booking</p>
-                  <div className="text-white font-mono text-lg font-semibold">
-                    070 150 5090
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div
+  className="group bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-8 backdrop-blur-sm border border-white/20 shadow-2xl cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-3xl"
+  onClick={handleWhatsAppClick}
+  role="button"
+  aria-label="Chat on WhatsApp"
+>
+  <div className="relative">
+    <div className="absolute -top-4 -left-4 w-12 h-12 bg-white/20 rounded-full animate-ping"></div>
+    <div className="relative z-10 flex flex-col items-center">
+      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-lg">
+        <span className="text-3xl">💬</span>
+      </div>
+      <h3 className="text-2xl font-bold text-white mb-2">WhatsApp</h3>
+      <p className="text-white/90 mb-4">Instant Booking</p>
+      <div className="text-white font-mono text-lg font-semibold">
+        071 750 5090
+      </div>
+    </div>
+  </div>
+</div>
+
 
             {/* Call Card */}
             {/* <a 
@@ -289,6 +306,8 @@ console.log(isActive)
           </div>
         </button>
       </div>
+
+      
 
       {/* Custom Animations */}
       <style jsx global>{`
