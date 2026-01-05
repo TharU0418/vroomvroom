@@ -15,6 +15,7 @@ export default {
     colors: {
       redAccent: '#FD1D1D',
       orangeAccent: '#FCB045',
+      
     },
     backgroundImage: {
       'custom-gradient': 'linear-gradient(to right, #FD1D1D, #FCB045)',
