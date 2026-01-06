@@ -1,112 +1,392 @@
+'use client';
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
+type Particle = {
+  left: string
+  top: string
+  animationDelay: string
+  animationDuration: string
+}
 export default function Home() {
+
+    const [particles, setParticles] = useState<Particle[]>([])
+useEffect(() => {
+    const generated = Array.from({ length: 20 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${3 + Math.random() * 4}s`,
+    }))
+
+    setParticles(generated)
+  }, [])
+
+  const images = [
+  { src: "/1433.jpg", title: "Premium Experience", description: "Luxury tours & unforgettable memories" },
+  { src: "/1434.jpg", title: "Adventure Trips", description: "Thrilling journeys await" },
+  { src: "/1435.jpg", title: "Relaxing Retreats", description: "Peaceful escapes for everyone" },
+];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+// Function to go to the next slide
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+  // Auto-slide every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 3000); // 3000ms = 3s
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-red-900 via-red-800 to-red-900">
+    <main className="bg-gradient-to-b from-blue-900 via-blue-800 to-blue-900">
+{/* HERO SECTION */}
+<section className="relative min-h-screen overflow-hidden px-4 md:px-6 py-20 md:py-28 flex items-center">
 
-      {/* HERO SECTION */}
-      <section className="relative h-screen flex items-center justify-center text-center px-6 overflow-hidden">
-        {/* Background with overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-purple-900/20"></div>
+  {/* ANIMATED GRADIENT BACKGROUND */}
+  <div className="absolute inset-0">
+    <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cyan-600/20 via-transparent to-transparent animate-pulse-slow"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 via-blue-900/30 to-transparent"></div>
+      
+      {/* GRID PATTERN */}
+      <div className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `linear-gradient(to right, #60a5fa 1px, transparent 1px),
+                            linear-gradient(to bottom, #60a5fa 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      ></div>
+    </div>
+  </div>
+
+  {/* FLOATING ORBS */}
+  <div className="absolute inset-0 overflow-hidden">
+    {/* MAIN ORB */}
+    <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/5 to-blue-600/10 rounded-full blur-3xl animate-float-slow"></div>
+    <div className="absolute bottom-20 right-20 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-3xl animate-float-medium"></div>
+    <div className="absolute top-40 right-1/4 w-[300px] h-[300px] bg-yellow-400/3 rounded-full blur-3xl animate-float-fast"></div>
+
+    {/* ANIMATED PARTICLES */}
+    {particles.map((p, i) => (
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/1433.jpg')" }}>
-          <div className="absolute inset-0 bg-black/50"></div>
-        </div>
+          key={i}
+          className="absolute w-2 h-2 bg-gradient-to-r from-cyan-300/40 to-blue-300/40 rounded-full"
+          style={{
+            left: p.left,
+            top: p.top,
+            animation: `particle-float ${p.animationDuration} ease-in-out infinite ${p.animationDelay}`,
+          }}
+        />
+      ))}
 
-        {/* Floating particles effect */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-blue-300/30 rounded-full animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${3 + Math.random() * 4}s`
-              }}
-            />
-          ))}
-        </div>
+    {/* CONNECTING LINES */}
+    <div className="absolute inset-0">
+      <svg className="w-full h-full opacity-20">
+        <defs>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M10,100 Q300,50 600,200"
+          stroke="url(#lineGradient)"
+          strokeWidth="2"
+          fill="none"
+          className="animate-dash"
+        />
+        <path
+          d="M800,50 Q600,300 400,400"
+          stroke="url(#lineGradient)"
+          strokeWidth="2"
+          fill="none"
+          className="animate-dash-reverse"
+        />
+      </svg>
+    </div>
+  </div>
 
-        <div className="relative z-10 max-w-4xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 p-10 rounded-3xl shadow-2xl border border-white/20 shadow-yellow-500/10 transform transition-all duration-300 hover:scale-[1.02]">
-          <div className="mb-8">
-            <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-              <span className="text-blue-300 text-sm font-medium">Experience Sri Lanka Like Never Before</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6">
-              <span className="text-blue-300 drop-shadow-lg font-poppins">VroomVroom</span>
-              <span className="text-white font-poppins"> Tourist</span>
-            </h1>
-            
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-8 rounded-full"></div>
-          </div>
+  {/* MAIN CONTENT */}
+  <div className="relative z-10 max-w-7xl mx-auto w-full">
 
-          <div className="space-y-4 text-lg">
-            <p className="text-gray-200 leading-relaxed backdrop-blur-sm bg-white/5 p-4 rounded-xl">
-              Choosing Sri Lanka for your holiday, corporate event, or annual
-              conference is always a great decision. Sri Lanka is a stunning
-              island nation close to India, globally renowned for its rich
-              culture, diverse landscapes, and warm hospitality.
-            </p>
-
-            <p className="text-gray-300 italic border-l-4 border-blue-400 pl-4 py-2">
-              From pristine beaches to abundant wildlife and breathtaking natural
-              beauty, the country offers an extraordinary range of experiences.
-            </p>
-          </div>
-
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-  href="https://wa.me/94717505090"
-  // onClick={() =>
-  //   gtag_report_conversion("https://wa.me/94717505090")
-  // }
-   onClick={() => {
-    if (typeof window !== "undefined" && window.gtag_report_conversion) {
-      window.gtag_report_conversion(
-        "https://wa.me/94717505090"
-      );
-    }
-  }}
-  className="whatsapp-btn group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/30 min-w-[200px] text-center"
->
-  <span className="flex items-center justify-center gap-2">
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M17.507 14.307l-.009.075c-.266 1.678-1.156 3.282-3.045 3.639-.854.163-1.894.125-3.485-.28-2.117-.543-4.288-2.262-6.002-4.919-1.05-1.64-1.864-3.763-1.864-5.589.002-2.922 2.195-5.32 4.971-5.32h.038c.898.004 1.739.345 2.38.976.674.663 1.047 1.56 1.047 2.514 0 .529-.127 1.04-.371 1.511-.067.129-.143.25-.226.367l-.004.006-.353.531c-.113.173-.024.409.185.477.643.208 1.365.257 2.136.143.476-.07 1.086-.225 1.62-.472.119-.055.254-.024.34.075l.844.94c.113.125.322.137.451.026l.002-.002.911-.84c.116-.107.294-.104.406.006l1.02 1.023c.114.115.116.303.004.42l-.842.975c-.054.063-.073.145-.052.223.02.078.08.142.159.166.914.281 1.682.695 2.299 1.232.125.11.135.302.022.426l-.948 1.084c-.105.12-.287.139-.418.043l-.965-.711c-.112-.082-.265-.082-.377.002l-1.061.797c-.112.084-.274.072-.372-.029l-.724-.813c-.045-.05-.106-.08-.171-.08-.119.001-.231.053-.306.145-.685.848-1.515 1.398-2.51 1.66-.179.047-.354.069-.525.069z"/>
-    </svg>
-    WhatsApp Now
-  </span>
-</a>
-
-            <a
-              href="mailto:hellovroomvroom@outlook.com"
-              className="group relative px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 rounded-full text-lg font-semibold text-black shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-yellow-500/30 min-w-[200px] text-center"
-            >
-              <span className="flex items-center justify-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-                Email Us
-              </span>
-            </a>
-          </div>
-          
-          {/* <div className="mt-8 text-gray-400 text-sm">
-            <p>📞 Call us: +94 71 750 5090</p>
-          </div> */}
-        </div>
+    {/* GLASS MORPHISM CONTAINER */}
+    <div className="relative backdrop-blur-2xl bg-gradient-to-br from-white/10 to-white/5 p-1 rounded-3xl border border-white/20 shadow-2xl shadow-blue-900/40 overflow-hidden group">
+      
+      {/* ANIMATED BORDER GLOW */}
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 rounded-3xl opacity-0 group-hover:opacity-50 blur-lg transition-opacity duration-1000 animate-border-spin"></div>
+      
+      <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/10">
         
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-yellow-400/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-yellow-400 rounded-full mt-2"></div>
+        {/* DECORATIVE ELEMENTS */}
+        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-cyan-400/10 to-transparent rounded-bl-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-yellow-400/10 to-transparent rounded-tr-3xl"></div>
+
+        {/* CONTENT GRID */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* LEFT COLUMN */}
+          <div className="space-y-8">
+            
+            {/* GLOWING BADGE */}
+            <div className="inline-block">
+              <div className="relative group/badge">
+                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-cyan-400 rounded-full blur opacity-30 group-hover/badge:opacity-70 transition duration-500"></div>
+                <div className="relative inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm rounded-full border border-white/20">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
+                  </span>
+                  <span className="text-cyan-100 text-sm font-semibold tracking-wider uppercase">
+                    Explore Sri Lanka - Book Your Cab Today!
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* MAIN HEADING WITH GLOW */}
+            <div className="space-y-4 text-center">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
+                <span className="relative inline-block">
+                  <span className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-400 blur-2xl opacity-30"></span>
+                  <span className="relative bg-gradient-to-r from-cyan-300 via-white to-blue-200 bg-clip-text text-transparent animate-gradient">
+                    VroomVroom
+                  </span>
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-gradient-reverse">
+                  Tourist
+                </span>
+              </h1>
+              
+              {/* ANIMATED UNDERLINE */}
+              <div className="flex items-center gap-4 pt-4">
+                <div className="w-20 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-pulse"></div>
+                <div className="w-10 h-1.5 bg-cyan-300/60 rounded-full"></div>
+                <div className="w-5 h-1.5 bg-blue-300/40 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* CONTENT CARDS */}
+            <div className="space-y-6">
+              <div className="group/card relative">
+                <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl blur opacity-0 group-hover/card:opacity-100 transition duration-500"></div>
+                <div className="relative p-6 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/10 backdrop-blur-sm">
+                  <p className="text-gray-200 leading-relaxed text-lg">
+                    Choosing Sri Lanka for your holiday, corporate event, or annual
+                    conference is always a great decision. Sri Lanka is a stunning
+                    island nation known for its culture, landscapes, and hospitality.
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative pl-8 group/quote">
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 via-blue-400 to-cyan-400 rounded-full"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-300 blur-sm opacity-50 rounded-full"></div>
+                <p className="text-cyan-100 italic text-lg pl-6 py-4">
+                  "From pristine beaches to abundant wildlife and breathtaking
+                  natural beauty."
+                </p>
+              </div>
+            </div>
+
+            {/* INTERACTIVE BUTTONS */}
+            <div className="pt-4 flex flex-col sm:flex-row gap-5">
+              
+              {/* WHATSAPP BUTTON WITH HOVER EFFECT */}
+              <a
+                href="https://wa.me/94717505090"
+                className="group/btn relative overflow-hidden"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full blur opacity-30 group-hover/btn:opacity-100 transition duration-500"></div>
+                <div className="relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-green-600 rounded-full text-lg font-semibold text-white flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all duration-300 hover:scale-105">
+                  <span className="relative z-10">WhatsApp Now</span>
+                  <svg className="w-5 h-5 animate-bounce-horizontal" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19.05 4.91A9.816 9.816 0 0012.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.183 8.183 0 012.38 5.83c.02 4.54-3.68 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28z"/>
+                  </svg>
+                </div>
+              </a>
+
+              {/* EMAIL BUTTON WITH HOVER EFFECT */}
+              <a
+                href="mailto:hellovroomvroom@outlook.com"
+                className="group/btn relative overflow-hidden"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full blur opacity-30 group-hover/btn:opacity-100 transition duration-500"></div>
+                <div className="relative px-8 py-4 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full text-lg font-semibold text-gray-900 flex items-center justify-center gap-3 shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all duration-300 hover:scale-105">
+                  <span className="relative z-10">Email Us</span>
+                  <svg className="w-5 h-5 animate-bounce-horizontal" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN - IMAGE WITH EFFECTS */}
+          <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-3xl border-2 border-white/20 shadow-2xl">
+      {/* Image */}
+      <div className="relative">
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].title}
+          className="w-full h-auto rounded-3xl transform transition-transform duration-700"
+        />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-blue-600/10 z-10"></div>
+
+        {/* Text Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8 rounded-b-3xl">
+          <div className="text-white space-y-2">
+            <h3 className="text-xl font-bold">{images[currentIndex].title}</h3>
+            <p className="text-sm text-gray-300">{images[currentIndex].description}</p>
           </div>
         </div>
-      </section>
+      </div>
+
+      
+    </div>
+    </div>
+    </div></div>
+              {/* FLOATING TAGS */}
+              {/* <div className="absolute -top-4 -right-4">
+                <div className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg animate-float-slow">
+                  ✨ Premium Service
+                </div>
+              </div> */}
+         
+      
+    
+  </div>
+
+  {/* SCROLL INDICATOR */}
+  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
+    <div className="flex flex-col items-center gap-2">
+      <span className="text-cyan-200/70 text-sm font-medium tracking-wider animate-pulse">Explore More</span>
+      <div className="relative">
+        <div className="w-6 h-10 border-2 border-cyan-400/50 rounded-full flex justify-center">
+          <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mt-2 animate-scroll"></div>
+        </div>
+        <div className="absolute top-0 left-0 w-6 h-10 border-2 border-cyan-400/30 rounded-full animate-ping-slow"></div>
+      </div>
+    </div>
+  </div>
+
+  {/* ANIMATION STYLES */}
+  <style jsx>{`
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+    }
+    
+    @keyframes float-medium {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(20px); }
+    }
+    
+    @keyframes float-fast {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
+    }
+    
+    @keyframes particle-float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
+      33% { transform: translate(20px, -30px) rotate(120deg); opacity: 0.7; }
+      66% { transform: translate(-15px, 20px) rotate(240deg); opacity: 0.4; }
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes gradient-reverse {
+      0% { background-position: 100% 50%; }
+      50% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    
+    @keyframes scroll {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(15px); opacity: 0; }
+    }
+    
+    @keyframes border-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes dash {
+      to { stroke-dashoffset: 1000; }
+    }
+    
+    @keyframes dash-reverse {
+      to { stroke-dashoffset: -1000; }
+    }
+    
+    @keyframes bounce-horizontal {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+    
+    .animate-float-slow {
+      animation: float-slow 20s ease-in-out infinite;
+    }
+    
+    .animate-float-medium {
+      animation: float-medium 15s ease-in-out infinite;
+    }
+    
+    .animate-float-fast {
+      animation: float-fast 10s ease-in-out infinite;
+    }
+    
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient 3s ease infinite;
+    }
+    
+    .animate-gradient-reverse {
+      background-size: 200% 200%;
+      animation: gradient-reverse 3s ease infinite;
+    }
+    
+    .animate-scroll {
+      animation: scroll 2s ease-in-out infinite;
+    }
+    
+    .animate-border-spin {
+      animation: border-spin 3s linear infinite;
+    }
+    
+    .animate-dash {
+      stroke-dasharray: 10;
+      animation: dash 30s linear infinite;
+    }
+    
+    .animate-dash-reverse {
+      stroke-dasharray: 10;
+      animation: dash-reverse 25s linear infinite;
+    }
+    
+    .animate-bounce-horizontal {
+      animation: bounce-horizontal 2s ease-in-out infinite;
+    }
+    
+    .animate-pulse-slow {
+      animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    .animate-ping-slow {
+      animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+  `}</style>
+</section>
+
 
       {/* EXPERIENCE SECTION */}
       <section className="py-24 px-6 relative">
@@ -124,19 +404,19 @@ export default function Home() {
             {[
               {
                 title: "Ancient Heritage",
-                img: "https://t4.ftcdn.net/jpg/16/57/98/23/360_F_1657982384_QwZlxe3f9fCbzlJbUVff0LndMIXqcBaS.jpg",
+                img: "https://static.toiimg.com/photo/112804069.cms",
                 text: "Explore ancient heritage sites and sacred landmarks filled with centuries-old traditions.",
                 icon: "🏛️"
               },
               {
                 title: "Hill Country",
-                img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ed/85/6b/um-palacio-no-topo-da.jpg?w=900&h=500&s=1",
+                img: "https://www.travelmapsrilanka.com/destinations/destinationimages/the-allure-of-pidurangala-rock.webp",
                 text: "Journey through misty hills, tea plantations, and cool mountain air.",
                 icon: "⛰️"
               },
               {
                 title: "Wildlife & Beaches",
-                img: "https://images.unsplash.com/photo-1540202404-a2f29016b523",
+                img: "https://mediawtravel.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2025/01/13224913/304441-Tangalle-beach-in-Sri-Lanka-image-by-Marius-Dobilas-Shutterstock.jpg",
                 text: "From golden beaches to rich wildlife, Sri Lanka offers unforgettable natural beauty.",
                 icon: "🦁"
               },
@@ -149,6 +429,8 @@ export default function Home() {
                   <Image
                     src={card.img}
                     alt={card.title}
+                    width={300}
+                    height={300}
                     className="h-full w-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40"></div>

@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
       'avatar.iran.liara.run',
       'drive.google.com',
       "promova.com",
+      "t4.ftcdn.net",
+      "dynamic-media-cdn.tripadvisor.com",
+      "images.unsplash.com",
+      "static.toiimg.com",
+      "mediawtravel.s3.ap-southeast-1.amazonaws.com",
+      "www.travelmapsrilanka.com",
+
     ],
   },
 };
