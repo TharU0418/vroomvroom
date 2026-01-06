@@ -187,8 +187,8 @@ useEffect(() => {
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 via-blue-400 to-cyan-400 rounded-full"></div>
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-300 blur-sm opacity-50 rounded-full"></div>
                 <p className="text-cyan-100 italic text-lg pl-6 py-4">
-                  "From pristine beaches to abundant wildlife and breathtaking
-                  natural beauty."
+                  &quot;From pristine beaches to abundant wildlife and breathtaking
+                  natural beauty.&quot;
                 </p>
               </div>
             </div>
@@ -230,9 +230,11 @@ useEffect(() => {
           <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-3xl border-2 border-white/20 shadow-2xl">
       {/* Image */}
       <div className="relative">
-        <img
+        <Image
           src={images[currentIndex].src}
           alt={images[currentIndex].title}
+          height={300}
+          width={200}
           className="w-full h-auto rounded-3xl transform transition-transform duration-700"
         />
         {/* Gradient Overlay */}
