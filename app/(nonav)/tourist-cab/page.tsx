@@ -94,8 +94,10 @@ useEffect(() => {
               <a
   href="https://wa.me/94717505090?text=Hello%20VroomVroom%20Tourist!%20I%20would%20like%20to%20book%20a%20cab.%20Please%20share%20details."
   target="_blank"
-  onclick="return gtag_report_conversion('https://wa.me/94717505090');"
-  class="whatsapp-btn"
+onClick={() =>
+    gtag_report_conversion("https://wa.me/94717505090")
+  }
+   // class="whatsapp-btn"
   rel="noopener noreferrer"
   className="mt-4 md:mt-0 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-gray-100 transition-colors duration-300 flex items-center gap-2"
 >
@@ -115,8 +117,10 @@ useEffect(() => {
   <a
     href="https://wa.me/94717505090"
     target="_blank"
-    onclick="return gtag_report_conversion('https://wa.me/94717505090');"
-    rel="noopener noreferrer"
+onClick={() =>
+    gtag_report_conversion("https://wa.me/94717505090")
+  }
+      rel="noopener noreferrer"
     className="bg-green-500 text-white p-3 rounded-full shadow-xl cursor-pointer hover:scale-110 transition-transform duration-300 animate-bounce"
     aria-label="Chat on WhatsApp"
   >
