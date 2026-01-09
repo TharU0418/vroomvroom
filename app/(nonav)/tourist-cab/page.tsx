@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 
 export default function HomePage() {
 
-  const images = ["/1433.jpg", "/1434.jpg", "/1435.jpg"];
-const [currentIndex, setCurrentIndex] = useState(0);
+  const images = ["/1433.jpg", "/1434.jpg", "/1435.jpg","https://www.barcelo.com/guia-turismo/wp-content/uploads/2024/03/que-visitar-en-sri-lanka.jpg"];
+  const [currentIndex, setCurrentIndex] = useState(0);
 
 useEffect(() => {
   const interval = setInterval(() => {
@@ -109,6 +109,75 @@ onClick={() =>
           </div>
         </div>
       </div>
+
+
+       {/* SERVICES */}
+      <section className="py-24 px-6 ">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+              Our <span className="text-yellow-300">Transport Solutions</span>
+            </h2>
+            {/* <p className="text-gray-400 max-w-2xl mx-auto">Comprehensive transportation services tailored to your needs</p> */}
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              {[
+                { text: "Airport Pickup & Drop", icon: "✈️" },
+                { text: "City-to-City Transfers", icon: "🚗" },
+            
+              ].map((service, i) => (
+                <div 
+                  key={i}
+                  className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 transition-all duration-300 border border-gray-700 hover:border-yellow-500/30 hover:shadow-lg hover:shadow-yellow-500/10"
+                >
+                  <div className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">{service.text}</h3>
+                    <p className="text-gray-400 text-sm mt-1">Professional service with luxury vehicles</p>
+                  </div>
+                  <div className="ml-auto text-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg> */}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-6">
+              {[
+               
+                { text: "Vehicle at Disposal", icon: "⏱️" },
+                { text: "Full Round Tours", icon: "🔄" },
+              ].map((service, i) => (
+                <div 
+                  key={i}
+                  className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 transition-all duration-300 border border-gray-700 hover:border-yellow-500/30 hover:shadow-lg hover:shadow-yellow-500/10"
+                >
+                  <div className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">{service.text}</h3>
+                    <p className="text-gray-400 text-sm mt-1">Professional service with luxury vehicles</p>
+                  </div>
+                  <div className="ml-auto text-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg> */}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+           
+          </div>
+        </div>
+       </section> 
 
       {/* Floating Icons */}
 <div className="fixed bottom-10 right-10 flex flex-col gap-4 z-20">

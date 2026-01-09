@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
       "static.toiimg.com",
       "mediawtravel.s3.ap-southeast-1.amazonaws.com",
       "www.travelmapsrilanka.com",
+      "encrypted-tbn0.gstatic.com",
+      "www.barcelo.com"
 
     ],
   },
