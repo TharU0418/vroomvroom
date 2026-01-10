@@ -86,3 +86,7 @@ body {
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+.clip-left {
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
