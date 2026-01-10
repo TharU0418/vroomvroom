@@ -14,7 +14,7 @@ useEffect(() => {
   }, 4000); // change every 4 seconds
 
   return () => clearInterval(interval);
-}, []);
+}, [images.length]);
 
 
   return (
