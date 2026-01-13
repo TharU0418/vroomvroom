@@ -19,7 +19,7 @@ export default function Error({
       <div className="text-center max-w-md mx-auto p-8">
         <h2 className="text-4xl font-bold text-white mb-4">Something went wrong!</h2>
         <p className="text-gray-400 mb-6">
-          We couldn't load the vehicle details. Please try again.
+          We could not load the vehicle details. Please try again.
         </p>
         <div className="space-y-4">
           <button
