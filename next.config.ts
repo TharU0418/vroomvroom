@@ -16,7 +16,15 @@ const nextConfig: NextConfig = {
       "mediawtravel.s3.ap-southeast-1.amazonaws.com",
       "www.travelmapsrilanka.com",
       "encrypted-tbn0.gstatic.com",
-      "www.barcelo.com"
+      "www.barcelo.com",
+      "images.hgmsites.net",
+      "global.toyota",
+      "upload.wikimedia.org",
+      "nazmotor.com",
+      "i.ytimg.com",
+      "motorguide-store.s3.ap-southeast-1.amazonaws.com",
+      "www.batfa.com",
+      "carhub.mt"
 
     ],
   },
