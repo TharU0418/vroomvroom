@@ -227,7 +227,7 @@ export default function Hero() {
                 className="flex flex-wrap gap-6 mb-10"
               >
                 {[
-                  { value: "100+", label: "Licensed Chauffeurs" },
+                  { value: "100+", label: "Trained Chauffeurs" },
                   { value: "FLEXIBLE", label: "Transportation Price" },
                   { value: "24/7", label: "Customer Support" },
                   { value: "100%", label: "Relaible" }
@@ -569,7 +569,7 @@ export default function Hero() {
 </section>
 
       {/* SERVICES */}
-      <section className="py-24 px-6 bg-red-600">
+      {/* <section className="py-24 px-6 bg-red-600">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
@@ -618,9 +618,81 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
+<section className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        {/* Heading */}
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-red-900">
+              Why <span className="text-black">Choose Us?</span>
+            </h2>
 
+        {/* Features */}
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Feature 1 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-full border-2 border-gray-900 flex items-center justify-center">
+              👮‍♂️
+            </div>
+            <h3 className="mt-6 text-2xl font-semibold text-gray-900">
+              Professional well spoken licensed chaffers
+            </h3>
+            <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+              Our professional, well-spoken licensed chauffeurs ensure a safe
+              and comfortable journey, providing top-notch service with local
+              expertise.
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-full border-2 border-gray-900 flex items-center justify-center">
+              🚘
+            </div>
+            <h3 className="mt-6 text-2xl font-semibold text-gray-900">
+              Comfortable Vehicles
+            </h3>
+            <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+              Our fleet of well-maintained, comfortable vehicles ensures a
+              smooth and enjoyable ride throughout your journey.
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-full border-2 border-gray-900 flex items-center justify-center">
+              🏪
+            </div>
+            <h3 className="mt-6 text-2xl font-semibold text-gray-900">
+              24/7 Service
+            </h3>
+            <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+              Our 24/7 customer support ensures assistance whenever you need
+              it, providing peace of mind throughout your travels.{" "}
+              
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-full border-2 border-gray-900 flex items-center justify-center">
+              🗺️
+            </div>
+            <h3 className="mt-6 text-2xl font-semibold text-gray-900">
+              Easy Booking
+            </h3>
+            <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+
+              Our easy booking process allows you to reserve your cab quickly
+              and conveniently, ensuring a hassle-free experience from start to
+              finish.
+            </p>
+          </div>
+
+          
+        </div>
+      </div>
+    </section>
       {/* Floating Icons */}
       <div className="fixed bottom-10 right-10 flex flex-col gap-4 z-[9999]">
         {/* WhatsApp */}
