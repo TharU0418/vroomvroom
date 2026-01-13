@@ -360,7 +360,7 @@ export default function VehicleCategoryPage() {
   
   const category = vehicleCategories.find(c => c.id === id);
   const [selectedVehicle, setSelectedVehicle] = useState(category?.options[0]);
-  const [selectedImage, setSelectedImage] = useState(0);
+ // const [selectedImage, setSelectedImage] = useState(0);
   const [bookingDetails, setBookingDetails] = useState({
     rentalPeriod: "1 Day",
     pickupLocation: "",
@@ -574,7 +574,7 @@ Please contact me for further details.`;
                 </button>
                 
                 <p className="text-gray-400 text-sm text-center mt-4">
-                  We'll respond within 15 minutes
+                  We will respond within 15 minutes
                 </p>
               </div>
 
