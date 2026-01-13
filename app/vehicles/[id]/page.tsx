@@ -355,13 +355,17 @@ const vehicleCategories = [
 ];
 
 export default function VehicleCategoryPage() {
-  const params = useParams();
-  const id = parseInt(params.id as string);
+  const params = useParams<{ id: string }>();
+  const id = parseInt(params.id, 10);
   
   const category = vehicleCategories.find(c => c.id === id);
-  const [selectedVehicle, setSelectedVehicle] = useState(category?.options[0]);
+  //const [selectedVehicle, setSelectedVehicle] = useState(category?.options[0]);
  // const [selectedImage, setSelectedImage] = useState(0);
-  const [bookingDetails, setBookingDetails] = useState({
+ const [selectedVehicle, setSelectedVehicle] = useState(
+    category?.options[0]
+  );
+ 
+ const [bookingDetails, setBookingDetails] = useState({
     rentalPeriod: "1 Day",
     pickupLocation: "",
     pickupDate: "",
