@@ -357,17 +357,15 @@ const vehicleCategories = [
 export default function VehicleCategoryPage() {
 
   const params = useParams<{ id: string }>();
-  if (!params) {
-    return null; // or loading / error UI
-  }
-  const id = parseInt(params.id, 10);
+  
+  const id = Number(params?.id);
   
   const category = vehicleCategories.find(c => c.id === id);
   //const [selectedVehicle, setSelectedVehicle] = useState(category?.options[0]);
  // const [selectedImage, setSelectedImage] = useState(0);
-const [selectedVehicle, setSelectedVehicle] = useState(
-    category?.options[0]
-  );
+const [selectedVehicle, setSelectedVehicle] = useState<
+    (typeof vehicleCategories)[number]['options'][number] | null
+  >(null);
  
  const [bookingDetails, setBookingDetails] = useState({
     rentalPeriod: "1 Day",
@@ -376,8 +374,9 @@ const [selectedVehicle, setSelectedVehicle] = useState(
     pickupTime: "09:00"
   });
 
- useEffect(() => {
-    if (category && category.options.length > 0) {
+ // ✅ Safe effect
+  useEffect(() => {
+    if (category?.options?.length) {
       setSelectedVehicle(category.options[0]);
     }
   }, [category]);
