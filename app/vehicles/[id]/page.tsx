@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Complete vehicle data
 const vehicleCategories = [
@@ -355,6 +355,7 @@ const vehicleCategories = [
 ];
 
 export default function VehicleCategoryPage() {
+
   const params = useParams<{ id: string }>();
   if (!params) {
     return null; // or loading / error UI
