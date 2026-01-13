@@ -364,7 +364,7 @@ export default function VehicleCategoryPage() {
   const category = vehicleCategories.find(c => c.id === id);
   //const [selectedVehicle, setSelectedVehicle] = useState(category?.options[0]);
  // const [selectedImage, setSelectedImage] = useState(0);
- const [selectedVehicle, setSelectedVehicle] = useState(
+const [selectedVehicle, setSelectedVehicle] = useState(
     category?.options[0]
   );
  
@@ -375,13 +375,14 @@ export default function VehicleCategoryPage() {
     pickupTime: "09:00"
   });
 
-  useEffect(() => {
+ useEffect(() => {
     if (category && category.options.length > 0) {
       setSelectedVehicle(category.options[0]);
     }
   }, [category]);
 
-  if (!category || !selectedVehicle) {
+   // ✅ Conditional rendering AFTER hooks
+  if (!params || !category || !selectedVehicle) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
         <div className="text-center">
