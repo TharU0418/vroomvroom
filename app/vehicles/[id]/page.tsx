@@ -356,6 +356,9 @@ const vehicleCategories = [
 
 export default function VehicleCategoryPage() {
   const params = useParams<{ id: string }>();
+  if (!params) {
+    return null; // or loading / error UI
+  }
   const id = parseInt(params.id, 10);
   
   const category = vehicleCategories.find(c => c.id === id);
