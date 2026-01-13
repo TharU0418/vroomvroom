@@ -359,6 +359,8 @@ export default function VehicleCategoryPage() {
   const params = useParams<{ id: string }>();
   
   const id = Number(params?.id);
+    const [isOpen, setIsOpen] = useState(false);
+
   
   const category = vehicleCategories.find(c => c.id === id);
   //const [selectedVehicle, setSelectedVehicle] = useState(category?.options[0]);
@@ -411,6 +413,8 @@ Please contact me for further details.`;
     
     window.open(whatsappURL, '_blank');
   };
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
@@ -481,8 +485,10 @@ Please contact me for further details.`;
                 </div>
               </div>
 
+
               {/* Main Vehicle Image */}
-              <div className="relative h-[400px] rounded-2xl overflow-hidden">
+              <div className="relative h-[400px] rounded-2xl overflow-hidden"
+              onClick={() => setIsOpen(true)}>
                 <Image
                   src={selectedVehicle.image}
                   alt={selectedVehicle.name}
@@ -494,6 +500,33 @@ Please contact me for further details.`;
                   <h3 className="text-2xl font-bold text-white">{selectedVehicle.name}</h3>
                 </div>
               </div>
+
+
+              {isOpen && (
+  <div
+    className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+    onClick={() => setIsOpen(false)}
+  >
+    <div className="relative w-[90vw] h-[90vh]">
+      <Image
+        src={selectedVehicle.image}
+        alt={selectedVehicle.name}
+        fill
+        className="object-contain"
+        priority
+      />
+    </div>
+
+    {/* Close button */}
+    <button
+      className="absolute top-6 right-6 text-white text-3xl font-bold"
+      onClick={() => setIsOpen(false)}
+    >
+      ✕
+    </button>
+  </div>
+)}
+
 
               {/* Description */}
               <div className="bg-gray-800/50 rounded-2xl p-6">

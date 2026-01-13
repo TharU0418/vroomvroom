@@ -378,107 +378,195 @@ export default function Hero() {
     
   </div>
 </section>
+{/* VEHICLE OPTIONS SECTION */}
+<section className="py-12 md:py-20 px-4 md:px-6 bg-gradient-to-b from-gray-900 to-black">
+  <div className="max-w-7xl mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="text-center mb-10 md:mb-16"
+    >
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 text-white">
+        Our <span className="text-red-500">Vehicle</span> Fleet
+      </h2>
+      <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg px-2 md:px-0">
+        Choose from our well-maintained vehicles for a comfortable journey across Sri Lanka
+      </p>
+    </motion.div>
 
-      {/* VEHICLE OPTIONS SECTION */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+    {/* Mobile swipeable carousel */}
+    <div className="md:hidden relative">
+      <div className="flex overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide -mx-4 px-4">
+        {vehicles.map((vehicle) => (
+          <Link 
+            href={`/vehicles/${vehicle.id}`} 
+            key={vehicle.id}
+            className="flex-shrink-0 w-[85vw] mx-2 snap-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-              Our <span className="text-red-500">Vehicle</span> Fleet
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-              Choose from our well-maintained vehicles for a comfortable journey across Sri Lanka
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {vehicles.map((vehicle) => (
-              <Link href={`/vehicles/${vehicle.id}`} key={vehicle.id}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10, transition: { duration: 0.2 } }}
-                  className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-red-500/50 transition-all duration-300 cursor-pointer"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={vehicle.image}
-                      alt={vehicle.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    />
-                    {/* <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {vehicle.price}
-                    </div> */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+              whileTap={{ scale: 0.98 }}
+              className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-red-500/50 transition-all duration-300 cursor-pointer shadow-xl"
+            >
+              <div className="relative h-40 overflow-hidden">
+                <Image
+                  src={vehicle.image}
+                  alt={vehicle.name}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  priority={vehicles.indexOf(vehicle) === 0}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent" />
+                {/* <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {vehicle.price}
+                </div> */}
+              </div>
+              
+              <div className="p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors line-clamp-1">
+                      {vehicle.name}
+                    </h3>
+                    {/* <p className="text-gray-400 text-sm">{vehicle.type}</p> */}
                   </div>
-                  
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors">
-                          {vehicle.name}
-                        </h3>
-                        {/* <p className="text-gray-400 text-sm">{vehicle.type}</p> */}
-                      </div>
-                      <span className="text-2xl">🚗</span>
-                    </div>
-                    
-                    <div className="space-y-3 mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="text-gray-400">👥</span>
-                        <span className="text-white">{vehicle.capacity}</span>
-                      </div>
-                      {/* <div className="flex items-center gap-2">
-                        <span className="text-gray-400">🎒</span>
-                        <span className="text-white">{vehicle.luggage}</span>
-                      </div> */}
-                    </div>
-                    
-                    {/* <div className="flex flex-wrap gap-2 mb-4">
-                      {vehicle.features.map((feature, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div> */}
-                    
-                    <div className="pt-4 border-t border-gray-700">
-                      <button className="w-full py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 flex items-center justify-center gap-2">
-                        View Details
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                      </button>
-                    </div>
+                  <span className="text-2xl ml-2 flex-shrink-0">🚗</span>
+                </div>
+                
+                <div className="flex items-center justify-between mb-3 py-2 border-y border-gray-700/50">
+                  <div className="flex items-center gap-1">
+                    <span className="text-lg">👥</span>
+                    <span className="text-white text-sm ml-1">{vehicle.capacity}</span>
                   </div>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
+                  {/* Quick book button for mobile */}
+                  <button className="px-3 py-1 bg-red-600 text-white text-xs font-semibold rounded-full">
+                    Book Now
+                  </button>
+                  {/* <div className="flex items-center gap-1">
+                    <span className="text-lg">🎒</span>
+                    <span className="text-white text-sm ml-1">{vehicle.luggage}</span>
+                  </div> */}
+                </div>
+                
+                {/* <div className="flex overflow-x-auto gap-1 mb-3 pb-2 scrollbar-hide">
+                  {vehicle.features.slice(0, 3).map((feature, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-1 bg-gray-800 text-gray-300 rounded-full text-xs whitespace-nowrap"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div> */}
+                
+                <div className="pt-2">
+                  <button className="w-full py-2.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 flex items-center justify-center gap-2 active:scale-95">
+                    View Details
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </Link>
+        ))}
+      </div>
+      {/* Scroll indicator for mobile */}
+      <div className="flex justify-center gap-1 mt-4">
+        {vehicles.map((_, idx) => (
+          <div key={idx} className="w-2 h-2 rounded-full bg-gray-700"></div>
+        ))}
+      </div>
+    </div>
 
+    {/* Desktop grid layout (unchanged) */}
+    <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {vehicles.map((vehicle) => (
+        <Link href={`/vehicles/${vehicle.id}`} key={vehicle.id}>
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
+            whileHover={{ y: -10, transition: { duration: 0.2 } }}
+            className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-red-500/50 transition-all duration-300 cursor-pointer"
           >
-            <p className="text-gray-400">
-              All vehicles include professional driver, fuel, and insurance
-            </p>
+            <div className="relative h-48 overflow-hidden">
+              <Image
+                src={vehicle.image}
+                alt={vehicle.name}
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              />
+              {/* <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                {vehicle.price}
+              </div> */}
+            </div>
+            
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors">
+                    {vehicle.name}
+                  </h3>
+                  {/* <p className="text-gray-400 text-sm">{vehicle.type}</p> */}
+                </div>
+                <span className="text-2xl">🚗</span>
+              </div>
+              
+              <div className="space-y-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400">👥</span>
+                  <span className="text-white">{vehicle.capacity}</span>
+                </div>
+                {/* <div className="flex items-center gap-2">
+                  <span className="text-gray-400">🎒</span>
+                  <span className="text-white">{vehicle.luggage}</span>
+                </div> */}
+              </div>
+              
+              {/* <div className="flex flex-wrap gap-2 mb-4">
+                {vehicle.features.map((feature, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div> */}
+              
+              <div className="pt-4 border-t border-gray-700">
+                <button className="w-full py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 flex items-center justify-center gap-2">
+                  View Details
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </button>
+              </div>
+            </div>
           </motion.div>
-        </div>
-      </section>
+        </Link>
+      ))}
+    </div>
+
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.3 }}
+      viewport={{ once: true }}
+      className="text-center mt-8 md:mt-12"
+    >
+      <p className="text-gray-400 text-sm md:text-base px-2 md:px-0">
+        All vehicles include professional driver, fuel, and insurance
+      </p>
+    </motion.div>
+  </div>
+</section>
 
       {/* SERVICES */}
       <section className="py-24 px-6 bg-red-600">
