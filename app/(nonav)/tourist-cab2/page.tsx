@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa"; // Import the WhatsApp icon
+import MapEmbed from "@/components/MapEmbed";
+import ServiceCard from "@/components/ServiceCard";
 
 export default function Hero() {
   const images = [
@@ -96,7 +98,43 @@ export default function Hero() {
       price: "$85/day"
     }
   ];
+const leftServices = [
+  {
+    text: "Airport Pickup & Drop",
+    slug: "airport-pickup-drop",
+    icon: "✈️",
+    description: "Punctual airport transfers with flight tracking",
+    gradient: "from-green-500/20 to-emerald-500/20",
+    border: "border-green-500/30"
+  },
+  {
+    text: "Corporate Travel",
+    slug: "corporate-travel",
+    icon: "🏢",
+    description: "Professional services for business needs",
+    gradient: "from-purple-500/20 to-pink-500/20",
+    border: "border-purple-500/30"
+  }
+];
 
+const rightServices = [
+  {
+    text: "Transfer and Site-Seeing",
+    slug: "transfer-and-site-seeing",
+    icon: "🚗",
+    description: "Seamless travel between cities with comfort",
+    gradient: "from-red-500/20 to-orange-500/20",
+    border: "border-red-500/30"
+  },
+  {
+    text: "Full Round Tours",
+    slug: "full-round-tours",
+    icon: "🔄",
+    description: "Complete tour packages with guided experience",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    border: "border-blue-500/30"
+  }
+];
   return (
     <>
       <section className="relative w-full min-h-screen overflow-hidden">
@@ -244,140 +282,49 @@ export default function Hero() {
       </section>
 
 {/* SERVICES SECTION */}
-<section className="relative py-28 px-6 bg-gradient-to-br from-gray-900 via-black to-gray-900 overflow-hidden">
+  <section className="relative py-28 px-6 bg-gradient-to-br from-gray-900 via-black to-gray-900 overflow-hidden">
+      <div className="relative max-w-7xl mx-auto">
 
-  <div className="relative max-w-7xl mx-auto">
-    {/* Header */}
-    <div className="text-center mb-10">
-      
-      
-      <h2 className="text-4xl md:text-6xl font-bold mb-2 bg-gradient-to-r from-white via-white to-yellow-300 bg-clip-text text-transparent">
-        Our <span className="text-red-500">Services</span> 
-      </h2>
-   
-    </div>
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-white to-yellow-300 bg-clip-text text-transparent">
+            Our <span className="text-red-500">Services</span>
+          </h2>
+        </div>
 
-    {/* Services Grid */}
-    <div className="grid lg:grid-cols-2 gap-16 items-center">
-      {/* Left Column - Services List */}
-      <div className="space-y-6">
-        {[
-          
-          { 
-            text: "Airport Pickup & Drop", 
-            icon: "✈️",
-            description: "Punctual airport transfers with flight tracking",
-            gradient: "from-green-500/20 to-emerald-500/20",
-            border: "border-green-500/30"
-          },
-          { 
-            text: "Corporate Travel", 
-            icon: "🏢",
-            description: "Professional services for business needs",
-            gradient: "from-purple-500/20 to-pink-500/20",
-            border: "border-purple-500/30"
-          }
-        ].map((service, i) => (
-          <div 
-            key={i}
-            className="group relative p-6 rounded-3xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-transparent transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer overflow-hidden"
-          >
-            {/* Hover effect background */}
-            <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-            
-            {/* Content */}
-            <div className="relative flex items-center gap-6">
-              {/* Icon Container */}
-              <div className={`p-4 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border ${service.border} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                <div className="text-3xl">{service.icon}</div>
-              </div>
-              
-              {/* Text Content */}
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-yellow-300 transition-all duration-500">
-                    {service.text}
-                  </h3>
-                  <div className="opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-                    <div className="p-2 rounded-full bg-white/10">
-                      <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                  {service.description}
-                </p>
-              </div>
-            </div>
+        {/* Services Grid */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* LEFT COLUMN */}
+          <div className="space-y-6">
+            {leftServices.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className="block"
+              >
+                <ServiceCard service={service} />
+              </Link>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Right Column - Visual Element */}
-      <div className="relative">
-        {/* Main Card */}
-        <div className="space-y-6">
-        {[
-          { 
-            text: "City-to-City Transfers", 
-            icon: "🚗",
-            description: "Seamless travel between cities with comfort",
-            gradient: "from-red-500/20 to-orange-500/20",
-            border: "border-red-500/30"
-          },
-          { 
-            text: "Full Round Tours", 
-            icon: "🔄",
-            description: "Complete tour packages with guided experience",
-            gradient: "from-blue-500/20 to-cyan-500/20",
-            border: "border-blue-500/30"
-          }
-
-        ].map((service, i) => (
-          <div 
-            key={i}
-            className="group relative p-6 rounded-3xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-transparent transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer overflow-hidden"
-          >
-            {/* Hover effect background */}
-            <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-            
-            {/* Content */}
-            <div className="relative flex items-center gap-6">
-              {/* Icon Container */}
-              <div className={`p-4 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border ${service.border} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                <div className="text-3xl">{service.icon}</div>
-              </div>
-              
-              {/* Text Content */}
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-yellow-300 transition-all duration-500">
-                    {service.text}
-                  </h3>
-                  <div className="opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-                    <div className="p-2 rounded-full bg-white/10">
-                      <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                  {service.description}
-                </p>
-              </div>
-            </div>
+          {/* RIGHT COLUMN */}
+          <div className="space-y-6">
+            {rightServices.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className="block"
+              >
+                <ServiceCard service={service} />
+              </Link>
+            ))}
           </div>
-        ))}
-      </div>
- </div>
-    </div>
 
+        </div>
+      </div>
+    </section>
     
-  </div>
-</section>
 {/* VEHICLE OPTIONS SECTION */}
 <section className="py-12 md:py-20 px-4 md:px-6 bg-gradient-to-b from-gray-900 to-black">
   <div className="max-w-7xl mx-auto">
@@ -693,6 +640,16 @@ export default function Hero() {
         </div>
       </div>
     </section>
+
+<section>
+<div className="max-w-5xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4 text-white">Our Location</h1>
+      <MapEmbed />
+    </div>
+
+</section>
+
+
       {/* Floating Icons */}
       <div className="fixed bottom-10 right-10 flex flex-col gap-4 z-[9999]">
         {/* WhatsApp */}
