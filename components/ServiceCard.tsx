@@ -1,4 +1,18 @@
-function ServiceCard({ service }: { service: any }) {
+import React from "react";
+
+export type Service = {
+  text: string;
+  description: string;
+  icon: React.ReactNode;
+  gradient: string; // Tailwind gradient classes
+  border: string;   // Tailwind border classes
+};
+
+type ServiceCardProps = {
+  service: Service;
+};
+
+function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div className="group relative p-6 rounded-3xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/50 hover:border-transparent transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer overflow-hidden">
 
@@ -51,4 +65,5 @@ function ServiceCard({ service }: { service: any }) {
     </div>
   );
 }
+
 export default ServiceCard;
