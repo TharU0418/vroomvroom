@@ -33,7 +33,7 @@ export default function Hero() {
       type: "Economy Sedan",
       capacity: "3 Passengers",
       luggage: "2 Large Bags",
-      image: "/types/Economy Cabs.png",
+      image: "/types/car/suzuki wagon R.png",
       features: ["AC", "Fuel Efficient", "Comfortable"],
       price: "$35/day"
     },
@@ -43,7 +43,7 @@ export default function Hero() {
       type: "Family Van",
       capacity: "4 Passengers",
       luggage: "6-8 Large Bags",
-      image: "/types/Standard-Sedan.png",
+      image: "/types/car/Nissan Sentra.png",
       features: ["Spacious", "AC", "Family Friendly"],
       price: "$60/day"
     },
@@ -53,7 +53,7 @@ export default function Hero() {
       type: "Premium SUV",
       capacity: "4 Passengers",
       luggage: "4 Large Bags",
-      image: "/types/Premium-Executive.png",
+      image: "/types/car/Toyota Premio.png",
       features: ["Luxury", "Premium AC", "Leather Seats"],
       price: "$85/day"
     },
@@ -63,7 +63,7 @@ export default function Hero() {
       type: "Compact Car",
       capacity: "6 Passengers",
       luggage: "2 Small Bags",
-      image: "/types/SUV.png",
+      image: "/types/car/Toyota CH-R.png",
       features: ["Stylish", "Easy Parking", "City Friendly"],
       price: "$45/day"
     },
@@ -73,7 +73,7 @@ export default function Hero() {
       type: "Premium SUV",
       capacity: "6/8 Passengers",
       luggage: "4 Large Bags",
-      image: "/types/flatroof.png",
+      image: "/types/car/Nissan Caravan flat roof.png",
       features: ["Luxury", "Premium AC", "Leather Seats"],
       price: "$85/day"
     },
@@ -83,7 +83,7 @@ export default function Hero() {
       type: "Compact Car",
       capacity: "10/14 Passengers",
       luggage: "2 Small Bags",
-      image: "/types/highroof.png",
+      image: "/types/car/Toyota HiAce high roof.png",
       features: ["Stylish", "Easy Parking", "City Friendly"],
       price: "$45/day"
     },
@@ -93,7 +93,7 @@ export default function Hero() {
       type: "Premium SUV",
       capacity: "48 Passengers",
       luggage: "4 Large Bags",
-      image: "/types/bus.png",
+      image: "/types/car/Toyota Coaster.png",
       features: ["Luxury", "Premium AC", "Leather Seats"],
       price: "$85/day"
     }
@@ -434,13 +434,14 @@ const rightServices = [
     {/* Desktop grid layout (unchanged) */}
     <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       {vehicles.map((vehicle) => (
-        <Link href={`/vehicles/${vehicle.id}`} key={vehicle.id}>
+        // <Link href={`/vehicles/${vehicle.id}`} key={vehicle.id}>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             whileHover={{ y: -10, transition: { duration: 0.2 } }}
+             key={vehicle.id}
             className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden border border-gray-700 hover:border-red-500/50 transition-all duration-300 cursor-pointer"
           >
             <div className="relative h-48 overflow-hidden">
@@ -451,9 +452,9 @@ const rightServices = [
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               />
-              {/* <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+              <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                 {vehicle.price}
-              </div> */}
+              </div>
             </div>
             
             <div className="p-6">
@@ -489,15 +490,15 @@ const rightServices = [
                 ))}
               </div> */}
               
-              <div className="pt-4 border-t border-gray-700">
+              {/* <div className="pt-4 border-t border-gray-700">
                 <button className="w-full py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-semibold group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 flex items-center justify-center gap-2">
                   View Details
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </button>
-              </div>
+              </div> */}
             </div>
           </motion.div>
-        </Link>
+        // </Link>
       ))}
     </div>
 
