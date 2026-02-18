@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaWhatsapp } from "react-icons/fa"; // Import the WhatsApp icon
+//import { FaWhatsapp } from "react-icons/fa"; // Import the WhatsApp icon
 import ServiceCard from "@/components/ServiceCard";
 
 export default function Hero() {
