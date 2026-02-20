@@ -34,7 +34,7 @@ export default function HomePage() {
           </p>
 
           <p className="mt-4 max-w-2xl mx-auto text-gray-200 text-sm md:text-base">
-            Book your ride with StarCabs for a seamless and reliable transportation experience across Sri Lanka. Whether you're heading to the airport, exploring the city, or need a quick ride, we've got you covered with our professional drivers and well-maintained vehicles.
+            Book your ride with StarCabs for a seamless and reliable transportation experience across Sri Lanka. Whether you are heading to the airport, exploring the city, or need a quick ride, we have got you covered with our professional drivers and well-maintained vehicles.
           </p>
 
           {/* Phone */}
@@ -114,7 +114,7 @@ export default function HomePage() {
             </h2> */}
 
             <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-              Discover why StarCabs is the preferred choice for taxi services in Sri Lanka. With our commitment to safety, reliability, and customer satisfaction, we ensure that every ride is a pleasant experience. Whether you're traveling for business or leisure, our professional drivers and well-maintained vehicles are here to serve you across the island.
+              Discover why StarCabs is the preferred choice for taxi services in Sri Lanka. With our commitment to safety, reliability, and customer satisfaction, we ensure that every ride is a pleasant experience. Whether you are traveling for business or leisure, our professional drivers and well-maintained vehicles are here to serve you across the island.
             </p>
           </div>
 
@@ -252,34 +252,3 @@ export default function HomePage() {
     </main>
   );
 }
-
-const features = [
-  {
-    title: "Safe & Secure",
-    description:
-      "Professional drivers and well-maintained vehicles for your safety.",
-    icon: "🛡️",
-    color: "bg-blue-500",
-  },
-  {
-    title: "24/7 Availability",
-    description:
-      "Round-the-clock service for airport transfers and emergencies.",
-    icon: "⏰",
-    color: "bg-orange-500",
-  },
-  {
-    title: "Island-wide Coverage",
-    description:
-      "From Colombo to Jaffna, we cover every corner of Sri Lanka.",
-    icon: "📍",
-    color: "bg-green-500",
-  },
-  {
-    title: "Fixed Pricing",
-    description:
-      "Transparent rates with no hidden charges or surge pricing.",
-    icon: "💳",
-    color: "bg-purple-500",
-  },
-];
